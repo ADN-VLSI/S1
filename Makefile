@@ -61,7 +61,7 @@ $(LOG):
 define COMPILE_FILELIST
 	make -s $(BUILD)
 	make -s $(LOG)
-	touch $(BUILD)/compile_$(basename $(notdir $1))_sha256
+	touch $(BUILD)/compile_$(basename $(notdir $1))_sha512
 
 	tmp_flist=$(BUILD)/tmp_flist; \
 	rm -f $$tmp_flist; \
@@ -75,8 +75,8 @@ define COMPILE_FILELIST
 		fi; \
 	done < "$1"; \
  	sed -i "s/^-.*//g" $$tmp_flist; \
-	tmp_sha256=$(BUILD)/tmp_sha256; \
-	rm -f $$tmp_sha256; \
+	tmp_sha512=$(BUILD)/tmp_sha512; \
+	rm -f $$tmp_sha512; \
 	while IFS= read -r file || [ -n "$$file" ]; do \
 		[[ -z "$$file" ]] && continue; \
 		eval "file=\"$$file\""; \
@@ -84,22 +84,22 @@ define COMPILE_FILELIST
 			echo "Missing file in filelist: $$file" >&2; \
 			exit 1; \
 		fi; \
-		sha256sum "$$file"; \
-	done < "$$tmp_flist" | sha256sum | awk '{print $$1}' > $$tmp_sha256;
+		sha512sum "$$file"; \
+	done < "$$tmp_flist" | sha512sum | awk '{print $$1}' > $$tmp_sha512;
 
-	if [ -f $(BUILD)/compile_$(basename $(notdir $1))_sha256 ]; then \
-		existing_hash=$$(cat $(BUILD)/compile_$(basename $(notdir $1))_sha256); \
-		new_hash=$$(cat $(BUILD)/tmp_sha256); \
+	if [ -f $(BUILD)/compile_$(basename $(notdir $1))_sha512 ]; then \
+		existing_hash=$$(cat $(BUILD)/compile_$(basename $(notdir $1))_sha512); \
+		new_hash=$$(cat $(BUILD)/tmp_sha512); \
 		if [ "$$existing_hash" = "$$new_hash" ]; then \
 			$(YA) echo "Skipping  $1"; \
-			rm -f $(BUILD)/tmp_sha256; \
+			rm -f $(BUILD)/tmp_sha512; \
 			exit 0; \
 		fi; \
 	fi;	\
 	$(YA) echo "Compiling $1"; \
 	rm -f $(BUILD)/elaborate_*; \
 	cd $(BUILD) && xvlog -sv -f $1 -log $(LOG)/compile_$(basename $(notdir $1)).log $(EW_O); \
-	mv $(BUILD)/tmp_sha256 $(BUILD)/compile_$(basename $(notdir $1))_sha256;
+	mv $(BUILD)/tmp_sha512 $(BUILD)/compile_$(basename $(notdir $1))_sha512;
 endef
 
 # Search all systemverilog hardware file lists and compile them
