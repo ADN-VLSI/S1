@@ -30,10 +30,10 @@ LOG=$(S1)/log
 YA := echo -ne "\033[1;33m> \033[0m";
 
 # Error Warning Highlight
-EW_HL := | grep -E "WARNING-|ERROR-|" --color=auto
+EW_HL := | grep -E "WARNING:|ERROR:|" --color=auto
 
 # Error Warning Highlight Only
-EW_O := | grep -E "WARNING-|ERROR-" --color=auto || true
+EW_O := | grep -E "WARNING:|ERROR:" --color=auto || true
 
 ####################################################################################################
 # Rules
@@ -59,8 +59,6 @@ $(LOG):
 
 # Compile all files in filelist as required, but only if there are changes in the files since the last compilation
 define COMPILE_FILELIST
-	make -s $(BUILD)
-	make -s $(LOG)
 	touch $(BUILD)/compile_$(basename $(notdir $1))_sha512
 
 	tmp_flist=$(BUILD)/tmp_flist; \
@@ -75,6 +73,7 @@ define COMPILE_FILELIST
 		fi; \
 	done < "$1"; \
  	sed -i "s/^-.*//g" $$tmp_flist; \
+	echo "$1" >> $$tmp_flist; \
 	tmp_sha512=$(BUILD)/tmp_sha512; \
 	rm -f $$tmp_sha512; \
 	while IFS= read -r file || [ -n "$$file" ]; do \
@@ -100,12 +99,34 @@ define COMPILE_FILELIST
 	rm -f $(BUILD)/elaborate_*; \
 	cd $(BUILD) && xvlog -sv -f $1 -log $(LOG)/compile_$(basename $(notdir $1)).log $(EW_O); \
 	mv $(BUILD)/tmp_sha512 $(BUILD)/compile_$(basename $(notdir $1))_sha512;
+	rm -f $(BUILD)/tmp_flist $(BUILD)/tmp_sha512;
+	grep "ERROR:" $(LOG)/compile_$(basename $(notdir $1)).log > /dev/null && rm -f $(BUILD)/compile_$(basename $(notdir $1))_sha512 || true;
 endef
 
 # Search all systemverilog hardware file lists and compile them
 .PHONY: COMPILE
 COMPILE:
 	@$(foreach flist, $(shell find $(S1)/hardware/filelist/ -type f -name "*.f"), $(call COMPILE_FILELIST,$(flist)))
+
+# Elaborate the design, but only if there are changes in the files since the last elaboration
+.PHONY: ELABORATE
+ELABORATE:
+	if [ -f $(BUILD)/elaborate_$(TOP) ]; then \
+		$(YA) echo "Skipping elaboration of $(TOP)"; \
+	else \
+		$(YA) echo "Elaborating design $(TOP)"; \
+		rm -f $(BUILD)/elaborate_$(TOP); \
+		cd $(BUILD) && xelab $(TOP) -s snap_$(TOP) -debug typical -log $(LOG)/elaborate_$(TOP).log $(EW_O); \
+		grep "ERROR:" $(LOG)/elaborate_$(TOP).log > /dev/null || touch $(BUILD)/elaborate_$(TOP); \
+	fi
+
+# Build environment: create build, log and coverage directories, compile and elaborate the design
+.PHONY: ENV_BUILD
+ENV_BUILD:
+	@make -s $(BUILD)
+	@make -s $(LOG)
+	@make -s COMPILE
+	@make -s ELABORATE TOP=$(TOP)
 
 # Clear build directory
 .PHONY: clean
