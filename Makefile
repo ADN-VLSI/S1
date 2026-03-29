@@ -97,6 +97,7 @@ define COMPILE_FILELIST
 		fi; \
 	fi;	\
 	$(YA) echo "Compiling $1"; \
+	rm -f $(BUILD)/elaborate_*; \
 	cd $(BUILD) && xvlog -sv -f $1 -log $(LOG)/compile_$(basename $(notdir $1)).log $(EW_O); \
 	mv $(BUILD)/tmp_sha256 $(BUILD)/compile_$(basename $(notdir $1))_sha256;
 endef
