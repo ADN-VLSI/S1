@@ -27,13 +27,13 @@ $(LOG):
 
 .PHONY: COMPILE_ALL
 COMPILE_ALL:
-	@$(foreach flist, $(shell find $(S1)/hardware/filelist/ -type f -name "*.f"), make -s COMPILE FILE=$(flist);)
+	@$(foreach flist, $(shell find $(S1)/hardware/filelist/ -type f -name "*.f"), $(call COMPILE,$(flist)))
 
-.PHONY: COMPILE
-COMPILE:
-	@make -s $(BUILD)
-	@$(YA) echo "Compiling $(FILE)"
-	@cd $(BUILD) && xvlog -sv -f $(FILE) $(EW_O)
+define COMPILE
+	make -s $(BUILD)
+	$(YA) echo "Compiling $1"
+	cd $(BUILD) && xvlog -sv -f $1 $(EW_O)
+endef
 
 .PHONY: clean
 clean:
