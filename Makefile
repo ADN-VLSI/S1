@@ -33,7 +33,7 @@ COMPILE_ALL:
 COMPILE:
 	@make -s $(BUILD)
 	@$(YA) echo "Compiling $(FILE)"
-	@cd $(BUILD) && xvlog -f $(FILE) $(EW_O)
+	@cd $(BUILD) && xvlog -sv -f $(FILE) $(EW_O)
 
 .PHONY: clean
 clean:

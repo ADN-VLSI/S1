@@ -5,15 +5,15 @@
   typedef struct packed {                                       \
     id_t              id;                                       \
     addr_t            addr;                                     \
-    axi_pkg::len_t    len;                                      \
-    axi_pkg::size_t   size;                                     \
-    axi_pkg::burst_t  burst;                                    \
+    single_file_ariane_axi_pkg::len_t    len;                                      \
+    single_file_ariane_axi_pkg::size_t   size;                                     \
+    single_file_ariane_axi_pkg::burst_t  burst;                                    \
     logic             lock;                                     \
-    axi_pkg::cache_t  cache;                                    \
-    axi_pkg::prot_t   prot;                                     \
-    axi_pkg::qos_t    qos;                                      \
-    axi_pkg::region_t region;                                   \
-    axi_pkg::atop_t   atop;                                     \
+    single_file_ariane_axi_pkg::cache_t  cache;                                    \
+    single_file_ariane_axi_pkg::prot_t   prot;                                     \
+    single_file_ariane_axi_pkg::qos_t    qos;                                      \
+    single_file_ariane_axi_pkg::region_t region;                                   \
+    single_file_ariane_axi_pkg::atop_t   atop;                                     \
     user_t            user;                                     \
   } aw_chan_t;
 `define AXI_TYPEDEF_W_CHAN_T(w_chan_t, data_t, strb_t, user_t)  \
@@ -26,28 +26,28 @@
 `define AXI_TYPEDEF_B_CHAN_T(b_chan_t, id_t, user_t)  \
   typedef struct packed {                             \
     id_t            id;                               \
-    axi_pkg::resp_t resp;                             \
+    single_file_ariane_axi_pkg::resp_t resp;                             \
     user_t          user;                             \
   } b_chan_t;
 `define AXI_TYPEDEF_AR_CHAN_T(ar_chan_t, addr_t, id_t, user_t)  \
   typedef struct packed {                                       \
     id_t              id;                                       \
     addr_t            addr;                                     \
-    axi_pkg::len_t    len;                                      \
-    axi_pkg::size_t   size;                                     \
-    axi_pkg::burst_t  burst;                                    \
+    single_file_ariane_axi_pkg::len_t    len;                                      \
+    single_file_ariane_axi_pkg::size_t   size;                                     \
+    single_file_ariane_axi_pkg::burst_t  burst;                                    \
     logic             lock;                                     \
-    axi_pkg::cache_t  cache;                                    \
-    axi_pkg::prot_t   prot;                                     \
-    axi_pkg::qos_t    qos;                                      \
-    axi_pkg::region_t region;                                   \
+    single_file_ariane_axi_pkg::cache_t  cache;                                    \
+    single_file_ariane_axi_pkg::prot_t   prot;                                     \
+    single_file_ariane_axi_pkg::qos_t    qos;                                      \
+    single_file_ariane_axi_pkg::region_t region;                                   \
     user_t            user;                                     \
   } ar_chan_t;
 `define AXI_TYPEDEF_R_CHAN_T(r_chan_t, data_t, id_t, user_t)  \
   typedef struct packed {                                     \
     id_t            id;                                       \
     data_t          data;                                     \
-    axi_pkg::resp_t resp;                                     \
+    single_file_ariane_axi_pkg::resp_t resp;                                     \
     logic           last;                                     \
     user_t          user;                                     \
   } r_chan_t;
@@ -88,7 +88,7 @@
 `define AXI_LITE_TYPEDEF_AW_CHAN_T(aw_chan_lite_t, addr_t)  \
   typedef struct packed {                                   \
     addr_t          addr;                                   \
-    axi_pkg::prot_t prot;                                   \
+    single_file_ariane_axi_pkg::prot_t prot;                                   \
   } aw_chan_lite_t;
 `define AXI_LITE_TYPEDEF_W_CHAN_T(w_chan_lite_t, data_t, strb_t)  \
   typedef struct packed {                                         \
@@ -97,17 +97,17 @@
   } w_chan_lite_t;
 `define AXI_LITE_TYPEDEF_B_CHAN_T(b_chan_lite_t)  \
   typedef struct packed {                         \
-    axi_pkg::resp_t resp;                         \
+    single_file_ariane_axi_pkg::resp_t resp;                         \
   } b_chan_lite_t;
 `define AXI_LITE_TYPEDEF_AR_CHAN_T(ar_chan_lite_t, addr_t)  \
   typedef struct packed {                                   \
     addr_t          addr;                                   \
-    axi_pkg::prot_t prot;                                   \
+    single_file_ariane_axi_pkg::prot_t prot;                                   \
   } ar_chan_lite_t;
 `define AXI_LITE_TYPEDEF_R_CHAN_T(r_chan_lite_t, data_t)  \
   typedef struct packed {                                 \
     data_t          data;                                 \
-    axi_pkg::resp_t resp;                                 \
+    single_file_ariane_axi_pkg::resp_t resp;                                 \
   } r_chan_lite_t;
 `define AXI_LITE_TYPEDEF_REQ_T(req_lite_t, aw_chan_lite_t, w_chan_lite_t, ar_chan_lite_t)  \
   typedef struct packed {                                                                  \
@@ -267,7 +267,7 @@
 `endif
 
 
-package axi_pkg;
+package single_file_ariane_axi_pkg;
 
   parameter int unsigned BurstWidth = 32'd2;
   parameter int unsigned RespWidth = 32'd2;
@@ -601,7 +601,7 @@ package axi_pkg;
 
 endpackage
 
-package ariane_axi_pkg;
+package single_file_ariane_ariane_axi_pkg;
 
   typedef enum logic {
     SINGLE_REQ,
@@ -619,7 +619,7 @@ package ariane_axi_pkg;
 
 endpackage
 
-package riscv_pkg;
+package single_file_ariane_riscv_pkg;
 
   typedef enum logic [1:0] {
     PRIV_LVL_M = 2'b11,
@@ -1152,7 +1152,7 @@ package riscv_pkg;
 
 endpackage
 
-package dm;
+package single_file_ariane_dm;
   localparam logic [3:0] DbgVersion013 = 4'h2;
 
   localparam logic [4:0] ProgBufSize = 5'h8;
@@ -1349,7 +1349,7 @@ package dm;
 
 endpackage
 
-package ariane_pkg;
+package single_file_ariane_ariane_pkg;
 
   localparam NR_SB_ENTRIES = 8;
   localparam TRANS_ID_BITS = $clog2(NR_SB_ENTRIES);
@@ -1418,13 +1418,13 @@ package ariane_pkg;
   localparam REG_ADDR_SIZE = 6;
   localparam NR_WB_PORTS = 4;
 
-  localparam dm::hartinfo_t DebugHartInfo = '{
+  localparam single_file_ariane_dm::hartinfo_t DebugHartInfo = '{
       zero1: '0,
       nscratch: 2,
       zero0: '0,
       dataaccess: 1'b1,
-      datasize: dm::DataCount,
-      dataaddr: dm::DataAddr
+      datasize: single_file_ariane_dm::DataCount,
+      dataaddr: single_file_ariane_dm::DataAddr
   };
 
   localparam bit ENABLE_SPIKE_COMMIT_LOG = 1'b1;
@@ -1437,25 +1437,25 @@ package ariane_pkg;
 
   localparam bit ZERO_TVAL = 1'b0;
 
-  localparam logic [63:0] SMODE_STATUS_READ_MASK = riscv_pkg::SSTATUS_UIE
-                                                   | riscv_pkg::SSTATUS_SIE
-                                                   | riscv_pkg::SSTATUS_SPIE
-                                                   | riscv_pkg::SSTATUS_SPP
-                                                   | riscv_pkg::SSTATUS_FS
-                                                   | riscv_pkg::SSTATUS_XS
-                                                   | riscv_pkg::SSTATUS_SUM
-                                                   | riscv_pkg::SSTATUS_MXR
-                                                   | riscv_pkg::SSTATUS_UPIE
-                                                   | riscv_pkg::SSTATUS_SPIE
-                                                   | riscv_pkg::SSTATUS_UXL
-                                                   | riscv_pkg::SSTATUS64_SD;
+  localparam logic [63:0] SMODE_STATUS_READ_MASK = single_file_ariane_riscv_pkg::SSTATUS_UIE
+                                                   | single_file_ariane_riscv_pkg::SSTATUS_SIE
+                                                   | single_file_ariane_riscv_pkg::SSTATUS_SPIE
+                                                   | single_file_ariane_riscv_pkg::SSTATUS_SPP
+                                                   | single_file_ariane_riscv_pkg::SSTATUS_FS
+                                                   | single_file_ariane_riscv_pkg::SSTATUS_XS
+                                                   | single_file_ariane_riscv_pkg::SSTATUS_SUM
+                                                   | single_file_ariane_riscv_pkg::SSTATUS_MXR
+                                                   | single_file_ariane_riscv_pkg::SSTATUS_UPIE
+                                                   | single_file_ariane_riscv_pkg::SSTATUS_SPIE
+                                                   | single_file_ariane_riscv_pkg::SSTATUS_UXL
+                                                   | single_file_ariane_riscv_pkg::SSTATUS64_SD;
 
-  localparam logic [63:0] SMODE_STATUS_WRITE_MASK = riscv_pkg::SSTATUS_SIE
-                                                    | riscv_pkg::SSTATUS_SPIE
-                                                    | riscv_pkg::SSTATUS_SPP
-                                                    | riscv_pkg::SSTATUS_FS
-                                                    | riscv_pkg::SSTATUS_SUM
-                                                    | riscv_pkg::SSTATUS_MXR;
+  localparam logic [63:0] SMODE_STATUS_WRITE_MASK = single_file_ariane_riscv_pkg::SSTATUS_SIE
+                                                    | single_file_ariane_riscv_pkg::SSTATUS_SPIE
+                                                    | single_file_ariane_riscv_pkg::SSTATUS_SPP
+                                                    | single_file_ariane_riscv_pkg::SSTATUS_FS
+                                                    | single_file_ariane_riscv_pkg::SSTATUS_SUM
+                                                    | single_file_ariane_riscv_pkg::SSTATUS_MXR;
 
   localparam int unsigned FETCH_FIFO_DEPTH = 8;
   localparam int unsigned FETCH_WIDTH = 32;
@@ -1831,7 +1831,7 @@ package ariane_pkg;
     logic                  is_1G;
     logic [26:0]           vpn;
     logic [ASID_WIDTH-1:0] asid;
-    riscv_pkg::pte_t       content;
+    single_file_ariane_riscv_pkg::pte_t       content;
   } tlb_update_t;
 
   localparam logic [3:0] MODE_SV39 = 4'h8;
@@ -2003,7 +2003,7 @@ package ariane_pkg;
   endfunction
 endpackage
 
-package config_pkg;
+package single_file_ariane_config_pkg;
 
   localparam int unsigned ILEN = 32;
   localparam int unsigned NRET = 1;
@@ -2396,7 +2396,7 @@ package config_pkg;
     assert (Cfg.NrPMPEntries <= 64);
     assert (!(Cfg.SuperscalarEn && Cfg.RVF));
     assert (Cfg.FETCH_WIDTH == 32 || Cfg.FETCH_WIDTH == 64)
-    else $fatal(1, "[frontend] fetch width != not supported");
+    else $fatal(1, "[single_file_ariane_frontend] fetch width != not supported");
 
     assert (!(Cfg.RVS && !Cfg.SoftwareInterruptEn));
     assert (!(Cfg.RVH && !Cfg.SoftwareInterruptEn));
@@ -2443,7 +2443,7 @@ package config_pkg;
 
 endpackage
 
-package fpnew_pkg;
+package single_file_ariane_fpnew_pkg;
 
   typedef struct packed {
     int unsigned exp_bits;
@@ -2847,7 +2847,7 @@ package fpnew_pkg;
 
 endpackage
 
-package defs_div_sqrt_mvp;
+package single_file_ariane_defs_div_sqrt_mvp;
 
   localparam C_RM = 3;
   localparam C_RM_NEAREST = 3'h0;
@@ -2911,13 +2911,13 @@ package defs_div_sqrt_mvp;
   localparam C_MANT_ZERO_FP16ALT = 7'h0;
   localparam C_QNAN_FP16ALT = 16'h7FC0;
 
-endpackage : defs_div_sqrt_mvp
-package std_cache_pkg;
+endpackage : single_file_ariane_defs_div_sqrt_mvp
+package single_file_ariane_std_cache_pkg;
 
     
-    localparam DCACHE_BYTE_OFFSET = $clog2(ariane_pkg::DCACHE_LINE_WIDTH/8);
-    localparam DCACHE_NUM_WORDS   = 2**(ariane_pkg::DCACHE_INDEX_WIDTH-DCACHE_BYTE_OFFSET);
-    localparam DCACHE_DIRTY_WIDTH = ariane_pkg::DCACHE_SET_ASSOC*2;
+    localparam DCACHE_BYTE_OFFSET = $clog2(single_file_ariane_ariane_pkg::DCACHE_LINE_WIDTH/8);
+    localparam DCACHE_NUM_WORDS   = 2**(single_file_ariane_ariane_pkg::DCACHE_INDEX_WIDTH-DCACHE_BYTE_OFFSET);
+    localparam DCACHE_DIRTY_WIDTH = single_file_ariane_ariane_pkg::DCACHE_SET_ASSOC*2;
     
 
     typedef struct packed {
@@ -2940,44 +2940,44 @@ package std_cache_pkg;
     } miss_req_t;
 
     typedef struct packed {
-        logic [ariane_pkg::DCACHE_TAG_WIDTH-1:0]  tag;    
-        logic [ariane_pkg::DCACHE_LINE_WIDTH-1:0] data;   
+        logic [single_file_ariane_ariane_pkg::DCACHE_TAG_WIDTH-1:0]  tag;    
+        logic [single_file_ariane_ariane_pkg::DCACHE_LINE_WIDTH-1:0] data;   
         logic                                     valid;  
         logic                                     dirty;  
     } cache_line_t;
 
     
     typedef struct packed {
-        logic [(ariane_pkg::DCACHE_TAG_WIDTH+7)/8-1:0]  tag;    
-        logic [(ariane_pkg::DCACHE_LINE_WIDTH+7)/8-1:0] data;   
-        logic [ariane_pkg::DCACHE_SET_ASSOC-1:0]        vldrty; 
+        logic [(single_file_ariane_ariane_pkg::DCACHE_TAG_WIDTH+7)/8-1:0]  tag;    
+        logic [(single_file_ariane_ariane_pkg::DCACHE_LINE_WIDTH+7)/8-1:0] data;   
+        logic [single_file_ariane_ariane_pkg::DCACHE_SET_ASSOC-1:0]        vldrty; 
     } cl_be_t;
 
     
-    function automatic logic [$clog2(ariane_pkg::DCACHE_SET_ASSOC)-1:0] one_hot_to_bin (
-        input logic [ariane_pkg::DCACHE_SET_ASSOC-1:0] in
+    function automatic logic [$clog2(single_file_ariane_ariane_pkg::DCACHE_SET_ASSOC)-1:0] one_hot_to_bin (
+        input logic [single_file_ariane_ariane_pkg::DCACHE_SET_ASSOC-1:0] in
     );
-        for (int unsigned i = 0; i < ariane_pkg::DCACHE_SET_ASSOC; i++) begin
+        for (int unsigned i = 0; i < single_file_ariane_ariane_pkg::DCACHE_SET_ASSOC; i++) begin
             if (in[i])
                 return i;
         end
     endfunction
     
-    function automatic logic [ariane_pkg::DCACHE_SET_ASSOC-1:0] get_victim_cl (
-        input logic [ariane_pkg::DCACHE_SET_ASSOC-1:0] valid_dirty
+    function automatic logic [single_file_ariane_ariane_pkg::DCACHE_SET_ASSOC-1:0] get_victim_cl (
+        input logic [single_file_ariane_ariane_pkg::DCACHE_SET_ASSOC-1:0] valid_dirty
     );
         
-        logic [ariane_pkg::DCACHE_SET_ASSOC-1:0] oh = '0;
-        for (int unsigned i = 0; i < ariane_pkg::DCACHE_SET_ASSOC; i++) begin
+        logic [single_file_ariane_ariane_pkg::DCACHE_SET_ASSOC-1:0] oh = '0;
+        for (int unsigned i = 0; i < single_file_ariane_ariane_pkg::DCACHE_SET_ASSOC; i++) begin
             if (valid_dirty[i]) begin
                 oh[i] = 1'b1;
                 return oh;
             end
         end
     endfunction
-endpackage : std_cache_pkg
+endpackage : single_file_ariane_std_cache_pkg
 
-module ras #(
+module single_file_ariane_ras #(
     parameter int unsigned DEPTH = 2
 ) (
     input  logic                    clk_i,
@@ -2985,10 +2985,10 @@ module ras #(
     input  logic                    push_i,
     input  logic                    pop_i,
     input  logic             [63:0] data_i,
-    output ariane_pkg::ras_t        data_o
+    output single_file_ariane_ariane_pkg::ras_t        data_o
 );
 
-  ariane_pkg::ras_t [DEPTH-1:0] stack_d, stack_q;
+  single_file_ariane_ariane_pkg::ras_t [DEPTH-1:0] stack_d, stack_q;
 
   assign data_o = stack_q[0];
 
@@ -3020,7 +3020,7 @@ module ras #(
 endmodule
 
 
-module btb #(
+module single_file_ariane_btb #(
     parameter int NR_ENTRIES = 8
 ) (
     input logic clk_i,
@@ -3029,8 +3029,8 @@ module btb #(
     input logic debug_mode_i,
 
     input  logic                        [63:0] vpc_i,
-    input  ariane_pkg::btb_update_t            btb_update_i,
-    output ariane_pkg::btb_prediction_t        btb_prediction_o
+    input  single_file_ariane_ariane_pkg::btb_update_t            btb_update_i,
+    output single_file_ariane_ariane_pkg::btb_prediction_t        btb_prediction_o
 );
 
   localparam OFFSET = 1;
@@ -3038,7 +3038,7 @@ module btb #(
 
   localparam PREDICTION_BITS = $clog2(NR_ENTRIES) + OFFSET;
 
-  ariane_pkg::btb_prediction_t btb_d[NR_ENTRIES-1:0], btb_q[NR_ENTRIES-1:0];
+  single_file_ariane_ariane_pkg::btb_prediction_t btb_d[NR_ENTRIES-1:0], btb_q[NR_ENTRIES-1:0];
   logic [$clog2(NR_ENTRIES)-1:0] index, update_pc;
 
   assign index            = vpc_i[PREDICTION_BITS-1:OFFSET];
@@ -3078,7 +3078,7 @@ module btb #(
 endmodule
 
 
-module bht #(
+module single_file_ariane_bht #(
     parameter int unsigned NR_ENTRIES = 1024
 ) (
     input logic clk_i,
@@ -3087,8 +3087,8 @@ module bht #(
     input logic debug_mode_i,
 
     input  logic                        [63:0] vpc_i,
-    input  ariane_pkg::bht_update_t            bht_update_i,
-    output ariane_pkg::bht_prediction_t        bht_prediction_o
+    input  single_file_ariane_ariane_pkg::bht_update_t            bht_update_i,
+    output single_file_ariane_ariane_pkg::bht_prediction_t        bht_prediction_o
 );
   localparam OFFSET = 2;
   localparam ANTIALIAS_BITS = 8;
@@ -3149,7 +3149,7 @@ module bht #(
 endmodule
 
 
-module instr_scan (
+module single_file_ariane_instr_scan (
     input  logic [31:0] instr_i,
     output logic        is_rvc_o,
     output logic        rvi_return_o,
@@ -3171,25 +3171,25 @@ module instr_scan (
   assign rvi_return_o = rvi_jalr_o & ~instr_i[7] & ~instr_i[19] & ~instr_i[18] & ~instr_i[16] & instr_i[15];
   assign rvi_call_o = (rvi_jalr_o | rvi_jump_o) & instr_i[7];
 
-  assign rvi_imm_o = (instr_i[3]) ? ariane_pkg::uj_imm(instr_i) : ariane_pkg::sb_imm(instr_i);
-  assign rvi_branch_o = (instr_i[6:0] == riscv_pkg::OpcodeBranch) ? 1'b1 : 1'b0;
-  assign rvi_jalr_o = (instr_i[6:0] == riscv_pkg::OpcodeJalr) ? 1'b1 : 1'b0;
-  assign rvi_jump_o = (instr_i[6:0] == riscv_pkg::OpcodeJal) ? 1'b1 : 1'b0;
+  assign rvi_imm_o = (instr_i[3]) ? single_file_ariane_ariane_pkg::uj_imm(instr_i) : single_file_ariane_ariane_pkg::sb_imm(instr_i);
+  assign rvi_branch_o = (instr_i[6:0] == single_file_ariane_riscv_pkg::OpcodeBranch) ? 1'b1 : 1'b0;
+  assign rvi_jalr_o = (instr_i[6:0] == single_file_ariane_riscv_pkg::OpcodeJalr) ? 1'b1 : 1'b0;
+  assign rvi_jump_o = (instr_i[6:0] == single_file_ariane_riscv_pkg::OpcodeJal) ? 1'b1 : 1'b0;
 
-  assign rvc_jump_o   = (instr_i[15:13] == riscv_pkg::OpcodeC1J) & is_rvc_o & (instr_i[1:0] == riscv_pkg::OpcodeC1);
+  assign rvc_jump_o   = (instr_i[15:13] == single_file_ariane_riscv_pkg::OpcodeC1J) & is_rvc_o & (instr_i[1:0] == single_file_ariane_riscv_pkg::OpcodeC1);
 
-  assign rvc_jr_o     = (instr_i[15:13] == riscv_pkg::OpcodeC2JalrMvAdd)
+  assign rvc_jr_o     = (instr_i[15:13] == single_file_ariane_riscv_pkg::OpcodeC2JalrMvAdd)
                         & ~instr_i[12]
                         & (instr_i[6:2] == 5'b00000)
-                        & (instr_i[1:0] == riscv_pkg::OpcodeC2)
+                        & (instr_i[1:0] == single_file_ariane_riscv_pkg::OpcodeC2)
                         & is_rvc_o;
-  assign rvc_branch_o = ((instr_i[15:13] == riscv_pkg::OpcodeC1Beqz) | (instr_i[15:13] == riscv_pkg::OpcodeC1Bnez))
-                        & (instr_i[1:0] == riscv_pkg::OpcodeC1)
+  assign rvc_branch_o = ((instr_i[15:13] == single_file_ariane_riscv_pkg::OpcodeC1Beqz) | (instr_i[15:13] == single_file_ariane_riscv_pkg::OpcodeC1Bnez))
+                        & (instr_i[1:0] == single_file_ariane_riscv_pkg::OpcodeC1)
                         & is_rvc_o;
 
   assign rvc_return_o = ~instr_i[11] & ~instr_i[10] & ~instr_i[8] & instr_i[7] & rvc_jr_o;
 
-  assign rvc_jalr_o   = (instr_i[15:13] == riscv_pkg::OpcodeC2JalrMvAdd)
+  assign rvc_jalr_o   = (instr_i[15:13] == single_file_ariane_riscv_pkg::OpcodeC2JalrMvAdd)
                         & instr_i[12]
                         & (instr_i[6:2] == 5'b00000) & is_rvc_o;
   assign rvc_call_o = rvc_jalr_o;
@@ -3199,7 +3199,7 @@ module instr_scan (
 endmodule
 
 
-module fifo_v3 #(
+module single_file_ariane_fifo_v3 #(
     parameter bit          FALL_THROUGH = 1'b0,
     parameter int unsigned DATA_WIDTH   = 32,
     parameter int unsigned DEPTH        = 8,
@@ -3311,7 +3311,7 @@ module fifo_v3 #(
 endmodule
 
 
-module fifo_v2 #(
+module single_file_ariane_fifo_v2 #(
     parameter bit          FALL_THROUGH = 1'b0,
     parameter int unsigned DATA_WIDTH   = 32,
     parameter int unsigned DEPTH        = 8,
@@ -3348,7 +3348,7 @@ module fifo_v2 #(
     assign alm_empty_o = (usage <= ALM_EMPTY_TH[ADDR_DEPTH-1:0]);
   end
 
-  fifo_v3 #(
+  single_file_ariane_fifo_v3 #(
       .FALL_THROUGH(FALL_THROUGH),
       .DATA_WIDTH  (DATA_WIDTH),
       .DEPTH       (DEPTH),
@@ -3370,8 +3370,8 @@ module fifo_v2 #(
 endmodule
 
 
-import ariane_pkg::*;
-module frontend #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_frontend #(
     parameter logic [63:0] DmBaseAddress = 64'h0
 ) (
     input logic clk_i,
@@ -3647,7 +3647,7 @@ module frontend #(
     end
 
     if (set_debug_pc_i) begin
-      npc_d = DmBaseAddress + dm::HaltAddress;
+      npc_d = DmBaseAddress + single_file_ariane_dm::HaltAddress;
     end
 
     icache_dreq_o.vaddr = fetch_address;
@@ -3697,7 +3697,7 @@ module frontend #(
     end
   end
 
-  ras #(
+  single_file_ariane_ras #(
       .DEPTH(RAS_DEPTH)
   ) i_ras (
       .push_i(ras_push),
@@ -3707,7 +3707,7 @@ module frontend #(
       .*
   );
 
-  btb #(
+  single_file_ariane_btb #(
       .NR_ENTRIES(BTB_ENTRIES)
   ) i_btb (
       .clk_i,
@@ -3719,7 +3719,7 @@ module frontend #(
       .btb_prediction_o(btb_prediction)
   );
 
-  bht #(
+  single_file_ariane_bht #(
       .NR_ENTRIES(BHT_ENTRIES)
   ) i_bht (
       .clk_i,
@@ -3732,7 +3732,7 @@ module frontend #(
   );
 
   for (genvar i = 0; i < INSTR_PER_FETCH; i++) begin
-    instr_scan i_instr_scan (
+    single_file_ariane_instr_scan i_instr_scan (
         .instr_i     (instr[i]),
         .is_rvc_o    (is_rvc[i]),
         .rvi_return_o(rvi_return[i]),
@@ -3751,7 +3751,7 @@ module frontend #(
     );
   end
 
-  fifo_v2 #(
+  single_file_ariane_fifo_v2 #(
       .DEPTH(8),
       .dtype(frontend_fetch_t)
   ) i_fetch_fifo (
@@ -3772,8 +3772,8 @@ module frontend #(
 endmodule
 
 
-import ariane_pkg::*;
-module instr_realigner (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_instr_realigner (
     input logic clk_i,
     input logic rst_ni,
 
@@ -3815,7 +3815,7 @@ module instr_realigner (
     fetch_entry_o.branch_predict = fetch_entry_i.branch_predict;
     fetch_entry_o.ex.valid       = fetch_entry_i.page_fault;
     fetch_entry_o.ex.tval        = (fetch_entry_i.page_fault) ? fetch_entry_i.address : '0;
-    fetch_entry_o.ex.cause       = (fetch_entry_i.page_fault) ? riscv_pkg::INSTR_PAGE_FAULT : '0;
+    fetch_entry_o.ex.cause       = (fetch_entry_i.page_fault) ? single_file_ariane_riscv_pkg::INSTR_PAGE_FAULT : '0;
 
     fetch_entry_valid_o          = fetch_entry_valid_i;
     fetch_ack_o                  = fetch_ack_i;
@@ -3954,8 +3954,8 @@ module instr_realigner (
 endmodule
 
 
-import ariane_pkg::*;
-module compressed_decoder (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_compressed_decoder (
     input  logic [31:0] instr_i,
     output logic [31:0] instr_o,
     output logic        illegal_instr_o,
@@ -3970,9 +3970,9 @@ module compressed_decoder (
 
     unique case (instr_i[1:0])
 
-      riscv_pkg::OpcodeC0: begin
+      single_file_ariane_riscv_pkg::OpcodeC0: begin
         unique case (instr_i[15:13])
-          riscv_pkg::OpcodeC0Addi4spn: begin
+          single_file_ariane_riscv_pkg::OpcodeC0Addi4spn: begin
 
             instr_o = {
               2'b0,
@@ -3985,12 +3985,12 @@ module compressed_decoder (
               3'b000,
               2'b01,
               instr_i[4:2],
-              riscv_pkg::OpcodeOpImm
+              single_file_ariane_riscv_pkg::OpcodeOpImm
             };
             if (instr_i[12:5] == 8'b0) illegal_instr_o = 1'b1;
           end
 
-          riscv_pkg::OpcodeC0Fld: begin
+          single_file_ariane_riscv_pkg::OpcodeC0Fld: begin
 
             instr_o = {
               4'b0,
@@ -4002,11 +4002,11 @@ module compressed_decoder (
               3'b011,
               2'b01,
               instr_i[4:2],
-              riscv_pkg::OpcodeLoadFp
+              single_file_ariane_riscv_pkg::OpcodeLoadFp
             };
           end
 
-          riscv_pkg::OpcodeC0Lw: begin
+          single_file_ariane_riscv_pkg::OpcodeC0Lw: begin
 
             instr_o = {
               5'b0,
@@ -4019,11 +4019,11 @@ module compressed_decoder (
               3'b010,
               2'b01,
               instr_i[4:2],
-              riscv_pkg::OpcodeLoad
+              single_file_ariane_riscv_pkg::OpcodeLoad
             };
           end
 
-          riscv_pkg::OpcodeC0Ld: begin
+          single_file_ariane_riscv_pkg::OpcodeC0Ld: begin
 
             instr_o = {
               4'b0,
@@ -4035,11 +4035,11 @@ module compressed_decoder (
               3'b011,
               2'b01,
               instr_i[4:2],
-              riscv_pkg::OpcodeLoad
+              single_file_ariane_riscv_pkg::OpcodeLoad
             };
           end
 
-          riscv_pkg::OpcodeC0Fsd: begin
+          single_file_ariane_riscv_pkg::OpcodeC0Fsd: begin
 
             instr_o = {
               4'b0,
@@ -4052,11 +4052,11 @@ module compressed_decoder (
               3'b011,
               instr_i[11:10],
               3'b000,
-              riscv_pkg::OpcodeStoreFp
+              single_file_ariane_riscv_pkg::OpcodeStoreFp
             };
           end
 
-          riscv_pkg::OpcodeC0Sw: begin
+          single_file_ariane_riscv_pkg::OpcodeC0Sw: begin
 
             instr_o = {
               5'b0,
@@ -4070,11 +4070,11 @@ module compressed_decoder (
               instr_i[11:10],
               instr_i[6],
               2'b00,
-              riscv_pkg::OpcodeStore
+              single_file_ariane_riscv_pkg::OpcodeStore
             };
           end
 
-          riscv_pkg::OpcodeC0Sd: begin
+          single_file_ariane_riscv_pkg::OpcodeC0Sd: begin
 
             instr_o = {
               4'b0,
@@ -4087,7 +4087,7 @@ module compressed_decoder (
               3'b011,
               instr_i[11:10],
               3'b000,
-              riscv_pkg::OpcodeStore
+              single_file_ariane_riscv_pkg::OpcodeStore
             };
           end
 
@@ -4097,9 +4097,9 @@ module compressed_decoder (
         endcase
       end
 
-      riscv_pkg::OpcodeC1: begin
+      single_file_ariane_riscv_pkg::OpcodeC1: begin
         unique case (instr_i[15:13])
-          riscv_pkg::OpcodeC1Addi: begin
+          single_file_ariane_riscv_pkg::OpcodeC1Addi: begin
 
             instr_o = {
               {6{instr_i[12]}},
@@ -4108,11 +4108,11 @@ module compressed_decoder (
               instr_i[11:7],
               3'b0,
               instr_i[11:7],
-              riscv_pkg::OpcodeOpImm
+              single_file_ariane_riscv_pkg::OpcodeOpImm
             };
           end
 
-          riscv_pkg::OpcodeC1Addiw: begin
+          single_file_ariane_riscv_pkg::OpcodeC1Addiw: begin
             if (instr_i[11:7] != 5'h0)
               instr_o = {
                 {6{instr_i[12]}},
@@ -4121,12 +4121,12 @@ module compressed_decoder (
                 instr_i[11:7],
                 3'b0,
                 instr_i[11:7],
-                riscv_pkg::OpcodeOpImm32
+                single_file_ariane_riscv_pkg::OpcodeOpImm32
               };
             else illegal_instr_o = 1'b1;
           end
 
-          riscv_pkg::OpcodeC1Li: begin
+          single_file_ariane_riscv_pkg::OpcodeC1Li: begin
 
             instr_o = {
               {6{instr_i[12]}},
@@ -4135,14 +4135,14 @@ module compressed_decoder (
               5'b0,
               3'b0,
               instr_i[11:7],
-              riscv_pkg::OpcodeOpImm
+              single_file_ariane_riscv_pkg::OpcodeOpImm
             };
             if (instr_i[11:7] == 5'b0) illegal_instr_o = 1'b1;
           end
 
-          riscv_pkg::OpcodeC1LuiAddi16sp: begin
+          single_file_ariane_riscv_pkg::OpcodeC1LuiAddi16sp: begin
 
-            instr_o = {{15{instr_i[12]}}, instr_i[6:2], instr_i[11:7], riscv_pkg::OpcodeLui};
+            instr_o = {{15{instr_i[12]}}, instr_i[6:2], instr_i[11:7], single_file_ariane_riscv_pkg::OpcodeLui};
 
             if (instr_i[11:7] == 5'h02) begin
 
@@ -4156,7 +4156,7 @@ module compressed_decoder (
                 5'h02,
                 3'b000,
                 5'h02,
-                riscv_pkg::OpcodeOpImm
+                single_file_ariane_riscv_pkg::OpcodeOpImm
               };
             end else if (instr_i[11:7] == 5'b0) begin
               illegal_instr_o = 1'b1;
@@ -4165,7 +4165,7 @@ module compressed_decoder (
             if ({instr_i[12], instr_i[6:2]} == 6'b0) illegal_instr_o = 1'b1;
           end
 
-          riscv_pkg::OpcodeC1MiscAlu: begin
+          single_file_ariane_riscv_pkg::OpcodeC1MiscAlu: begin
             unique case (instr_i[11:10])
               2'b00, 2'b01: begin
 
@@ -4180,7 +4180,7 @@ module compressed_decoder (
                   3'b101,
                   2'b01,
                   instr_i[9:7],
-                  riscv_pkg::OpcodeOpImm
+                  single_file_ariane_riscv_pkg::OpcodeOpImm
                 };
 
                 if ({instr_i[12], instr_i[6:2]} == 6'b0) illegal_instr_o = 1'b1;
@@ -4197,7 +4197,7 @@ module compressed_decoder (
                   3'b111,
                   2'b01,
                   instr_i[9:7],
-                  riscv_pkg::OpcodeOpImm
+                  single_file_ariane_riscv_pkg::OpcodeOpImm
                 };
               end
 
@@ -4217,7 +4217,7 @@ module compressed_decoder (
                       3'b000,
                       2'b01,
                       instr_i[9:7],
-                      riscv_pkg::OpcodeOp
+                      single_file_ariane_riscv_pkg::OpcodeOp
                     };
                   end
 
@@ -4232,7 +4232,7 @@ module compressed_decoder (
                       3'b100,
                       2'b01,
                       instr_i[9:7],
-                      riscv_pkg::OpcodeOp
+                      single_file_ariane_riscv_pkg::OpcodeOp
                     };
                   end
 
@@ -4247,7 +4247,7 @@ module compressed_decoder (
                       3'b110,
                       2'b01,
                       instr_i[9:7],
-                      riscv_pkg::OpcodeOp
+                      single_file_ariane_riscv_pkg::OpcodeOp
                     };
                   end
 
@@ -4262,7 +4262,7 @@ module compressed_decoder (
                       3'b111,
                       2'b01,
                       instr_i[9:7],
-                      riscv_pkg::OpcodeOp
+                      single_file_ariane_riscv_pkg::OpcodeOp
                     };
                   end
 
@@ -4278,7 +4278,7 @@ module compressed_decoder (
                       3'b000,
                       2'b01,
                       instr_i[9:7],
-                      riscv_pkg::OpcodeOp32
+                      single_file_ariane_riscv_pkg::OpcodeOp32
                     };
                   end
                   3'b101: begin
@@ -4293,7 +4293,7 @@ module compressed_decoder (
                       3'b000,
                       2'b01,
                       instr_i[9:7],
-                      riscv_pkg::OpcodeOp32
+                      single_file_ariane_riscv_pkg::OpcodeOp32
                     };
                   end
 
@@ -4307,7 +4307,7 @@ module compressed_decoder (
             endcase
           end
 
-          riscv_pkg::OpcodeC1J: begin
+          single_file_ariane_riscv_pkg::OpcodeC1J: begin
 
             instr_o = {
               instr_i[12],
@@ -4321,11 +4321,11 @@ module compressed_decoder (
               {9{instr_i[12]}},
               4'b0,
               ~instr_i[15],
-              riscv_pkg::OpcodeJal
+              single_file_ariane_riscv_pkg::OpcodeJal
             };
           end
 
-          riscv_pkg::OpcodeC1Beqz, riscv_pkg::OpcodeC1Bnez: begin
+          single_file_ariane_riscv_pkg::OpcodeC1Beqz, single_file_ariane_riscv_pkg::OpcodeC1Bnez: begin
 
             instr_o = {
               {4{instr_i[12]}},
@@ -4339,15 +4339,15 @@ module compressed_decoder (
               instr_i[11:10],
               instr_i[4:3],
               instr_i[12],
-              riscv_pkg::OpcodeBranch
+              single_file_ariane_riscv_pkg::OpcodeBranch
             };
           end
         endcase
       end
 
-      riscv_pkg::OpcodeC2: begin
+      single_file_ariane_riscv_pkg::OpcodeC2: begin
         unique case (instr_i[15:13])
-          riscv_pkg::OpcodeC2Slli: begin
+          single_file_ariane_riscv_pkg::OpcodeC2Slli: begin
 
             instr_o = {
               6'b0,
@@ -4356,13 +4356,13 @@ module compressed_decoder (
               instr_i[11:7],
               3'b001,
               instr_i[11:7],
-              riscv_pkg::OpcodeOpImm
+              single_file_ariane_riscv_pkg::OpcodeOpImm
             };
             if (instr_i[11:7] == 5'b0) illegal_instr_o = 1'b1;
             if ({instr_i[12], instr_i[6:2]} == 6'b0) illegal_instr_o = 1'b1;
           end
 
-          riscv_pkg::OpcodeC2Fldsp: begin
+          single_file_ariane_riscv_pkg::OpcodeC2Fldsp: begin
 
             instr_o = {
               3'b0,
@@ -4373,12 +4373,12 @@ module compressed_decoder (
               5'h02,
               3'b011,
               instr_i[11:7],
-              riscv_pkg::OpcodeLoadFp
+              single_file_ariane_riscv_pkg::OpcodeLoadFp
             };
             if (instr_i[11:7] == 5'b0) illegal_instr_o = 1'b1;
           end
 
-          riscv_pkg::OpcodeC2Lwsp: begin
+          single_file_ariane_riscv_pkg::OpcodeC2Lwsp: begin
 
             instr_o = {
               4'b0,
@@ -4389,12 +4389,12 @@ module compressed_decoder (
               5'h02,
               3'b010,
               instr_i[11:7],
-              riscv_pkg::OpcodeLoad
+              single_file_ariane_riscv_pkg::OpcodeLoad
             };
             if (instr_i[11:7] == 5'b0) illegal_instr_o = 1'b1;
           end
 
-          riscv_pkg::OpcodeC2Ldsp: begin
+          single_file_ariane_riscv_pkg::OpcodeC2Ldsp: begin
 
             instr_o = {
               3'b0,
@@ -4405,26 +4405,26 @@ module compressed_decoder (
               5'h02,
               3'b011,
               instr_i[11:7],
-              riscv_pkg::OpcodeLoad
+              single_file_ariane_riscv_pkg::OpcodeLoad
             };
             if (instr_i[11:7] == 5'b0) illegal_instr_o = 1'b1;
           end
 
-          riscv_pkg::OpcodeC2JalrMvAdd: begin
+          single_file_ariane_riscv_pkg::OpcodeC2JalrMvAdd: begin
             if (instr_i[12] == 1'b0) begin
 
-              instr_o = {7'b0, instr_i[6:2], 5'b0, 3'b0, instr_i[11:7], riscv_pkg::OpcodeOp};
+              instr_o = {7'b0, instr_i[6:2], 5'b0, 3'b0, instr_i[11:7], single_file_ariane_riscv_pkg::OpcodeOp};
 
               if (instr_i[6:2] == 5'b0) begin
 
-                instr_o = {12'b0, instr_i[11:7], 3'b0, 5'b0, riscv_pkg::OpcodeJalr};
+                instr_o = {12'b0, instr_i[11:7], 3'b0, 5'b0, single_file_ariane_riscv_pkg::OpcodeJalr};
 
                 illegal_instr_o = (instr_i[11:7] != '0) ? 1'b0 : 1'b1;
               end
             end else begin
 
               instr_o = {
-                7'b0, instr_i[6:2], instr_i[11:7], 3'b0, instr_i[11:7], riscv_pkg::OpcodeOp
+                7'b0, instr_i[6:2], instr_i[11:7], 3'b0, instr_i[11:7], single_file_ariane_riscv_pkg::OpcodeOp
               };
 
               if (instr_i[11:7] == 5'b0) begin
@@ -4433,12 +4433,12 @@ module compressed_decoder (
                 if (instr_i[6:2] != 5'b0) illegal_instr_o = 1'b1;
               end else if (instr_i[6:2] == 5'b0) begin
 
-                instr_o = {12'b0, instr_i[11:7], 3'b000, 5'b00001, riscv_pkg::OpcodeJalr};
+                instr_o = {12'b0, instr_i[11:7], 3'b000, 5'b00001, single_file_ariane_riscv_pkg::OpcodeJalr};
               end
             end
           end
 
-          riscv_pkg::OpcodeC2Fsdsp: begin
+          single_file_ariane_riscv_pkg::OpcodeC2Fsdsp: begin
 
             instr_o = {
               3'b0,
@@ -4449,11 +4449,11 @@ module compressed_decoder (
               3'b011,
               instr_i[11:10],
               3'b000,
-              riscv_pkg::OpcodeStoreFp
+              single_file_ariane_riscv_pkg::OpcodeStoreFp
             };
           end
 
-          riscv_pkg::OpcodeC2Swsp: begin
+          single_file_ariane_riscv_pkg::OpcodeC2Swsp: begin
 
             instr_o = {
               4'b0,
@@ -4464,11 +4464,11 @@ module compressed_decoder (
               3'b010,
               instr_i[11:9],
               2'b00,
-              riscv_pkg::OpcodeStore
+              single_file_ariane_riscv_pkg::OpcodeStore
             };
           end
 
-          riscv_pkg::OpcodeC2Sdsp: begin
+          single_file_ariane_riscv_pkg::OpcodeC2Sdsp: begin
 
             instr_o = {
               3'b0,
@@ -4479,7 +4479,7 @@ module compressed_decoder (
               3'b011,
               instr_i[11:10],
               3'b000,
-              riscv_pkg::OpcodeStore
+              single_file_ariane_riscv_pkg::OpcodeStore
             };
           end
 
@@ -4499,8 +4499,8 @@ module compressed_decoder (
 endmodule
 
 
-import ariane_pkg::*;
-module decoder (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_decoder (
     input logic               [63:0] pc_i,
     input logic                      is_compressed_i,
     input logic               [15:0] compressed_instr_i,
@@ -4509,9 +4509,9 @@ module decoder (
     input branchpredict_sbe_t        branch_predict_i,
     input exception_t                ex_i,
 
-    input  riscv_pkg::priv_lvl_t       priv_lvl_i,
+    input  single_file_ariane_riscv_pkg::priv_lvl_t       priv_lvl_i,
     input  logic                       debug_mode_i,
-    input  riscv_pkg::xs_t             fs_i,
+    input  single_file_ariane_riscv_pkg::xs_t             fs_i,
     input  logic                 [2:0] frm_i,
     input  logic                       tvm_i,
     input  logic                       tw_i,
@@ -4526,8 +4526,8 @@ module decoder (
   logic ebreak;
 
   logic check_fprm;
-  riscv_pkg::instruction_t instr;
-  assign instr = riscv_pkg::instruction_t'(instruction_i);
+  single_file_ariane_riscv_pkg::instruction_t instr;
+  assign instr = single_file_ariane_riscv_pkg::instruction_t'(instruction_i);
 
   enum logic [3:0] {
     NOIMM,
@@ -4546,7 +4546,7 @@ module decoder (
   logic [63:0] imm_uj_type;
   logic [63:0] imm_bi_type;
 
-  always_comb begin : decoder
+  always_comb begin : single_file_ariane_decoder
 
     imm_select                  = NOIMM;
     is_control_flow_instr_o     = 1'b0;
@@ -4569,7 +4569,7 @@ module decoder (
 
     if (~ex_i.valid) begin
       case (instr.rtype.opcode)
-        riscv_pkg::OpcodeSystem: begin
+        single_file_ariane_riscv_pkg::OpcodeSystem: begin
           instruction_o.fu       = CSR;
           instruction_o.rs1[4:0] = instr.itype.rs1;
           instruction_o.rd[4:0]  = instr.itype.rd;
@@ -4588,13 +4588,13 @@ module decoder (
                 12'b1_0000_0010: begin
                   instruction_o.op = SRET;
 
-                  if (priv_lvl_i == riscv_pkg::PRIV_LVL_U) begin
+                  if (priv_lvl_i == single_file_ariane_riscv_pkg::PRIV_LVL_U) begin
                     illegal_instr = 1'b1;
 
                     instruction_o.op = ADD;
                   end
 
-                  if (priv_lvl_i == riscv_pkg::PRIV_LVL_S && tsr_i) begin
+                  if (priv_lvl_i == single_file_ariane_riscv_pkg::PRIV_LVL_S && tsr_i) begin
                     illegal_instr = 1'b1;
 
                     instruction_o.op = ADD;
@@ -4604,7 +4604,7 @@ module decoder (
                 12'b11_0000_0010: begin
                   instruction_o.op = MRET;
 
-                  if (priv_lvl_i inside {riscv_pkg::PRIV_LVL_U, riscv_pkg::PRIV_LVL_S})
+                  if (priv_lvl_i inside {single_file_ariane_riscv_pkg::PRIV_LVL_U, single_file_ariane_riscv_pkg::PRIV_LVL_S})
                     illegal_instr = 1'b1;
                 end
 
@@ -4617,12 +4617,12 @@ module decoder (
                 12'b1_0000_0101: begin
                   if (ENABLE_WFI) instruction_o.op = WFI;
 
-                  if (priv_lvl_i == riscv_pkg::PRIV_LVL_S && tw_i) begin
+                  if (priv_lvl_i == single_file_ariane_riscv_pkg::PRIV_LVL_S && tw_i) begin
                     illegal_instr = 1'b1;
                     instruction_o.op = ADD;
                   end
 
-                  if (priv_lvl_i == riscv_pkg::PRIV_LVL_U) begin
+                  if (priv_lvl_i == single_file_ariane_riscv_pkg::PRIV_LVL_U) begin
                     illegal_instr = 1'b1;
                     instruction_o.op = ADD;
                   end
@@ -4631,10 +4631,10 @@ module decoder (
                 default: begin
                   if (instr.instr[31:25] == 7'b1001) begin
 
-                    illegal_instr    = (priv_lvl_i inside {riscv_pkg::PRIV_LVL_M, riscv_pkg::PRIV_LVL_S}) ? 1'b0 : 1'b1;
+                    illegal_instr    = (priv_lvl_i inside {single_file_ariane_riscv_pkg::PRIV_LVL_M, single_file_ariane_riscv_pkg::PRIV_LVL_S}) ? 1'b0 : 1'b1;
                     instruction_o.op = SFENCE_VMA;
 
-                    if (priv_lvl_i == riscv_pkg::PRIV_LVL_S && tvm_i) illegal_instr = 1'b1;
+                    if (priv_lvl_i == single_file_ariane_riscv_pkg::PRIV_LVL_S && tvm_i) illegal_instr = 1'b1;
                   end
                 end
               endcase
@@ -4685,7 +4685,7 @@ module decoder (
           endcase
         end
 
-        riscv_pkg::OpcodeMiscMem: begin
+        single_file_ariane_riscv_pkg::OpcodeMiscMem: begin
           instruction_o.fu  = CSR;
           instruction_o.rs1 = '0;
           instruction_o.rs2 = '0;
@@ -4706,11 +4706,11 @@ module decoder (
             illegal_instr = 1'b1;
         end
 
-        riscv_pkg::OpcodeOp: begin
+        single_file_ariane_riscv_pkg::OpcodeOp: begin
 
           if (instr.rvftype.funct2 == 2'b10) begin
 
-            if (FP_PRESENT && XFVEC && fs_i != riscv_pkg::Off) begin
+            if (FP_PRESENT && XFVEC && fs_i != single_file_ariane_riscv_pkg::Off) begin
               automatic logic allow_replication;
 
               instruction_o.fu       = FPU_VEC;
@@ -4962,7 +4962,7 @@ module decoder (
           end
         end
 
-        riscv_pkg::OpcodeOp32: begin
+        single_file_ariane_riscv_pkg::OpcodeOp32: begin
           instruction_o.fu = (instr.rtype.funct7 == 7'b000_0001) ? MULT : ALU;
           instruction_o.rs1[4:0] = instr.rtype.rs1;
           instruction_o.rs2[4:0] = instr.rtype.rs2;
@@ -4986,7 +4986,7 @@ module decoder (
           endcase
         end
 
-        riscv_pkg::OpcodeOpImm: begin
+        single_file_ariane_riscv_pkg::OpcodeOpImm: begin
           instruction_o.fu = ALU;
           imm_select = IIMM;
           instruction_o.rs1[4:0] = instr.itype.rs1;
@@ -5013,7 +5013,7 @@ module decoder (
           endcase
         end
 
-        riscv_pkg::OpcodeOpImm32: begin
+        single_file_ariane_riscv_pkg::OpcodeOpImm32: begin
           instruction_o.fu = ALU;
           imm_select = IIMM;
           instruction_o.rs1[4:0] = instr.itype.rs1;
@@ -5037,7 +5037,7 @@ module decoder (
           endcase
         end
 
-        riscv_pkg::OpcodeStore: begin
+        single_file_ariane_riscv_pkg::OpcodeStore: begin
           instruction_o.fu = STORE;
           imm_select = SIMM;
           instruction_o.rs1[4:0] = instr.stype.rs1;
@@ -5052,7 +5052,7 @@ module decoder (
           endcase
         end
 
-        riscv_pkg::OpcodeLoad: begin
+        single_file_ariane_riscv_pkg::OpcodeLoad: begin
           instruction_o.fu = LOAD;
           imm_select = IIMM;
           instruction_o.rs1[4:0] = instr.itype.rs1;
@@ -5070,8 +5070,8 @@ module decoder (
           endcase
         end
 
-        riscv_pkg::OpcodeStoreFp: begin
-          if (FP_PRESENT && fs_i != riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::OpcodeStoreFp: begin
+          if (FP_PRESENT && fs_i != single_file_ariane_riscv_pkg::Off) begin
             instruction_o.fu  = STORE;
             imm_select        = SIMM;
             instruction_o.rs1 = instr.stype.rs1;
@@ -5092,8 +5092,8 @@ module decoder (
           end else illegal_instr = 1'b1;
         end
 
-        riscv_pkg::OpcodeLoadFp: begin
-          if (FP_PRESENT && fs_i != riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::OpcodeLoadFp: begin
+          if (FP_PRESENT && fs_i != single_file_ariane_riscv_pkg::Off) begin
             instruction_o.fu  = LOAD;
             imm_select        = IIMM;
             instruction_o.rs1 = instr.itype.rs1;
@@ -5114,11 +5114,11 @@ module decoder (
           end else illegal_instr = 1'b1;
         end
 
-        riscv_pkg::OpcodeMadd,
-                riscv_pkg::OpcodeMsub,
-                riscv_pkg::OpcodeNmsub,
-                riscv_pkg::OpcodeNmadd: begin
-          if (FP_PRESENT && fs_i != riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::OpcodeMadd,
+                single_file_ariane_riscv_pkg::OpcodeMsub,
+                single_file_ariane_riscv_pkg::OpcodeNmsub,
+                single_file_ariane_riscv_pkg::OpcodeNmadd: begin
+          if (FP_PRESENT && fs_i != single_file_ariane_riscv_pkg::Off) begin
             instruction_o.fu  = FPU;
             instruction_o.rs1 = instr.r4type.rs1;
             instruction_o.rs2 = instr.r4type.rs2;
@@ -5128,9 +5128,9 @@ module decoder (
 
             unique case (instr.r4type.opcode)
               default:                instruction_o.op = FMADD;
-              riscv_pkg::OpcodeMsub:  instruction_o.op = FMSUB;
-              riscv_pkg::OpcodeNmsub: instruction_o.op = FNMSUB;
-              riscv_pkg::OpcodeNmadd: instruction_o.op = FNMADD;
+              single_file_ariane_riscv_pkg::OpcodeMsub:  instruction_o.op = FMSUB;
+              single_file_ariane_riscv_pkg::OpcodeNmsub: instruction_o.op = FNMSUB;
+              single_file_ariane_riscv_pkg::OpcodeNmadd: instruction_o.op = FNMADD;
             endcase
 
             unique case (instr.r4type.funct2)
@@ -5167,8 +5167,8 @@ module decoder (
           end
         end
 
-        riscv_pkg::OpcodeOpFp: begin
-          if (FP_PRESENT && fs_i != riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::OpcodeOpFp: begin
+          if (FP_PRESENT && fs_i != single_file_ariane_riscv_pkg::Off) begin
             instruction_o.fu  = FPU;
             instruction_o.rs1 = instr.rftype.rs1;
             instruction_o.rs2 = instr.rftype.rs2;
@@ -5308,7 +5308,7 @@ module decoder (
           end
         end
 
-        riscv_pkg::OpcodeAmo: begin
+        single_file_ariane_riscv_pkg::OpcodeAmo: begin
 
           instruction_o.fu = STORE;
           instruction_o.rs1[4:0] = instr.atype.rs1;
@@ -5357,7 +5357,7 @@ module decoder (
           end
         end
 
-        riscv_pkg::OpcodeBranch: begin
+        single_file_ariane_riscv_pkg::OpcodeBranch: begin
           imm_select              = SBIMM;
           instruction_o.fu        = CTRL_FLOW;
           instruction_o.rs1[4:0]  = instr.stype.rs1;
@@ -5379,7 +5379,7 @@ module decoder (
           endcase
         end
 
-        riscv_pkg::OpcodeJalr: begin
+        single_file_ariane_riscv_pkg::OpcodeJalr: begin
           instruction_o.fu        = CTRL_FLOW;
           instruction_o.op        = JALR;
           instruction_o.rs1[4:0]  = instr.itype.rs1;
@@ -5390,21 +5390,21 @@ module decoder (
           if (instr.itype.funct3 != 3'b0) illegal_instr = 1'b1;
         end
 
-        riscv_pkg::OpcodeJal: begin
+        single_file_ariane_riscv_pkg::OpcodeJal: begin
           instruction_o.fu        = CTRL_FLOW;
           imm_select              = JIMM;
           instruction_o.rd[4:0]   = instr.utype.rd;
           is_control_flow_instr_o = 1'b1;
         end
 
-        riscv_pkg::OpcodeAuipc: begin
+        single_file_ariane_riscv_pkg::OpcodeAuipc: begin
           instruction_o.fu      = ALU;
           imm_select            = UIMM;
           instruction_o.use_pc  = 1'b1;
           instruction_o.rd[4:0] = instr.utype.rd;
         end
 
-        riscv_pkg::OpcodeLui: begin
+        single_file_ariane_riscv_pkg::OpcodeLui: begin
           imm_select            = UIMM;
           instruction_o.fu      = ALU;
           instruction_o.rd[4:0] = instr.utype.rd;
@@ -5468,7 +5468,7 @@ module decoder (
         instruction_o.valid    = 1'b1;
         instruction_o.ex.valid = 1'b1;
 
-        instruction_o.ex.cause = riscv_pkg::ILLEGAL_INSTR;
+        instruction_o.ex.cause = single_file_ariane_riscv_pkg::ILLEGAL_INSTR;
 
       end else if (ecall) begin
 
@@ -5477,9 +5477,9 @@ module decoder (
         instruction_o.ex.valid = 1'b1;
 
         case (priv_lvl_i)
-          riscv_pkg::PRIV_LVL_M: instruction_o.ex.cause = riscv_pkg::ENV_CALL_MMODE;
-          riscv_pkg::PRIV_LVL_S: instruction_o.ex.cause = riscv_pkg::ENV_CALL_SMODE;
-          riscv_pkg::PRIV_LVL_U: instruction_o.ex.cause = riscv_pkg::ENV_CALL_UMODE;
+          single_file_ariane_riscv_pkg::PRIV_LVL_M: instruction_o.ex.cause = single_file_ariane_riscv_pkg::ENV_CALL_MMODE;
+          single_file_ariane_riscv_pkg::PRIV_LVL_S: instruction_o.ex.cause = single_file_ariane_riscv_pkg::ENV_CALL_SMODE;
+          single_file_ariane_riscv_pkg::PRIV_LVL_U: instruction_o.ex.cause = single_file_ariane_riscv_pkg::ENV_CALL_UMODE;
           default: ;
         endcase
       end else if (ebreak) begin
@@ -5488,15 +5488,15 @@ module decoder (
 
         instruction_o.ex.valid = 1'b1;
 
-        instruction_o.ex.cause = riscv_pkg::BREAKPOINT;
+        instruction_o.ex.cause = single_file_ariane_riscv_pkg::BREAKPOINT;
       end
     end
   end
 endmodule
 
 
-import ariane_pkg::*;
-module id_stage (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_id_stage (
     input logic clk_i,
     input logic rst_ni,
 
@@ -5511,8 +5511,8 @@ module id_stage (
     output logic              is_ctrl_flow_o,
     input  logic              issue_instr_ack_i,
 
-    input riscv_pkg::priv_lvl_t       priv_lvl_i,
-    input riscv_pkg::xs_t             fs_i,
+    input single_file_ariane_riscv_pkg::priv_lvl_t       priv_lvl_i,
+    input single_file_ariane_riscv_pkg::xs_t             fs_i,
     input logic                 [2:0] frm_i,
 
     input logic debug_mode_i,
@@ -5538,7 +5538,7 @@ module id_stage (
   logic                     fetch_ack_i;
   logic                     fetch_entry_valid;
 
-  instr_realigner instr_realigner_i (
+  single_file_ariane_instr_realigner instr_realigner_i (
       .fetch_entry_i      (fetch_entry_i),
       .fetch_entry_valid_i(fetch_entry_valid_i),
       .fetch_ack_o        (decoded_instr_ack_o),
@@ -5549,7 +5549,7 @@ module id_stage (
       .*
   );
 
-  compressed_decoder compressed_decoder_i (
+  single_file_ariane_compressed_decoder compressed_decoder_i (
       .instr_i        (fetch_entry.instruction),
       .instr_o        (instruction),
       .illegal_instr_o(is_illegal),
@@ -5557,7 +5557,7 @@ module id_stage (
 
   );
 
-  decoder decoder_i (
+  single_file_ariane_decoder decoder_i (
       .pc_i                   (fetch_entry.address),
       .is_compressed_i        (is_compressed),
       .compressed_instr_i     (fetch_entry.instruction[15:0]),
@@ -5601,8 +5601,8 @@ module id_stage (
 endmodule
 
 
-import ariane_pkg::*;
-module re_name (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_re_name (
     input logic clk_i,
     input logic rst_ni,
     input logic flush_i,
@@ -5677,8 +5677,8 @@ module re_name (
 endmodule
 
 
-import ariane_pkg::*;
-module scoreboard #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_scoreboard #(
     parameter int unsigned NR_ENTRIES = 8,
     parameter int unsigned NR_WB_PORTS = 1,
     parameter int unsigned NR_COMMIT_PORTS = 2
@@ -5921,7 +5921,7 @@ module scoreboard #(
 endmodule
 
 
-module ariane_regfile #(
+module single_file_ariane_ariane_regfile #(
     parameter int unsigned DATA_WIDTH     = 32,
     parameter int unsigned NR_READ_PORTS  = 2,
     parameter int unsigned NR_WRITE_PORTS = 2,
@@ -5980,8 +5980,8 @@ module ariane_regfile #(
 endmodule
 
 
-import ariane_pkg::*;
-module issue_read_operands #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_issue_read_operands #(
     parameter int unsigned NR_COMMIT_PORTS = 2
 ) (
     input logic clk_i,
@@ -6056,8 +6056,8 @@ module issue_read_operands #(
 
   logic forward_rs1, forward_rs2, forward_rs3;
 
-  riscv_pkg::instruction_t orig_instr;
-  assign orig_instr          = riscv_pkg::instruction_t'(issue_instr_i.ex.tval[31:0]);
+  single_file_ariane_riscv_pkg::instruction_t orig_instr;
+  assign orig_instr          = single_file_ariane_riscv_pkg::instruction_t'(issue_instr_i.ex.tval[31:0]);
 
   assign fu_data_o.operand_a = operand_a_q;
   assign fu_data_o.operand_b = operand_b_q;
@@ -6263,7 +6263,7 @@ module issue_read_operands #(
   assign wdata_pack = {wdata_i[1],  wdata_i[0]};
   assign we_pack    = {we_gpr_i[1], we_gpr_i[0]};
 
-  ariane_regfile #(
+  single_file_ariane_ariane_regfile #(
       .DATA_WIDTH    (64),
       .NR_READ_PORTS (2),
       .NR_WRITE_PORTS(NR_COMMIT_PORTS),
@@ -6290,7 +6290,7 @@ module issue_read_operands #(
       };
       assign fp_wdata_pack = {wdata_i[1][FLEN-1:0], wdata_i[0][FLEN-1:0]};
 
-      ariane_regfile #(
+      single_file_ariane_ariane_regfile #(
           .DATA_WIDTH    (FLEN),
           .NR_READ_PORTS (3),
           .NR_WRITE_PORTS(NR_COMMIT_PORTS),
@@ -6357,8 +6357,8 @@ endmodule
 
 
 
-import ariane_pkg::*;
-module issue_stage #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_issue_stage #(
     parameter int unsigned NR_ENTRIES = 8,
     parameter int unsigned NR_WB_PORTS = 4,
     parameter int unsigned NR_COMMIT_PORTS = 2
@@ -6436,7 +6436,7 @@ module issue_stage #(
   logic                                   issue_instr_valid_sb_iro;
   logic                                   issue_ack_iro_sb;
 
-  re_name i_re_name (
+  single_file_ariane_re_name i_re_name (
       .clk_i                 (clk_i),
       .rst_ni                (rst_ni),
       .flush_i               (flush_i),
@@ -6449,7 +6449,7 @@ module issue_stage #(
       .issue_ack_i           (issue_ack_sb_rename)
   );
 
-  scoreboard #(
+  single_file_ariane_scoreboard #(
       .NR_ENTRIES (NR_ENTRIES),
       .NR_WB_PORTS(NR_WB_PORTS)
   ) i_scoreboard (
@@ -6481,7 +6481,7 @@ module issue_stage #(
       .*
   );
 
-  issue_read_operands i_issue_read_operands (
+  single_file_ariane_issue_read_operands i_issue_read_operands (
       .flush_i            (flush_unissued_instr_i),
       .issue_instr_i      (issue_instr_sb_iro),
       .issue_instr_valid_i(issue_instr_valid_sb_iro),
@@ -6509,9 +6509,9 @@ module issue_stage #(
 endmodule
 
 
-import ariane_pkg::*;
+import single_file_ariane_ariane_pkg::*;
 
-module alu (
+module single_file_ariane_alu (
     input  logic            clk_i,
     input  logic            rst_ni,
     input  fu_data_t        fu_data_i,
@@ -6651,8 +6651,8 @@ module alu (
 endmodule
 
 
-import ariane_pkg::*;
-module branch_unit (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_branch_unit (
     input  fu_data_t        fu_data_i,
     input  logic     [63:0] pc_i,
     input  logic            is_compressed_instr_i,
@@ -6731,7 +6731,7 @@ module branch_unit (
   end
 
   always_comb begin : exception_handling
-    branch_exception_o.cause = riscv_pkg::INSTR_ADDR_MISALIGNED;
+    branch_exception_o.cause = single_file_ariane_riscv_pkg::INSTR_ADDR_MISALIGNED;
     branch_exception_o.valid = 1'b0;
     branch_exception_o.tval  = pc_i;
 
@@ -6740,8 +6740,8 @@ module branch_unit (
 endmodule
 
 
-import ariane_pkg::*;
-module csr_buffer (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_csr_buffer (
     input logic clk_i,
     input logic rst_ni,
     input logic flush_i,
@@ -6795,8 +6795,8 @@ module csr_buffer (
 endmodule
 
 
-import ariane_pkg::*;
-module multiplier (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_multiplier (
     input  logic                     clk_i,
     input  logic                     rst_ni,
     input  logic [TRANS_ID_BITS-1:0] trans_id_i,
@@ -6882,7 +6882,7 @@ module multiplier (
 endmodule
 
 
-module lzc #(
+module single_file_ariane_lzc #(
 
     parameter int unsigned WIDTH = 2,
     parameter int unsigned MODE  = 0
@@ -6943,11 +6943,11 @@ module lzc #(
   assign cnt_o   = NUM_LEVELS > 0 ? index_nodes[0] : '0;
   assign empty_o = NUM_LEVELS > 0 ? ~sel_nodes[0] : ~(|in_i);
 
-endmodule : lzc
+endmodule : single_file_ariane_lzc
 
 
-import ariane_pkg::*;
-module serdiv #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_serdiv #(
     parameter WIDTH = 64
 ) (
     input logic clk_i,
@@ -7012,7 +7012,7 @@ module serdiv #(
   assign lzc_a_input = (opcode_i[0] & op_a_sign) ? {~op_a_i, 1'b0} : op_a_i;
   assign lzc_b_input = (opcode_i[0] & op_b_sign) ? ~op_b_i : op_b_i;
 
-  lzc #(
+  single_file_ariane_lzc #(
       .MODE (1),
       .WIDTH(WIDTH)
   ) i_lzc_a (
@@ -7021,7 +7021,7 @@ module serdiv #(
       .empty_o(lzc_a_no_one)
   );
 
-  lzc #(
+  single_file_ariane_lzc #(
       .MODE (1),
       .WIDTH(WIDTH)
   ) i_lzc_b (
@@ -7159,8 +7159,8 @@ module serdiv #(
 endmodule
 
 
-import ariane_pkg::*;
-module mult (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_mult (
     input  logic                         clk_i,
     input  logic                         rst_ni,
     input  logic                         flush_i,
@@ -7190,7 +7190,7 @@ module mult (
   assign result_o = (mul_valid) ? mul_result : div_result;
   assign mult_valid_o = div_valid | mul_valid;
 
-  multiplier i_multiplier (
+  single_file_ariane_multiplier i_multiplier (
       .clk_i,
       .rst_ni,
       .trans_id_i     (fu_data_i.trans_id),
@@ -7244,7 +7244,7 @@ module mult (
     end
   end
 
-  serdiv #(
+  single_file_ariane_serdiv #(
       .WIDTH(64)
   ) i_div (
       .clk_i    (clk_i),
@@ -7276,19 +7276,19 @@ endmodule
 
 
 
-module fpnew_classifier #(
-    parameter fpnew_pkg::fp_format_e FpFormat    = fpnew_pkg::fp_format_e'(0),
+module single_file_ariane_fpnew_classifier #(
+    parameter single_file_ariane_fpnew_pkg::fp_format_e FpFormat    = single_file_ariane_fpnew_pkg::fp_format_e'(0),
     parameter int unsigned           NumOperands = 1,
 
-    localparam int unsigned WIDTH = fpnew_pkg::fp_width(FpFormat)
+    localparam int unsigned WIDTH = single_file_ariane_fpnew_pkg::fp_width(FpFormat)
 ) (
     input  logic                [NumOperands-1:0][WIDTH-1:0] operands_i,
     input  logic                [NumOperands-1:0]            is_boxed_i,
-    output fpnew_pkg::fp_info_t [NumOperands-1:0]            info_o
+    output single_file_ariane_fpnew_pkg::fp_info_t [NumOperands-1:0]            info_o
 );
 
-  localparam int unsigned EXP_BITS = fpnew_pkg::exp_bits(FpFormat);
-  localparam int unsigned MAN_BITS = fpnew_pkg::man_bits(FpFormat);
+  localparam int unsigned EXP_BITS = single_file_ariane_fpnew_pkg::exp_bits(FpFormat);
+  localparam int unsigned MAN_BITS = single_file_ariane_fpnew_pkg::man_bits(FpFormat);
 
   typedef struct packed {
     logic                sign;
@@ -7334,7 +7334,7 @@ endmodule
 
 
 
-module fpnew_rounding #(
+module single_file_ariane_fpnew_rounding #(
     parameter int unsigned AbsWidth = 2
 ) (
 
@@ -7342,7 +7342,7 @@ module fpnew_rounding #(
     input logic                sign_i,
 
     input logic                  [1:0] round_sticky_bits_i,
-    input fpnew_pkg::roundmode_e       rnd_mode_i,
+    input single_file_ariane_fpnew_pkg::roundmode_e       rnd_mode_i,
     input logic                        effective_subtraction_i,
 
     output logic [AbsWidth-1:0] abs_rounded_o,
@@ -7355,19 +7355,19 @@ module fpnew_rounding #(
 
   always_comb begin : rounding_decision
     unique case (rnd_mode_i)
-      fpnew_pkg::RNE:
+      single_file_ariane_fpnew_pkg::RNE:
       unique case (round_sticky_bits_i)
         2'b00, 2'b01: round_up = 1'b0;
         2'b10: round_up = abs_value_i[0];
         2'b11: round_up = 1'b1;
-        default: round_up = fpnew_pkg::DONT_CARE;
+        default: round_up = single_file_ariane_fpnew_pkg::DONT_CARE;
       endcase
-      fpnew_pkg::RTZ: round_up = 1'b0;
-      fpnew_pkg::RDN: round_up = (|round_sticky_bits_i) ? sign_i : 1'b0;
-      fpnew_pkg::RUP: round_up = (|round_sticky_bits_i) ? ~sign_i : 1'b0;
-      fpnew_pkg::RMM: round_up = round_sticky_bits_i[1];
-      fpnew_pkg::ROD: round_up = ~abs_value_i[0] & (|round_sticky_bits_i);
-      default: round_up = fpnew_pkg::DONT_CARE;
+      single_file_ariane_fpnew_pkg::RTZ: round_up = 1'b0;
+      single_file_ariane_fpnew_pkg::RDN: round_up = (|round_sticky_bits_i) ? sign_i : 1'b0;
+      single_file_ariane_fpnew_pkg::RUP: round_up = (|round_sticky_bits_i) ? ~sign_i : 1'b0;
+      single_file_ariane_fpnew_pkg::RMM: round_up = round_sticky_bits_i[1];
+      single_file_ariane_fpnew_pkg::ROD: round_up = ~abs_value_i[0] & (|round_sticky_bits_i);
+      default: round_up = single_file_ariane_fpnew_pkg::DONT_CARE;
     endcase
   end
 
@@ -7376,7 +7376,7 @@ module fpnew_rounding #(
   assign exact_zero_o = (abs_value_i == '0) && (round_sticky_bits_i == '0);
 
   assign sign_o = (exact_zero_o && effective_subtraction_i)
-                  ? (rnd_mode_i == fpnew_pkg::RDN)
+                  ? (rnd_mode_i == single_file_ariane_fpnew_pkg::RDN)
                   : sign_i;
 
 endmodule
@@ -7385,22 +7385,22 @@ endmodule
 
 
 
-module fpnew_fma #(
-  parameter fpnew_pkg::fp_format_e   FpFormat    = fpnew_pkg::fp_format_e'(0),
+module single_file_ariane_fpnew_fma #(
+  parameter single_file_ariane_fpnew_pkg::fp_format_e   FpFormat    = single_file_ariane_fpnew_pkg::fp_format_e'(0),
   parameter int unsigned             NumPipeRegs = 0,
-  parameter fpnew_pkg::pipe_config_t PipeConfig  = fpnew_pkg::BEFORE,
+  parameter single_file_ariane_fpnew_pkg::pipe_config_t PipeConfig  = single_file_ariane_fpnew_pkg::BEFORE,
   parameter type                     TagType     = logic,
   parameter type                     AuxType     = logic,
 
-  localparam int unsigned WIDTH = fpnew_pkg::fp_width(FpFormat)
+  localparam int unsigned WIDTH = single_file_ariane_fpnew_pkg::fp_width(FpFormat)
 ) (
   input logic                      clk_i,
   input logic                      rst_ni,
 
   input logic [2:0][WIDTH-1:0]     operands_i,
   input logic [2:0]                is_boxed_i,
-  input fpnew_pkg::roundmode_e     rnd_mode_i,
-  input fpnew_pkg::operation_e     op_i,
+  input single_file_ariane_fpnew_pkg::roundmode_e     rnd_mode_i,
+  input single_file_ariane_fpnew_pkg::operation_e     op_i,
   input logic                      op_mod_i,
   input TagType                    tag_i,
   input logic                      mask_i,
@@ -7411,7 +7411,7 @@ module fpnew_fma #(
   input  logic                     flush_i,
 
   output logic [WIDTH-1:0]         result_o,
-  output fpnew_pkg::status_t       status_o,
+  output single_file_ariane_fpnew_pkg::status_t       status_o,
   output logic                     extension_bit_o,
   output TagType                   tag_o,
   output logic                     mask_o,
@@ -7423,32 +7423,32 @@ module fpnew_fma #(
   output logic                     busy_o
 );
 
-  localparam int unsigned EXP_BITS = fpnew_pkg::exp_bits(FpFormat);
-  localparam int unsigned MAN_BITS = fpnew_pkg::man_bits(FpFormat);
-  localparam int unsigned BIAS     = fpnew_pkg::bias(FpFormat);
+  localparam int unsigned EXP_BITS = single_file_ariane_fpnew_pkg::exp_bits(FpFormat);
+  localparam int unsigned MAN_BITS = single_file_ariane_fpnew_pkg::man_bits(FpFormat);
+  localparam int unsigned BIAS     = single_file_ariane_fpnew_pkg::bias(FpFormat);
 
   localparam int unsigned PRECISION_BITS = MAN_BITS + 1;
 
   localparam int unsigned LOWER_SUM_WIDTH  = 2 * PRECISION_BITS + 3;
   localparam int unsigned LZC_RESULT_WIDTH = $clog2(LOWER_SUM_WIDTH);
 
-  localparam int unsigned EXP_WIDTH = unsigned'(fpnew_pkg::maximum(EXP_BITS + 2, LZC_RESULT_WIDTH));
+  localparam int unsigned EXP_WIDTH = unsigned'(single_file_ariane_fpnew_pkg::maximum(EXP_BITS + 2, LZC_RESULT_WIDTH));
 
   localparam int unsigned SHIFT_AMOUNT_WIDTH = $clog2(3 * PRECISION_BITS + 5);
 
-  localparam NUM_INP_REGS = PipeConfig == fpnew_pkg::BEFORE
+  localparam NUM_INP_REGS = PipeConfig == single_file_ariane_fpnew_pkg::BEFORE
                             ? NumPipeRegs
-                            : (PipeConfig == fpnew_pkg::DISTRIBUTED
+                            : (PipeConfig == single_file_ariane_fpnew_pkg::DISTRIBUTED
                                ? ((NumPipeRegs + 1) / 3)
                                : 0);
-  localparam NUM_MID_REGS = PipeConfig == fpnew_pkg::INSIDE
+  localparam NUM_MID_REGS = PipeConfig == single_file_ariane_fpnew_pkg::INSIDE
                           ? NumPipeRegs
-                          : (PipeConfig == fpnew_pkg::DISTRIBUTED
+                          : (PipeConfig == single_file_ariane_fpnew_pkg::DISTRIBUTED
                              ? ((NumPipeRegs + 2) / 3)
                              : 0);
-  localparam NUM_OUT_REGS = PipeConfig == fpnew_pkg::AFTER
+  localparam NUM_OUT_REGS = PipeConfig == single_file_ariane_fpnew_pkg::AFTER
                             ? NumPipeRegs
-                            : (PipeConfig == fpnew_pkg::DISTRIBUTED
+                            : (PipeConfig == single_file_ariane_fpnew_pkg::DISTRIBUTED
                                ? (NumPipeRegs / 3)
                                : 0);
 
@@ -7460,8 +7460,8 @@ module fpnew_fma #(
 
   logic                  [0:NUM_INP_REGS][2:0][WIDTH-1:0] inp_pipe_operands_q;
   logic                  [0:NUM_INP_REGS][2:0]            inp_pipe_is_boxed_q;
-  fpnew_pkg::roundmode_e [0:NUM_INP_REGS]                 inp_pipe_rnd_mode_q;
-  fpnew_pkg::operation_e [0:NUM_INP_REGS]                 inp_pipe_op_q;
+  single_file_ariane_fpnew_pkg::roundmode_e [0:NUM_INP_REGS]                 inp_pipe_rnd_mode_q;
+  single_file_ariane_fpnew_pkg::operation_e [0:NUM_INP_REGS]                 inp_pipe_op_q;
   logic                  [0:NUM_INP_REGS]                 inp_pipe_op_mod_q;
   TagType                [0:NUM_INP_REGS]                 inp_pipe_tag_q;
   logic                  [0:NUM_INP_REGS]                 inp_pipe_mask_q;
@@ -7494,17 +7494,17 @@ module fpnew_fma #(
 
     `FFL(inp_pipe_operands_q[i+1], inp_pipe_operands_q[i], reg_ena, '0)
     `FFL(inp_pipe_is_boxed_q[i+1], inp_pipe_is_boxed_q[i], reg_ena, '0)
-    `FFL(inp_pipe_rnd_mode_q[i+1], inp_pipe_rnd_mode_q[i], reg_ena, fpnew_pkg::RNE)
-    `FFL(inp_pipe_op_q[i+1],       inp_pipe_op_q[i],       reg_ena, fpnew_pkg::FMADD)
+    `FFL(inp_pipe_rnd_mode_q[i+1], inp_pipe_rnd_mode_q[i], reg_ena, single_file_ariane_fpnew_pkg::RNE)
+    `FFL(inp_pipe_op_q[i+1],       inp_pipe_op_q[i],       reg_ena, single_file_ariane_fpnew_pkg::FMADD)
     `FFL(inp_pipe_op_mod_q[i+1],   inp_pipe_op_mod_q[i],   reg_ena, '0)
     `FFL(inp_pipe_tag_q[i+1],      inp_pipe_tag_q[i],      reg_ena, TagType'('0))
     `FFL(inp_pipe_mask_q[i+1],     inp_pipe_mask_q[i],     reg_ena, '0)
     `FFL(inp_pipe_aux_q[i+1],      inp_pipe_aux_q[i],      reg_ena, AuxType'('0))
   end
 
-  fpnew_pkg::fp_info_t [2:0] info_q;
+  single_file_ariane_fpnew_pkg::fp_info_t [2:0] info_q;
 
-  fpnew_classifier #(
+  single_file_ariane_fpnew_classifier #(
     .FpFormat    ( FpFormat ),
     .NumOperands ( 3        )
     ) i_class_inputs (
@@ -7514,7 +7514,7 @@ module fpnew_fma #(
   );
 
   fp_t                 operand_a, operand_b, operand_c;
-  fpnew_pkg::fp_info_t info_a,    info_b,    info_c;
+  single_file_ariane_fpnew_pkg::fp_info_t info_a,    info_b,    info_c;
 
   always_comb begin : op_select
 
@@ -7528,26 +7528,26 @@ module fpnew_fma #(
     operand_c.sign = operand_c.sign ^ inp_pipe_op_mod_q[NUM_INP_REGS];
 
     unique case (inp_pipe_op_q[NUM_INP_REGS])
-      fpnew_pkg::FMADD:  ;
-      fpnew_pkg::FNMSUB: operand_a.sign = ~operand_a.sign;
-      fpnew_pkg::ADD: begin
+      single_file_ariane_fpnew_pkg::FMADD:  ;
+      single_file_ariane_fpnew_pkg::FNMSUB: operand_a.sign = ~operand_a.sign;
+      single_file_ariane_fpnew_pkg::ADD: begin
         operand_a = '{sign: 1'b0, exponent: BIAS, mantissa: '0};
         info_a    = '{is_normal: 1'b1, is_boxed: 1'b1, default: 1'b0};
       end
-      fpnew_pkg::MUL: begin
-        if (inp_pipe_rnd_mode_q[NUM_INP_REGS] == fpnew_pkg::RDN)
+      single_file_ariane_fpnew_pkg::MUL: begin
+        if (inp_pipe_rnd_mode_q[NUM_INP_REGS] == single_file_ariane_fpnew_pkg::RDN)
           operand_c = '{sign: 1'b0, exponent: '0, mantissa: '0};
         else
           operand_c = '{sign: 1'b1, exponent: '0, mantissa: '0};
         info_c    = '{is_zero: 1'b1, is_boxed: 1'b1, default: 1'b0};
       end
       default: begin
-        operand_a  = '{default: fpnew_pkg::DONT_CARE};
-        operand_b  = '{default: fpnew_pkg::DONT_CARE};
-        operand_c  = '{default: fpnew_pkg::DONT_CARE};
-        info_a     = '{default: fpnew_pkg::DONT_CARE};
-        info_b     = '{default: fpnew_pkg::DONT_CARE};
-        info_c     = '{default: fpnew_pkg::DONT_CARE};
+        operand_a  = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+        operand_b  = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+        operand_c  = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+        info_a     = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+        info_b     = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+        info_c     = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
       end
     endcase
   end
@@ -7567,7 +7567,7 @@ module fpnew_fma #(
   assign tentative_sign = operand_a.sign ^ operand_b.sign;
 
   fp_t                special_result;
-  fpnew_pkg::status_t special_status;
+  single_file_ariane_fpnew_pkg::status_t special_status;
   logic               result_is_special;
 
   always_comb begin : special_cases
@@ -7683,10 +7683,10 @@ module fpnew_fma #(
   logic                          sticky_before_add_q;
   logic [3*PRECISION_BITS+3:0]   sum_q;
   logic                          final_sign_q;
-  fpnew_pkg::roundmode_e         rnd_mode_q;
+  single_file_ariane_fpnew_pkg::roundmode_e         rnd_mode_q;
   logic                          result_is_special_q;
   fp_t                           special_result_q;
-  fpnew_pkg::status_t            special_status_q;
+  single_file_ariane_fpnew_pkg::status_t            special_status_q;
 
   logic                  [0:NUM_MID_REGS]                         mid_pipe_eff_sub_q;
   logic signed           [0:NUM_MID_REGS][EXP_WIDTH-1:0]          mid_pipe_exp_prod_q;
@@ -7696,10 +7696,10 @@ module fpnew_fma #(
   logic                  [0:NUM_MID_REGS]                         mid_pipe_sticky_q;
   logic                  [0:NUM_MID_REGS][3*PRECISION_BITS+3:0]   mid_pipe_sum_q;
   logic                  [0:NUM_MID_REGS]                         mid_pipe_final_sign_q;
-  fpnew_pkg::roundmode_e [0:NUM_MID_REGS]                         mid_pipe_rnd_mode_q;
+  single_file_ariane_fpnew_pkg::roundmode_e [0:NUM_MID_REGS]                         mid_pipe_rnd_mode_q;
   logic                  [0:NUM_MID_REGS]                         mid_pipe_res_is_spec_q;
   fp_t                   [0:NUM_MID_REGS]                         mid_pipe_spec_res_q;
-  fpnew_pkg::status_t    [0:NUM_MID_REGS]                         mid_pipe_spec_stat_q;
+  single_file_ariane_fpnew_pkg::status_t    [0:NUM_MID_REGS]                         mid_pipe_spec_stat_q;
   TagType                [0:NUM_MID_REGS]                         mid_pipe_tag_q;
   logic                  [0:NUM_MID_REGS]                         mid_pipe_mask_q;
   AuxType                [0:NUM_MID_REGS]                         mid_pipe_aux_q;
@@ -7744,7 +7744,7 @@ module fpnew_fma #(
     `FFL(mid_pipe_sticky_q[i+1],      mid_pipe_sticky_q[i],      reg_ena, '0)
     `FFL(mid_pipe_sum_q[i+1],         mid_pipe_sum_q[i],         reg_ena, '0)
     `FFL(mid_pipe_final_sign_q[i+1],  mid_pipe_final_sign_q[i],  reg_ena, '0)
-    `FFL(mid_pipe_rnd_mode_q[i+1],    mid_pipe_rnd_mode_q[i],    reg_ena, fpnew_pkg::RNE)
+    `FFL(mid_pipe_rnd_mode_q[i+1],    mid_pipe_rnd_mode_q[i],    reg_ena, single_file_ariane_fpnew_pkg::RNE)
     `FFL(mid_pipe_res_is_spec_q[i+1], mid_pipe_res_is_spec_q[i], reg_ena, '0)
     `FFL(mid_pipe_spec_res_q[i+1],    mid_pipe_spec_res_q[i],    reg_ena, '0)
     `FFL(mid_pipe_spec_stat_q[i+1],   mid_pipe_spec_stat_q[i],   reg_ena, '0)
@@ -7783,7 +7783,7 @@ module fpnew_fma #(
 
   assign sum_lower = sum_q[LOWER_SUM_WIDTH-1:0];
 
-  lzc #(
+  single_file_ariane_lzc #(
     .WIDTH ( LOWER_SUM_WIDTH ),
     .MODE  ( 1               )
   ) i_lzc (
@@ -7862,7 +7862,7 @@ module fpnew_fma #(
 
   assign round_sticky_bits  = (of_before_round) ? 2'b11 : {final_mantissa[0], sticky_after_norm};
 
-  fpnew_rounding #(
+  single_file_ariane_fpnew_rounding #(
     .AbsWidth ( EXP_BITS + MAN_BITS )
   ) i_fpnew_rounding (
     .abs_value_i             ( pre_round_abs           ),
@@ -7879,7 +7879,7 @@ module fpnew_fma #(
   assign of_after_round = rounded_abs[EXP_BITS+MAN_BITS-1:MAN_BITS] == '1;
 
   logic [WIDTH-1:0]     regular_result;
-  fpnew_pkg::status_t   regular_status;
+  single_file_ariane_fpnew_pkg::status_t   regular_status;
 
   assign regular_result    = {rounded_sign, rounded_abs};
   assign regular_status.NV = 1'b0;
@@ -7889,13 +7889,13 @@ module fpnew_fma #(
   assign regular_status.NX = (| round_sticky_bits) | of_before_round | of_after_round;
 
   fp_t                result_d;
-  fpnew_pkg::status_t status_d;
+  single_file_ariane_fpnew_pkg::status_t status_d;
 
   assign result_d = result_is_special_q ? special_result_q : regular_result;
   assign status_d = result_is_special_q ? special_status_q : regular_status;
 
   fp_t                [0:NUM_OUT_REGS] out_pipe_result_q;
-  fpnew_pkg::status_t [0:NUM_OUT_REGS] out_pipe_status_q;
+  single_file_ariane_fpnew_pkg::status_t [0:NUM_OUT_REGS] out_pipe_status_q;
   TagType             [0:NUM_OUT_REGS] out_pipe_tag_q;
   logic               [0:NUM_OUT_REGS] out_pipe_mask_q;
   AuxType             [0:NUM_OUT_REGS] out_pipe_aux_q;
@@ -7944,19 +7944,19 @@ endmodule
 
 
 
-module fpnew_opgroup_fmt_slice #(
-    parameter fpnew_pkg::opgroup_e   OpGroup  = fpnew_pkg::ADDMUL,
-    parameter fpnew_pkg::fp_format_e FpFormat = fpnew_pkg::fp_format_e'(0),
+module single_file_ariane_fpnew_opgroup_fmt_slice #(
+    parameter single_file_ariane_fpnew_pkg::opgroup_e   OpGroup  = single_file_ariane_fpnew_pkg::ADDMUL,
+    parameter single_file_ariane_fpnew_pkg::fp_format_e FpFormat = single_file_ariane_fpnew_pkg::fp_format_e'(0),
 
     parameter int unsigned             Width         = 32,
     parameter logic                    EnableVectors = 1'b1,
     parameter int unsigned             NumPipeRegs   = 0,
-    parameter fpnew_pkg::pipe_config_t PipeConfig    = fpnew_pkg::BEFORE,
+    parameter single_file_ariane_fpnew_pkg::pipe_config_t PipeConfig    = single_file_ariane_fpnew_pkg::BEFORE,
     parameter type                     TagType       = logic,
     parameter int unsigned             TrueSIMDClass = 0,
 
-    localparam int unsigned NUM_OPERANDS = fpnew_pkg::num_operands(OpGroup),
-    localparam int unsigned NUM_LANES = fpnew_pkg::num_lanes(Width, FpFormat, EnableVectors),
+    localparam int unsigned NUM_OPERANDS = single_file_ariane_fpnew_pkg::num_operands(OpGroup),
+    localparam int unsigned NUM_LANES = single_file_ariane_fpnew_pkg::num_lanes(Width, FpFormat, EnableVectors),
     localparam type MaskType = logic [NUM_LANES-1:0]
 ) (
     input logic clk_i,
@@ -7964,8 +7964,8 @@ module fpnew_opgroup_fmt_slice #(
 
     input logic                  [NUM_OPERANDS-1:0][Width-1:0] operands_i,
     input logic                  [NUM_OPERANDS-1:0]            is_boxed_i,
-    input fpnew_pkg::roundmode_e                               rnd_mode_i,
-    input fpnew_pkg::operation_e                               op_i,
+    input single_file_ariane_fpnew_pkg::roundmode_e                               rnd_mode_i,
+    input single_file_ariane_fpnew_pkg::operation_e                               op_i,
     input logic                                                op_mod_i,
     input logic                                                vectorial_op_i,
     input TagType                                              tag_i,
@@ -7976,7 +7976,7 @@ module fpnew_opgroup_fmt_slice #(
     input  logic flush_i,
 
     output logic               [Width-1:0] result_o,
-    output fpnew_pkg::status_t             status_o,
+    output single_file_ariane_fpnew_pkg::status_t             status_o,
     output logic                           extension_bit_o,
     output TagType                         tag_o,
 
@@ -7986,7 +7986,7 @@ module fpnew_opgroup_fmt_slice #(
     output logic busy_o
 );
 
-  localparam int unsigned FP_WIDTH = fpnew_pkg::fp_width(FpFormat);
+  localparam int unsigned FP_WIDTH = single_file_ariane_fpnew_pkg::fp_width(FpFormat);
   localparam int unsigned SIMD_WIDTH = unsigned'(Width / NUM_LANES);
   logic [NUM_LANES-1:0] lane_in_ready, lane_out_valid;
   logic                          vectorial_op;
@@ -7994,9 +7994,9 @@ module fpnew_opgroup_fmt_slice #(
   logic [NUM_LANES*FP_WIDTH-1:0] slice_result;
   logic [Width-1:0] slice_regular_result, slice_class_result, slice_vec_class_result;
 
-  fpnew_pkg::status_t    [NUM_LANES-1:0] lane_status;
+  single_file_ariane_fpnew_pkg::status_t    [NUM_LANES-1:0] lane_status;
   logic                  [NUM_LANES-1:0] lane_ext_bit;
-  fpnew_pkg::classmask_e [NUM_LANES-1:0] lane_class_mask;
+  single_file_ariane_fpnew_pkg::classmask_e [NUM_LANES-1:0] lane_class_mask;
   TagType                [NUM_LANES-1:0] lane_tags;
   logic                  [NUM_LANES-1:0] lane_masks;
   logic [NUM_LANES-1:0] lane_vectorial, lane_busy, lane_is_class;
@@ -8015,7 +8015,7 @@ module fpnew_opgroup_fmt_slice #(
 
       logic               [NUM_OPERANDS-1:0][FP_WIDTH-1:0] local_operands;
       logic               [    FP_WIDTH-1:0]               op_result;
-      fpnew_pkg::status_t                                  op_status;
+      single_file_ariane_fpnew_pkg::status_t                                  op_status;
 
       assign in_valid = in_valid_i & ((lane == 0) | vectorial_op);
 
@@ -8025,8 +8025,8 @@ module fpnew_opgroup_fmt_slice #(
         end
       end
 
-      if (OpGroup == fpnew_pkg::ADDMUL) begin : lane_instance
-        fpnew_fma #(
+      if (OpGroup == single_file_ariane_fpnew_pkg::ADDMUL) begin : lane_instance
+        single_file_ariane_fpnew_fma #(
             .FpFormat   (FpFormat),
             .NumPipeRegs(NumPipeRegs),
             .PipeConfig (PipeConfig),
@@ -8057,12 +8057,12 @@ module fpnew_opgroup_fmt_slice #(
             .busy_o         (lane_busy[lane])
         );
         assign lane_is_class[lane]   = 1'b0;
-        assign lane_class_mask[lane] = fpnew_pkg::NEGINF;
+        assign lane_class_mask[lane] = single_file_ariane_fpnew_pkg::NEGINF;
       end else
-      if (OpGroup == fpnew_pkg::DIVSQRT) begin : lane_instance
+      if (OpGroup == single_file_ariane_fpnew_pkg::DIVSQRT) begin : lane_instance
 
-      end else if (OpGroup == fpnew_pkg::NONCOMP) begin : lane_instance
-        fpnew_noncomp #(
+      end else if (OpGroup == single_file_ariane_fpnew_pkg::NONCOMP) begin : lane_instance
+        single_file_ariane_fpnew_noncomp #(
             .FpFormat   (FpFormat),
             .NumPipeRegs(NumPipeRegs),
             .PipeConfig (PipeConfig),
@@ -8117,21 +8117,21 @@ module fpnew_opgroup_fmt_slice #(
       assign slice_vec_class_result[lane*SIMD_WIDTH+:10] = lane_class_mask[lane];
       assign slice_vec_class_result[(lane+1)*SIMD_WIDTH-1-:SIMD_WIDTH-10] = '0;
     end else if ((lane + 1) * 8 <= Width) begin : vectorial_class
-      assign local_sign = (lane_class_mask[lane] == fpnew_pkg::NEGINF ||
-                           lane_class_mask[lane] == fpnew_pkg::NEGNORM ||
-                           lane_class_mask[lane] == fpnew_pkg::NEGSUBNORM ||
-                           lane_class_mask[lane] == fpnew_pkg::NEGZERO);
+      assign local_sign = (lane_class_mask[lane] == single_file_ariane_fpnew_pkg::NEGINF ||
+                           lane_class_mask[lane] == single_file_ariane_fpnew_pkg::NEGNORM ||
+                           lane_class_mask[lane] == single_file_ariane_fpnew_pkg::NEGSUBNORM ||
+                           lane_class_mask[lane] == single_file_ariane_fpnew_pkg::NEGZERO);
 
       assign slice_vec_class_result[(lane+1)*8-1:lane*8] = {
         local_sign,
         ~local_sign,
-        lane_class_mask[lane] == fpnew_pkg::QNAN,
-        lane_class_mask[lane] == fpnew_pkg::SNAN,
-        lane_class_mask[lane] == fpnew_pkg::POSZERO || lane_class_mask[lane] == fpnew_pkg::NEGZERO,
-        lane_class_mask[lane] == fpnew_pkg::POSSUBNORM
-            || lane_class_mask[lane] == fpnew_pkg::NEGSUBNORM,
-        lane_class_mask[lane] == fpnew_pkg::POSNORM || lane_class_mask[lane] == fpnew_pkg::NEGNORM,
-        lane_class_mask[lane] == fpnew_pkg::POSINF || lane_class_mask[lane] == fpnew_pkg::NEGINF
+        lane_class_mask[lane] == single_file_ariane_fpnew_pkg::QNAN,
+        lane_class_mask[lane] == single_file_ariane_fpnew_pkg::SNAN,
+        lane_class_mask[lane] == single_file_ariane_fpnew_pkg::POSZERO || lane_class_mask[lane] == single_file_ariane_fpnew_pkg::NEGZERO,
+        lane_class_mask[lane] == single_file_ariane_fpnew_pkg::POSSUBNORM
+            || lane_class_mask[lane] == single_file_ariane_fpnew_pkg::NEGSUBNORM,
+        lane_class_mask[lane] == single_file_ariane_fpnew_pkg::POSNORM || lane_class_mask[lane] == single_file_ariane_fpnew_pkg::NEGNORM,
+        lane_class_mask[lane] == single_file_ariane_fpnew_pkg::POSINF || lane_class_mask[lane] == single_file_ariane_fpnew_pkg::NEGINF
       };
     end
   end
@@ -8160,7 +8160,7 @@ module fpnew_opgroup_fmt_slice #(
 
   always_comb begin : output_processing
 
-    automatic fpnew_pkg::status_t temp_status;
+    automatic single_file_ariane_fpnew_pkg::status_t temp_status;
     temp_status = '0;
     for (int i = 0; i < int'(NUM_LANES); i++) temp_status |= lane_status[i] & {5{lane_masks[i]}};
     status_o = temp_status;
@@ -8168,7 +8168,7 @@ module fpnew_opgroup_fmt_slice #(
 endmodule
 
 
-module rr_arb_tree #(
+module single_file_ariane_rr_arb_tree #(
     parameter int unsigned NumIn = 64,
     parameter int unsigned DataWidth = 32,
     parameter type DataType = logic [DataWidth-1:0],
@@ -8262,7 +8262,7 @@ module rr_arb_tree #(
           assign lower_mask[i] = (i <= rr_q) ? req_d[i] : 1'b0;
         end
 
-        lzc #(
+        single_file_ariane_lzc #(
             .WIDTH(NumIn),
             .MODE (1'b0)
         ) i_lzc_upper (
@@ -8271,7 +8271,7 @@ module rr_arb_tree #(
             .empty_o(upper_empty)
         );
 
-        lzc #(
+        single_file_ariane_lzc #(
             .WIDTH(NumIn),
             .MODE (1'b0)
         ) i_lzc_lower (
@@ -8355,27 +8355,27 @@ module rr_arb_tree #(
 
   end
 
-endmodule : rr_arb_tree
+endmodule : single_file_ariane_rr_arb_tree
 
 
 
 
-module fpnew_opgroup_block #(
-    parameter fpnew_pkg::opgroup_e OpGroup = fpnew_pkg::ADDMUL,
+module single_file_ariane_fpnew_opgroup_block #(
+    parameter single_file_ariane_fpnew_pkg::opgroup_e OpGroup = single_file_ariane_fpnew_pkg::ADDMUL,
 
     parameter int unsigned                Width         = 32,
     parameter logic                       EnableVectors = 1'b1,
-    parameter fpnew_pkg::fmt_logic_t      FpFmtMask     = '1,
-    parameter fpnew_pkg::ifmt_logic_t     IntFmtMask    = '1,
-    parameter fpnew_pkg::fmt_unsigned_t   FmtPipeRegs   = '{default: 0},
-    parameter fpnew_pkg::fmt_unit_types_t FmtUnitTypes  = '{default: fpnew_pkg::PARALLEL},
-    parameter fpnew_pkg::pipe_config_t    PipeConfig    = fpnew_pkg::BEFORE,
+    parameter single_file_ariane_fpnew_pkg::fmt_logic_t      FpFmtMask     = '1,
+    parameter single_file_ariane_fpnew_pkg::ifmt_logic_t     IntFmtMask    = '1,
+    parameter single_file_ariane_fpnew_pkg::fmt_unsigned_t   FmtPipeRegs   = '{default: 0},
+    parameter single_file_ariane_fpnew_pkg::fmt_unit_types_t FmtUnitTypes  = '{default: single_file_ariane_fpnew_pkg::PARALLEL},
+    parameter single_file_ariane_fpnew_pkg::pipe_config_t    PipeConfig    = single_file_ariane_fpnew_pkg::BEFORE,
     parameter type                        TagType       = logic,
     parameter int unsigned                TrueSIMDClass = 0,
 
-    localparam int unsigned NUM_FORMATS = fpnew_pkg::NUM_FP_FORMATS,
-    localparam int unsigned NUM_OPERANDS = fpnew_pkg::num_operands(OpGroup),
-    localparam int unsigned NUM_LANES = fpnew_pkg::max_num_lanes(Width, FpFmtMask, EnableVectors),
+    localparam int unsigned NUM_FORMATS = single_file_ariane_fpnew_pkg::NUM_FP_FORMATS,
+    localparam int unsigned NUM_OPERANDS = single_file_ariane_fpnew_pkg::num_operands(OpGroup),
+    localparam int unsigned NUM_LANES = single_file_ariane_fpnew_pkg::max_num_lanes(Width, FpFmtMask, EnableVectors),
     localparam type MaskType = logic [NUM_LANES-1:0]
 ) (
     input logic clk_i,
@@ -8383,12 +8383,12 @@ module fpnew_opgroup_block #(
 
     input logic                   [NUM_OPERANDS-1:0][       Width-1:0] operands_i,
     input logic                   [ NUM_FORMATS-1:0][NUM_OPERANDS-1:0] is_boxed_i,
-    input fpnew_pkg::roundmode_e                                       rnd_mode_i,
-    input fpnew_pkg::operation_e                                       op_i,
+    input single_file_ariane_fpnew_pkg::roundmode_e                                       rnd_mode_i,
+    input single_file_ariane_fpnew_pkg::operation_e                                       op_i,
     input logic                                                        op_mod_i,
-    input fpnew_pkg::fp_format_e                                       src_fmt_i,
-    input fpnew_pkg::fp_format_e                                       dst_fmt_i,
-    input fpnew_pkg::int_format_e                                      int_fmt_i,
+    input single_file_ariane_fpnew_pkg::fp_format_e                                       src_fmt_i,
+    input single_file_ariane_fpnew_pkg::fp_format_e                                       dst_fmt_i,
+    input single_file_ariane_fpnew_pkg::int_format_e                                      int_fmt_i,
     input logic                                                        vectorial_op_i,
     input TagType                                                      tag_i,
     input MaskType                                                     simd_mask_i,
@@ -8398,7 +8398,7 @@ module fpnew_opgroup_block #(
     input  logic flush_i,
 
     output logic               [Width-1:0] result_o,
-    output fpnew_pkg::status_t             status_o,
+    output single_file_ariane_fpnew_pkg::status_t             status_o,
     output logic                           extension_bit_o,
     output TagType                         tag_o,
 
@@ -8410,7 +8410,7 @@ module fpnew_opgroup_block #(
 
   typedef struct packed {
     logic [Width-1:0]   result;
-    fpnew_pkg::status_t status;
+    single_file_ariane_fpnew_pkg::status_t status;
     logic               ext_bit;
     TagType             tag;
   } output_t;
@@ -8422,28 +8422,28 @@ module fpnew_opgroup_block #(
 
   for (genvar fmt = 0; fmt < int'(NUM_FORMATS); fmt++) begin : gen_parallel_slices
 
-    localparam logic ANY_MERGED = fpnew_pkg::any_enabled_multi(FmtUnitTypes, FpFmtMask);
-    localparam logic IS_FIRST_MERGED = fpnew_pkg::is_first_enabled_multi(
-        fpnew_pkg::fp_format_e'(fmt), FmtUnitTypes, FpFmtMask
+    localparam logic ANY_MERGED = single_file_ariane_fpnew_pkg::any_enabled_multi(FmtUnitTypes, FpFmtMask);
+    localparam logic IS_FIRST_MERGED = single_file_ariane_fpnew_pkg::is_first_enabled_multi(
+        single_file_ariane_fpnew_pkg::fp_format_e'(fmt), FmtUnitTypes, FpFmtMask
     );
 
-    if (FpFmtMask[fmt] && (FmtUnitTypes[fmt] == fpnew_pkg::PARALLEL)) begin : active_format
+    if (FpFmtMask[fmt] && (FmtUnitTypes[fmt] == single_file_ariane_fpnew_pkg::PARALLEL)) begin : active_format
 
       logic in_valid;
 
       assign in_valid = in_valid_i & (dst_fmt_i == fmt);
 
-      localparam int unsigned INTERNAL_LANES = fpnew_pkg::num_lanes(
-          Width, fpnew_pkg::fp_format_e'(fmt), EnableVectors
+      localparam int unsigned INTERNAL_LANES = single_file_ariane_fpnew_pkg::num_lanes(
+          Width, single_file_ariane_fpnew_pkg::fp_format_e'(fmt), EnableVectors
       );
       logic [INTERNAL_LANES-1:0] mask_slice;
       always_comb
         for (int b = 0; b < INTERNAL_LANES; b++)
           mask_slice[b] = simd_mask_i[(NUM_LANES/INTERNAL_LANES)*b];
 
-      fpnew_opgroup_fmt_slice #(
+      single_file_ariane_fpnew_opgroup_fmt_slice #(
           .OpGroup      (OpGroup),
-          .FpFormat     (fpnew_pkg::fp_format_e'(fmt)),
+          .FpFormat     (single_file_ariane_fpnew_pkg::fp_format_e'(fmt)),
           .Width        (Width),
           .EnableVectors(EnableVectors),
           .NumPipeRegs  (FmtPipeRegs[fmt]),
@@ -8475,40 +8475,40 @@ module fpnew_opgroup_block #(
 
     end else if (FpFmtMask[fmt] && ANY_MERGED && !IS_FIRST_MERGED) begin : merged_unused
 
-      localparam FMT = fpnew_pkg::get_first_enabled_multi(FmtUnitTypes, FpFmtMask);
+      localparam FMT = single_file_ariane_fpnew_pkg::get_first_enabled_multi(FmtUnitTypes, FpFmtMask);
 
       assign fmt_in_ready[fmt]        = fmt_in_ready[int'(FMT)];
 
       assign fmt_out_valid[fmt]       = 1'b0;
       assign fmt_busy[fmt]            = 1'b0;
 
-      assign fmt_outputs[fmt].result  = '{default: fpnew_pkg::DONT_CARE};
-      assign fmt_outputs[fmt].status  = '{default: fpnew_pkg::DONT_CARE};
-      assign fmt_outputs[fmt].ext_bit = fpnew_pkg::DONT_CARE;
-      assign fmt_outputs[fmt].tag     = TagType'(fpnew_pkg::DONT_CARE);
+      assign fmt_outputs[fmt].result  = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+      assign fmt_outputs[fmt].status  = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+      assign fmt_outputs[fmt].ext_bit = single_file_ariane_fpnew_pkg::DONT_CARE;
+      assign fmt_outputs[fmt].tag     = TagType'(single_file_ariane_fpnew_pkg::DONT_CARE);
 
-    end else if (!FpFmtMask[fmt] || (FmtUnitTypes[fmt] == fpnew_pkg::DISABLED)) begin : disable_fmt
+    end else if (!FpFmtMask[fmt] || (FmtUnitTypes[fmt] == single_file_ariane_fpnew_pkg::DISABLED)) begin : disable_fmt
       assign fmt_in_ready[fmt]        = 1'b0;
       assign fmt_out_valid[fmt]       = 1'b0;
       assign fmt_busy[fmt]            = 1'b0;
 
-      assign fmt_outputs[fmt].result  = '{default: fpnew_pkg::DONT_CARE};
-      assign fmt_outputs[fmt].status  = '{default: fpnew_pkg::DONT_CARE};
-      assign fmt_outputs[fmt].ext_bit = fpnew_pkg::DONT_CARE;
-      assign fmt_outputs[fmt].tag     = TagType'(fpnew_pkg::DONT_CARE);
+      assign fmt_outputs[fmt].result  = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+      assign fmt_outputs[fmt].status  = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+      assign fmt_outputs[fmt].ext_bit = single_file_ariane_fpnew_pkg::DONT_CARE;
+      assign fmt_outputs[fmt].tag     = TagType'(single_file_ariane_fpnew_pkg::DONT_CARE);
     end
   end
 
-  if (fpnew_pkg::any_enabled_multi(FmtUnitTypes, FpFmtMask)) begin : gen_merged_slice
+  if (single_file_ariane_fpnew_pkg::any_enabled_multi(FmtUnitTypes, FpFmtMask)) begin : gen_merged_slice
 
-    localparam FMT = fpnew_pkg::get_first_enabled_multi(FmtUnitTypes, FpFmtMask);
-    localparam REG = fpnew_pkg::get_num_regs_multi(FmtPipeRegs, FmtUnitTypes, FpFmtMask);
+    localparam FMT = single_file_ariane_fpnew_pkg::get_first_enabled_multi(FmtUnitTypes, FpFmtMask);
+    localparam REG = single_file_ariane_fpnew_pkg::get_num_regs_multi(FmtPipeRegs, FmtUnitTypes, FpFmtMask);
 
     logic in_valid;
 
-    assign in_valid = in_valid_i & (FmtUnitTypes[dst_fmt_i] == fpnew_pkg::MERGED);
+    assign in_valid = in_valid_i & (FmtUnitTypes[dst_fmt_i] == single_file_ariane_fpnew_pkg::MERGED);
 
-    fpnew_opgroup_multifmt_slice #(
+    single_file_ariane_fpnew_opgroup_multifmt_slice #(
         .OpGroup      (OpGroup),
         .Width        (Width),
         .FpFmtConfig  (FpFmtMask),
@@ -8547,7 +8547,7 @@ module fpnew_opgroup_block #(
 
   output_t arbiter_output;
 
-  rr_arb_tree #(
+  single_file_ariane_rr_arb_tree #(
       .NumIn    (NUM_FORMATS),
       .DataType (output_t),
       .AxiVldRdy(1'b1)
@@ -8577,9 +8577,9 @@ endmodule
 
 
 
-import defs_div_sqrt_mvp::*;
+import single_file_ariane_defs_div_sqrt_mvp::*;
 
-module preprocess_mvp (
+module single_file_ariane_preprocess_mvp (
     input logic Clk_CI,
     input logic Rst_RBI,
     input logic Div_start_SI,
@@ -8804,7 +8804,7 @@ module preprocess_mvp (
   logic [5:0] Mant_leadingOne_a, Mant_leadingOne_b;
   logic Mant_zero_S_a, Mant_zero_S_b;
 
-  lzc #(
+  single_file_ariane_lzc #(
       .WIDTH(C_MANT_FP64 + 1),
       .MODE (1)
   ) LOD_Ua (
@@ -8836,7 +8836,7 @@ module preprocess_mvp (
     end
   end
 
-  lzc #(
+  single_file_ariane_lzc #(
       .WIDTH(C_MANT_FP64 + 1),
       .MODE (1)
   ) LOD_Ub (
@@ -8886,7 +8886,7 @@ endmodule
 
 
 
-module iteration_div_sqrt_mvp #(
+module single_file_ariane_iteration_div_sqrt_mvp #(
     parameter WIDTH = 25
 ) (
 
@@ -8918,9 +8918,9 @@ endmodule
 
 
 
-import defs_div_sqrt_mvp::*;
+import single_file_ariane_defs_div_sqrt_mvp::*;
 
-module control_mvp (
+module single_file_ariane_control_mvp (
     input  logic                 Clk_CI,
     input  logic                 Rst_RBI,
     input  logic                 Div_start_SI,
@@ -10889,7 +10889,7 @@ module control_mvp (
       assign Div_enable_SI[i] = Div_enable_SO;
       assign Div_start_dly_SI[i] = Div_start_dly_S;
       assign Sqrt_enable_SI[i] = Sqrt_enable_SO;
-      iteration_div_sqrt_mvp #(C_MANT_FP64 + 6) iteration_div_sqrt (
+      single_file_ariane_iteration_div_sqrt_mvp #(C_MANT_FP64 + 6) iteration_div_sqrt (
           .A_DI            (Iteration_cell_a_D[i]),
           .B_DI            (Iteration_cell_b_D[i]),
           .Div_enable_SI   (Div_enable_SI[i]),
@@ -11831,9 +11831,9 @@ endmodule
 
 
 
-import defs_div_sqrt_mvp::*;
+import single_file_ariane_defs_div_sqrt_mvp::*;
 
-module nrbd_nrsc_mvp (
+module single_file_ariane_nrbd_nrsc_mvp (
     input logic                 Clk_CI,
     input logic                 Rst_RBI,
     input logic                 Div_start_SI,
@@ -11863,7 +11863,7 @@ module nrbd_nrsc_mvp (
     output logic [ C_EXP_FP64+1:0] Exp_z_DO
 );
   logic Div_start_dly_S, Sqrt_start_dly_S;
-  control_mvp control_U0 (
+  single_file_ariane_control_mvp control_U0 (
       .Clk_CI                (Clk_CI),
       .Rst_RBI               (Rst_RBI),
       .Div_start_SI          (Div_start_SI),
@@ -11896,9 +11896,9 @@ endmodule
 
 
 
-import defs_div_sqrt_mvp::*;
+import single_file_ariane_defs_div_sqrt_mvp::*;
 
-module norm_div_sqrt_mvp (
+module single_file_ariane_norm_div_sqrt_mvp (
     input logic        [C_MANT_FP64+4:0] Mant_in_DI,
     input logic signed [ C_EXP_FP64+1:0] Exp_in_DI,
     input logic                          Sign_in_DI,
@@ -12265,9 +12265,9 @@ endmodule
 
 
 
-import defs_div_sqrt_mvp::*;
+import single_file_ariane_defs_div_sqrt_mvp::*;
 
-module div_sqrt_top_mvp (
+module single_file_ariane_div_sqrt_top_mvp (
     input logic Clk_CI,
     input logic Rst_RBI,
     input logic Div_start_SI,
@@ -12314,7 +12314,7 @@ module div_sqrt_top_mvp (
   logic FP64_S;
   logic FP16_S;
   logic FP16ALT_S;
-  preprocess_mvp preprocess_U0 (
+  single_file_ariane_preprocess_mvp preprocess_U0 (
       .Clk_CI              (Clk_CI),
       .Rst_RBI             (Rst_RBI),
       .Div_start_SI        (Div_start_SI),
@@ -12342,7 +12342,7 @@ module div_sqrt_top_mvp (
       .Special_case_dly_SBO(Special_case_dly_SB)
   );
 
-  nrbd_nrsc_mvp nrbd_nrsc_U0 (
+  single_file_ariane_nrbd_nrsc_mvp nrbd_nrsc_U0 (
       .Clk_CI              (Clk_CI),
       .Rst_RBI             (Rst_RBI),
       .Div_start_SI        (Div_start_SI),
@@ -12369,7 +12369,7 @@ module div_sqrt_top_mvp (
       .Exp_z_DO            (Exp_z_D),
       .Mant_z_DO           (Mant_z_D)
   );
-  norm_div_sqrt_mvp fpu_norm_U0 (
+  single_file_ariane_norm_div_sqrt_mvp fpu_norm_U0 (
       .Mant_in_DI       (Mant_z_D),
       .Exp_in_DI        (Exp_z_D),
       .Sign_in_DI       (Sign_z_D),
@@ -12398,25 +12398,25 @@ endmodule
 
 
 
-module fpnew_divsqrt_multi #(
-    parameter fpnew_pkg::fmt_logic_t FpFmtConfig = '1,
+module single_file_ariane_fpnew_divsqrt_multi #(
+    parameter single_file_ariane_fpnew_pkg::fmt_logic_t FpFmtConfig = '1,
 
     parameter int unsigned             NumPipeRegs = 0,
-    parameter fpnew_pkg::pipe_config_t PipeConfig  = fpnew_pkg::AFTER,
+    parameter single_file_ariane_fpnew_pkg::pipe_config_t PipeConfig  = single_file_ariane_fpnew_pkg::AFTER,
     parameter type                     TagType     = logic,
     parameter type                     AuxType     = logic,
 
-    localparam int unsigned WIDTH       = fpnew_pkg::max_fp_width(FpFmtConfig),
-    localparam int unsigned NUM_FORMATS = fpnew_pkg::NUM_FP_FORMATS
+    localparam int unsigned WIDTH       = single_file_ariane_fpnew_pkg::max_fp_width(FpFmtConfig),
+    localparam int unsigned NUM_FORMATS = single_file_ariane_fpnew_pkg::NUM_FP_FORMATS
 ) (
     input logic clk_i,
     input logic rst_ni,
 
     input logic                  [            1:0][WIDTH-1:0] operands_i,
     input logic                  [NUM_FORMATS-1:0][      1:0] is_boxed_i,
-    input fpnew_pkg::roundmode_e                              rnd_mode_i,
-    input fpnew_pkg::operation_e                              op_i,
-    input fpnew_pkg::fp_format_e                              dst_fmt_i,
+    input single_file_ariane_fpnew_pkg::roundmode_e                              rnd_mode_i,
+    input single_file_ariane_fpnew_pkg::operation_e                              op_i,
+    input single_file_ariane_fpnew_pkg::fp_format_e                              dst_fmt_i,
     input TagType                                             tag_i,
     input logic                                               mask_i,
     input AuxType                                             aux_i,
@@ -12430,7 +12430,7 @@ module fpnew_divsqrt_multi #(
     input  logic flush_i,
 
     output logic               [WIDTH-1:0] result_o,
-    output fpnew_pkg::status_t             status_o,
+    output single_file_ariane_fpnew_pkg::status_t             status_o,
     output logic                           extension_bit_o,
     output TagType                         tag_o,
     output logic                           mask_o,
@@ -12442,27 +12442,27 @@ module fpnew_divsqrt_multi #(
     output logic busy_o
 );
 
-  localparam NUM_INP_REGS = (PipeConfig == fpnew_pkg::BEFORE)
+  localparam NUM_INP_REGS = (PipeConfig == single_file_ariane_fpnew_pkg::BEFORE)
                             ? NumPipeRegs
-                            : (PipeConfig == fpnew_pkg::DISTRIBUTED
+                            : (PipeConfig == single_file_ariane_fpnew_pkg::DISTRIBUTED
                                ? (NumPipeRegs / 2)
                                : 0);
-  localparam NUM_OUT_REGS = (PipeConfig == fpnew_pkg::AFTER || PipeConfig == fpnew_pkg::INSIDE)
+  localparam NUM_OUT_REGS = (PipeConfig == single_file_ariane_fpnew_pkg::AFTER || PipeConfig == single_file_ariane_fpnew_pkg::INSIDE)
                             ? NumPipeRegs
-                            : (PipeConfig == fpnew_pkg::DISTRIBUTED
+                            : (PipeConfig == single_file_ariane_fpnew_pkg::DISTRIBUTED
                                ? ((NumPipeRegs + 1) / 2)
                                : 0);
 
   logic                  [           1:0][WIDTH-1:0]            operands_q;
-  fpnew_pkg::roundmode_e                                        rnd_mode_q;
-  fpnew_pkg::operation_e                                        op_q;
-  fpnew_pkg::fp_format_e                                        dst_fmt_q;
+  single_file_ariane_fpnew_pkg::roundmode_e                                        rnd_mode_q;
+  single_file_ariane_fpnew_pkg::operation_e                                        op_q;
+  single_file_ariane_fpnew_pkg::fp_format_e                                        dst_fmt_q;
   logic                                                         in_valid_q;
 
   logic                  [0:NUM_INP_REGS][      1:0][WIDTH-1:0] inp_pipe_operands_q;
-  fpnew_pkg::roundmode_e [0:NUM_INP_REGS]                       inp_pipe_rnd_mode_q;
-  fpnew_pkg::operation_e [0:NUM_INP_REGS]                       inp_pipe_op_q;
-  fpnew_pkg::fp_format_e [0:NUM_INP_REGS]                       inp_pipe_dst_fmt_q;
+  single_file_ariane_fpnew_pkg::roundmode_e [0:NUM_INP_REGS]                       inp_pipe_rnd_mode_q;
+  single_file_ariane_fpnew_pkg::operation_e [0:NUM_INP_REGS]                       inp_pipe_op_q;
+  single_file_ariane_fpnew_pkg::fp_format_e [0:NUM_INP_REGS]                       inp_pipe_dst_fmt_q;
   TagType                [0:NUM_INP_REGS]                       inp_pipe_tag_q;
   logic                  [0:NUM_INP_REGS]                       inp_pipe_mask_q;
   AuxType                [0:NUM_INP_REGS]                       inp_pipe_aux_q;
@@ -12493,9 +12493,9 @@ module fpnew_divsqrt_multi #(
     assign reg_ena = inp_pipe_ready[i] & inp_pipe_valid_q[i];
 
     `FFL(inp_pipe_operands_q[i+1], inp_pipe_operands_q[i], reg_ena, '0)
-    `FFL(inp_pipe_rnd_mode_q[i+1], inp_pipe_rnd_mode_q[i], reg_ena, fpnew_pkg::RNE)
-    `FFL(inp_pipe_op_q[i+1], inp_pipe_op_q[i], reg_ena, fpnew_pkg::FMADD)
-    `FFL(inp_pipe_dst_fmt_q[i+1], inp_pipe_dst_fmt_q[i], reg_ena, fpnew_pkg::fp_format_e'(0))
+    `FFL(inp_pipe_rnd_mode_q[i+1], inp_pipe_rnd_mode_q[i], reg_ena, single_file_ariane_fpnew_pkg::RNE)
+    `FFL(inp_pipe_op_q[i+1], inp_pipe_op_q[i], reg_ena, single_file_ariane_fpnew_pkg::FMADD)
+    `FFL(inp_pipe_dst_fmt_q[i+1], inp_pipe_dst_fmt_q[i], reg_ena, single_file_ariane_fpnew_pkg::fp_format_e'(0))
     `FFL(inp_pipe_tag_q[i+1], inp_pipe_tag_q[i], reg_ena, TagType'('0))
     `FFL(inp_pipe_mask_q[i+1], inp_pipe_mask_q[i], reg_ena, '0)
     `FFL(inp_pipe_aux_q[i+1], inp_pipe_aux_q[i], reg_ena, AuxType'('0))
@@ -12513,14 +12513,14 @@ module fpnew_divsqrt_multi #(
 
   always_comb begin : translate_fmt
     unique case (dst_fmt_q)
-      fpnew_pkg::FP32:    divsqrt_fmt = 2'b00;
-      fpnew_pkg::FP64:    divsqrt_fmt = 2'b01;
-      fpnew_pkg::FP16:    divsqrt_fmt = 2'b10;
-      fpnew_pkg::FP16ALT: divsqrt_fmt = 2'b11;
+      single_file_ariane_fpnew_pkg::FP32:    divsqrt_fmt = 2'b00;
+      single_file_ariane_fpnew_pkg::FP64:    divsqrt_fmt = 2'b01;
+      single_file_ariane_fpnew_pkg::FP16:    divsqrt_fmt = 2'b10;
+      single_file_ariane_fpnew_pkg::FP16ALT: divsqrt_fmt = 2'b11;
       default:            divsqrt_fmt = 2'b10;
     endcase
 
-    input_is_fp8 = FpFmtConfig[fpnew_pkg::FP8] & (dst_fmt_q == fpnew_pkg::FP8);
+    input_is_fp8 = FpFmtConfig[single_file_ariane_fpnew_pkg::FP8] & (dst_fmt_q == single_file_ariane_fpnew_pkg::FP8);
 
     divsqrt_operands[0] = input_is_fp8 ? operands_q[0] << 8 : operands_q[0];
     divsqrt_operands[1] = input_is_fp8 ? operands_q[1] << 8 : operands_q[1];
@@ -12548,8 +12548,8 @@ module fpnew_divsqrt_multi #(
 
   assign divsqrt_done_o = unit_done_q | unit_done;
 
-  assign div_valid = in_valid_q & (op_q == fpnew_pkg::DIV) & in_ready & ~flush_i;
-  assign sqrt_valid = in_valid_q & (op_q != fpnew_pkg::DIV) & in_ready & ~flush_i;
+  assign div_valid = in_valid_q & (op_q == single_file_ariane_fpnew_pkg::DIV) & in_ready & ~flush_i;
+  assign sqrt_valid = in_valid_q & (op_q != single_file_ariane_fpnew_pkg::DIV) & in_ready & ~flush_i;
   assign op_starting = div_valid | sqrt_valid;
 
   always_comb begin : flag_fsm
@@ -12624,10 +12624,10 @@ module fpnew_divsqrt_multi #(
 
   logic [63:0] unit_result;
   logic [WIDTH-1:0] adjusted_result, held_result_q;
-  fpnew_pkg::status_t unit_status, held_status_q;
+  single_file_ariane_fpnew_pkg::status_t unit_status, held_status_q;
   logic hold_en;
 
-  div_sqrt_top_mvp i_divsqrt_lei (
+  single_file_ariane_div_sqrt_top_mvp i_divsqrt_lei (
       .Clk_CI          (clk_i),
       .Rst_RBI         (rst_ni),
       .Div_start_SI    (div_valid),
@@ -12652,13 +12652,13 @@ module fpnew_divsqrt_multi #(
   `FFLNR(held_status_q, unit_status, hold_en, clk_i)
 
   logic [WIDTH-1:0] result_d;
-  fpnew_pkg::status_t status_d;
+  single_file_ariane_fpnew_pkg::status_t status_d;
 
   assign result_d = unit_done_q ? held_result_q : adjusted_result;
   assign status_d = unit_done_q ? held_status_q : unit_status;
 
   logic               [0:NUM_OUT_REGS][WIDTH-1:0] out_pipe_result_q;
-  fpnew_pkg::status_t [0:NUM_OUT_REGS]            out_pipe_status_q;
+  single_file_ariane_fpnew_pkg::status_t [0:NUM_OUT_REGS]            out_pipe_status_q;
   TagType             [0:NUM_OUT_REGS]            out_pipe_tag_q;
   logic               [0:NUM_OUT_REGS]            out_pipe_mask_q;
   AuxType             [0:NUM_OUT_REGS]            out_pipe_aux_q;
@@ -12709,20 +12709,20 @@ endmodule
 
 
 
-module fpnew_opgroup_multifmt_slice #(
-    parameter fpnew_pkg::opgroup_e OpGroup = fpnew_pkg::CONV,
+module single_file_ariane_fpnew_opgroup_multifmt_slice #(
+    parameter single_file_ariane_fpnew_pkg::opgroup_e OpGroup = single_file_ariane_fpnew_pkg::CONV,
     parameter int unsigned         Width   = 64,
 
-    parameter fpnew_pkg::fmt_logic_t   FpFmtConfig   = '1,
-    parameter fpnew_pkg::ifmt_logic_t  IntFmtConfig  = '1,
+    parameter single_file_ariane_fpnew_pkg::fmt_logic_t   FpFmtConfig   = '1,
+    parameter single_file_ariane_fpnew_pkg::ifmt_logic_t  IntFmtConfig  = '1,
     parameter logic                    EnableVectors = 1'b1,
     parameter int unsigned             NumPipeRegs   = 0,
-    parameter fpnew_pkg::pipe_config_t PipeConfig    = fpnew_pkg::BEFORE,
+    parameter single_file_ariane_fpnew_pkg::pipe_config_t PipeConfig    = single_file_ariane_fpnew_pkg::BEFORE,
     parameter type                     TagType       = logic,
 
-    localparam int unsigned NUM_OPERANDS = fpnew_pkg::num_operands(OpGroup),
-    localparam int unsigned NUM_FORMATS = fpnew_pkg::NUM_FP_FORMATS,
-    localparam int unsigned NUM_SIMD_LANES = fpnew_pkg::max_num_lanes(
+    localparam int unsigned NUM_OPERANDS = single_file_ariane_fpnew_pkg::num_operands(OpGroup),
+    localparam int unsigned NUM_FORMATS = single_file_ariane_fpnew_pkg::NUM_FP_FORMATS,
+    localparam int unsigned NUM_SIMD_LANES = single_file_ariane_fpnew_pkg::max_num_lanes(
         Width, FpFmtConfig, EnableVectors
     ),
     localparam type MaskType = logic [NUM_SIMD_LANES-1:0]
@@ -12732,12 +12732,12 @@ module fpnew_opgroup_multifmt_slice #(
 
     input logic                   [NUM_OPERANDS-1:0][       Width-1:0] operands_i,
     input logic                   [ NUM_FORMATS-1:0][NUM_OPERANDS-1:0] is_boxed_i,
-    input fpnew_pkg::roundmode_e                                       rnd_mode_i,
-    input fpnew_pkg::operation_e                                       op_i,
+    input single_file_ariane_fpnew_pkg::roundmode_e                                       rnd_mode_i,
+    input single_file_ariane_fpnew_pkg::operation_e                                       op_i,
     input logic                                                        op_mod_i,
-    input fpnew_pkg::fp_format_e                                       src_fmt_i,
-    input fpnew_pkg::fp_format_e                                       dst_fmt_i,
-    input fpnew_pkg::int_format_e                                      int_fmt_i,
+    input single_file_ariane_fpnew_pkg::fp_format_e                                       src_fmt_i,
+    input single_file_ariane_fpnew_pkg::fp_format_e                                       dst_fmt_i,
+    input single_file_ariane_fpnew_pkg::int_format_e                                      int_fmt_i,
     input logic                                                        vectorial_op_i,
     input TagType                                                      tag_i,
     input MaskType                                                     simd_mask_i,
@@ -12747,7 +12747,7 @@ module fpnew_opgroup_multifmt_slice #(
     input  logic flush_i,
 
     output logic               [Width-1:0] result_o,
-    output fpnew_pkg::status_t             status_o,
+    output single_file_ariane_fpnew_pkg::status_t             status_o,
     output logic                           extension_bit_o,
     output TagType                         tag_o,
 
@@ -12757,12 +12757,12 @@ module fpnew_opgroup_multifmt_slice #(
     output logic busy_o
 );
 
-  localparam int unsigned MAX_FP_WIDTH = fpnew_pkg::max_fp_width(FpFmtConfig);
-  localparam int unsigned MAX_INT_WIDTH = fpnew_pkg::max_int_width(IntFmtConfig);
-  localparam int unsigned NUM_LANES = fpnew_pkg::max_num_lanes(Width, FpFmtConfig, 1'b1);
-  localparam int unsigned NUM_INT_FORMATS = fpnew_pkg::NUM_INT_FORMATS;
+  localparam int unsigned MAX_FP_WIDTH = single_file_ariane_fpnew_pkg::max_fp_width(FpFmtConfig);
+  localparam int unsigned MAX_INT_WIDTH = single_file_ariane_fpnew_pkg::max_int_width(IntFmtConfig);
+  localparam int unsigned NUM_LANES = single_file_ariane_fpnew_pkg::max_num_lanes(Width, FpFmtConfig, 1'b1);
+  localparam int unsigned NUM_INT_FORMATS = single_file_ariane_fpnew_pkg::NUM_INT_FORMATS;
 
-  localparam int unsigned FMT_BITS = fpnew_pkg::maximum(
+  localparam int unsigned FMT_BITS = single_file_ariane_fpnew_pkg::maximum(
       $clog2(NUM_FORMATS), $clog2(NUM_INT_FORMATS)
   );
   localparam int unsigned AUX_BITS = FMT_BITS + 2;
@@ -12782,7 +12782,7 @@ module fpnew_opgroup_multifmt_slice #(
   logic [          Width-1:0]            conv_slice_result;
   logic [Width-1:0] conv_target_d, conv_target_q;
 
-  fpnew_pkg::status_t [NUM_LANES-1:0]               lane_status;
+  single_file_ariane_fpnew_pkg::status_t [NUM_LANES-1:0]               lane_status;
   logic               [NUM_LANES-1:0]               lane_ext_bit;
   TagType             [NUM_LANES-1:0]               lane_tags;
   logic               [NUM_LANES-1:0]               lane_masks;
@@ -12799,20 +12799,20 @@ module fpnew_opgroup_multifmt_slice #(
   assign in_ready_o = lane_in_ready[0];
   assign vectorial_op = vectorial_op_i & EnableVectors;
 
-  assign dst_fmt_is_int = (OpGroup == fpnew_pkg::CONV) & (op_i == fpnew_pkg::F2I);
-  assign dst_is_cpk     = (OpGroup == fpnew_pkg::CONV) & (op_i == fpnew_pkg::CPKAB ||
-                                                          op_i == fpnew_pkg::CPKCD);
-  assign dst_vec_op = (OpGroup == fpnew_pkg::CONV) & {(op_i == fpnew_pkg::CPKCD), op_mod_i};
+  assign dst_fmt_is_int = (OpGroup == single_file_ariane_fpnew_pkg::CONV) & (op_i == single_file_ariane_fpnew_pkg::F2I);
+  assign dst_is_cpk     = (OpGroup == single_file_ariane_fpnew_pkg::CONV) & (op_i == single_file_ariane_fpnew_pkg::CPKAB ||
+                                                          op_i == single_file_ariane_fpnew_pkg::CPKCD);
+  assign dst_vec_op = (OpGroup == single_file_ariane_fpnew_pkg::CONV) & {(op_i == single_file_ariane_fpnew_pkg::CPKCD), op_mod_i};
 
-  assign is_up_cast = (fpnew_pkg::fp_width(dst_fmt_i) > fpnew_pkg::fp_width(src_fmt_i));
-  assign is_down_cast = (fpnew_pkg::fp_width(dst_fmt_i) < fpnew_pkg::fp_width(src_fmt_i));
+  assign is_up_cast = (single_file_ariane_fpnew_pkg::fp_width(dst_fmt_i) > single_file_ariane_fpnew_pkg::fp_width(src_fmt_i));
+  assign is_down_cast = (single_file_ariane_fpnew_pkg::fp_width(dst_fmt_i) < single_file_ariane_fpnew_pkg::fp_width(src_fmt_i));
 
   assign dst_fmt = dst_fmt_is_int ? int_fmt_i : dst_fmt_i;
 
   assign aux_data = {dst_fmt_is_int, vectorial_op, dst_fmt};
   assign target_aux_d = {dst_vec_op, dst_is_cpk};
 
-  if (OpGroup == fpnew_pkg::CONV) begin : conv_target
+  if (OpGroup == single_file_ariane_fpnew_pkg::CONV) begin : conv_target
     assign conv_target_d = dst_is_cpk ? operands_i[2] : operands_i[1];
   end
 
@@ -12829,25 +12829,25 @@ module fpnew_opgroup_multifmt_slice #(
   for (genvar lane = 0; lane < int'(NUM_LANES); lane++) begin : gen_num_lanes
     localparam int unsigned LANE = unsigned'(lane);
 
-    localparam fpnew_pkg::fmt_logic_t ACTIVE_FORMATS = fpnew_pkg::get_lane_formats(
+    localparam single_file_ariane_fpnew_pkg::fmt_logic_t ACTIVE_FORMATS = single_file_ariane_fpnew_pkg::get_lane_formats(
         Width, FpFmtConfig, LANE
     );
-    localparam fpnew_pkg::ifmt_logic_t ACTIVE_INT_FORMATS = fpnew_pkg::get_lane_int_formats(
+    localparam single_file_ariane_fpnew_pkg::ifmt_logic_t ACTIVE_INT_FORMATS = single_file_ariane_fpnew_pkg::get_lane_int_formats(
         Width, FpFmtConfig, IntFmtConfig, LANE
     );
-    localparam int unsigned MAX_WIDTH = fpnew_pkg::max_fp_width(ACTIVE_FORMATS);
+    localparam int unsigned MAX_WIDTH = single_file_ariane_fpnew_pkg::max_fp_width(ACTIVE_FORMATS);
 
-    localparam fpnew_pkg::fmt_logic_t CONV_FORMATS = fpnew_pkg::get_conv_lane_formats(
+    localparam single_file_ariane_fpnew_pkg::fmt_logic_t CONV_FORMATS = single_file_ariane_fpnew_pkg::get_conv_lane_formats(
         Width, FpFmtConfig, LANE
     );
-    localparam fpnew_pkg::ifmt_logic_t CONV_INT_FORMATS = fpnew_pkg::get_conv_lane_int_formats(
+    localparam single_file_ariane_fpnew_pkg::ifmt_logic_t CONV_INT_FORMATS = single_file_ariane_fpnew_pkg::get_conv_lane_int_formats(
         Width, FpFmtConfig, IntFmtConfig, LANE
     );
-    localparam int unsigned CONV_WIDTH = fpnew_pkg::max_fp_width(CONV_FORMATS);
+    localparam int unsigned CONV_WIDTH = single_file_ariane_fpnew_pkg::max_fp_width(CONV_FORMATS);
 
-    localparam fpnew_pkg::fmt_logic_t LANE_FORMATS = (OpGroup == fpnew_pkg::CONV)
+    localparam single_file_ariane_fpnew_pkg::fmt_logic_t LANE_FORMATS = (OpGroup == single_file_ariane_fpnew_pkg::CONV)
                                                      ? CONV_FORMATS : ACTIVE_FORMATS;
-    localparam int unsigned LANE_WIDTH = (OpGroup == fpnew_pkg::CONV) ? CONV_WIDTH : MAX_WIDTH;
+    localparam int unsigned LANE_WIDTH = (OpGroup == single_file_ariane_fpnew_pkg::CONV) ? CONV_WIDTH : MAX_WIDTH;
 
     logic [LANE_WIDTH-1:0] local_result;
 
@@ -12856,24 +12856,24 @@ module fpnew_opgroup_multifmt_slice #(
 
       logic               [NUM_OPERANDS-1:0][LANE_WIDTH-1:0] local_operands;
       logic               [  LANE_WIDTH-1:0]                 op_result;
-      fpnew_pkg::status_t                                    op_status;
+      single_file_ariane_fpnew_pkg::status_t                                    op_status;
 
       assign in_valid = in_valid_i & ((lane == 0) | vectorial_op);
 
       always_comb begin : prepare_input
         for (int unsigned i = 0; i < NUM_OPERANDS; i++) begin
-          local_operands[i] = operands_i[i] >> LANE * fpnew_pkg::fp_width(src_fmt_i);
+          local_operands[i] = operands_i[i] >> LANE * single_file_ariane_fpnew_pkg::fp_width(src_fmt_i);
         end
 
-        if (OpGroup == fpnew_pkg::CONV) begin
+        if (OpGroup == single_file_ariane_fpnew_pkg::CONV) begin
 
-          if (op_i == fpnew_pkg::I2F) begin
-            local_operands[0] = operands_i[0] >> LANE * fpnew_pkg::int_width(int_fmt_i);
+          if (op_i == single_file_ariane_fpnew_pkg::I2F) begin
+            local_operands[0] = operands_i[0] >> LANE * single_file_ariane_fpnew_pkg::int_width(int_fmt_i);
 
-          end else if (op_i == fpnew_pkg::F2F) begin
+          end else if (op_i == single_file_ariane_fpnew_pkg::F2F) begin
             if (vectorial_op && op_mod_i && is_up_cast) begin
               local_operands[0] = operands_i[0] >>
-                  LANE * fpnew_pkg::fp_width(src_fmt_i) + MAX_FP_WIDTH / 2;
+                  LANE * single_file_ariane_fpnew_pkg::fp_width(src_fmt_i) + MAX_FP_WIDTH / 2;
             end
 
           end else if (dst_is_cpk) begin
@@ -12884,7 +12884,7 @@ module fpnew_opgroup_multifmt_slice #(
         end
       end
 
-      if (OpGroup == fpnew_pkg::ADDMUL) begin : lane_instance
+      if (OpGroup == single_file_ariane_fpnew_pkg::ADDMUL) begin : lane_instance
         fpnew_fma_multi #(
             .FpFmtConfig(LANE_FORMATS),
             .NumPipeRegs(NumPipeRegs),
@@ -12918,8 +12918,8 @@ module fpnew_opgroup_multifmt_slice #(
             .busy_o         (lane_busy[lane])
         );
 
-      end else if (OpGroup == fpnew_pkg::DIVSQRT) begin : lane_instance
-        fpnew_divsqrt_multi #(
+      end else if (OpGroup == single_file_ariane_fpnew_pkg::DIVSQRT) begin : lane_instance
+        single_file_ariane_fpnew_divsqrt_multi #(
             .FpFmtConfig(LANE_FORMATS),
             .NumPipeRegs(NumPipeRegs),
             .PipeConfig (PipeConfig),
@@ -12954,10 +12954,10 @@ module fpnew_opgroup_multifmt_slice #(
             .busy_o           (lane_busy[lane])
         );
       end else
-      if (OpGroup == fpnew_pkg::NONCOMP) begin : lane_instance
+      if (OpGroup == single_file_ariane_fpnew_pkg::NONCOMP) begin : lane_instance
 
-      end else if (OpGroup == fpnew_pkg::CONV) begin : lane_instance
-        fpnew_cast_multi #(
+      end else if (OpGroup == single_file_ariane_fpnew_pkg::CONV) begin : lane_instance
+        single_file_ariane_fpnew_cast_multi #(
             .FpFmtConfig (LANE_FORMATS),
             .IntFmtConfig(CONV_INT_FORMATS),
             .NumPipeRegs (NumPipeRegs),
@@ -13009,7 +13009,7 @@ module fpnew_opgroup_multifmt_slice #(
 
     for (genvar fmt = 0; fmt < NUM_FORMATS; fmt++) begin : pack_fp_result
 
-      localparam int unsigned FP_WIDTH = fpnew_pkg::fp_width(fpnew_pkg::fp_format_e'(fmt));
+      localparam int unsigned FP_WIDTH = single_file_ariane_fpnew_pkg::fp_width(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
 
       if (ACTIVE_FORMATS[fmt]) begin
         assign fmt_slice_result[fmt][(LANE+1)*FP_WIDTH-1:LANE*FP_WIDTH] =
@@ -13023,10 +13023,10 @@ module fpnew_opgroup_multifmt_slice #(
       end
     end
 
-    if (OpGroup == fpnew_pkg::CONV) begin : int_results_enabled
+    if (OpGroup == single_file_ariane_fpnew_pkg::CONV) begin : int_results_enabled
       for (genvar ifmt = 0; ifmt < NUM_INT_FORMATS; ifmt++) begin : pack_int_result
 
-        localparam int unsigned INT_WIDTH = fpnew_pkg::int_width(fpnew_pkg::int_format_e'(ifmt));
+        localparam int unsigned INT_WIDTH = single_file_ariane_fpnew_pkg::int_width(single_file_ariane_fpnew_pkg::int_format_e'(ifmt));
         if (ACTIVE_INT_FORMATS[ifmt]) begin
           assign ifmt_slice_result[ifmt][(LANE+1)*INT_WIDTH-1:LANE*INT_WIDTH] =
             local_result[INT_WIDTH-1:0];
@@ -13041,18 +13041,18 @@ module fpnew_opgroup_multifmt_slice #(
 
   for (genvar fmt = 0; fmt < NUM_FORMATS; fmt++) begin : extend_fp_result
 
-    localparam int unsigned FP_WIDTH = fpnew_pkg::fp_width(fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned FP_WIDTH = single_file_ariane_fpnew_pkg::fp_width(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
     if (NUM_LANES * FP_WIDTH < Width)
       assign fmt_slice_result[fmt][Width-1:NUM_LANES*FP_WIDTH] = '{default: lane_ext_bit[0]};
   end
 
   for (genvar ifmt = 0; ifmt < NUM_INT_FORMATS; ifmt++) begin : int_results_disabled
-    if (OpGroup != fpnew_pkg::CONV) begin : mute_int_result
+    if (OpGroup != single_file_ariane_fpnew_pkg::CONV) begin : mute_int_result
       assign ifmt_slice_result[ifmt] = '0;
     end
   end
 
-  if (OpGroup == fpnew_pkg::CONV) begin : target_regs
+  if (OpGroup == single_file_ariane_fpnew_pkg::CONV) begin : target_regs
 
     logic [0:NumPipeRegs][Width-1:0] byp_pipe_target_q;
     logic [0:NumPipeRegs][      2:0] byp_pipe_aux_q;
@@ -13105,7 +13105,7 @@ module fpnew_opgroup_multifmt_slice #(
 
   always_comb begin : output_processing
 
-    automatic fpnew_pkg::status_t temp_status;
+    automatic single_file_ariane_fpnew_pkg::status_t temp_status;
     temp_status = '0;
     for (int i = 0; i < int'(NUM_LANES); i++) temp_status |= lane_status[i] & {5{lane_masks[i]}};
     status_o = temp_status;
@@ -13117,22 +13117,22 @@ endmodule
 
 
 
-module fpnew_noncomp #(
-    parameter fpnew_pkg::fp_format_e   FpFormat    = fpnew_pkg::fp_format_e'(0),
+module single_file_ariane_fpnew_noncomp #(
+    parameter single_file_ariane_fpnew_pkg::fp_format_e   FpFormat    = single_file_ariane_fpnew_pkg::fp_format_e'(0),
     parameter int unsigned             NumPipeRegs = 0,
-    parameter fpnew_pkg::pipe_config_t PipeConfig  = fpnew_pkg::BEFORE,
+    parameter single_file_ariane_fpnew_pkg::pipe_config_t PipeConfig  = single_file_ariane_fpnew_pkg::BEFORE,
     parameter type                     TagType     = logic,
     parameter type                     AuxType     = logic,
 
-    localparam int unsigned WIDTH = fpnew_pkg::fp_width(FpFormat)
+    localparam int unsigned WIDTH = single_file_ariane_fpnew_pkg::fp_width(FpFormat)
 ) (
     input logic clk_i,
     input logic rst_ni,
 
     input logic                  [1:0][WIDTH-1:0] operands_i,
     input logic                  [1:0]            is_boxed_i,
-    input fpnew_pkg::roundmode_e                  rnd_mode_i,
-    input fpnew_pkg::operation_e                  op_i,
+    input single_file_ariane_fpnew_pkg::roundmode_e                  rnd_mode_i,
+    input single_file_ariane_fpnew_pkg::operation_e                  op_i,
     input logic                                   op_mod_i,
     input TagType                                 tag_i,
     input logic                                   mask_i,
@@ -13143,9 +13143,9 @@ module fpnew_noncomp #(
     input  logic flush_i,
 
     output logic                  [WIDTH-1:0] result_o,
-    output fpnew_pkg::status_t                status_o,
+    output single_file_ariane_fpnew_pkg::status_t                status_o,
     output logic                              extension_bit_o,
-    output fpnew_pkg::classmask_e             class_mask_o,
+    output single_file_ariane_fpnew_pkg::classmask_e             class_mask_o,
     output logic                              is_class_o,
     output TagType                            tag_o,
     output logic                              mask_o,
@@ -13157,17 +13157,17 @@ module fpnew_noncomp #(
     output logic busy_o
 );
 
-  localparam int unsigned EXP_BITS = fpnew_pkg::exp_bits(FpFormat);
-  localparam int unsigned MAN_BITS = fpnew_pkg::man_bits(FpFormat);
+  localparam int unsigned EXP_BITS = single_file_ariane_fpnew_pkg::exp_bits(FpFormat);
+  localparam int unsigned MAN_BITS = single_file_ariane_fpnew_pkg::man_bits(FpFormat);
 
-  localparam NUM_INP_REGS = (PipeConfig == fpnew_pkg::BEFORE || PipeConfig == fpnew_pkg::INSIDE)
+  localparam NUM_INP_REGS = (PipeConfig == single_file_ariane_fpnew_pkg::BEFORE || PipeConfig == single_file_ariane_fpnew_pkg::INSIDE)
                             ? NumPipeRegs
-                            : (PipeConfig == fpnew_pkg::DISTRIBUTED
+                            : (PipeConfig == single_file_ariane_fpnew_pkg::DISTRIBUTED
                                ? ((NumPipeRegs + 1) / 2)
                                : 0);
-  localparam NUM_OUT_REGS = PipeConfig == fpnew_pkg::AFTER
+  localparam NUM_OUT_REGS = PipeConfig == single_file_ariane_fpnew_pkg::AFTER
                             ? NumPipeRegs
-                            : (PipeConfig == fpnew_pkg::DISTRIBUTED
+                            : (PipeConfig == single_file_ariane_fpnew_pkg::DISTRIBUTED
                                ? (NumPipeRegs / 2)
                                : 0);
 
@@ -13179,8 +13179,8 @@ module fpnew_noncomp #(
 
   logic                  [0:NUM_INP_REGS][1:0][WIDTH-1:0] inp_pipe_operands_q;
   logic                  [0:NUM_INP_REGS][1:0]            inp_pipe_is_boxed_q;
-  fpnew_pkg::roundmode_e [0:NUM_INP_REGS]                 inp_pipe_rnd_mode_q;
-  fpnew_pkg::operation_e [0:NUM_INP_REGS]                 inp_pipe_op_q;
+  single_file_ariane_fpnew_pkg::roundmode_e [0:NUM_INP_REGS]                 inp_pipe_rnd_mode_q;
+  single_file_ariane_fpnew_pkg::operation_e [0:NUM_INP_REGS]                 inp_pipe_op_q;
   logic                  [0:NUM_INP_REGS]                 inp_pipe_op_mod_q;
   TagType                [0:NUM_INP_REGS]                 inp_pipe_tag_q;
   logic                  [0:NUM_INP_REGS]                 inp_pipe_mask_q;
@@ -13214,17 +13214,17 @@ module fpnew_noncomp #(
 
     `FFL(inp_pipe_operands_q[i+1], inp_pipe_operands_q[i], reg_ena, '0)
     `FFL(inp_pipe_is_boxed_q[i+1], inp_pipe_is_boxed_q[i], reg_ena, '0)
-    `FFL(inp_pipe_rnd_mode_q[i+1], inp_pipe_rnd_mode_q[i], reg_ena, fpnew_pkg::RNE)
-    `FFL(inp_pipe_op_q[i+1], inp_pipe_op_q[i], reg_ena, fpnew_pkg::FMADD)
+    `FFL(inp_pipe_rnd_mode_q[i+1], inp_pipe_rnd_mode_q[i], reg_ena, single_file_ariane_fpnew_pkg::RNE)
+    `FFL(inp_pipe_op_q[i+1], inp_pipe_op_q[i], reg_ena, single_file_ariane_fpnew_pkg::FMADD)
     `FFL(inp_pipe_op_mod_q[i+1], inp_pipe_op_mod_q[i], reg_ena, '0)
     `FFL(inp_pipe_tag_q[i+1], inp_pipe_tag_q[i], reg_ena, TagType'('0))
     `FFL(inp_pipe_mask_q[i+1], inp_pipe_mask_q[i], reg_ena, '0)
     `FFL(inp_pipe_aux_q[i+1], inp_pipe_aux_q[i], reg_ena, AuxType'('0))
   end
 
-  fpnew_pkg::fp_info_t [1:0] info_q;
+  single_file_ariane_fpnew_pkg::fp_info_t [1:0] info_q;
 
-  fpnew_classifier #(
+  single_file_ariane_fpnew_classifier #(
       .FpFormat   (FpFormat),
       .NumOperands(2)
   ) i_class_a (
@@ -13234,7 +13234,7 @@ module fpnew_noncomp #(
   );
 
   fp_t operand_a, operand_b;
-  fpnew_pkg::fp_info_t info_a, info_b;
+  single_file_ariane_fpnew_pkg::fp_info_t info_a, info_b;
 
   assign operand_a = inp_pipe_operands_q[NUM_INP_REGS][0];
   assign operand_b = inp_pipe_operands_q[NUM_INP_REGS][1];
@@ -13256,7 +13256,7 @@ module fpnew_noncomp #(
   assign operand_a_smaller = (operand_a < operand_b) ^ (operand_a.sign || operand_b.sign);
 
   fp_t                sgnj_result;
-  fpnew_pkg::status_t sgnj_status;
+  single_file_ariane_fpnew_pkg::status_t sgnj_status;
   logic               sgnj_extension_bit;
 
   always_comb begin : sign_injections
@@ -13271,11 +13271,11 @@ module fpnew_noncomp #(
     sign_b = operand_b.sign & info_b.is_boxed;
 
     unique case (inp_pipe_rnd_mode_q[NUM_INP_REGS])
-      fpnew_pkg::RNE: sgnj_result.sign = sign_b;
-      fpnew_pkg::RTZ: sgnj_result.sign = ~sign_b;
-      fpnew_pkg::RDN: sgnj_result.sign = sign_a ^ sign_b;
-      fpnew_pkg::RUP: sgnj_result = operand_a;
-      default:        sgnj_result = '{default: fpnew_pkg::DONT_CARE};
+      single_file_ariane_fpnew_pkg::RNE: sgnj_result.sign = sign_b;
+      single_file_ariane_fpnew_pkg::RTZ: sgnj_result.sign = ~sign_b;
+      single_file_ariane_fpnew_pkg::RDN: sgnj_result.sign = sign_a ^ sign_b;
+      single_file_ariane_fpnew_pkg::RUP: sgnj_result = operand_a;
+      default:        sgnj_result = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
     endcase
   end
 
@@ -13284,7 +13284,7 @@ module fpnew_noncomp #(
   assign sgnj_extension_bit = inp_pipe_op_mod_q[NUM_INP_REGS] ? sgnj_result.sign : 1'b1;
 
   fp_t                minmax_result;
-  fpnew_pkg::status_t minmax_status;
+  single_file_ariane_fpnew_pkg::status_t minmax_status;
   logic               minmax_extension_bit;
 
   always_comb begin : min_max
@@ -13301,9 +13301,9 @@ module fpnew_noncomp #(
 
     else begin
       unique case (inp_pipe_rnd_mode_q[NUM_INP_REGS])
-        fpnew_pkg::RNE: minmax_result = operand_a_smaller ? operand_a : operand_b;
-        fpnew_pkg::RTZ: minmax_result = operand_a_smaller ? operand_b : operand_a;
-        default: minmax_result = '{default: fpnew_pkg::DONT_CARE};
+        single_file_ariane_fpnew_pkg::RNE: minmax_result = operand_a_smaller ? operand_a : operand_b;
+        single_file_ariane_fpnew_pkg::RTZ: minmax_result = operand_a_smaller ? operand_b : operand_a;
+        default: minmax_result = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
       endcase
     end
   end
@@ -13311,7 +13311,7 @@ module fpnew_noncomp #(
   assign minmax_extension_bit = 1'b1;
 
   fp_t                cmp_result;
-  fpnew_pkg::status_t cmp_status;
+  single_file_ariane_fpnew_pkg::status_t cmp_status;
   logic               cmp_extension_bit;
 
   always_comb begin : comparisons
@@ -13323,42 +13323,42 @@ module fpnew_noncomp #(
 
     else begin
       unique case (inp_pipe_rnd_mode_q[NUM_INP_REGS])
-        fpnew_pkg::RNE: begin
+        single_file_ariane_fpnew_pkg::RNE: begin
           if (any_operand_nan) cmp_status.NV = 1'b1;
           else cmp_result = (operand_a_smaller | operands_equal) ^ inp_pipe_op_mod_q[NUM_INP_REGS];
         end
-        fpnew_pkg::RTZ: begin
+        single_file_ariane_fpnew_pkg::RTZ: begin
           if (any_operand_nan) cmp_status.NV = 1'b1;
           else cmp_result = (operand_a_smaller & ~operands_equal) ^ inp_pipe_op_mod_q[NUM_INP_REGS];
         end
-        fpnew_pkg::RDN: begin
+        single_file_ariane_fpnew_pkg::RDN: begin
           if (any_operand_nan) cmp_result = inp_pipe_op_mod_q[NUM_INP_REGS];
           else cmp_result = operands_equal ^ inp_pipe_op_mod_q[NUM_INP_REGS];
         end
-        default: cmp_result = '{default: fpnew_pkg::DONT_CARE};
+        default: cmp_result = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
       endcase
     end
   end
 
   assign cmp_extension_bit = 1'b0;
 
-  fpnew_pkg::status_t    class_status;
+  single_file_ariane_fpnew_pkg::status_t    class_status;
   logic                  class_extension_bit;
-  fpnew_pkg::classmask_e class_mask_d;
+  single_file_ariane_fpnew_pkg::classmask_e class_mask_d;
 
   always_comb begin : classify
     if (info_a.is_normal) begin
-      class_mask_d = operand_a.sign ? fpnew_pkg::NEGNORM : fpnew_pkg::POSNORM;
+      class_mask_d = operand_a.sign ? single_file_ariane_fpnew_pkg::NEGNORM : single_file_ariane_fpnew_pkg::POSNORM;
     end else if (info_a.is_subnormal) begin
-      class_mask_d = operand_a.sign ? fpnew_pkg::NEGSUBNORM : fpnew_pkg::POSSUBNORM;
+      class_mask_d = operand_a.sign ? single_file_ariane_fpnew_pkg::NEGSUBNORM : single_file_ariane_fpnew_pkg::POSSUBNORM;
     end else if (info_a.is_zero) begin
-      class_mask_d = operand_a.sign ? fpnew_pkg::NEGZERO : fpnew_pkg::POSZERO;
+      class_mask_d = operand_a.sign ? single_file_ariane_fpnew_pkg::NEGZERO : single_file_ariane_fpnew_pkg::POSZERO;
     end else if (info_a.is_inf) begin
-      class_mask_d = operand_a.sign ? fpnew_pkg::NEGINF : fpnew_pkg::POSINF;
+      class_mask_d = operand_a.sign ? single_file_ariane_fpnew_pkg::NEGINF : single_file_ariane_fpnew_pkg::POSINF;
     end else if (info_a.is_nan) begin
-      class_mask_d = info_a.is_signalling ? fpnew_pkg::SNAN : fpnew_pkg::QNAN;
+      class_mask_d = info_a.is_signalling ? single_file_ariane_fpnew_pkg::SNAN : single_file_ariane_fpnew_pkg::QNAN;
     end else begin
-      class_mask_d = fpnew_pkg::QNAN;
+      class_mask_d = single_file_ariane_fpnew_pkg::QNAN;
     end
   end
 
@@ -13366,46 +13366,46 @@ module fpnew_noncomp #(
   assign class_extension_bit = 1'b0;
 
   fp_t                result_d;
-  fpnew_pkg::status_t status_d;
+  single_file_ariane_fpnew_pkg::status_t status_d;
   logic               extension_bit_d;
   logic               is_class_d;
 
   always_comb begin : select_result
     unique case (inp_pipe_op_q[NUM_INP_REGS])
-      fpnew_pkg::SGNJ: begin
+      single_file_ariane_fpnew_pkg::SGNJ: begin
         result_d        = sgnj_result;
         status_d        = sgnj_status;
         extension_bit_d = sgnj_extension_bit;
       end
-      fpnew_pkg::MINMAX: begin
+      single_file_ariane_fpnew_pkg::MINMAX: begin
         result_d        = minmax_result;
         status_d        = minmax_status;
         extension_bit_d = minmax_extension_bit;
       end
-      fpnew_pkg::CMP: begin
+      single_file_ariane_fpnew_pkg::CMP: begin
         result_d        = cmp_result;
         status_d        = cmp_status;
         extension_bit_d = cmp_extension_bit;
       end
-      fpnew_pkg::CLASSIFY: begin
-        result_d        = '{default: fpnew_pkg::DONT_CARE};
+      single_file_ariane_fpnew_pkg::CLASSIFY: begin
+        result_d        = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
         status_d        = class_status;
         extension_bit_d = class_extension_bit;
       end
       default: begin
-        result_d        = '{default: fpnew_pkg::DONT_CARE};
-        status_d        = '{default: fpnew_pkg::DONT_CARE};
-        extension_bit_d = fpnew_pkg::DONT_CARE;
+        result_d        = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+        status_d        = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+        extension_bit_d = single_file_ariane_fpnew_pkg::DONT_CARE;
       end
     endcase
   end
 
-  assign is_class_d = (inp_pipe_op_q[NUM_INP_REGS] == fpnew_pkg::CLASSIFY);
+  assign is_class_d = (inp_pipe_op_q[NUM_INP_REGS] == single_file_ariane_fpnew_pkg::CLASSIFY);
 
   fp_t                   [0:NUM_OUT_REGS] out_pipe_result_q;
-  fpnew_pkg::status_t    [0:NUM_OUT_REGS] out_pipe_status_q;
+  single_file_ariane_fpnew_pkg::status_t    [0:NUM_OUT_REGS] out_pipe_status_q;
   logic                  [0:NUM_OUT_REGS] out_pipe_extension_bit_q;
-  fpnew_pkg::classmask_e [0:NUM_OUT_REGS] out_pipe_class_mask_q;
+  single_file_ariane_fpnew_pkg::classmask_e [0:NUM_OUT_REGS] out_pipe_class_mask_q;
   logic                  [0:NUM_OUT_REGS] out_pipe_is_class_q;
   TagType                [0:NUM_OUT_REGS] out_pipe_tag_q;
   logic                  [0:NUM_OUT_REGS] out_pipe_mask_q;
@@ -13440,7 +13440,7 @@ module fpnew_noncomp #(
     `FFL(out_pipe_result_q[i+1], out_pipe_result_q[i], reg_ena, '0)
     `FFL(out_pipe_status_q[i+1], out_pipe_status_q[i], reg_ena, '0)
     `FFL(out_pipe_extension_bit_q[i+1], out_pipe_extension_bit_q[i], reg_ena, '0)
-    `FFL(out_pipe_class_mask_q[i+1], out_pipe_class_mask_q[i], reg_ena, fpnew_pkg::QNAN)
+    `FFL(out_pipe_class_mask_q[i+1], out_pipe_class_mask_q[i], reg_ena, single_file_ariane_fpnew_pkg::QNAN)
     `FFL(out_pipe_is_class_q[i+1], out_pipe_is_class_q[i], reg_ena, '0)
     `FFL(out_pipe_tag_q[i+1], out_pipe_tag_q[i], reg_ena, TagType'('0))
     `FFL(out_pipe_mask_q[i+1], out_pipe_mask_q[i], reg_ena, '0)
@@ -13465,31 +13465,31 @@ endmodule
 
 
 
-module fpnew_cast_multi #(
-    parameter fpnew_pkg::fmt_logic_t  FpFmtConfig  = '1,
-    parameter fpnew_pkg::ifmt_logic_t IntFmtConfig = '1,
+module single_file_ariane_fpnew_cast_multi #(
+    parameter single_file_ariane_fpnew_pkg::fmt_logic_t  FpFmtConfig  = '1,
+    parameter single_file_ariane_fpnew_pkg::ifmt_logic_t IntFmtConfig = '1,
 
     parameter int unsigned             NumPipeRegs = 0,
-    parameter fpnew_pkg::pipe_config_t PipeConfig  = fpnew_pkg::BEFORE,
+    parameter single_file_ariane_fpnew_pkg::pipe_config_t PipeConfig  = single_file_ariane_fpnew_pkg::BEFORE,
     parameter type                     TagType     = logic,
     parameter type                     AuxType     = logic,
 
-    localparam int unsigned WIDTH = fpnew_pkg::maximum(
-        fpnew_pkg::max_fp_width(FpFmtConfig), fpnew_pkg::max_int_width(IntFmtConfig)
+    localparam int unsigned WIDTH = single_file_ariane_fpnew_pkg::maximum(
+        single_file_ariane_fpnew_pkg::max_fp_width(FpFmtConfig), single_file_ariane_fpnew_pkg::max_int_width(IntFmtConfig)
     ),
-    localparam int unsigned NUM_FORMATS = fpnew_pkg::NUM_FP_FORMATS
+    localparam int unsigned NUM_FORMATS = single_file_ariane_fpnew_pkg::NUM_FP_FORMATS
 ) (
     input logic clk_i,
     input logic rst_ni,
 
     input logic                   [      WIDTH-1:0] operands_i,
     input logic                   [NUM_FORMATS-1:0] is_boxed_i,
-    input fpnew_pkg::roundmode_e                    rnd_mode_i,
-    input fpnew_pkg::operation_e                    op_i,
+    input single_file_ariane_fpnew_pkg::roundmode_e                    rnd_mode_i,
+    input single_file_ariane_fpnew_pkg::operation_e                    op_i,
     input logic                                     op_mod_i,
-    input fpnew_pkg::fp_format_e                    src_fmt_i,
-    input fpnew_pkg::fp_format_e                    dst_fmt_i,
-    input fpnew_pkg::int_format_e                   int_fmt_i,
+    input single_file_ariane_fpnew_pkg::fp_format_e                    src_fmt_i,
+    input single_file_ariane_fpnew_pkg::fp_format_e                    dst_fmt_i,
+    input single_file_ariane_fpnew_pkg::int_format_e                   int_fmt_i,
     input TagType                                   tag_i,
     input logic                                     mask_i,
     input AuxType                                   aux_i,
@@ -13499,7 +13499,7 @@ module fpnew_cast_multi #(
     input  logic flush_i,
 
     output logic               [WIDTH-1:0] result_o,
-    output fpnew_pkg::status_t             status_o,
+    output single_file_ariane_fpnew_pkg::status_t             status_o,
     output logic                           extension_bit_o,
     output TagType                         tag_o,
     output logic                           mask_o,
@@ -13511,54 +13511,54 @@ module fpnew_cast_multi #(
     output logic busy_o
 );
 
-  localparam int unsigned NUM_INT_FORMATS = fpnew_pkg::NUM_INT_FORMATS;
-  localparam int unsigned MAX_INT_WIDTH = fpnew_pkg::max_int_width(IntFmtConfig);
+  localparam int unsigned NUM_INT_FORMATS = single_file_ariane_fpnew_pkg::NUM_INT_FORMATS;
+  localparam int unsigned MAX_INT_WIDTH = single_file_ariane_fpnew_pkg::max_int_width(IntFmtConfig);
 
-  localparam fpnew_pkg::fp_encoding_t SUPER_FORMAT = fpnew_pkg::super_format(FpFmtConfig);
+  localparam single_file_ariane_fpnew_pkg::fp_encoding_t SUPER_FORMAT = single_file_ariane_fpnew_pkg::super_format(FpFmtConfig);
 
   localparam int unsigned SUPER_EXP_BITS = SUPER_FORMAT.exp_bits;
   localparam int unsigned SUPER_MAN_BITS = SUPER_FORMAT.man_bits;
   localparam int unsigned SUPER_BIAS = 2 ** (SUPER_EXP_BITS - 1) - 1;
 
-  localparam int unsigned INT_MAN_WIDTH = fpnew_pkg::maximum(SUPER_MAN_BITS + 1, MAX_INT_WIDTH);
+  localparam int unsigned INT_MAN_WIDTH = single_file_ariane_fpnew_pkg::maximum(SUPER_MAN_BITS + 1, MAX_INT_WIDTH);
 
   localparam int unsigned LZC_RESULT_WIDTH = $clog2(INT_MAN_WIDTH);
 
-  localparam int unsigned INT_EXP_WIDTH = fpnew_pkg::maximum(
-      $clog2(MAX_INT_WIDTH), fpnew_pkg::maximum(SUPER_EXP_BITS, $clog2(SUPER_BIAS + SUPER_MAN_BITS))
+  localparam int unsigned INT_EXP_WIDTH = single_file_ariane_fpnew_pkg::maximum(
+      $clog2(MAX_INT_WIDTH), single_file_ariane_fpnew_pkg::maximum(SUPER_EXP_BITS, $clog2(SUPER_BIAS + SUPER_MAN_BITS))
   ) + 1;
 
-  localparam NUM_INP_REGS = PipeConfig == fpnew_pkg::BEFORE
+  localparam NUM_INP_REGS = PipeConfig == single_file_ariane_fpnew_pkg::BEFORE
                             ? NumPipeRegs
-                            : (PipeConfig == fpnew_pkg::DISTRIBUTED
+                            : (PipeConfig == single_file_ariane_fpnew_pkg::DISTRIBUTED
                                ? ((NumPipeRegs + 1) / 3)
                                : 0);
-  localparam NUM_MID_REGS = PipeConfig == fpnew_pkg::INSIDE
+  localparam NUM_MID_REGS = PipeConfig == single_file_ariane_fpnew_pkg::INSIDE
                           ? NumPipeRegs
-                          : (PipeConfig == fpnew_pkg::DISTRIBUTED
+                          : (PipeConfig == single_file_ariane_fpnew_pkg::DISTRIBUTED
                              ? ((NumPipeRegs + 2) / 3)
                              : 0);
-  localparam NUM_OUT_REGS = PipeConfig == fpnew_pkg::AFTER
+  localparam NUM_OUT_REGS = PipeConfig == single_file_ariane_fpnew_pkg::AFTER
                             ? NumPipeRegs
-                            : (PipeConfig == fpnew_pkg::DISTRIBUTED
+                            : (PipeConfig == single_file_ariane_fpnew_pkg::DISTRIBUTED
                                ? (NumPipeRegs / 3)
                                : 0);
 
   logic                   [      WIDTH-1:0]                  operands_q;
   logic                   [NUM_FORMATS-1:0]                  is_boxed_q;
   logic                                                      op_mod_q;
-  fpnew_pkg::fp_format_e                                     src_fmt_q;
-  fpnew_pkg::fp_format_e                                     dst_fmt_q;
-  fpnew_pkg::int_format_e                                    int_fmt_q;
+  single_file_ariane_fpnew_pkg::fp_format_e                                     src_fmt_q;
+  single_file_ariane_fpnew_pkg::fp_format_e                                     dst_fmt_q;
+  single_file_ariane_fpnew_pkg::int_format_e                                    int_fmt_q;
 
   logic                   [ 0:NUM_INP_REGS][      WIDTH-1:0] inp_pipe_operands_q;
   logic                   [ 0:NUM_INP_REGS][NUM_FORMATS-1:0] inp_pipe_is_boxed_q;
-  fpnew_pkg::roundmode_e  [ 0:NUM_INP_REGS]                  inp_pipe_rnd_mode_q;
-  fpnew_pkg::operation_e  [ 0:NUM_INP_REGS]                  inp_pipe_op_q;
+  single_file_ariane_fpnew_pkg::roundmode_e  [ 0:NUM_INP_REGS]                  inp_pipe_rnd_mode_q;
+  single_file_ariane_fpnew_pkg::operation_e  [ 0:NUM_INP_REGS]                  inp_pipe_op_q;
   logic                   [ 0:NUM_INP_REGS]                  inp_pipe_op_mod_q;
-  fpnew_pkg::fp_format_e  [ 0:NUM_INP_REGS]                  inp_pipe_src_fmt_q;
-  fpnew_pkg::fp_format_e  [ 0:NUM_INP_REGS]                  inp_pipe_dst_fmt_q;
-  fpnew_pkg::int_format_e [ 0:NUM_INP_REGS]                  inp_pipe_int_fmt_q;
+  single_file_ariane_fpnew_pkg::fp_format_e  [ 0:NUM_INP_REGS]                  inp_pipe_src_fmt_q;
+  single_file_ariane_fpnew_pkg::fp_format_e  [ 0:NUM_INP_REGS]                  inp_pipe_dst_fmt_q;
+  single_file_ariane_fpnew_pkg::int_format_e [ 0:NUM_INP_REGS]                  inp_pipe_int_fmt_q;
   TagType                 [ 0:NUM_INP_REGS]                  inp_pipe_tag_q;
   logic                   [ 0:NUM_INP_REGS]                  inp_pipe_mask_q;
   AuxType                 [ 0:NUM_INP_REGS]                  inp_pipe_aux_q;
@@ -13594,12 +13594,12 @@ module fpnew_cast_multi #(
 
     `FFL(inp_pipe_operands_q[i+1], inp_pipe_operands_q[i], reg_ena, '0)
     `FFL(inp_pipe_is_boxed_q[i+1], inp_pipe_is_boxed_q[i], reg_ena, '0)
-    `FFL(inp_pipe_rnd_mode_q[i+1], inp_pipe_rnd_mode_q[i], reg_ena, fpnew_pkg::RNE)
-    `FFL(inp_pipe_op_q[i+1], inp_pipe_op_q[i], reg_ena, fpnew_pkg::FMADD)
+    `FFL(inp_pipe_rnd_mode_q[i+1], inp_pipe_rnd_mode_q[i], reg_ena, single_file_ariane_fpnew_pkg::RNE)
+    `FFL(inp_pipe_op_q[i+1], inp_pipe_op_q[i], reg_ena, single_file_ariane_fpnew_pkg::FMADD)
     `FFL(inp_pipe_op_mod_q[i+1], inp_pipe_op_mod_q[i], reg_ena, '0)
-    `FFL(inp_pipe_src_fmt_q[i+1], inp_pipe_src_fmt_q[i], reg_ena, fpnew_pkg::fp_format_e'(0))
-    `FFL(inp_pipe_dst_fmt_q[i+1], inp_pipe_dst_fmt_q[i], reg_ena, fpnew_pkg::fp_format_e'(0))
-    `FFL(inp_pipe_int_fmt_q[i+1], inp_pipe_int_fmt_q[i], reg_ena, fpnew_pkg::int_format_e'(0))
+    `FFL(inp_pipe_src_fmt_q[i+1], inp_pipe_src_fmt_q[i], reg_ena, single_file_ariane_fpnew_pkg::fp_format_e'(0))
+    `FFL(inp_pipe_dst_fmt_q[i+1], inp_pipe_dst_fmt_q[i], reg_ena, single_file_ariane_fpnew_pkg::fp_format_e'(0))
+    `FFL(inp_pipe_int_fmt_q[i+1], inp_pipe_int_fmt_q[i], reg_ena, single_file_ariane_fpnew_pkg::int_format_e'(0))
     `FFL(inp_pipe_tag_q[i+1], inp_pipe_tag_q[i], reg_ena, TagType'('0))
     `FFL(inp_pipe_mask_q[i+1], inp_pipe_mask_q[i], reg_ena, '0)
     `FFL(inp_pipe_aux_q[i+1], inp_pipe_aux_q[i], reg_ena, AuxType'('0))
@@ -13614,8 +13614,8 @@ module fpnew_cast_multi #(
 
   logic src_is_int, dst_is_int;
 
-  assign src_is_int = (inp_pipe_op_q[NUM_INP_REGS] == fpnew_pkg::I2F);
-  assign dst_is_int = (inp_pipe_op_q[NUM_INP_REGS] == fpnew_pkg::F2I);
+  assign src_is_int = (inp_pipe_op_q[NUM_INP_REGS] == single_file_ariane_fpnew_pkg::I2F);
+  assign dst_is_int = (inp_pipe_op_q[NUM_INP_REGS] == single_file_ariane_fpnew_pkg::F2I);
 
   logic                [  INT_MAN_WIDTH-1:0]                    encoded_mant;
 
@@ -13624,7 +13624,7 @@ module fpnew_cast_multi #(
   logic                [    NUM_FORMATS-1:0][INT_MAN_WIDTH-1:0] fmt_mantissa;
   logic signed         [    NUM_FORMATS-1:0][INT_EXP_WIDTH-1:0] fmt_shift_compensation;
 
-  fpnew_pkg::fp_info_t [    NUM_FORMATS-1:0]                    info;
+  single_file_ariane_fpnew_pkg::fp_info_t [    NUM_FORMATS-1:0]                    info;
 
   logic                [NUM_INT_FORMATS-1:0][INT_MAN_WIDTH-1:0] ifmt_input_val;
   logic                                                         int_sign;
@@ -13632,14 +13632,14 @@ module fpnew_cast_multi #(
 
   for (genvar fmt = 0; fmt < int'(NUM_FORMATS); fmt++) begin : fmt_init_inputs
 
-    localparam int unsigned FP_WIDTH = fpnew_pkg::fp_width(fpnew_pkg::fp_format_e'(fmt));
-    localparam int unsigned EXP_BITS = fpnew_pkg::exp_bits(fpnew_pkg::fp_format_e'(fmt));
-    localparam int unsigned MAN_BITS = fpnew_pkg::man_bits(fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned FP_WIDTH = single_file_ariane_fpnew_pkg::fp_width(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned EXP_BITS = single_file_ariane_fpnew_pkg::exp_bits(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned MAN_BITS = single_file_ariane_fpnew_pkg::man_bits(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
 
     if (FpFmtConfig[fmt]) begin : active_format
 
-      fpnew_classifier #(
-          .FpFormat   (fpnew_pkg::fp_format_e'(fmt)),
+      single_file_ariane_fpnew_classifier #(
+          .FpFormat   (single_file_ariane_fpnew_pkg::fp_format_e'(fmt)),
           .NumOperands(1)
       ) i_fpnew_classifier (
           .operands_i(operands_q[FP_WIDTH-1:0]),
@@ -13653,17 +13653,17 @@ module fpnew_cast_multi #(
 
       assign fmt_shift_compensation[fmt] = signed'(INT_MAN_WIDTH - 1 - MAN_BITS);
     end else begin : inactive_format
-      assign info[fmt]                   = '{default: fpnew_pkg::DONT_CARE};
-      assign fmt_sign[fmt]               = fpnew_pkg::DONT_CARE;
-      assign fmt_exponent[fmt]           = '{default: fpnew_pkg::DONT_CARE};
-      assign fmt_mantissa[fmt]           = '{default: fpnew_pkg::DONT_CARE};
-      assign fmt_shift_compensation[fmt] = '{default: fpnew_pkg::DONT_CARE};
+      assign info[fmt]                   = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+      assign fmt_sign[fmt]               = single_file_ariane_fpnew_pkg::DONT_CARE;
+      assign fmt_exponent[fmt]           = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+      assign fmt_mantissa[fmt]           = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
+      assign fmt_shift_compensation[fmt] = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
     end
   end
 
   for (genvar ifmt = 0; ifmt < int'(NUM_INT_FORMATS); ifmt++) begin : gen_sign_extend_int
 
-    localparam int unsigned INT_WIDTH = fpnew_pkg::int_width(fpnew_pkg::int_format_e'(ifmt));
+    localparam int unsigned INT_WIDTH = single_file_ariane_fpnew_pkg::int_width(single_file_ariane_fpnew_pkg::int_format_e'(ifmt));
 
     if (IntFmtConfig[ifmt]) begin : active_format
       always_comb begin : sign_ext_input
@@ -13672,7 +13672,7 @@ module fpnew_cast_multi #(
         ifmt_input_val[ifmt][INT_WIDTH-1:0] = operands_q[INT_WIDTH-1:0];
       end
     end else begin : inactive_format
-      assign ifmt_input_val[ifmt] = '{default: fpnew_pkg::DONT_CARE};
+      assign ifmt_input_val[ifmt] = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
     end
   end
 
@@ -13687,7 +13687,7 @@ module fpnew_cast_multi #(
   logic signed [INT_EXP_WIDTH-1:0] src_subnormal;
   logic signed [INT_EXP_WIDTH-1:0] src_offset;
 
-  assign src_bias      = signed'(fpnew_pkg::bias(src_fmt_q));
+  assign src_bias      = signed'(single_file_ariane_fpnew_pkg::bias(src_fmt_q));
   assign src_exp       = fmt_exponent[src_fmt_q];
   assign src_subnormal = signed'({1'b0, info[src_fmt_q].is_subnormal});
   assign src_offset    = fmt_shift_compensation[src_fmt_q];
@@ -13703,7 +13703,7 @@ module fpnew_cast_multi #(
   logic        [LZC_RESULT_WIDTH-1:0] renorm_shamt;
   logic        [  LZC_RESULT_WIDTH:0] renorm_shamt_sgn;
 
-  lzc #(
+  single_file_ariane_lzc #(
       .WIDTH(INT_MAN_WIDTH),
       .MODE (1)
   ) i_lzc (
@@ -13724,7 +13724,7 @@ module fpnew_cast_multi #(
 
   logic signed [INT_EXP_WIDTH-1:0] destination_exp;
 
-  assign destination_exp = input_exp + signed'(fpnew_pkg::bias(dst_fmt_q));
+  assign destination_exp = input_exp + signed'(single_file_ariane_fpnew_pkg::bias(dst_fmt_q));
 
   logic                                                          input_sign_q;
   logic signed            [INT_EXP_WIDTH-1:0]                    input_exp_q;
@@ -13732,13 +13732,13 @@ module fpnew_cast_multi #(
   logic signed            [INT_EXP_WIDTH-1:0]                    destination_exp_q;
   logic                                                          src_is_int_q;
   logic                                                          dst_is_int_q;
-  fpnew_pkg::fp_info_t                                           info_q;
+  single_file_ariane_fpnew_pkg::fp_info_t                                           info_q;
   logic                                                          mant_is_zero_q;
   logic                                                          op_mod_q2;
-  fpnew_pkg::roundmode_e                                         rnd_mode_q;
-  fpnew_pkg::fp_format_e                                         src_fmt_q2;
-  fpnew_pkg::fp_format_e                                         dst_fmt_q2;
-  fpnew_pkg::int_format_e                                        int_fmt_q2;
+  single_file_ariane_fpnew_pkg::roundmode_e                                         rnd_mode_q;
+  single_file_ariane_fpnew_pkg::fp_format_e                                         src_fmt_q2;
+  single_file_ariane_fpnew_pkg::fp_format_e                                         dst_fmt_q2;
+  single_file_ariane_fpnew_pkg::int_format_e                                        int_fmt_q2;
 
   logic                   [   0:NUM_MID_REGS]                    mid_pipe_input_sign_q;
   logic signed            [   0:NUM_MID_REGS][INT_EXP_WIDTH-1:0] mid_pipe_input_exp_q;
@@ -13746,13 +13746,13 @@ module fpnew_cast_multi #(
   logic signed            [   0:NUM_MID_REGS][INT_EXP_WIDTH-1:0] mid_pipe_dest_exp_q;
   logic                   [   0:NUM_MID_REGS]                    mid_pipe_src_is_int_q;
   logic                   [   0:NUM_MID_REGS]                    mid_pipe_dst_is_int_q;
-  fpnew_pkg::fp_info_t    [   0:NUM_MID_REGS]                    mid_pipe_info_q;
+  single_file_ariane_fpnew_pkg::fp_info_t    [   0:NUM_MID_REGS]                    mid_pipe_info_q;
   logic                   [   0:NUM_MID_REGS]                    mid_pipe_mant_zero_q;
   logic                   [   0:NUM_MID_REGS]                    mid_pipe_op_mod_q;
-  fpnew_pkg::roundmode_e  [   0:NUM_MID_REGS]                    mid_pipe_rnd_mode_q;
-  fpnew_pkg::fp_format_e  [   0:NUM_MID_REGS]                    mid_pipe_src_fmt_q;
-  fpnew_pkg::fp_format_e  [   0:NUM_MID_REGS]                    mid_pipe_dst_fmt_q;
-  fpnew_pkg::int_format_e [   0:NUM_MID_REGS]                    mid_pipe_int_fmt_q;
+  single_file_ariane_fpnew_pkg::roundmode_e  [   0:NUM_MID_REGS]                    mid_pipe_rnd_mode_q;
+  single_file_ariane_fpnew_pkg::fp_format_e  [   0:NUM_MID_REGS]                    mid_pipe_src_fmt_q;
+  single_file_ariane_fpnew_pkg::fp_format_e  [   0:NUM_MID_REGS]                    mid_pipe_dst_fmt_q;
+  single_file_ariane_fpnew_pkg::int_format_e [   0:NUM_MID_REGS]                    mid_pipe_int_fmt_q;
   TagType                 [   0:NUM_MID_REGS]                    mid_pipe_tag_q;
   logic                   [   0:NUM_MID_REGS]                    mid_pipe_mask_q;
   AuxType                 [   0:NUM_MID_REGS]                    mid_pipe_aux_q;
@@ -13800,10 +13800,10 @@ module fpnew_cast_multi #(
     `FFL(mid_pipe_info_q[i+1], mid_pipe_info_q[i], reg_ena, '0)
     `FFL(mid_pipe_mant_zero_q[i+1], mid_pipe_mant_zero_q[i], reg_ena, '0)
     `FFL(mid_pipe_op_mod_q[i+1], mid_pipe_op_mod_q[i], reg_ena, '0)
-    `FFL(mid_pipe_rnd_mode_q[i+1], mid_pipe_rnd_mode_q[i], reg_ena, fpnew_pkg::RNE)
-    `FFL(mid_pipe_src_fmt_q[i+1], mid_pipe_src_fmt_q[i], reg_ena, fpnew_pkg::fp_format_e'(0))
-    `FFL(mid_pipe_dst_fmt_q[i+1], mid_pipe_dst_fmt_q[i], reg_ena, fpnew_pkg::fp_format_e'(0))
-    `FFL(mid_pipe_int_fmt_q[i+1], mid_pipe_int_fmt_q[i], reg_ena, fpnew_pkg::int_format_e'(0))
+    `FFL(mid_pipe_rnd_mode_q[i+1], mid_pipe_rnd_mode_q[i], reg_ena, single_file_ariane_fpnew_pkg::RNE)
+    `FFL(mid_pipe_src_fmt_q[i+1], mid_pipe_src_fmt_q[i], reg_ena, single_file_ariane_fpnew_pkg::fp_format_e'(0))
+    `FFL(mid_pipe_dst_fmt_q[i+1], mid_pipe_dst_fmt_q[i], reg_ena, single_file_ariane_fpnew_pkg::fp_format_e'(0))
+    `FFL(mid_pipe_int_fmt_q[i+1], mid_pipe_int_fmt_q[i], reg_ena, single_file_ariane_fpnew_pkg::int_format_e'(0))
     `FFL(mid_pipe_tag_q[i+1], mid_pipe_tag_q[i], reg_ena, TagType'('0))
     `FFL(mid_pipe_mask_q[i+1], mid_pipe_mask_q[i], reg_ena, '0)
     `FFL(mid_pipe_aux_q[i+1], mid_pipe_aux_q[i], reg_ena, AuxType'('0))
@@ -13839,7 +13839,7 @@ module fpnew_cast_multi #(
 
     final_exp       = unsigned'(destination_exp_q);
     preshift_mant   = '0;
-    denorm_shamt    = SUPER_MAN_BITS - fpnew_pkg::man_bits(dst_fmt_q2);
+    denorm_shamt    = SUPER_MAN_BITS - single_file_ariane_fpnew_pkg::man_bits(dst_fmt_q2);
     of_before_round = 1'b0;
     uf_before_round = 1'b0;
 
@@ -13849,7 +13849,7 @@ module fpnew_cast_multi #(
 
       denorm_shamt = unsigned'(MAX_INT_WIDTH - 1 - input_exp_q);
 
-      if (input_exp_q >= signed'(fpnew_pkg::int_width(int_fmt_q2) - 1 + op_mod_q2)) begin
+      if (input_exp_q >= signed'(single_file_ariane_fpnew_pkg::int_width(int_fmt_q2) - 1 + op_mod_q2)) begin
         denorm_shamt    = '0;
         of_before_round = 1'b1;
 
@@ -13860,23 +13860,23 @@ module fpnew_cast_multi #(
 
     end else begin
 
-      if ((destination_exp_q >= signed'(2 ** fpnew_pkg::exp_bits(
+      if ((destination_exp_q >= signed'(2 ** single_file_ariane_fpnew_pkg::exp_bits(
               dst_fmt_q2
           )) - 1) || (~src_is_int_q && info_q.is_inf)) begin
-        final_exp       = unsigned'(2 ** fpnew_pkg::exp_bits(dst_fmt_q2) - 2);
+        final_exp       = unsigned'(2 ** single_file_ariane_fpnew_pkg::exp_bits(dst_fmt_q2) - 2);
         preshift_mant   = '1;
         of_before_round = 1'b1;
 
-      end else if (destination_exp_q < 1 && destination_exp_q >= -signed'(fpnew_pkg::man_bits(
+      end else if (destination_exp_q < 1 && destination_exp_q >= -signed'(single_file_ariane_fpnew_pkg::man_bits(
               dst_fmt_q2
           ))) begin
         final_exp       = '0;
         denorm_shamt    = unsigned'(denorm_shamt + 1 - destination_exp_q);
         uf_before_round = 1'b1;
 
-      end else if (destination_exp_q < -signed'(fpnew_pkg::man_bits(dst_fmt_q2))) begin
+      end else if (destination_exp_q < -signed'(single_file_ariane_fpnew_pkg::man_bits(dst_fmt_q2))) begin
         final_exp       = '0;
-        denorm_shamt    = unsigned'(denorm_shamt + 2 + fpnew_pkg::man_bits(dst_fmt_q2));
+        denorm_shamt    = unsigned'(denorm_shamt + 2 + single_file_ariane_fpnew_pkg::man_bits(dst_fmt_q2));
         uf_before_round = 1'b1;
       end
     end
@@ -13916,21 +13916,21 @@ module fpnew_cast_multi #(
 
   for (genvar fmt = 0; fmt < int'(NUM_FORMATS); fmt++) begin : gen_res_assemble
 
-    localparam int unsigned EXP_BITS = fpnew_pkg::exp_bits(fpnew_pkg::fp_format_e'(fmt));
-    localparam int unsigned MAN_BITS = fpnew_pkg::man_bits(fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned EXP_BITS = single_file_ariane_fpnew_pkg::exp_bits(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned MAN_BITS = single_file_ariane_fpnew_pkg::man_bits(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
 
     if (FpFmtConfig[fmt]) begin : active_format
       always_comb begin : assemble_result
         fmt_pre_round_abs[fmt] = {final_exp[EXP_BITS-1:0], final_mant[MAN_BITS-1:0]};
       end
     end else begin : inactive_format
-      assign fmt_pre_round_abs[fmt] = '{default: fpnew_pkg::DONT_CARE};
+      assign fmt_pre_round_abs[fmt] = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
     end
   end
 
   for (genvar ifmt = 0; ifmt < int'(NUM_INT_FORMATS); ifmt++) begin : gen_int_res_sign_ext
 
-    localparam int unsigned INT_WIDTH = fpnew_pkg::int_width(fpnew_pkg::int_format_e'(ifmt));
+    localparam int unsigned INT_WIDTH = single_file_ariane_fpnew_pkg::int_width(single_file_ariane_fpnew_pkg::int_format_e'(ifmt));
 
     if (IntFmtConfig[ifmt]) begin : active_format
       always_comb begin : assemble_result
@@ -13939,13 +13939,13 @@ module fpnew_cast_multi #(
         ifmt_pre_round_abs[ifmt][INT_WIDTH-1:0] = final_int[INT_WIDTH-1:0];
       end
     end else begin : inactive_format
-      assign ifmt_pre_round_abs[ifmt] = '{default: fpnew_pkg::DONT_CARE};
+      assign ifmt_pre_round_abs[ifmt] = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
     end
   end
 
   assign pre_round_abs = dst_is_int_q ? ifmt_pre_round_abs[int_fmt_q2] : fmt_pre_round_abs[dst_fmt_q2];
 
-  fpnew_rounding #(
+  single_file_ariane_fpnew_rounding #(
       .AbsWidth(WIDTH)
   ) i_fpnew_rounding (
       .abs_value_i            (pre_round_abs),
@@ -13962,9 +13962,9 @@ module fpnew_cast_multi #(
 
   for (genvar fmt = 0; fmt < int'(NUM_FORMATS); fmt++) begin : gen_sign_inject
 
-    localparam int unsigned FP_WIDTH = fpnew_pkg::fp_width(fpnew_pkg::fp_format_e'(fmt));
-    localparam int unsigned EXP_BITS = fpnew_pkg::exp_bits(fpnew_pkg::fp_format_e'(fmt));
-    localparam int unsigned MAN_BITS = fpnew_pkg::man_bits(fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned FP_WIDTH = single_file_ariane_fpnew_pkg::fp_width(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned EXP_BITS = single_file_ariane_fpnew_pkg::exp_bits(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned MAN_BITS = single_file_ariane_fpnew_pkg::man_bits(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
 
     if (FpFmtConfig[fmt]) begin : active_format
       always_comb begin : post_process
@@ -13978,9 +13978,9 @@ module fpnew_cast_multi #(
                                         : {rounded_sign, rounded_abs[EXP_BITS+MAN_BITS-1:0]};
       end
     end else begin : inactive_format
-      assign fmt_uf_after_round[fmt] = fpnew_pkg::DONT_CARE;
-      assign fmt_of_after_round[fmt] = fpnew_pkg::DONT_CARE;
-      assign fmt_result[fmt]         = '{default: fpnew_pkg::DONT_CARE};
+      assign fmt_uf_after_round[fmt] = single_file_ariane_fpnew_pkg::DONT_CARE;
+      assign fmt_of_after_round[fmt] = single_file_ariane_fpnew_pkg::DONT_CARE;
+      assign fmt_result[fmt]         = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
     end
   end
 
@@ -13989,7 +13989,7 @@ module fpnew_cast_multi #(
 
   for (genvar ifmt = 0; ifmt < int'(NUM_INT_FORMATS); ifmt++) begin : gen_int_overflow
 
-    localparam int unsigned INT_WIDTH = fpnew_pkg::int_width(fpnew_pkg::int_format_e'(ifmt));
+    localparam int unsigned INT_WIDTH = single_file_ariane_fpnew_pkg::int_width(single_file_ariane_fpnew_pkg::int_format_e'(ifmt));
 
     if (IntFmtConfig[ifmt]) begin : active_format
       always_comb begin : detect_overflow
@@ -14001,7 +14001,7 @@ module fpnew_cast_multi #(
         end
       end
     end else begin : inactive_format
-      assign ifmt_of_after_round[ifmt] = fpnew_pkg::DONT_CARE;
+      assign ifmt_of_after_round[ifmt] = single_file_ariane_fpnew_pkg::DONT_CARE;
     end
   end
 
@@ -14009,16 +14009,16 @@ module fpnew_cast_multi #(
   assign of_after_round = dst_is_int_q ? ifmt_of_after_round[int_fmt_q2] : fmt_of_after_round[dst_fmt_q2];
 
   logic               [      WIDTH-1:0]            fp_special_result;
-  fpnew_pkg::status_t                              fp_special_status;
+  single_file_ariane_fpnew_pkg::status_t                              fp_special_status;
   logic                                            fp_result_is_special;
 
   logic               [NUM_FORMATS-1:0][WIDTH-1:0] fmt_special_result;
 
   for (genvar fmt = 0; fmt < int'(NUM_FORMATS); fmt++) begin : gen_special_results
 
-    localparam int unsigned FP_WIDTH = fpnew_pkg::fp_width(fpnew_pkg::fp_format_e'(fmt));
-    localparam int unsigned EXP_BITS = fpnew_pkg::exp_bits(fpnew_pkg::fp_format_e'(fmt));
-    localparam int unsigned MAN_BITS = fpnew_pkg::man_bits(fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned FP_WIDTH = single_file_ariane_fpnew_pkg::fp_width(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned EXP_BITS = single_file_ariane_fpnew_pkg::exp_bits(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned MAN_BITS = single_file_ariane_fpnew_pkg::man_bits(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
 
     localparam logic [EXP_BITS-1:0] QNAN_EXPONENT = '1;
     localparam logic [MAN_BITS-1:0] QNAN_MANTISSA = 2 ** (MAN_BITS - 1);
@@ -14034,7 +14034,7 @@ module fpnew_cast_multi #(
         fmt_special_result[fmt][FP_WIDTH-1:0] = special_res;
       end
     end else begin : inactive_format
-      assign fmt_special_result[fmt] = '{default: fpnew_pkg::DONT_CARE};
+      assign fmt_special_result[fmt] = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
     end
   end
 
@@ -14045,14 +14045,14 @@ module fpnew_cast_multi #(
   assign fp_special_result = fmt_special_result[dst_fmt_q2];
 
   logic               [          WIDTH-1:0]            int_special_result;
-  fpnew_pkg::status_t                                  int_special_status;
+  single_file_ariane_fpnew_pkg::status_t                                  int_special_status;
   logic                                                int_result_is_special;
 
   logic               [NUM_INT_FORMATS-1:0][WIDTH-1:0] ifmt_special_result;
 
   for (genvar ifmt = 0; ifmt < int'(NUM_INT_FORMATS); ifmt++) begin : gen_special_results_int
 
-    localparam int unsigned INT_WIDTH = fpnew_pkg::int_width(fpnew_pkg::int_format_e'(ifmt));
+    localparam int unsigned INT_WIDTH = single_file_ariane_fpnew_pkg::int_width(single_file_ariane_fpnew_pkg::int_format_e'(ifmt));
 
     if (IntFmtConfig[ifmt]) begin : active_format
       always_comb begin : special_results
@@ -14067,7 +14067,7 @@ module fpnew_cast_multi #(
         ifmt_special_result[ifmt][INT_WIDTH-1:0] = special_res;
       end
     end else begin : inactive_format
-      assign ifmt_special_result[ifmt] = '{default: fpnew_pkg::DONT_CARE};
+      assign ifmt_special_result[ifmt] = '{default: single_file_ariane_fpnew_pkg::DONT_CARE};
     end
   end
 
@@ -14079,10 +14079,10 @@ module fpnew_cast_multi #(
 
   assign int_special_result = ifmt_special_result[int_fmt_q2];
 
-  fpnew_pkg::status_t int_regular_status, fp_regular_status;
+  single_file_ariane_fpnew_pkg::status_t int_regular_status, fp_regular_status;
 
   logic [WIDTH-1:0] fp_result, int_result;
-  fpnew_pkg::status_t fp_status, int_status;
+  single_file_ariane_fpnew_pkg::status_t fp_status, int_status;
 
   assign fp_regular_status.NV = src_is_int_q & (of_before_round | of_after_round);
   assign fp_regular_status.DZ = 1'b0;
@@ -14098,7 +14098,7 @@ module fpnew_cast_multi #(
   assign int_status = int_result_is_special ? int_special_status : int_regular_status;
 
   logic               [WIDTH-1:0] result_d;
-  fpnew_pkg::status_t             status_d;
+  single_file_ariane_fpnew_pkg::status_t             status_d;
   logic                           extension_bit;
 
   assign result_d = dst_is_int_q ? int_result : fp_result;
@@ -14107,7 +14107,7 @@ module fpnew_cast_multi #(
   assign extension_bit = dst_is_int_q ? int_result[WIDTH-1] : 1'b1;
 
   logic               [0:NUM_OUT_REGS][WIDTH-1:0] out_pipe_result_q;
-  fpnew_pkg::status_t [0:NUM_OUT_REGS]            out_pipe_status_q;
+  single_file_ariane_fpnew_pkg::status_t [0:NUM_OUT_REGS]            out_pipe_status_q;
   logic               [0:NUM_OUT_REGS]            out_pipe_ext_bit_q;
   TagType             [0:NUM_OUT_REGS]            out_pipe_tag_q;
   logic               [0:NUM_OUT_REGS]            out_pipe_mask_q;
@@ -14160,15 +14160,15 @@ endmodule
 
 
 
-module fpnew_top #(
+module single_file_ariane_fpnew_top #(
 
-    parameter fpnew_pkg::fpu_features_t       Features       = fpnew_pkg::RV64D_Xsflt,
-    parameter fpnew_pkg::fpu_implementation_t Implementation = fpnew_pkg::DEFAULT_NOREGS,
+    parameter single_file_ariane_fpnew_pkg::fpu_features_t       Features       = single_file_ariane_fpnew_pkg::RV64D_Xsflt,
+    parameter single_file_ariane_fpnew_pkg::fpu_implementation_t Implementation = single_file_ariane_fpnew_pkg::DEFAULT_NOREGS,
     parameter type                            TagType        = logic,
     parameter int unsigned                    TrueSIMDClass  = 0,
     parameter int unsigned                    EnableSIMDMask = 0,
 
-    localparam int unsigned NumLanes = fpnew_pkg::max_num_lanes(
+    localparam int unsigned NumLanes = single_file_ariane_fpnew_pkg::max_num_lanes(
         Features.Width, Features.FpFmtMask, Features.EnableVectors
     ),
     localparam type MaskType = logic [NumLanes-1:0],
@@ -14179,12 +14179,12 @@ module fpnew_top #(
     input logic rst_ni,
 
     input logic                   [NUM_OPERANDS-1:0][WIDTH-1:0] operands_i,
-    input fpnew_pkg::roundmode_e                                rnd_mode_i,
-    input fpnew_pkg::operation_e                                op_i,
+    input single_file_ariane_fpnew_pkg::roundmode_e                                rnd_mode_i,
+    input single_file_ariane_fpnew_pkg::operation_e                                op_i,
     input logic                                                 op_mod_i,
-    input fpnew_pkg::fp_format_e                                src_fmt_i,
-    input fpnew_pkg::fp_format_e                                dst_fmt_i,
-    input fpnew_pkg::int_format_e                               int_fmt_i,
+    input single_file_ariane_fpnew_pkg::fp_format_e                                src_fmt_i,
+    input single_file_ariane_fpnew_pkg::fp_format_e                                dst_fmt_i,
+    input single_file_ariane_fpnew_pkg::int_format_e                               int_fmt_i,
     input logic                                                 vectorial_op_i,
     input TagType                                               tag_i,
     input MaskType                                              simd_mask_i,
@@ -14194,7 +14194,7 @@ module fpnew_top #(
     input  logic flush_i,
 
     output logic               [WIDTH-1:0] result_o,
-    output fpnew_pkg::status_t             status_o,
+    output single_file_ariane_fpnew_pkg::status_t             status_o,
     output TagType                         tag_o,
 
     output logic out_valid_o,
@@ -14203,12 +14203,12 @@ module fpnew_top #(
     output logic busy_o
 );
 
-  localparam int unsigned NUM_OPGROUPS = fpnew_pkg::NUM_OPGROUPS;
-  localparam int unsigned NUM_FORMATS = fpnew_pkg::NUM_FP_FORMATS;
+  localparam int unsigned NUM_OPGROUPS = single_file_ariane_fpnew_pkg::NUM_OPGROUPS;
+  localparam int unsigned NUM_FORMATS = single_file_ariane_fpnew_pkg::NUM_FP_FORMATS;
 
   typedef struct packed {
     logic [WIDTH-1:0]   result;
-    fpnew_pkg::status_t status;
+    single_file_ariane_fpnew_pkg::status_t status;
     TagType             tag;
   } output_t;
 
@@ -14217,10 +14217,10 @@ module fpnew_top #(
 
   logic [NUM_FORMATS-1:0][NUM_OPERANDS-1:0] is_boxed;
 
-  assign in_ready_o = in_valid_i & opgrp_in_ready[fpnew_pkg::get_opgroup(op_i)];
+  assign in_ready_o = in_valid_i & opgrp_in_ready[single_file_ariane_fpnew_pkg::get_opgroup(op_i)];
 
   for (genvar fmt = 0; fmt < int'(NUM_FORMATS); fmt++) begin : gen_nanbox_check
-    localparam int unsigned FP_WIDTH = fpnew_pkg::fp_width(fpnew_pkg::fp_format_e'(fmt));
+    localparam int unsigned FP_WIDTH = single_file_ariane_fpnew_pkg::fp_width(single_file_ariane_fpnew_pkg::fp_format_e'(fmt));
 
     if (Features.EnableNanBox && (FP_WIDTH < WIDTH)) begin : check
       for (genvar op = 0; op < int'(NUM_OPERANDS); op++) begin : operands
@@ -14237,20 +14237,20 @@ module fpnew_top #(
   assign simd_mask = simd_mask_i | ~{NumLanes{logic'(EnableSIMDMask)}};
 
   for (genvar opgrp = 0; opgrp < int'(NUM_OPGROUPS); opgrp++) begin : gen_operation_groups
-    localparam int unsigned NUM_OPS = fpnew_pkg::num_operands(fpnew_pkg::opgroup_e'(opgrp));
+    localparam int unsigned NUM_OPS = single_file_ariane_fpnew_pkg::num_operands(single_file_ariane_fpnew_pkg::opgroup_e'(opgrp));
 
     logic in_valid;
     logic [NUM_FORMATS-1:0][NUM_OPS-1:0] input_boxed;
 
-    assign in_valid = in_valid_i & (fpnew_pkg::get_opgroup(op_i) == fpnew_pkg::opgroup_e'(opgrp));
+    assign in_valid = in_valid_i & (single_file_ariane_fpnew_pkg::get_opgroup(op_i) == single_file_ariane_fpnew_pkg::opgroup_e'(opgrp));
 
     always_comb begin : slice_inputs
       for (int unsigned fmt = 0; fmt < NUM_FORMATS; fmt++)
       input_boxed[fmt] = is_boxed[fmt][NUM_OPS-1:0];
     end
 
-    fpnew_opgroup_block #(
-        .OpGroup      (fpnew_pkg::opgroup_e'(opgrp)),
+    single_file_ariane_fpnew_opgroup_block #(
+        .OpGroup      (single_file_ariane_fpnew_pkg::opgroup_e'(opgrp)),
         .Width        (WIDTH),
         .EnableVectors(Features.EnableVectors),
         .FpFmtMask    (Features.FpFmtMask),
@@ -14289,7 +14289,7 @@ module fpnew_top #(
 
   output_t arbiter_output;
 
-  rr_arb_tree #(
+  single_file_ariane_rr_arb_tree #(
       .NumIn    (NUM_OPGROUPS),
       .DataType (output_t),
       .AxiVldRdy(1'b1)
@@ -14318,10 +14318,10 @@ endmodule
 
 
 
-module fpu_wrap
-  import ariane_pkg::*;
+module single_file_ariane_fpu_wrap
+  import single_file_ariane_ariane_pkg::*;
 #(
-    parameter config_pkg::cva6_cfg_t CVA6Cfg = '{
+    parameter single_file_ariane_config_pkg::cva6_cfg_t CVA6Cfg = '{
 
         XLEN                  : 64,
         VLEN                  : 0,
@@ -14368,7 +14368,7 @@ module fpu_wrap
         RVZCMT                : 1'b0,
         XFVec                 : 1'b0,
         CvxifEn               : 1'b0,
-        CoproType             : config_pkg::COPRO_NONE,
+        CoproType             : single_file_ariane_config_pkg::COPRO_NONE,
         RVZiCond              : 1'b0,
         RVZicntr              : 1'b0,
         RVZihpm               : 1'b0,
@@ -14399,7 +14399,7 @@ module fpu_wrap
 
         RASDepth              : 2,
         BTBEntries            : 64,
-        BPType                : config_pkg::BHT,
+        BPType                : single_file_ariane_config_pkg::BHT,
         BHTEntries            : 128,
         BHTHist               : 8,
 
@@ -14421,7 +14421,7 @@ module fpu_wrap
         PMPEntryReadOnly      : '0,
         PMPNapotEn            : 1'b1,
 
-        NOCType               : config_pkg::NOC_TYPE_AXI4_ATOP,
+        NOCType               : single_file_ariane_config_pkg::NOC_TYPE_AXI4_ATOP,
         NrNonIdempotentRules  : 0,
         NonIdempotentAddrBase : '0,
         NonIdempotentLength   : '0,
@@ -14444,7 +14444,7 @@ module fpu_wrap
         ICACHE_LINE_WIDTH         : 128,
         ICACHE_USER_LINE_WIDTH    : 0,
 
-        DCacheType                : config_pkg::WT,
+        DCacheType                : single_file_ariane_config_pkg::WT,
         DcacheIdWidth             : 4,
         DCACHE_SET_ASSOC          : 8,
         DCACHE_SET_ASSOC_WIDTH    : 3,
@@ -14477,7 +14477,7 @@ module fpu_wrap
         VMIDW                 : 7,
         PPNW                  : 44,
         GPPNW                 : 44,
-        MODE_SV               : config_pkg::ModeOff,
+        MODE_SV               : single_file_ariane_config_pkg::ModeOff,
         SV                    : 1,
         SVX                   : 0,
 
@@ -14535,11 +14535,11 @@ module fpu_wrap
     assign operand_b_i = fu_data_i.operand_b[CVA6Cfg.FLen-1:0];
     assign operand_c_i = fu_data_i.imm[CVA6Cfg.FLen-1:0];
 
-    localparam OPBITS = fpnew_pkg::OP_BITS;
-    localparam FMTBITS = $clog2(fpnew_pkg::NUM_FP_FORMATS);
-    localparam IFMTBITS = $clog2(fpnew_pkg::NUM_INT_FORMATS);
+    localparam OPBITS = single_file_ariane_fpnew_pkg::OP_BITS;
+    localparam FMTBITS = $clog2(single_file_ariane_fpnew_pkg::NUM_FP_FORMATS);
+    localparam IFMTBITS = $clog2(single_file_ariane_fpnew_pkg::NUM_INT_FORMATS);
 
-    localparam fpnew_pkg::fpu_features_t FPU_FEATURES = '{
+    localparam single_file_ariane_fpnew_pkg::fpu_features_t FPU_FEATURES = '{
         Width: unsigned'(CVA6Cfg.FLen),
         EnableVectors: CVA6Cfg.XFVec,
         EnableNanBox: 1'b1,
@@ -14552,7 +14552,7 @@ module fpu_wrap
         }
     };
 
-    localparam fpnew_pkg::fpu_implementation_t FPU_IMPLEMENTATION = '{
+    localparam single_file_ariane_fpnew_pkg::fpu_implementation_t FPU_IMPLEMENTATION = '{
         PipeRegs: '{
             '{
                 unsigned'(LAT_COMP_FP32),
@@ -14566,12 +14566,12 @@ module fpu_wrap
             '{default: unsigned'(LAT_CONV)}
         },
         UnitTypes: '{
-            '{default: fpnew_pkg::PARALLEL},
-            '{default: fpnew_pkg::MERGED},
-            '{default: fpnew_pkg::PARALLEL},
-            '{default: fpnew_pkg::MERGED}
+            '{default: single_file_ariane_fpnew_pkg::PARALLEL},
+            '{default: single_file_ariane_fpnew_pkg::MERGED},
+            '{default: single_file_ariane_fpnew_pkg::PARALLEL},
+            '{default: single_file_ariane_fpnew_pkg::MERGED}
         },
-        PipeConfig: fpnew_pkg::DISTRIBUTED
+        PipeConfig: single_file_ariane_fpnew_pkg::DISTRIBUTED
     };
 
     logic [CVA6Cfg.FLen-1:0] operand_a_d, operand_a_q, operand_a;
@@ -14604,10 +14604,10 @@ module fpu_wrap
       operand_a_d     = operand_a_i;
       operand_b_d     = operand_b_i;
       operand_c_d     = operand_c_i;
-      fpu_op_d        = fpnew_pkg::SGNJ;
+      fpu_op_d        = single_file_ariane_fpnew_pkg::SGNJ;
       fpu_op_mod_d    = 1'b0;
-      fpu_dstfmt_d    = fpnew_pkg::FP32;
-      fpu_ifmt_d      = fpnew_pkg::INT32;
+      fpu_dstfmt_d    = single_file_ariane_fpnew_pkg::FP32;
+      fpu_ifmt_d      = single_file_ariane_fpnew_pkg::INT32;
       fpu_rm_d        = fpu_rm_i;
       fpu_vec_op_d    = fu_data_i.fu == FPU_VEC;
       fpu_tag_d       = fu_data_i.trans_id;
@@ -14621,16 +14621,16 @@ module fpu_wrap
 
       unique case (fpu_fmt_i)
 
-        2'b00: fpu_dstfmt_d = fpnew_pkg::FP32;
+        2'b00: fpu_dstfmt_d = single_file_ariane_fpnew_pkg::FP32;
 
-        2'b01: fpu_dstfmt_d = fpu_vec_op_d ? fpnew_pkg::FP16ALT : fpnew_pkg::FP64;
+        2'b01: fpu_dstfmt_d = fpu_vec_op_d ? single_file_ariane_fpnew_pkg::FP16ALT : single_file_ariane_fpnew_pkg::FP64;
 
         2'b10: begin
-          if (!fpu_vec_op_d && fpu_rm_i == 3'b101) fpu_dstfmt_d = fpnew_pkg::FP16ALT;
-          else fpu_dstfmt_d = fpnew_pkg::FP16;
+          if (!fpu_vec_op_d && fpu_rm_i == 3'b101) fpu_dstfmt_d = single_file_ariane_fpnew_pkg::FP16ALT;
+          else fpu_dstfmt_d = single_file_ariane_fpnew_pkg::FP16;
         end
 
-        default: fpu_dstfmt_d = fpnew_pkg::FP8;
+        default: fpu_dstfmt_d = single_file_ariane_fpnew_pkg::FP8;
       endcase
 
       fpu_srcfmt_d = fpu_dstfmt_d;
@@ -14638,112 +14638,112 @@ module fpu_wrap
       unique case (fu_data_i.operation)
 
         FADD: begin
-          fpu_op_d    = fpnew_pkg::ADD;
+          fpu_op_d    = single_file_ariane_fpnew_pkg::ADD;
           replicate_c = 1'b1;
         end
 
         FSUB: begin
-          fpu_op_d     = fpnew_pkg::ADD;
+          fpu_op_d     = single_file_ariane_fpnew_pkg::ADD;
           fpu_op_mod_d = 1'b1;
           replicate_c  = 1'b1;
         end
 
-        FMUL: fpu_op_d = fpnew_pkg::MUL;
+        FMUL: fpu_op_d = single_file_ariane_fpnew_pkg::MUL;
 
-        FDIV: fpu_op_d = fpnew_pkg::DIV;
+        FDIV: fpu_op_d = single_file_ariane_fpnew_pkg::DIV;
 
         FMIN_MAX: begin
-          fpu_op_d = fpnew_pkg::MINMAX;
+          fpu_op_d = single_file_ariane_fpnew_pkg::MINMAX;
           fpu_rm_d = {1'b0, fpu_rm_i[1:0]};
           check_ah = 1'b1;
         end
 
-        FSQRT: fpu_op_d = fpnew_pkg::SQRT;
+        FSQRT: fpu_op_d = single_file_ariane_fpnew_pkg::SQRT;
 
-        FMADD: fpu_op_d = fpnew_pkg::FMADD;
+        FMADD: fpu_op_d = single_file_ariane_fpnew_pkg::FMADD;
 
         FMSUB: begin
-          fpu_op_d     = fpnew_pkg::FMADD;
+          fpu_op_d     = single_file_ariane_fpnew_pkg::FMADD;
           fpu_op_mod_d = 1'b1;
         end
 
-        FNMSUB: fpu_op_d = fpnew_pkg::FNMSUB;
+        FNMSUB: fpu_op_d = single_file_ariane_fpnew_pkg::FNMSUB;
 
         FNMADD: begin
-          fpu_op_d     = fpnew_pkg::FNMSUB;
+          fpu_op_d     = single_file_ariane_fpnew_pkg::FNMSUB;
           fpu_op_mod_d = 1'b1;
         end
 
         FCVT_F2I: begin
-          fpu_op_d = fpnew_pkg::F2I;
+          fpu_op_d = single_file_ariane_fpnew_pkg::F2I;
 
           if (fpu_vec_op_d) begin
             fpu_op_mod_d    = fpu_rm_i[0];
             vec_replication = 1'b0;
             unique case (fpu_fmt_i)
-              2'b00: fpu_ifmt_d = fpnew_pkg::INT32;
-              2'b01, 2'b10: fpu_ifmt_d = fpnew_pkg::INT16;
-              2'b11: fpu_ifmt_d = fpnew_pkg::INT8;
+              2'b00: fpu_ifmt_d = single_file_ariane_fpnew_pkg::INT32;
+              2'b01, 2'b10: fpu_ifmt_d = single_file_ariane_fpnew_pkg::INT16;
+              2'b11: fpu_ifmt_d = single_file_ariane_fpnew_pkg::INT8;
             endcase
 
           end else begin
             fpu_op_mod_d = operand_c_i[0];
-            if (operand_c_i[1]) fpu_ifmt_d = fpnew_pkg::INT64;
-            else fpu_ifmt_d = fpnew_pkg::INT32;
+            if (operand_c_i[1]) fpu_ifmt_d = single_file_ariane_fpnew_pkg::INT64;
+            else fpu_ifmt_d = single_file_ariane_fpnew_pkg::INT32;
           end
         end
 
         FCVT_I2F: begin
-          fpu_op_d = fpnew_pkg::I2F;
+          fpu_op_d = single_file_ariane_fpnew_pkg::I2F;
 
           if (fpu_vec_op_d) begin
             fpu_op_mod_d    = fpu_rm_i[0];
             vec_replication = 1'b0;
             unique case (fpu_fmt_i)
-              2'b00: fpu_ifmt_d = fpnew_pkg::INT32;
-              2'b01, 2'b10: fpu_ifmt_d = fpnew_pkg::INT16;
-              2'b11: fpu_ifmt_d = fpnew_pkg::INT8;
+              2'b00: fpu_ifmt_d = single_file_ariane_fpnew_pkg::INT32;
+              2'b01, 2'b10: fpu_ifmt_d = single_file_ariane_fpnew_pkg::INT16;
+              2'b11: fpu_ifmt_d = single_file_ariane_fpnew_pkg::INT8;
             endcase
 
           end else begin
             fpu_op_mod_d = operand_c_i[0];
-            if (operand_c_i[1]) fpu_ifmt_d = fpnew_pkg::INT64;
-            else fpu_ifmt_d = fpnew_pkg::INT32;
+            if (operand_c_i[1]) fpu_ifmt_d = single_file_ariane_fpnew_pkg::INT64;
+            else fpu_ifmt_d = single_file_ariane_fpnew_pkg::INT32;
           end
         end
 
         FCVT_F2F: begin
-          fpu_op_d = fpnew_pkg::F2F;
+          fpu_op_d = single_file_ariane_fpnew_pkg::F2F;
 
           if (fpu_vec_op_d) begin
             vec_replication = 1'b0;
             unique case (operand_c_i[1:0])
-              2'b00: fpu_srcfmt_d = fpnew_pkg::FP32;
-              2'b01: fpu_srcfmt_d = fpnew_pkg::FP16ALT;
-              2'b10: fpu_srcfmt_d = fpnew_pkg::FP16;
-              2'b11: fpu_srcfmt_d = fpnew_pkg::FP8;
+              2'b00: fpu_srcfmt_d = single_file_ariane_fpnew_pkg::FP32;
+              2'b01: fpu_srcfmt_d = single_file_ariane_fpnew_pkg::FP16ALT;
+              2'b10: fpu_srcfmt_d = single_file_ariane_fpnew_pkg::FP16;
+              2'b11: fpu_srcfmt_d = single_file_ariane_fpnew_pkg::FP8;
             endcase
 
           end else begin
             unique case (operand_c_i[2:0])
-              3'b000:  fpu_srcfmt_d = fpnew_pkg::FP32;
-              3'b001:  fpu_srcfmt_d = fpnew_pkg::FP64;
-              3'b010:  fpu_srcfmt_d = fpnew_pkg::FP16;
-              3'b110:  fpu_srcfmt_d = fpnew_pkg::FP16ALT;
-              3'b011:  fpu_srcfmt_d = fpnew_pkg::FP8;
+              3'b000:  fpu_srcfmt_d = single_file_ariane_fpnew_pkg::FP32;
+              3'b001:  fpu_srcfmt_d = single_file_ariane_fpnew_pkg::FP64;
+              3'b010:  fpu_srcfmt_d = single_file_ariane_fpnew_pkg::FP16;
+              3'b110:  fpu_srcfmt_d = single_file_ariane_fpnew_pkg::FP16ALT;
+              3'b011:  fpu_srcfmt_d = single_file_ariane_fpnew_pkg::FP8;
               default: ;
             endcase
           end
         end
 
         FSGNJ: begin
-          fpu_op_d = fpnew_pkg::SGNJ;
+          fpu_op_d = single_file_ariane_fpnew_pkg::SGNJ;
           fpu_rm_d = {1'b0, fpu_rm_i[1:0]};
           check_ah = 1'b1;
         end
 
         FMV_F2X: begin
-          fpu_op_d        = fpnew_pkg::SGNJ;
+          fpu_op_d        = single_file_ariane_fpnew_pkg::SGNJ;
           fpu_rm_d        = 3'b011;
           fpu_op_mod_d    = 1'b1;
           check_ah        = 1'b1;
@@ -14751,131 +14751,131 @@ module fpu_wrap
         end
 
         FMV_X2F: begin
-          fpu_op_d        = fpnew_pkg::SGNJ;
+          fpu_op_d        = single_file_ariane_fpnew_pkg::SGNJ;
           fpu_rm_d        = 3'b011;
           check_ah        = 1'b1;
           vec_replication = 1'b0;
         end
 
         FCMP: begin
-          fpu_op_d = fpnew_pkg::CMP;
+          fpu_op_d = single_file_ariane_fpnew_pkg::CMP;
           fpu_rm_d = {1'b0, fpu_rm_i[1:0]};
           check_ah = 1'b1;
         end
 
         FCLASS: begin
-          fpu_op_d = fpnew_pkg::CLASSIFY;
+          fpu_op_d = single_file_ariane_fpnew_pkg::CLASSIFY;
           fpu_rm_d = {1'b0, fpu_rm_i[1:0]};
           check_ah = 1'b1;
         end
 
         VFMIN: begin
-          fpu_op_d = fpnew_pkg::MINMAX;
+          fpu_op_d = single_file_ariane_fpnew_pkg::MINMAX;
           fpu_rm_d = 3'b000;
         end
 
         VFMAX: begin
-          fpu_op_d = fpnew_pkg::MINMAX;
+          fpu_op_d = single_file_ariane_fpnew_pkg::MINMAX;
           fpu_rm_d = 3'b001;
         end
 
         VFSGNJ: begin
-          fpu_op_d = fpnew_pkg::SGNJ;
+          fpu_op_d = single_file_ariane_fpnew_pkg::SGNJ;
           fpu_rm_d = 3'b000;
         end
 
         VFSGNJN: begin
-          fpu_op_d = fpnew_pkg::SGNJ;
+          fpu_op_d = single_file_ariane_fpnew_pkg::SGNJ;
           fpu_rm_d = 3'b001;
         end
 
         VFSGNJX: begin
-          fpu_op_d = fpnew_pkg::SGNJ;
+          fpu_op_d = single_file_ariane_fpnew_pkg::SGNJ;
           fpu_rm_d = 3'b010;
         end
 
         VFEQ: begin
-          fpu_op_d = fpnew_pkg::CMP;
+          fpu_op_d = single_file_ariane_fpnew_pkg::CMP;
           fpu_rm_d = 3'b010;
         end
 
         VFNE: begin
-          fpu_op_d     = fpnew_pkg::CMP;
+          fpu_op_d     = single_file_ariane_fpnew_pkg::CMP;
           fpu_op_mod_d = 1'b1;
           fpu_rm_d     = 3'b010;
         end
 
         VFLT: begin
-          fpu_op_d = fpnew_pkg::CMP;
+          fpu_op_d = single_file_ariane_fpnew_pkg::CMP;
           fpu_rm_d = 3'b001;
         end
 
         VFGE: begin
-          fpu_op_d     = fpnew_pkg::CMP;
+          fpu_op_d     = single_file_ariane_fpnew_pkg::CMP;
           fpu_op_mod_d = 1'b1;
           fpu_rm_d     = 3'b001;
         end
 
         VFLE: begin
-          fpu_op_d = fpnew_pkg::CMP;
+          fpu_op_d = single_file_ariane_fpnew_pkg::CMP;
           fpu_rm_d = 3'b000;
         end
 
         VFGT: begin
-          fpu_op_d     = fpnew_pkg::CMP;
+          fpu_op_d     = single_file_ariane_fpnew_pkg::CMP;
           fpu_op_mod_d = 1'b1;
           fpu_rm_d     = 3'b000;
         end
 
         VFCPKAB_S: begin
-          fpu_op_d        = fpnew_pkg::CPKAB;
+          fpu_op_d        = single_file_ariane_fpnew_pkg::CPKAB;
           fpu_op_mod_d    = fpu_rm_i[0];
           vec_replication = 1'b0;
-          fpu_srcfmt_d    = fpnew_pkg::FP32;
+          fpu_srcfmt_d    = single_file_ariane_fpnew_pkg::FP32;
         end
 
         VFCPKCD_S: begin
-          fpu_op_d        = fpnew_pkg::CPKCD;
+          fpu_op_d        = single_file_ariane_fpnew_pkg::CPKCD;
           fpu_op_mod_d    = fpu_rm_i[0];
           vec_replication = 1'b0;
-          fpu_srcfmt_d    = fpnew_pkg::FP32;
+          fpu_srcfmt_d    = single_file_ariane_fpnew_pkg::FP32;
         end
 
         VFCPKAB_D: begin
-          fpu_op_d        = fpnew_pkg::CPKAB;
+          fpu_op_d        = single_file_ariane_fpnew_pkg::CPKAB;
           fpu_op_mod_d    = fpu_rm_i[0];
           vec_replication = 1'b0;
-          fpu_srcfmt_d    = fpnew_pkg::FP64;
+          fpu_srcfmt_d    = single_file_ariane_fpnew_pkg::FP64;
         end
 
         VFCPKCD_D: begin
-          fpu_op_d        = fpnew_pkg::CPKCD;
+          fpu_op_d        = single_file_ariane_fpnew_pkg::CPKCD;
           fpu_op_mod_d    = fpu_rm_i[0];
           vec_replication = 1'b0;
-          fpu_srcfmt_d    = fpnew_pkg::FP64;
+          fpu_srcfmt_d    = single_file_ariane_fpnew_pkg::FP64;
         end
 
         default: ;
       endcase
 
-      if (!fpu_vec_op_d && check_ah) if (fpu_rm_i[2]) fpu_dstfmt_d = fpnew_pkg::FP16ALT;
+      if (!fpu_vec_op_d && check_ah) if (fpu_rm_i[2]) fpu_dstfmt_d = single_file_ariane_fpnew_pkg::FP16ALT;
 
       if (fpu_vec_op_d && vec_replication) begin
         if (replicate_c) begin
           unique case (fpu_dstfmt_d)
-            fpnew_pkg::FP32: operand_c_d = CVA6Cfg.RVD ? {2{operand_c_i[31:0]}} : operand_c_i;
-            fpnew_pkg::FP16, fpnew_pkg::FP16ALT:
+            single_file_ariane_fpnew_pkg::FP32: operand_c_d = CVA6Cfg.RVD ? {2{operand_c_i[31:0]}} : operand_c_i;
+            single_file_ariane_fpnew_pkg::FP16, single_file_ariane_fpnew_pkg::FP16ALT:
             operand_c_d = CVA6Cfg.RVD ? {4{operand_c_i[15:0]}} : {2{operand_c_i[15:0]}};
-            fpnew_pkg::FP8:
+            single_file_ariane_fpnew_pkg::FP8:
             operand_c_d = CVA6Cfg.RVD ? {8{operand_c_i[7:0]}} : {4{operand_c_i[7:0]}};
             default: ;
           endcase
         end else begin
           unique case (fpu_dstfmt_d)
-            fpnew_pkg::FP32: operand_b_d = CVA6Cfg.RVD ? {2{operand_b_i[31:0]}} : operand_b_i;
-            fpnew_pkg::FP16, fpnew_pkg::FP16ALT:
+            single_file_ariane_fpnew_pkg::FP32: operand_b_d = CVA6Cfg.RVD ? {2{operand_b_i[31:0]}} : operand_b_i;
+            single_file_ariane_fpnew_pkg::FP16, single_file_ariane_fpnew_pkg::FP16ALT:
             operand_b_d = CVA6Cfg.RVD ? {4{operand_b_i[15:0]}} : {2{operand_b_i[15:0]}};
-            fpnew_pkg::FP8:
+            single_file_ariane_fpnew_pkg::FP8:
             operand_b_d = CVA6Cfg.RVD ? {8{operand_b_i[7:0]}} : {4{operand_b_i[7:0]}};
             default: ;
           endcase
@@ -14974,7 +14974,7 @@ module fpu_wrap
     assign fpu_operands[1] = operand_b;
     assign fpu_operands[2] = operand_c;
 
-    fpnew_top #(
+    single_file_ariane_fpnew_top #(
         .Features      (FPU_FEATURES),
         .Implementation(FPU_IMPLEMENTATION),
         .TagType       (logic [CVA6Cfg.TRANS_ID_BITS-1:0])
@@ -14982,12 +14982,12 @@ module fpu_wrap
         .clk_i,
         .rst_ni,
         .operands_i    (fpu_operands),
-        .rnd_mode_i    (fpnew_pkg::roundmode_e'(fpu_rm)),
-        .op_i          (fpnew_pkg::operation_e'(fpu_op)),
+        .rnd_mode_i    (single_file_ariane_fpnew_pkg::roundmode_e'(fpu_rm)),
+        .op_i          (single_file_ariane_fpnew_pkg::operation_e'(fpu_op)),
         .op_mod_i      (fpu_op_mod),
-        .src_fmt_i     (fpnew_pkg::fp_format_e'(fpu_srcfmt)),
-        .dst_fmt_i     (fpnew_pkg::fp_format_e'(fpu_dstfmt)),
-        .int_fmt_i     (fpnew_pkg::int_format_e'(fpu_ifmt)),
+        .src_fmt_i     (single_file_ariane_fpnew_pkg::fp_format_e'(fpu_srcfmt)),
+        .dst_fmt_i     (single_file_ariane_fpnew_pkg::fp_format_e'(fpu_dstfmt)),
+        .int_fmt_i     (single_file_ariane_fpnew_pkg::int_format_e'(fpu_ifmt)),
         .vectorial_op_i(fpu_vec_op),
         .tag_i         (fpu_tag),
         .simd_mask_i   (1'b1),
@@ -15014,8 +15014,8 @@ module fpu_wrap
 endmodule
 
 
-import ariane_pkg::*;
-module tlb #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_tlb #(
     parameter int unsigned TLB_ENTRIES = 4,
     parameter int unsigned ASID_WIDTH  = 1
 ) (
@@ -15028,7 +15028,7 @@ module tlb #(
     input  logic                             lu_access_i,
     input  logic            [ASID_WIDTH-1:0] lu_asid_i,
     input  logic            [          63:0] lu_vaddr_i,
-    output riscv_pkg::pte_t                  lu_content_o,
+    output single_file_ariane_riscv_pkg::pte_t                  lu_content_o,
     output logic                             lu_is_2M_o,
     output logic                             lu_is_1G_o,
     output logic                             lu_hit_o
@@ -15045,7 +15045,7 @@ module tlb #(
   } [TLB_ENTRIES-1:0]
       tags_q, tags_n;
 
-  riscv_pkg::pte_t [TLB_ENTRIES-1:0] content_q, content_n;
+  single_file_ariane_riscv_pkg::pte_t [TLB_ENTRIES-1:0] content_q, content_n;
   logic [8:0] vpn0, vpn1, vpn2;
   logic [TLB_ENTRIES-1:0] lu_hit;
   logic [TLB_ENTRIES-1:0] replace_en;
@@ -15166,8 +15166,8 @@ module tlb #(
 endmodule
 
 
-import ariane_pkg::*;
-module ptw #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_ptw #(
     parameter int ASID_WIDTH = 1
 ) (
     input logic clk_i,
@@ -15211,8 +15211,8 @@ module ptw #(
   logic data_rvalid_q;
   logic [63:0] data_rdata_q;
 
-  riscv_pkg::pte_t pte;
-  assign pte = riscv_pkg::pte_t'(data_rdata_q);
+  single_file_ariane_riscv_pkg::pte_t pte;
+  assign pte = single_file_ariane_riscv_pkg::pte_t'(data_rdata_q);
 
   enum logic [2:0] {
     IDLE,
@@ -15269,7 +15269,7 @@ module ptw #(
 
   assign req_port_o.tag_valid = tag_valid_q;
 
-  always_comb begin : ptw
+  always_comb begin : single_file_ariane_ptw
 
     tag_valid_n          = 1'b0;
     req_port_o.data_req  = 1'b0;
@@ -15446,8 +15446,8 @@ module ptw #(
 endmodule
 
 
-import ariane_pkg::*;
-module mmu #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_mmu #(
     parameter int unsigned INSTR_TLB_ENTRIES = 4,
     parameter int unsigned DATA_TLB_ENTRIES  = 4,
     parameter int unsigned ASID_WIDTH        = 1
@@ -15472,8 +15472,8 @@ module mmu #(
     output logic       [63:0] lsu_paddr_o,
     output exception_t        lsu_exception_o,
 
-    input riscv_pkg::priv_lvl_t priv_lvl_i,
-    input riscv_pkg::priv_lvl_t ld_st_priv_lvl_i,
+    input single_file_ariane_riscv_pkg::priv_lvl_t priv_lvl_i,
+    input single_file_ariane_riscv_pkg::priv_lvl_t ld_st_priv_lvl_i,
     input logic                 sum_i,
     input logic                 mxr_i,
 
@@ -15498,13 +15498,13 @@ module mmu #(
   tlb_update_t update_ptw_itlb, update_ptw_dtlb;
 
   logic            itlb_lu_access;
-  riscv_pkg::pte_t itlb_content;
+  single_file_ariane_riscv_pkg::pte_t itlb_content;
   logic            itlb_is_2M;
   logic            itlb_is_1G;
   logic            itlb_lu_hit;
 
   logic            dtlb_lu_access;
-  riscv_pkg::pte_t dtlb_content;
+  single_file_ariane_riscv_pkg::pte_t dtlb_content;
   logic            dtlb_is_2M;
   logic            dtlb_is_1G;
   logic            dtlb_lu_hit;
@@ -15512,7 +15512,7 @@ module mmu #(
   assign itlb_lu_access = icache_areq_i.fetch_req;
   assign dtlb_lu_access = lsu_req_i;
 
-  tlb #(
+  single_file_ariane_tlb #(
       .TLB_ENTRIES(INSTR_TLB_ENTRIES),
       .ASID_WIDTH (ASID_WIDTH)
   ) i_itlb (
@@ -15532,7 +15532,7 @@ module mmu #(
       .lu_hit_o  (itlb_lu_hit)
   );
 
-  tlb #(
+  single_file_ariane_tlb #(
       .TLB_ENTRIES(DATA_TLB_ENTRIES),
       .ASID_WIDTH (ASID_WIDTH)
   ) i_dtlb (
@@ -15552,7 +15552,7 @@ module mmu #(
       .lu_hit_o  (dtlb_lu_hit)
   );
 
-  ptw #(
+  single_file_ariane_ptw #(
       .ASID_WIDTH(ASID_WIDTH)
   ) i_ptw (
       .clk_i               (clk_i),
@@ -15587,14 +15587,14 @@ module mmu #(
 
     icache_areq_o.fetch_exception = '0;
 
-    iaccess_err   = icache_areq_i.fetch_req && (((priv_lvl_i == riscv_pkg::PRIV_LVL_U) && ~itlb_content.u)
-                                                 || ((priv_lvl_i == riscv_pkg::PRIV_LVL_S) && itlb_content.u));
+    iaccess_err   = icache_areq_i.fetch_req && (((priv_lvl_i == single_file_ariane_riscv_pkg::PRIV_LVL_U) && ~itlb_content.u)
+                                                 || ((priv_lvl_i == single_file_ariane_riscv_pkg::PRIV_LVL_S) && itlb_content.u));
 
     if (enable_translation_i) begin
 
       if (icache_areq_i.fetch_req && !((&icache_areq_i.fetch_vaddr[63:38]) == 1'b1 || (|icache_areq_i.fetch_vaddr[63:38]) == 1'b0)) begin
         icache_areq_o.fetch_exception = {
-          riscv_pkg::INSTR_ACCESS_FAULT, icache_areq_i.fetch_vaddr, 1'b1
+          single_file_ariane_riscv_pkg::INSTR_ACCESS_FAULT, icache_areq_i.fetch_vaddr, 1'b1
         };
       end
 
@@ -15616,18 +15616,18 @@ module mmu #(
         if (iaccess_err) begin
 
           icache_areq_o.fetch_exception = {
-            riscv_pkg::INSTR_PAGE_FAULT, icache_areq_i.fetch_vaddr, 1'b1
+            single_file_ariane_riscv_pkg::INSTR_PAGE_FAULT, icache_areq_i.fetch_vaddr, 1'b1
           };
         end
       end else if (ptw_active && walking_instr) begin
         icache_areq_o.fetch_valid = ptw_error;
-        icache_areq_o.fetch_exception = {riscv_pkg::INSTR_PAGE_FAULT, {25'b0, update_vaddr}, 1'b1};
+        icache_areq_o.fetch_exception = {single_file_ariane_riscv_pkg::INSTR_PAGE_FAULT, {25'b0, update_vaddr}, 1'b1};
       end
     end
   end
 
   logic [63:0] lsu_vaddr_n, lsu_vaddr_q;
-  riscv_pkg::pte_t dtlb_pte_n, dtlb_pte_q;
+  single_file_ariane_riscv_pkg::pte_t dtlb_pte_n, dtlb_pte_q;
   exception_t misaligned_ex_n, misaligned_ex_q;
   logic lsu_req_n, lsu_req_q;
   logic lsu_is_store_n, lsu_is_store_q;
@@ -15654,8 +15654,8 @@ module mmu #(
 
     misaligned_ex_n.valid = misaligned_ex_i.valid & lsu_req_i;
 
-    daccess_err = (ld_st_priv_lvl_i == riscv_pkg::PRIV_LVL_S && !sum_i && dtlb_pte_q.u) ||
-                      (ld_st_priv_lvl_i == riscv_pkg::PRIV_LVL_U && !dtlb_pte_q.u);
+    daccess_err = (ld_st_priv_lvl_i == single_file_ariane_riscv_pkg::PRIV_LVL_S && !sum_i && dtlb_pte_q.u) ||
+                      (ld_st_priv_lvl_i == single_file_ariane_riscv_pkg::PRIV_LVL_U && !dtlb_pte_q.u);
 
     if (en_ld_st_translation_i && !misaligned_ex_q.valid) begin
       lsu_valid_o = 1'b0;
@@ -15676,11 +15676,11 @@ module mmu #(
         if (lsu_is_store_q) begin
 
           if (!dtlb_pte_q.w || daccess_err || !dtlb_pte_q.d) begin
-            lsu_exception_o = {riscv_pkg::STORE_PAGE_FAULT, lsu_vaddr_q, 1'b1};
+            lsu_exception_o = {single_file_ariane_riscv_pkg::STORE_PAGE_FAULT, lsu_vaddr_q, 1'b1};
           end
 
         end else if (daccess_err) begin
-          lsu_exception_o = {riscv_pkg::LOAD_PAGE_FAULT, lsu_vaddr_q, 1'b1};
+          lsu_exception_o = {single_file_ariane_riscv_pkg::LOAD_PAGE_FAULT, lsu_vaddr_q, 1'b1};
         end
       end else if (ptw_active && !walking_instr) begin
 
@@ -15689,9 +15689,9 @@ module mmu #(
           lsu_valid_o = 1'b1;
 
           if (lsu_is_store_q) begin
-            lsu_exception_o = {riscv_pkg::STORE_PAGE_FAULT, {25'b0, update_vaddr}, 1'b1};
+            lsu_exception_o = {single_file_ariane_riscv_pkg::STORE_PAGE_FAULT, {25'b0, update_vaddr}, 1'b1};
           end else begin
-            lsu_exception_o = {riscv_pkg::LOAD_PAGE_FAULT, {25'b0, update_vaddr}, 1'b1};
+            lsu_exception_o = {single_file_ariane_riscv_pkg::LOAD_PAGE_FAULT, {25'b0, update_vaddr}, 1'b1};
           end
         end
       end
@@ -15722,8 +15722,8 @@ module mmu #(
 endmodule
 
 
-import ariane_pkg::*;
-module store_buffer (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_store_buffer (
     input logic clk_i,
     input logic rst_ni,
     input logic flush_i,
@@ -15816,11 +15816,11 @@ module store_buffer (
   assign req_port_o.data_we = 1'b1;
   assign req_port_o.tag_valid = 1'b0;
 
-  assign req_port_o.address_index = commit_queue_q[commit_read_pointer_q].address[ariane_pkg::DCACHE_INDEX_WIDTH-1:0];
+  assign req_port_o.address_index = commit_queue_q[commit_read_pointer_q].address[single_file_ariane_ariane_pkg::DCACHE_INDEX_WIDTH-1:0];
 
-  assign req_port_o.address_tag   = commit_queue_q[commit_read_pointer_q].address[ariane_pkg::DCACHE_TAG_WIDTH     +
-                                                                                    ariane_pkg::DCACHE_INDEX_WIDTH-1 :
-                                                                                    ariane_pkg::DCACHE_INDEX_WIDTH];
+  assign req_port_o.address_tag   = commit_queue_q[commit_read_pointer_q].address[single_file_ariane_ariane_pkg::DCACHE_TAG_WIDTH     +
+                                                                                    single_file_ariane_ariane_pkg::DCACHE_INDEX_WIDTH-1 :
+                                                                                    single_file_ariane_ariane_pkg::DCACHE_INDEX_WIDTH];
   assign req_port_o.data_wdata = commit_queue_q[commit_read_pointer_q].data;
   assign req_port_o.data_be = commit_queue_q[commit_read_pointer_q].be;
   assign req_port_o.data_size = commit_queue_q[commit_read_pointer_q].data_size;
@@ -15916,18 +15916,18 @@ endmodule
 
 
 
-module amo_buffer (
+module single_file_ariane_amo_buffer (
     input  logic                         clk_i,
     input  logic                         rst_ni,
     input  logic                         flush_i,
     input  logic                         valid_i,
     output logic                         ready_o,
-    input  ariane_pkg::amo_t             amo_op_i,
+    input  single_file_ariane_ariane_pkg::amo_t             amo_op_i,
     input  logic                  [63:0] paddr_i,
     input  logic                  [63:0] data_i,
     input  logic                  [ 1:0] data_size_i,
-    output ariane_pkg::amo_req_t         amo_req_o,
-    input  ariane_pkg::amo_resp_t        amo_resp_i,
+    output single_file_ariane_ariane_pkg::amo_req_t         amo_req_o,
+    input  single_file_ariane_ariane_pkg::amo_resp_t        amo_resp_i,
     input  logic                         amo_valid_commit_i,
     input  logic                         no_st_pending_i
 );
@@ -15935,7 +15935,7 @@ module amo_buffer (
   logic amo_valid;
 
   typedef struct packed {
-    ariane_pkg::amo_t op;
+    single_file_ariane_ariane_pkg::amo_t op;
     logic [63:0]      paddr;
     logic [63:0]      data;
     logic [1:0]       size;
@@ -15956,7 +15956,7 @@ module amo_buffer (
 
   assign flush_amo_buffer = flush_i & !amo_valid_commit_i;
 
-  fifo_v2 #(
+  single_file_ariane_fifo_v2 #(
       .DEPTH       (1),
       .ALM_EMPTY_TH(0),
       .ALM_FULL_TH (0),
@@ -15979,8 +15979,8 @@ module amo_buffer (
 endmodule
 
 
-import ariane_pkg::*;
-module store_unit (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_store_unit (
     input  logic clk_i,
     input  logic rst_ni,
     input  logic flush_i,
@@ -16156,7 +16156,7 @@ module store_unit (
 
   assign st_ready = store_buffer_ready & amo_buffer_ready;
 
-  store_buffer store_buffer_i (
+  single_file_ariane_store_buffer store_buffer_i (
       .clk_i,
       .rst_ni,
       .flush_i,
@@ -16177,7 +16177,7 @@ module store_unit (
       .req_port_o           (req_port_o)
   );
 
-  amo_buffer i_amo_buffer (
+  single_file_ariane_amo_buffer i_amo_buffer (
       .clk_i,
       .rst_ni,
       .flush_i,
@@ -16214,8 +16214,8 @@ module store_unit (
 endmodule
 
 
-import ariane_pkg::*;
-module load_unit (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_load_unit (
     input logic clk_i,
     input logic rst_ni,
     input logic flush_i,
@@ -16268,11 +16268,11 @@ module load_unit (
 
   assign in_data = {lsu_ctrl_i.trans_id, lsu_ctrl_i.vaddr[2:0], lsu_ctrl_i.operator};
 
-  assign req_port_o.address_index = lsu_ctrl_i.vaddr[ariane_pkg::DCACHE_INDEX_WIDTH-1:0];
+  assign req_port_o.address_index = lsu_ctrl_i.vaddr[single_file_ariane_ariane_pkg::DCACHE_INDEX_WIDTH-1:0];
 
-  assign req_port_o.address_tag   = paddr_i[ariane_pkg::DCACHE_TAG_WIDTH     +
-                                              ariane_pkg::DCACHE_INDEX_WIDTH-1 :
-                                              ariane_pkg::DCACHE_INDEX_WIDTH];
+  assign req_port_o.address_tag   = paddr_i[single_file_ariane_ariane_pkg::DCACHE_TAG_WIDTH     +
+                                              single_file_ariane_ariane_pkg::DCACHE_INDEX_WIDTH-1 :
+                                              single_file_ariane_ariane_pkg::DCACHE_INDEX_WIDTH];
 
   assign ex_o = ex_i;
 
@@ -16494,7 +16494,7 @@ module load_unit (
 endmodule
 
 
-module pipe_reg_simple #(
+module single_file_ariane_pipe_reg_simple #(
     parameter type         dtype = logic,
     parameter int unsigned Depth = 1
 ) (
@@ -16533,8 +16533,8 @@ module pipe_reg_simple #(
 endmodule
 
 
-import ariane_pkg::*;
-module lsu_bypass (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_lsu_bypass (
     input logic clk_i,
     input logic rst_ni,
     input logic flush_i,
@@ -16627,8 +16627,8 @@ endmodule
 
 
 
-import ariane_pkg::*;
-module load_store_unit #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_load_store_unit #(
     parameter int unsigned ASID_WIDTH = 1
 ) (
     input  logic clk_i,
@@ -16660,8 +16660,8 @@ module load_store_unit #(
     input  icache_areq_o_t icache_areq_i,
     output icache_areq_i_t icache_areq_o,
 
-    input riscv_pkg::priv_lvl_t                  priv_lvl_i,
-    input riscv_pkg::priv_lvl_t                  ld_st_priv_lvl_i,
+    input single_file_ariane_riscv_pkg::priv_lvl_t                  priv_lvl_i,
+    input single_file_ariane_riscv_pkg::priv_lvl_t                  ld_st_priv_lvl_i,
     input logic                                  sum_i,
     input logic                                  mxr_i,
     input logic                 [          43:0] satp_ppn_i,
@@ -16717,7 +16717,7 @@ module load_store_unit #(
   exception_t                     ld_ex;
   exception_t                     st_ex;
 
-  mmu #(
+  single_file_ariane_mmu #(
       .INSTR_TLB_ENTRIES(16),
       .DATA_TLB_ENTRIES (16),
       .ASID_WIDTH       (ASID_WIDTH)
@@ -16740,7 +16740,7 @@ module load_store_unit #(
       .*
   );
 
-  store_unit i_store_unit (
+  single_file_ariane_store_unit i_store_unit (
       .clk_i,
       .rst_ni,
       .flush_i,
@@ -16774,7 +16774,7 @@ module load_store_unit #(
       .req_port_o(dcache_req_ports_o[2])
   );
 
-  load_unit i_load_unit (
+  single_file_ariane_load_unit i_load_unit (
       .valid_i   (ld_valid_i),
       .lsu_ctrl_i(lsu_ctrl),
       .pop_ld_o  (pop_ld),
@@ -16798,7 +16798,7 @@ module load_store_unit #(
       .*
   );
 
-  pipe_reg_simple #(
+  single_file_ariane_pipe_reg_simple #(
       .dtype(logic [$bits(ld_valid) + $bits(ld_trans_id) + $bits(ld_result) + $bits(ld_ex) - 1:0]),
       .Depth(NR_LOAD_PIPE_REGS)
   ) i_pipe_reg_load (
@@ -16808,7 +16808,7 @@ module load_store_unit #(
       .d_o({load_valid_o, load_trans_id_o, load_result_o, load_exception_o})
   );
 
-  pipe_reg_simple #(
+  single_file_ariane_pipe_reg_simple #(
       .dtype(logic [$bits(st_valid) + $bits(st_trans_id) + $bits(st_result) + $bits(st_ex) - 1:0]),
       .Depth(NR_STORE_PIPE_REGS)
   ) i_pipe_reg_store (
@@ -16888,20 +16888,20 @@ module load_store_unit #(
     if (data_misaligned) begin
 
       if (lsu_ctrl.fu == LOAD) begin
-        misaligned_exception = {riscv_pkg::LD_ADDR_MISALIGNED, lsu_ctrl.vaddr, 1'b1};
+        misaligned_exception = {single_file_ariane_riscv_pkg::LD_ADDR_MISALIGNED, lsu_ctrl.vaddr, 1'b1};
 
       end else if (lsu_ctrl.fu == STORE) begin
-        misaligned_exception = {riscv_pkg::ST_ADDR_MISALIGNED, lsu_ctrl.vaddr, 1'b1};
+        misaligned_exception = {single_file_ariane_riscv_pkg::ST_ADDR_MISALIGNED, lsu_ctrl.vaddr, 1'b1};
       end
     end
 
     if (en_ld_st_translation_i && !((&lsu_ctrl.vaddr[63:38]) == 1'b1 || (|lsu_ctrl.vaddr[63:38]) == 1'b0)) begin
 
       if (lsu_ctrl.fu == LOAD) begin
-        misaligned_exception = {riscv_pkg::LD_ACCESS_FAULT, lsu_ctrl.vaddr, 1'b1};
+        misaligned_exception = {single_file_ariane_riscv_pkg::LD_ACCESS_FAULT, lsu_ctrl.vaddr, 1'b1};
 
       end else if (lsu_ctrl.fu == STORE) begin
-        misaligned_exception = {riscv_pkg::ST_ACCESS_FAULT, lsu_ctrl.vaddr, 1'b1};
+        misaligned_exception = {single_file_ariane_riscv_pkg::ST_ACCESS_FAULT, lsu_ctrl.vaddr, 1'b1};
       end
     end
   end
@@ -16918,7 +16918,7 @@ module load_store_unit #(
     fu_data_i.trans_id
   };
 
-  lsu_bypass lsu_bypass_i (
+  single_file_ariane_lsu_bypass lsu_bypass_i (
       .lsu_req_i      (lsu_req_i),
       .lus_req_valid_i(lsu_valid_i),
       .pop_ld_i       (pop_ld),
@@ -16933,8 +16933,8 @@ endmodule
 
 
 
-import ariane_pkg::*;
-module ex_stage (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_ex_stage (
     input logic clk_i,
     input logic rst_ni,
     input logic flush_i,
@@ -16994,8 +16994,8 @@ module ex_stage (
     input logic en_ld_st_translation_i,
     input logic flush_tlb_i,
 
-    input riscv_pkg::priv_lvl_t                  priv_lvl_i,
-    input riscv_pkg::priv_lvl_t                  ld_st_priv_lvl_i,
+    input single_file_ariane_riscv_pkg::priv_lvl_t                  priv_lvl_i,
+    input single_file_ariane_riscv_pkg::priv_lvl_t                  ld_st_priv_lvl_i,
     input logic                                  sum_i,
     input logic                                  mxr_i,
     input logic                 [          43:0] satp_ppn_i,
@@ -17022,7 +17022,7 @@ module ex_stage (
   fu_data_t alu_data;
   assign alu_data = (alu_valid_i | branch_valid_i) ? fu_data_i : '0;
 
-  alu alu_i (
+  single_file_ariane_alu alu_i (
       .clk_i,
       .rst_ni,
       .fu_data_i       (alu_data),
@@ -17030,7 +17030,7 @@ module ex_stage (
       .alu_branch_res_o(alu_branch_res)
   );
 
-  branch_unit branch_unit_i (
+  single_file_ariane_branch_unit branch_unit_i (
       .fu_data_i,
       .pc_i,
       .is_compressed_instr_i,
@@ -17045,7 +17045,7 @@ module ex_stage (
       .branch_exception_o ( flu_exception_o )
   );
 
-  csr_buffer csr_buffer_i (
+  single_file_ariane_csr_buffer csr_buffer_i (
       .clk_i,
       .rst_ni,
       .flush_i,
@@ -17083,7 +17083,7 @@ module ex_stage (
 
   assign mult_data = mult_valid_i ? fu_data_i : '0;
 
-  mult i_mult (
+  single_file_ariane_mult i_mult (
       .clk_i,
       .rst_ni,
       .flush_i,
@@ -17100,7 +17100,7 @@ module ex_stage (
       fu_data_t fpu_data;
       assign fpu_data = fpu_valid_i ? fu_data_i : '0;
 
-      fpu_wrap #(
+      single_file_ariane_fpu_wrap #(
           .exception_t(exception_t)
       ) fpu_i (
           .clk_i,
@@ -17131,7 +17131,7 @@ module ex_stage (
 
   assign lsu_data = lsu_valid_i ? fu_data_i : '0;
 
-  load_store_unit lsu_i (
+  single_file_ariane_load_store_unit lsu_i (
       .clk_i,
       .rst_ni,
       .flush_i,
@@ -17172,8 +17172,8 @@ module ex_stage (
 endmodule
 
 
-import ariane_pkg::*;
-module commit_stage #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_commit_stage #(
     parameter int unsigned NR_COMMIT_PORTS = 2
 ) (
     input  logic       clk_i,
@@ -17370,8 +17370,8 @@ module commit_stage #(
 endmodule
 
 
-import ariane_pkg::*;
-module csr_regfile #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_csr_regfile #(
     parameter logic        [63:0] DmBaseAddress = 64'h0,
     parameter int                 AsidWidth     = 1,
     parameter int unsigned        NrCommitPorts = 2
@@ -17403,16 +17403,16 @@ module csr_regfile #(
     output logic                 [63:0] epc_o,
     output logic                        eret_o,
     output logic                 [63:0] trap_vector_base_o,
-    output riscv_pkg::priv_lvl_t        priv_lvl_o,
+    output single_file_ariane_riscv_pkg::priv_lvl_t        priv_lvl_o,
 
-    output riscv_pkg::xs_t       fs_o,
+    output single_file_ariane_riscv_pkg::xs_t       fs_o,
     output logic           [4:0] fflags_o,
     output logic           [2:0] frm_o,
     output logic           [6:0] fprec_o,
 
     output logic                                 en_translation_o,
     output logic                                 en_ld_st_translation_o,
-    output riscv_pkg::priv_lvl_t                 ld_st_priv_lvl_o,
+    output single_file_ariane_riscv_pkg::priv_lvl_t                 ld_st_priv_lvl_o,
     output logic                                 sum_o,
     output logic                                 mxr_o,
     output logic                 [         43:0] satp_ppn_o,
@@ -17441,7 +17441,7 @@ module csr_regfile #(
   logic read_access_exception, update_access_exception;
   logic csr_we, csr_read;
   logic [63:0] csr_wdata, csr_rdata;
-  riscv_pkg::priv_lvl_t trap_to_priv_lvl;
+  single_file_ariane_riscv_pkg::priv_lvl_t trap_to_priv_lvl;
 
   logic en_ld_st_translation_d, en_ld_st_translation_q;
   logic mprv;
@@ -17450,18 +17450,18 @@ module csr_regfile #(
   logic dret;
 
   logic dirty_fp_state_csr;
-  riscv_pkg::csr_t csr_addr;
+  single_file_ariane_riscv_pkg::csr_t csr_addr;
 
-  assign csr_addr = riscv_pkg::csr_t'(csr_addr_i);
+  assign csr_addr = single_file_ariane_riscv_pkg::csr_t'(csr_addr_i);
   assign fs_o = mstatus_q.fs;
 
-  riscv_pkg::priv_lvl_t priv_lvl_d, priv_lvl_q;
+  single_file_ariane_riscv_pkg::priv_lvl_t priv_lvl_d, priv_lvl_q;
 
   logic debug_mode_q, debug_mode_d;
 
-  riscv_pkg::status_rv64_t mstatus_q, mstatus_d;
-  riscv_pkg::satp_t satp_q, satp_d;
-  riscv_pkg::dcsr_t dcsr_q, dcsr_d;
+  single_file_ariane_riscv_pkg::status_rv64_t mstatus_q, mstatus_d;
+  single_file_ariane_riscv_pkg::satp_t satp_q, satp_d;
+  single_file_ariane_riscv_pkg::dcsr_t dcsr_q, dcsr_d;
 
   logic mtvec_rst_load_q;
 
@@ -17491,7 +17491,7 @@ module csr_regfile #(
   logic [63:0] cycle_q, cycle_d;
   logic [63:0] instret_q, instret_d;
 
-  riscv_pkg::fcsr_t fcsr_q, fcsr_d;
+  single_file_ariane_riscv_pkg::fcsr_t fcsr_q, fcsr_d;
 
   always_comb begin : csr_read_process
 
@@ -17502,104 +17502,104 @@ module csr_regfile #(
 
     if (csr_read) begin
       unique case (csr_addr.address)
-        riscv_pkg::CSR_FFLAGS: begin
-          if (mstatus_q.fs == riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::CSR_FFLAGS: begin
+          if (mstatus_q.fs == single_file_ariane_riscv_pkg::Off) begin
             read_access_exception = 1'b1;
           end else begin
             csr_rdata = {59'b0, fcsr_q.fflags};
           end
         end
-        riscv_pkg::CSR_FRM: begin
-          if (mstatus_q.fs == riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::CSR_FRM: begin
+          if (mstatus_q.fs == single_file_ariane_riscv_pkg::Off) begin
             read_access_exception = 1'b1;
           end else begin
             csr_rdata = {61'b0, fcsr_q.frm};
           end
         end
-        riscv_pkg::CSR_FCSR: begin
-          if (mstatus_q.fs == riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::CSR_FCSR: begin
+          if (mstatus_q.fs == single_file_ariane_riscv_pkg::Off) begin
             read_access_exception = 1'b1;
           end else begin
             csr_rdata = {56'b0, fcsr_q.frm, fcsr_q.fflags};
           end
         end
 
-        riscv_pkg::CSR_FTRAN: begin
-          if (mstatus_q.fs == riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::CSR_FTRAN: begin
+          if (mstatus_q.fs == single_file_ariane_riscv_pkg::Off) begin
             read_access_exception = 1'b1;
           end else begin
             csr_rdata = {57'b0, fcsr_q.fprec};
           end
         end
 
-        riscv_pkg::CSR_DCSR:      csr_rdata = {32'b0, dcsr_q};
-        riscv_pkg::CSR_DPC:       csr_rdata = dpc_q;
-        riscv_pkg::CSR_DSCRATCH0: csr_rdata = dscratch0_q;
-        riscv_pkg::CSR_DSCRATCH1: csr_rdata = dscratch1_q;
+        single_file_ariane_riscv_pkg::CSR_DCSR:      csr_rdata = {32'b0, dcsr_q};
+        single_file_ariane_riscv_pkg::CSR_DPC:       csr_rdata = dpc_q;
+        single_file_ariane_riscv_pkg::CSR_DSCRATCH0: csr_rdata = dscratch0_q;
+        single_file_ariane_riscv_pkg::CSR_DSCRATCH1: csr_rdata = dscratch1_q;
 
-        riscv_pkg::CSR_TSELECT: ;
-        riscv_pkg::CSR_TDATA1:  ;
-        riscv_pkg::CSR_TDATA2:  ;
-        riscv_pkg::CSR_TDATA3:  ;
+        single_file_ariane_riscv_pkg::CSR_TSELECT: ;
+        single_file_ariane_riscv_pkg::CSR_TDATA1:  ;
+        single_file_ariane_riscv_pkg::CSR_TDATA2:  ;
+        single_file_ariane_riscv_pkg::CSR_TDATA3:  ;
 
-        riscv_pkg::CSR_SSTATUS: begin
-          csr_rdata = mstatus_q & ariane_pkg::SMODE_STATUS_READ_MASK;
+        single_file_ariane_riscv_pkg::CSR_SSTATUS: begin
+          csr_rdata = mstatus_q & single_file_ariane_ariane_pkg::SMODE_STATUS_READ_MASK;
         end
-        riscv_pkg::CSR_SIE:        csr_rdata = mie_q & mideleg_q;
-        riscv_pkg::CSR_SIP:        csr_rdata = mip_q & mideleg_q;
-        riscv_pkg::CSR_STVEC:      csr_rdata = stvec_q;
-        riscv_pkg::CSR_SCOUNTEREN: csr_rdata = 64'b0;
-        riscv_pkg::CSR_SSCRATCH:   csr_rdata = sscratch_q;
-        riscv_pkg::CSR_SEPC:       csr_rdata = sepc_q;
-        riscv_pkg::CSR_SCAUSE:     csr_rdata = scause_q;
-        riscv_pkg::CSR_STVAL:      csr_rdata = stval_q;
-        riscv_pkg::CSR_SATP: begin
+        single_file_ariane_riscv_pkg::CSR_SIE:        csr_rdata = mie_q & mideleg_q;
+        single_file_ariane_riscv_pkg::CSR_SIP:        csr_rdata = mip_q & mideleg_q;
+        single_file_ariane_riscv_pkg::CSR_STVEC:      csr_rdata = stvec_q;
+        single_file_ariane_riscv_pkg::CSR_SCOUNTEREN: csr_rdata = 64'b0;
+        single_file_ariane_riscv_pkg::CSR_SSCRATCH:   csr_rdata = sscratch_q;
+        single_file_ariane_riscv_pkg::CSR_SEPC:       csr_rdata = sepc_q;
+        single_file_ariane_riscv_pkg::CSR_SCAUSE:     csr_rdata = scause_q;
+        single_file_ariane_riscv_pkg::CSR_STVAL:      csr_rdata = stval_q;
+        single_file_ariane_riscv_pkg::CSR_SATP: begin
 
-          if (priv_lvl_o == riscv_pkg::PRIV_LVL_S && mstatus_q.tvm) begin
+          if (priv_lvl_o == single_file_ariane_riscv_pkg::PRIV_LVL_S && mstatus_q.tvm) begin
             read_access_exception = 1'b1;
           end else begin
             csr_rdata = satp_q;
           end
         end
 
-        riscv_pkg::CSR_MSTATUS:    csr_rdata = mstatus_q;
-        riscv_pkg::CSR_MISA:       csr_rdata = ISA_CODE;
-        riscv_pkg::CSR_MEDELEG:    csr_rdata = medeleg_q;
-        riscv_pkg::CSR_MIDELEG:    csr_rdata = mideleg_q;
-        riscv_pkg::CSR_MIE:        csr_rdata = mie_q;
-        riscv_pkg::CSR_MTVEC:      csr_rdata = mtvec_q;
-        riscv_pkg::CSR_MCOUNTEREN: csr_rdata = 64'b0;
-        riscv_pkg::CSR_MSCRATCH:   csr_rdata = mscratch_q;
-        riscv_pkg::CSR_MEPC:       csr_rdata = mepc_q;
-        riscv_pkg::CSR_MCAUSE:     csr_rdata = mcause_q;
-        riscv_pkg::CSR_MTVAL:      csr_rdata = mtval_q;
-        riscv_pkg::CSR_MIP:        csr_rdata = mip_q;
-        riscv_pkg::CSR_MVENDORID:  csr_rdata = 64'b0;
-        riscv_pkg::CSR_MARCHID:    csr_rdata = ARIANE_MARCHID;
-        riscv_pkg::CSR_MIMPID:     csr_rdata = 64'b0;
-        riscv_pkg::CSR_MHARTID:    csr_rdata = hart_id_i;
-        riscv_pkg::CSR_MCYCLE:     csr_rdata = cycle_q;
-        riscv_pkg::CSR_MINSTRET:   csr_rdata = instret_q;
+        single_file_ariane_riscv_pkg::CSR_MSTATUS:    csr_rdata = mstatus_q;
+        single_file_ariane_riscv_pkg::CSR_MISA:       csr_rdata = ISA_CODE;
+        single_file_ariane_riscv_pkg::CSR_MEDELEG:    csr_rdata = medeleg_q;
+        single_file_ariane_riscv_pkg::CSR_MIDELEG:    csr_rdata = mideleg_q;
+        single_file_ariane_riscv_pkg::CSR_MIE:        csr_rdata = mie_q;
+        single_file_ariane_riscv_pkg::CSR_MTVEC:      csr_rdata = mtvec_q;
+        single_file_ariane_riscv_pkg::CSR_MCOUNTEREN: csr_rdata = 64'b0;
+        single_file_ariane_riscv_pkg::CSR_MSCRATCH:   csr_rdata = mscratch_q;
+        single_file_ariane_riscv_pkg::CSR_MEPC:       csr_rdata = mepc_q;
+        single_file_ariane_riscv_pkg::CSR_MCAUSE:     csr_rdata = mcause_q;
+        single_file_ariane_riscv_pkg::CSR_MTVAL:      csr_rdata = mtval_q;
+        single_file_ariane_riscv_pkg::CSR_MIP:        csr_rdata = mip_q;
+        single_file_ariane_riscv_pkg::CSR_MVENDORID:  csr_rdata = 64'b0;
+        single_file_ariane_riscv_pkg::CSR_MARCHID:    csr_rdata = ARIANE_MARCHID;
+        single_file_ariane_riscv_pkg::CSR_MIMPID:     csr_rdata = 64'b0;
+        single_file_ariane_riscv_pkg::CSR_MHARTID:    csr_rdata = hart_id_i;
+        single_file_ariane_riscv_pkg::CSR_MCYCLE:     csr_rdata = cycle_q;
+        single_file_ariane_riscv_pkg::CSR_MINSTRET:   csr_rdata = instret_q;
 
-        riscv_pkg::CSR_DCACHE: csr_rdata = dcache_q;
-        riscv_pkg::CSR_ICACHE: csr_rdata = icache_q;
+        single_file_ariane_riscv_pkg::CSR_DCACHE: csr_rdata = dcache_q;
+        single_file_ariane_riscv_pkg::CSR_ICACHE: csr_rdata = icache_q;
 
-        riscv_pkg::CSR_CYCLE: csr_rdata = cycle_q;
-        riscv_pkg::CSR_INSTRET: csr_rdata = instret_q;
-        riscv_pkg::CSR_L1_ICACHE_MISS,
-                riscv_pkg::CSR_L1_DCACHE_MISS,
-                riscv_pkg::CSR_ITLB_MISS,
-                riscv_pkg::CSR_DTLB_MISS,
-                riscv_pkg::CSR_LOAD,
-                riscv_pkg::CSR_STORE,
-                riscv_pkg::CSR_EXCEPTION,
-                riscv_pkg::CSR_EXCEPTION_RET,
-                riscv_pkg::CSR_BRANCH_JUMP,
-                riscv_pkg::CSR_CALL,
-                riscv_pkg::CSR_RET,
-                riscv_pkg::CSR_MIS_PREDICT,
-                riscv_pkg::CSR_SB_FULL,
-                riscv_pkg::CSR_IF_EMPTY:
+        single_file_ariane_riscv_pkg::CSR_CYCLE: csr_rdata = cycle_q;
+        single_file_ariane_riscv_pkg::CSR_INSTRET: csr_rdata = instret_q;
+        single_file_ariane_riscv_pkg::CSR_L1_ICACHE_MISS,
+                single_file_ariane_riscv_pkg::CSR_L1_DCACHE_MISS,
+                single_file_ariane_riscv_pkg::CSR_ITLB_MISS,
+                single_file_ariane_riscv_pkg::CSR_DTLB_MISS,
+                single_file_ariane_riscv_pkg::CSR_LOAD,
+                single_file_ariane_riscv_pkg::CSR_STORE,
+                single_file_ariane_riscv_pkg::CSR_EXCEPTION,
+                single_file_ariane_riscv_pkg::CSR_EXCEPTION_RET,
+                single_file_ariane_riscv_pkg::CSR_BRANCH_JUMP,
+                single_file_ariane_riscv_pkg::CSR_CALL,
+                single_file_ariane_riscv_pkg::CSR_RET,
+                single_file_ariane_riscv_pkg::CSR_MIS_PREDICT,
+                single_file_ariane_riscv_pkg::CSR_SB_FULL,
+                single_file_ariane_riscv_pkg::CSR_IF_EMPTY:
         csr_rdata = perf_data_i;
         default: read_access_exception = 1'b1;
       endcase
@@ -17608,7 +17608,7 @@ module csr_regfile #(
 
   logic [63:0] mask;
   always_comb begin : csr_update
-    automatic riscv_pkg::satp_t sapt;
+    automatic single_file_ariane_riscv_pkg::satp_t sapt;
     automatic logic [63:0] instret;
 
     sapt = satp_q;
@@ -17676,8 +17676,8 @@ module csr_regfile #(
     if (csr_we) begin
       unique case (csr_addr.address)
 
-        riscv_pkg::CSR_FFLAGS: begin
-          if (mstatus_q.fs == riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::CSR_FFLAGS: begin
+          if (mstatus_q.fs == single_file_ariane_riscv_pkg::Off) begin
             update_access_exception = 1'b1;
           end else begin
             dirty_fp_state_csr = 1'b1;
@@ -17686,8 +17686,8 @@ module csr_regfile #(
             flush_o = 1'b1;
           end
         end
-        riscv_pkg::CSR_FRM: begin
-          if (mstatus_q.fs == riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::CSR_FRM: begin
+          if (mstatus_q.fs == single_file_ariane_riscv_pkg::Off) begin
             update_access_exception = 1'b1;
           end else begin
             dirty_fp_state_csr = 1'b1;
@@ -17696,8 +17696,8 @@ module csr_regfile #(
             flush_o = 1'b1;
           end
         end
-        riscv_pkg::CSR_FCSR: begin
-          if (mstatus_q.fs == riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::CSR_FCSR: begin
+          if (mstatus_q.fs == single_file_ariane_riscv_pkg::Off) begin
             update_access_exception = 1'b1;
           end else begin
             dirty_fp_state_csr = 1'b1;
@@ -17706,8 +17706,8 @@ module csr_regfile #(
             flush_o = 1'b1;
           end
         end
-        riscv_pkg::CSR_FTRAN: begin
-          if (mstatus_q.fs == riscv_pkg::Off) begin
+        single_file_ariane_riscv_pkg::CSR_FTRAN: begin
+          if (mstatus_q.fs == single_file_ariane_riscv_pkg::Off) begin
             update_access_exception = 1'b1;
           end else begin
             dirty_fp_state_csr = 1'b1;
@@ -17717,7 +17717,7 @@ module csr_regfile #(
           end
         end
 
-        riscv_pkg::CSR_DCSR: begin
+        single_file_ariane_riscv_pkg::CSR_DCSR: begin
           dcsr_d           = csr_wdata[31:0];
 
           dcsr_d.xdebugver = 4'h4;
@@ -17728,21 +17728,21 @@ module csr_regfile #(
           dcsr_d.stopcount = 1'b0;
           dcsr_d.stoptime  = 1'b0;
         end
-        riscv_pkg::CSR_DPC:       dpc_d = csr_wdata;
-        riscv_pkg::CSR_DSCRATCH0: dscratch0_d = csr_wdata;
-        riscv_pkg::CSR_DSCRATCH1: dscratch1_d = csr_wdata;
+        single_file_ariane_riscv_pkg::CSR_DPC:       dpc_d = csr_wdata;
+        single_file_ariane_riscv_pkg::CSR_DSCRATCH0: dscratch0_d = csr_wdata;
+        single_file_ariane_riscv_pkg::CSR_DSCRATCH1: dscratch1_d = csr_wdata;
 
-        riscv_pkg::CSR_TSELECT: ;
-        riscv_pkg::CSR_TDATA1:  ;
-        riscv_pkg::CSR_TDATA2:  ;
-        riscv_pkg::CSR_TDATA3:  ;
+        single_file_ariane_riscv_pkg::CSR_TSELECT: ;
+        single_file_ariane_riscv_pkg::CSR_TDATA1:  ;
+        single_file_ariane_riscv_pkg::CSR_TDATA2:  ;
+        single_file_ariane_riscv_pkg::CSR_TDATA3:  ;
 
-        riscv_pkg::CSR_SSTATUS: begin
-          mask = ariane_pkg::SMODE_STATUS_WRITE_MASK;
+        single_file_ariane_riscv_pkg::CSR_SSTATUS: begin
+          mask = single_file_ariane_ariane_pkg::SMODE_STATUS_WRITE_MASK;
           mstatus_d = (mstatus_q & ~mask) | (csr_wdata & mask);
 
           if (!FP_PRESENT) begin
-            mstatus_d.fs = riscv_pkg::Off;
+            mstatus_d.fs = single_file_ariane_riscv_pkg::Off;
           end
 
           mstatus_d.sd = (&mstatus_q.xs) | (&mstatus_q.fs);
@@ -17750,29 +17750,29 @@ module csr_regfile #(
           flush_o = 1'b1;
         end
 
-        riscv_pkg::CSR_SIE: begin
+        single_file_ariane_riscv_pkg::CSR_SIE: begin
 
           mie_d = (mie_q & ~mideleg_q) | (csr_wdata & mideleg_q);
         end
 
-        riscv_pkg::CSR_SIP: begin
+        single_file_ariane_riscv_pkg::CSR_SIP: begin
 
-          mask  = riscv_pkg::MIP_SSIP & mideleg_q;
+          mask  = single_file_ariane_riscv_pkg::MIP_SSIP & mideleg_q;
           mip_d = (mip_q & ~mask) | (csr_wdata & mask);
         end
 
-        riscv_pkg::CSR_SCOUNTEREN: ;
-        riscv_pkg::CSR_STVEC:      stvec_d = {csr_wdata[63:2], 1'b0, csr_wdata[0]};
-        riscv_pkg::CSR_SSCRATCH:   sscratch_d = csr_wdata;
-        riscv_pkg::CSR_SEPC:       sepc_d = {csr_wdata[63:1], 1'b0};
-        riscv_pkg::CSR_SCAUSE:     scause_d = csr_wdata;
-        riscv_pkg::CSR_STVAL:      stval_d = csr_wdata;
+        single_file_ariane_riscv_pkg::CSR_SCOUNTEREN: ;
+        single_file_ariane_riscv_pkg::CSR_STVEC:      stvec_d = {csr_wdata[63:2], 1'b0, csr_wdata[0]};
+        single_file_ariane_riscv_pkg::CSR_SSCRATCH:   sscratch_d = csr_wdata;
+        single_file_ariane_riscv_pkg::CSR_SEPC:       sepc_d = {csr_wdata[63:1], 1'b0};
+        single_file_ariane_riscv_pkg::CSR_SCAUSE:     scause_d = csr_wdata;
+        single_file_ariane_riscv_pkg::CSR_STVAL:      stval_d = csr_wdata;
 
-        riscv_pkg::CSR_SATP: begin
+        single_file_ariane_riscv_pkg::CSR_SATP: begin
 
-          if (priv_lvl_o == riscv_pkg::PRIV_LVL_S && mstatus_q.tvm) update_access_exception = 1'b1;
+          if (priv_lvl_o == single_file_ariane_riscv_pkg::PRIV_LVL_S && mstatus_q.tvm) update_access_exception = 1'b1;
           else begin
-            sapt      = riscv_pkg::satp_t'(csr_wdata);
+            sapt      = single_file_ariane_riscv_pkg::satp_t'(csr_wdata);
 
             sapt.asid = sapt.asid & {{(16 - AsidWidth) {1'b0}}, {AsidWidth{1'b1}}};
 
@@ -17782,13 +17782,13 @@ module csr_regfile #(
           flush_o = 1'b1;
         end
 
-        riscv_pkg::CSR_MSTATUS: begin
+        single_file_ariane_riscv_pkg::CSR_MSTATUS: begin
           mstatus_d    = csr_wdata;
 
           mstatus_d.sd = (&mstatus_q.xs) | (&mstatus_q.fs);
-          mstatus_d.xs = riscv_pkg::Off;
+          mstatus_d.xs = single_file_ariane_riscv_pkg::Off;
           if (!FP_PRESENT) begin
-            mstatus_d.fs = riscv_pkg::Off;
+            mstatus_d.fs = single_file_ariane_riscv_pkg::Off;
           end
           mstatus_d.upie = 1'b0;
           mstatus_d.uie  = 1'b0;
@@ -17796,60 +17796,60 @@ module csr_regfile #(
           flush_o        = 1'b1;
         end
 
-        riscv_pkg::CSR_MISA: ;
+        single_file_ariane_riscv_pkg::CSR_MISA: ;
 
-        riscv_pkg::CSR_MEDELEG: begin
-          mask = (1 << riscv_pkg::INSTR_ADDR_MISALIGNED) |
-                           (1 << riscv_pkg::BREAKPOINT) |
-                           (1 << riscv_pkg::ENV_CALL_UMODE) |
-                           (1 << riscv_pkg::INSTR_PAGE_FAULT) |
-                           (1 << riscv_pkg::LOAD_PAGE_FAULT) |
-                           (1 << riscv_pkg::STORE_PAGE_FAULT);
+        single_file_ariane_riscv_pkg::CSR_MEDELEG: begin
+          mask = (1 << single_file_ariane_riscv_pkg::INSTR_ADDR_MISALIGNED) |
+                           (1 << single_file_ariane_riscv_pkg::BREAKPOINT) |
+                           (1 << single_file_ariane_riscv_pkg::ENV_CALL_UMODE) |
+                           (1 << single_file_ariane_riscv_pkg::INSTR_PAGE_FAULT) |
+                           (1 << single_file_ariane_riscv_pkg::LOAD_PAGE_FAULT) |
+                           (1 << single_file_ariane_riscv_pkg::STORE_PAGE_FAULT);
           medeleg_d = (medeleg_q & ~mask) | (csr_wdata & mask);
         end
 
-        riscv_pkg::CSR_MIDELEG: begin
-          mask = riscv_pkg::MIP_SSIP | riscv_pkg::MIP_STIP | riscv_pkg::MIP_SEIP;
+        single_file_ariane_riscv_pkg::CSR_MIDELEG: begin
+          mask = single_file_ariane_riscv_pkg::MIP_SSIP | single_file_ariane_riscv_pkg::MIP_STIP | single_file_ariane_riscv_pkg::MIP_SEIP;
           mideleg_d = (mideleg_q & ~mask) | (csr_wdata & mask);
         end
 
-        riscv_pkg::CSR_MIE: begin
-          mask = riscv_pkg::MIP_SSIP | riscv_pkg::MIP_STIP | riscv_pkg::MIP_SEIP | riscv_pkg::MIP_MSIP | riscv_pkg::MIP_MTIP;
+        single_file_ariane_riscv_pkg::CSR_MIE: begin
+          mask = single_file_ariane_riscv_pkg::MIP_SSIP | single_file_ariane_riscv_pkg::MIP_STIP | single_file_ariane_riscv_pkg::MIP_SEIP | single_file_ariane_riscv_pkg::MIP_MSIP | single_file_ariane_riscv_pkg::MIP_MTIP;
           mie_d = (mie_q & ~mask) | (csr_wdata & mask);
         end
 
-        riscv_pkg::CSR_MTVEC: begin
+        single_file_ariane_riscv_pkg::CSR_MTVEC: begin
           mtvec_d = {csr_wdata[63:2], 1'b0, csr_wdata[0]};
 
           if (csr_wdata[0]) mtvec_d = {csr_wdata[63:8], 7'b0, csr_wdata[0]};
         end
-        riscv_pkg::CSR_MCOUNTEREN: ;
+        single_file_ariane_riscv_pkg::CSR_MCOUNTEREN: ;
 
-        riscv_pkg::CSR_MSCRATCH: mscratch_d = csr_wdata;
-        riscv_pkg::CSR_MEPC:     mepc_d = {csr_wdata[63:1], 1'b0};
-        riscv_pkg::CSR_MCAUSE:   mcause_d = csr_wdata;
-        riscv_pkg::CSR_MTVAL:    mtval_d = csr_wdata;
-        riscv_pkg::CSR_MIP: begin
-          mask  = riscv_pkg::MIP_SSIP | riscv_pkg::MIP_STIP | riscv_pkg::MIP_SEIP;
+        single_file_ariane_riscv_pkg::CSR_MSCRATCH: mscratch_d = csr_wdata;
+        single_file_ariane_riscv_pkg::CSR_MEPC:     mepc_d = {csr_wdata[63:1], 1'b0};
+        single_file_ariane_riscv_pkg::CSR_MCAUSE:   mcause_d = csr_wdata;
+        single_file_ariane_riscv_pkg::CSR_MTVAL:    mtval_d = csr_wdata;
+        single_file_ariane_riscv_pkg::CSR_MIP: begin
+          mask  = single_file_ariane_riscv_pkg::MIP_SSIP | single_file_ariane_riscv_pkg::MIP_STIP | single_file_ariane_riscv_pkg::MIP_SEIP;
           mip_d = (mip_q & ~mask) | (csr_wdata & mask);
         end
 
-        riscv_pkg::CSR_MCYCLE:   cycle_d = csr_wdata;
-        riscv_pkg::CSR_MINSTRET: instret = csr_wdata;
-        riscv_pkg::CSR_DCACHE:   dcache_d = csr_wdata[0];
-        riscv_pkg::CSR_ICACHE:   icache_d = csr_wdata[0];
-        riscv_pkg::CSR_L1_ICACHE_MISS,
-                riscv_pkg::CSR_L1_DCACHE_MISS,
-                riscv_pkg::CSR_ITLB_MISS,
-                riscv_pkg::CSR_DTLB_MISS,
-                riscv_pkg::CSR_LOAD,
-                riscv_pkg::CSR_STORE,
-                riscv_pkg::CSR_EXCEPTION,
-                riscv_pkg::CSR_EXCEPTION_RET,
-                riscv_pkg::CSR_BRANCH_JUMP,
-                riscv_pkg::CSR_CALL,
-                riscv_pkg::CSR_RET,
-                riscv_pkg::CSR_MIS_PREDICT: begin
+        single_file_ariane_riscv_pkg::CSR_MCYCLE:   cycle_d = csr_wdata;
+        single_file_ariane_riscv_pkg::CSR_MINSTRET: instret = csr_wdata;
+        single_file_ariane_riscv_pkg::CSR_DCACHE:   dcache_d = csr_wdata[0];
+        single_file_ariane_riscv_pkg::CSR_ICACHE:   icache_d = csr_wdata[0];
+        single_file_ariane_riscv_pkg::CSR_L1_ICACHE_MISS,
+                single_file_ariane_riscv_pkg::CSR_L1_DCACHE_MISS,
+                single_file_ariane_riscv_pkg::CSR_ITLB_MISS,
+                single_file_ariane_riscv_pkg::CSR_DTLB_MISS,
+                single_file_ariane_riscv_pkg::CSR_LOAD,
+                single_file_ariane_riscv_pkg::CSR_STORE,
+                single_file_ariane_riscv_pkg::CSR_EXCEPTION,
+                single_file_ariane_riscv_pkg::CSR_EXCEPTION_RET,
+                single_file_ariane_riscv_pkg::CSR_BRANCH_JUMP,
+                single_file_ariane_riscv_pkg::CSR_CALL,
+                single_file_ariane_riscv_pkg::CSR_RET,
+                single_file_ariane_riscv_pkg::CSR_MIS_PREDICT: begin
           perf_data_o = csr_wdata;
           perf_we_o   = 1'b1;
         end
@@ -17857,24 +17857,24 @@ module csr_regfile #(
       endcase
     end
 
-    mstatus_d.sxl = riscv_pkg::XLEN_64;
-    mstatus_d.uxl = riscv_pkg::XLEN_64;
+    mstatus_d.sxl = single_file_ariane_riscv_pkg::XLEN_64;
+    mstatus_d.uxl = single_file_ariane_riscv_pkg::XLEN_64;
 
     if (FP_PRESENT && (dirty_fp_state_csr || dirty_fp_state_i)) begin
-      mstatus_d.fs = riscv_pkg::Dirty;
+      mstatus_d.fs = single_file_ariane_riscv_pkg::Dirty;
     end
 
     if (csr_write_fflags_i) begin
       fcsr_d.fflags = csr_wdata_i[4:0] | fcsr_q.fflags;
     end
 
-    mip_d[riscv_pkg::IRQ_M_EXT] = irq_i[0];
+    mip_d[single_file_ariane_riscv_pkg::IRQ_M_EXT] = irq_i[0];
 
-    mip_d[riscv_pkg::IRQ_M_SOFT] = ipi_i;
+    mip_d[single_file_ariane_riscv_pkg::IRQ_M_SOFT] = ipi_i;
 
-    mip_d[riscv_pkg::IRQ_M_TIMER] = time_irq_i;
+    mip_d[single_file_ariane_riscv_pkg::IRQ_M_TIMER] = time_irq_i;
 
-    trap_to_priv_lvl = riscv_pkg::PRIV_LVL_M;
+    trap_to_priv_lvl = single_file_ariane_riscv_pkg::PRIV_LVL_M;
 
     if (!debug_mode_q && ex_i.valid) begin
 
@@ -17883,10 +17883,10 @@ module csr_regfile #(
       if ((ex_i.cause[63] && mideleg_q[ex_i.cause[5:0]]) ||
                 (~ex_i.cause[63] && medeleg_q[ex_i.cause[5:0]])) begin
 
-        trap_to_priv_lvl = (priv_lvl_o == riscv_pkg::PRIV_LVL_M) ? riscv_pkg::PRIV_LVL_M : riscv_pkg::PRIV_LVL_S;
+        trap_to_priv_lvl = (priv_lvl_o == single_file_ariane_riscv_pkg::PRIV_LVL_M) ? single_file_ariane_riscv_pkg::PRIV_LVL_M : single_file_ariane_riscv_pkg::PRIV_LVL_S;
       end
 
-      if (trap_to_priv_lvl == riscv_pkg::PRIV_LVL_S) begin
+      if (trap_to_priv_lvl == single_file_ariane_riscv_pkg::PRIV_LVL_S) begin
 
         mstatus_d.sie = 1'b0;
         mstatus_d.spie = mstatus_q.sie;
@@ -17897,13 +17897,13 @@ module csr_regfile #(
 
         sepc_d = pc_i;
 
-        stval_d        = (ariane_pkg::ZERO_TVAL
+        stval_d        = (single_file_ariane_ariane_pkg::ZERO_TVAL
                                   && (ex_i.cause inside {
-                                    riscv_pkg::ILLEGAL_INSTR,
-                                    riscv_pkg::BREAKPOINT,
-                                    riscv_pkg::ENV_CALL_UMODE,
-                                    riscv_pkg::ENV_CALL_SMODE,
-                                    riscv_pkg::ENV_CALL_MMODE
+                                    single_file_ariane_riscv_pkg::ILLEGAL_INSTR,
+                                    single_file_ariane_riscv_pkg::BREAKPOINT,
+                                    single_file_ariane_riscv_pkg::ENV_CALL_UMODE,
+                                    single_file_ariane_riscv_pkg::ENV_CALL_SMODE,
+                                    single_file_ariane_riscv_pkg::ENV_CALL_MMODE
                                   } || ex_i.cause[63])) ? '0 : ex_i.tval;
 
       end else begin
@@ -17916,13 +17916,13 @@ module csr_regfile #(
 
         mepc_d = pc_i;
 
-        mtval_d        = (ariane_pkg::ZERO_TVAL
+        mtval_d        = (single_file_ariane_ariane_pkg::ZERO_TVAL
                                   && (ex_i.cause inside {
-                                    riscv_pkg::ILLEGAL_INSTR,
-                                    riscv_pkg::BREAKPOINT,
-                                    riscv_pkg::ENV_CALL_UMODE,
-                                    riscv_pkg::ENV_CALL_SMODE,
-                                    riscv_pkg::ENV_CALL_MMODE
+                                    single_file_ariane_riscv_pkg::ILLEGAL_INSTR,
+                                    single_file_ariane_riscv_pkg::BREAKPOINT,
+                                    single_file_ariane_riscv_pkg::ENV_CALL_UMODE,
+                                    single_file_ariane_riscv_pkg::ENV_CALL_SMODE,
+                                    single_file_ariane_riscv_pkg::ENV_CALL_MMODE
                                   } || ex_i.cause[63])) ? '0 : ex_i.tval;
       end
 
@@ -17932,18 +17932,18 @@ module csr_regfile #(
     if (!debug_mode_q) begin
       dcsr_d.prv = priv_lvl_o;
 
-      if (ex_i.valid && ex_i.cause == riscv_pkg::BREAKPOINT) begin
+      if (ex_i.valid && ex_i.cause == single_file_ariane_riscv_pkg::BREAKPOINT) begin
 
         unique case (priv_lvl_o)
-          riscv_pkg::PRIV_LVL_M: begin
+          single_file_ariane_riscv_pkg::PRIV_LVL_M: begin
             debug_mode_d   = dcsr_q.ebreakm;
             set_debug_pc_o = dcsr_q.ebreakm;
           end
-          riscv_pkg::PRIV_LVL_S: begin
+          single_file_ariane_riscv_pkg::PRIV_LVL_S: begin
             debug_mode_d   = dcsr_q.ebreaks;
             set_debug_pc_o = dcsr_q.ebreaks;
           end
-          riscv_pkg::PRIV_LVL_U: begin
+          single_file_ariane_riscv_pkg::PRIV_LVL_U: begin
             debug_mode_d   = dcsr_q.ebreaku;
             set_debug_pc_o = dcsr_q.ebreaku;
           end
@@ -17951,7 +17951,7 @@ module csr_regfile #(
         endcase
 
         dpc_d = pc_i;
-        dcsr_d.cause = dm::CauseBreakpoint;
+        dcsr_d.cause = single_file_ariane_dm::CauseBreakpoint;
       end
 
       if (debug_req_i && commit_instr_i[0].valid) begin
@@ -17962,7 +17962,7 @@ module csr_regfile #(
 
         set_debug_pc_o = 1'b1;
 
-        dcsr_d.cause = dm::CauseRequest;
+        dcsr_d.cause = single_file_ariane_dm::CauseRequest;
       end
 
       if (dcsr_q.step && commit_ack_i[0]) begin
@@ -17982,15 +17982,15 @@ module csr_regfile #(
         end
         debug_mode_d   = 1'b1;
         set_debug_pc_o = 1'b1;
-        dcsr_d.cause   = dm::CauseSingleStep;
+        dcsr_d.cause   = single_file_ariane_dm::CauseSingleStep;
       end
     end
 
-    if (debug_mode_q && ex_i.valid && ex_i.cause == riscv_pkg::BREAKPOINT) begin
+    if (debug_mode_q && ex_i.valid && ex_i.cause == single_file_ariane_riscv_pkg::BREAKPOINT) begin
       set_debug_pc_o = 1'b1;
     end
 
-    if (mprv && satp_q.mode == MODE_SV39 && (mstatus_q.mpp != riscv_pkg::PRIV_LVL_M))
+    if (mprv && satp_q.mode == MODE_SV39 && (mstatus_q.mpp != single_file_ariane_riscv_pkg::PRIV_LVL_M))
       en_ld_st_translation_d = 1'b1;
     else en_ld_st_translation_d = en_translation_o;
 
@@ -18005,7 +18005,7 @@ module csr_regfile #(
 
       priv_lvl_d     = mstatus_q.mpp;
 
-      mstatus_d.mpp  = riscv_pkg::PRIV_LVL_U;
+      mstatus_d.mpp  = single_file_ariane_riscv_pkg::PRIV_LVL_U;
 
       mstatus_d.mpie = 1'b1;
     end
@@ -18016,7 +18016,7 @@ module csr_regfile #(
 
       mstatus_d.sie  = mstatus_q.spie;
 
-      priv_lvl_d     = riscv_pkg::priv_lvl_t'({1'b0, mstatus_q.spp});
+      priv_lvl_d     = single_file_ariane_riscv_pkg::priv_lvl_t'({1'b0, mstatus_q.spp});
 
       mstatus_d.spp  = 1'b0;
 
@@ -18027,7 +18027,7 @@ module csr_regfile #(
 
       eret_o       = 1'b1;
 
-      priv_lvl_d   = riscv_pkg::priv_lvl_t'(dcsr_q.prv);
+      priv_lvl_d   = single_file_ariane_riscv_pkg::priv_lvl_t'(dcsr_q.prv);
 
       debug_mode_d = 1'b0;
     end
@@ -18087,36 +18087,36 @@ module csr_regfile #(
 
     csr_exception_o = {64'b0, 64'b0, 1'b0};
 
-    if (mie_q[riscv_pkg::S_TIMER_INTERRUPT[5:0]] && mip_q[riscv_pkg::S_TIMER_INTERRUPT[5:0]])
-      interrupt_cause = riscv_pkg::S_TIMER_INTERRUPT;
+    if (mie_q[single_file_ariane_riscv_pkg::S_TIMER_INTERRUPT[5:0]] && mip_q[single_file_ariane_riscv_pkg::S_TIMER_INTERRUPT[5:0]])
+      interrupt_cause = single_file_ariane_riscv_pkg::S_TIMER_INTERRUPT;
 
-    if (mie_q[riscv_pkg::S_SW_INTERRUPT[5:0]] && mip_q[riscv_pkg::S_SW_INTERRUPT[5:0]])
-      interrupt_cause = riscv_pkg::S_SW_INTERRUPT;
+    if (mie_q[single_file_ariane_riscv_pkg::S_SW_INTERRUPT[5:0]] && mip_q[single_file_ariane_riscv_pkg::S_SW_INTERRUPT[5:0]])
+      interrupt_cause = single_file_ariane_riscv_pkg::S_SW_INTERRUPT;
 
-    if (mie_q[riscv_pkg::S_EXT_INTERRUPT[5:0]] && (mip_q[riscv_pkg::S_EXT_INTERRUPT[5:0]] | irq_i[1]))
-      interrupt_cause = riscv_pkg::S_EXT_INTERRUPT;
+    if (mie_q[single_file_ariane_riscv_pkg::S_EXT_INTERRUPT[5:0]] && (mip_q[single_file_ariane_riscv_pkg::S_EXT_INTERRUPT[5:0]] | irq_i[1]))
+      interrupt_cause = single_file_ariane_riscv_pkg::S_EXT_INTERRUPT;
 
-    if (mip_q[riscv_pkg::M_TIMER_INTERRUPT[5:0]] && mie_q[riscv_pkg::M_TIMER_INTERRUPT[5:0]])
-      interrupt_cause = riscv_pkg::M_TIMER_INTERRUPT;
+    if (mip_q[single_file_ariane_riscv_pkg::M_TIMER_INTERRUPT[5:0]] && mie_q[single_file_ariane_riscv_pkg::M_TIMER_INTERRUPT[5:0]])
+      interrupt_cause = single_file_ariane_riscv_pkg::M_TIMER_INTERRUPT;
 
-    if (mip_q[riscv_pkg::M_SW_INTERRUPT[5:0]] && mie_q[riscv_pkg::M_SW_INTERRUPT[5:0]])
-      interrupt_cause = riscv_pkg::M_SW_INTERRUPT;
+    if (mip_q[single_file_ariane_riscv_pkg::M_SW_INTERRUPT[5:0]] && mie_q[single_file_ariane_riscv_pkg::M_SW_INTERRUPT[5:0]])
+      interrupt_cause = single_file_ariane_riscv_pkg::M_SW_INTERRUPT;
 
-    if (mip_q[riscv_pkg::M_EXT_INTERRUPT[5:0]] && mie_q[riscv_pkg::M_EXT_INTERRUPT[5:0]])
-      interrupt_cause = riscv_pkg::M_EXT_INTERRUPT;
+    if (mip_q[single_file_ariane_riscv_pkg::M_EXT_INTERRUPT[5:0]] && mie_q[single_file_ariane_riscv_pkg::M_EXT_INTERRUPT[5:0]])
+      interrupt_cause = single_file_ariane_riscv_pkg::M_EXT_INTERRUPT;
 
     interrupt_global_enable = (~debug_mode_q)
 
                                 & (~dcsr_q.step | dcsr_q.stepie)
-                                & ((mstatus_q.mie & (priv_lvl_o == riscv_pkg::PRIV_LVL_M))
-                                | (priv_lvl_o != riscv_pkg::PRIV_LVL_M));
+                                & ((mstatus_q.mie & (priv_lvl_o == single_file_ariane_riscv_pkg::PRIV_LVL_M))
+                                | (priv_lvl_o != single_file_ariane_riscv_pkg::PRIV_LVL_M));
 
     if (interrupt_cause[63] && interrupt_global_enable) begin
 
       csr_exception_o.cause = interrupt_cause;
 
       if (mideleg_q[interrupt_cause[5:0]]) begin
-        if ((mstatus_q.sie && priv_lvl_o == riscv_pkg::PRIV_LVL_S) || priv_lvl_o == riscv_pkg::PRIV_LVL_U)
+        if ((mstatus_q.sie && priv_lvl_o == single_file_ariane_riscv_pkg::PRIV_LVL_S) || priv_lvl_o == single_file_ariane_riscv_pkg::PRIV_LVL_U)
           csr_exception_o.valid = 1'b1;
       end else begin
         csr_exception_o.valid = 1'b1;
@@ -18124,19 +18124,19 @@ module csr_regfile #(
     end
 
     if (csr_we || csr_read) begin
-      if ((riscv_pkg::priv_lvl_t'(priv_lvl_o & csr_addr.csr_decode.priv_lvl) != csr_addr.csr_decode.priv_lvl)) begin
-        csr_exception_o.cause = riscv_pkg::ILLEGAL_INSTR;
+      if ((single_file_ariane_riscv_pkg::priv_lvl_t'(priv_lvl_o & csr_addr.csr_decode.priv_lvl) != csr_addr.csr_decode.priv_lvl)) begin
+        csr_exception_o.cause = single_file_ariane_riscv_pkg::ILLEGAL_INSTR;
         csr_exception_o.valid = 1'b1;
       end
 
       if (csr_addr_i[11:4] == 8'h7b && !debug_mode_q) begin
-        csr_exception_o.cause = riscv_pkg::ILLEGAL_INSTR;
+        csr_exception_o.cause = single_file_ariane_riscv_pkg::ILLEGAL_INSTR;
         csr_exception_o.valid = 1'b1;
       end
     end
 
     if (update_access_exception || read_access_exception) begin
-      csr_exception_o.cause = riscv_pkg::ILLEGAL_INSTR;
+      csr_exception_o.cause = single_file_ariane_riscv_pkg::ILLEGAL_INSTR;
 
       csr_exception_o.valid = 1'b1;
     end
@@ -18152,12 +18152,12 @@ module csr_regfile #(
   always_comb begin : priv_output
     trap_vector_base_o = {mtvec_q[63:2], 2'b0};
 
-    if (trap_to_priv_lvl == riscv_pkg::PRIV_LVL_S) begin
+    if (trap_to_priv_lvl == single_file_ariane_riscv_pkg::PRIV_LVL_S) begin
       trap_vector_base_o = {stvec_q[63:2], 2'b0};
     end
 
     if (debug_mode_q) begin
-      trap_vector_base_o = DmBaseAddress + dm::ExceptionAddress;
+      trap_vector_base_o = DmBaseAddress + single_file_ariane_dm::ExceptionAddress;
     end
 
     if ((mtvec_q[0] || stvec_q[0]) && csr_exception_o.cause[63]) begin
@@ -18180,17 +18180,17 @@ module csr_regfile #(
     csr_rdata_o = csr_rdata;
 
     unique case (csr_addr.address)
-      riscv_pkg::CSR_MIP: csr_rdata_o = csr_rdata | (irq_i[1] << riscv_pkg::IRQ_S_EXT);
+      single_file_ariane_riscv_pkg::CSR_MIP: csr_rdata_o = csr_rdata | (irq_i[1] << single_file_ariane_riscv_pkg::IRQ_S_EXT);
 
-      riscv_pkg::CSR_SIP: begin
+      single_file_ariane_riscv_pkg::CSR_SIP: begin
         csr_rdata_o = csr_rdata
-                            | ((irq_i[1] & mideleg_q[riscv_pkg::IRQ_S_EXT]) << riscv_pkg::IRQ_S_EXT);
+                            | ((irq_i[1] & mideleg_q[single_file_ariane_riscv_pkg::IRQ_S_EXT]) << single_file_ariane_riscv_pkg::IRQ_S_EXT);
       end
       default: ;
     endcase
   end
 
-  assign priv_lvl_o = (debug_mode_q) ? riscv_pkg::PRIV_LVL_M : priv_lvl_q;
+  assign priv_lvl_o = (debug_mode_q) ? single_file_ariane_riscv_pkg::PRIV_LVL_M : priv_lvl_q;
 
   assign fflags_o = fcsr_q.fflags;
   assign frm_o = fcsr_q.frm;
@@ -18200,7 +18200,7 @@ module csr_regfile #(
   assign asid_o = satp_q.asid[AsidWidth-1:0];
   assign sum_o = mstatus_q.sum;
 
-  assign en_translation_o = (satp_q.mode == 4'h8 && priv_lvl_o != riscv_pkg::PRIV_LVL_M)
+  assign en_translation_o = (satp_q.mode == 4'h8 && priv_lvl_o != single_file_ariane_riscv_pkg::PRIV_LVL_M)
                               ? 1'b1
                               : 1'b0;
   assign mxr_o = mstatus_q.mxr;
@@ -18217,13 +18217,13 @@ module csr_regfile #(
 
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (~rst_ni) begin
-      priv_lvl_q             <= riscv_pkg::PRIV_LVL_M;
+      priv_lvl_q             <= single_file_ariane_riscv_pkg::PRIV_LVL_M;
 
       fcsr_q                 <= 64'b0;
 
       debug_mode_q           <= 1'b0;
       dcsr_q                 <= '0;
-      dcsr_q.prv             <= riscv_pkg::PRIV_LVL_M;
+      dcsr_q.prv             <= single_file_ariane_riscv_pkg::PRIV_LVL_M;
       dpc_q                  <= 64'b0;
       dscratch0_q            <= 64'b0;
       dscratch1_q            <= 64'b0;
@@ -18300,8 +18300,8 @@ module csr_regfile #(
 endmodule
 
 
-import ariane_pkg::*;
-module perf_counters #(
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_perf_counters #(
     int unsigned NR_EXTERNAL_COUNTERS = 1
 ) (
     input logic clk_i,
@@ -18331,61 +18331,61 @@ module perf_counters #(
     input branchpredict_t resolved_branch_i
 );
 
-  logic [riscv_pkg::CSR_IF_EMPTY[4:0] : riscv_pkg::CSR_L1_ICACHE_MISS[4:0]][63:0]
+  logic [single_file_ariane_riscv_pkg::CSR_IF_EMPTY[4:0] : single_file_ariane_riscv_pkg::CSR_L1_ICACHE_MISS[4:0]][63:0]
       perf_counter_d, perf_counter_q;
 
-  always_comb begin : perf_counters
+  always_comb begin : single_file_ariane_perf_counters
     perf_counter_d = perf_counter_q;
     data_o = 'b0;
 
     if (!debug_mode_i) begin
 
       if (l1_icache_miss_i)
-        perf_counter_d[riscv_pkg::CSR_L1_ICACHE_MISS[4:0]] = perf_counter_q[riscv_pkg::CSR_L1_ICACHE_MISS[4:0]] + 1'b1;
+        perf_counter_d[single_file_ariane_riscv_pkg::CSR_L1_ICACHE_MISS[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_L1_ICACHE_MISS[4:0]] + 1'b1;
 
       if (l1_dcache_miss_i)
-        perf_counter_d[riscv_pkg::CSR_L1_DCACHE_MISS[4:0]] = perf_counter_q[riscv_pkg::CSR_L1_DCACHE_MISS[4:0]] + 1'b1;
+        perf_counter_d[single_file_ariane_riscv_pkg::CSR_L1_DCACHE_MISS[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_L1_DCACHE_MISS[4:0]] + 1'b1;
 
       if (itlb_miss_i)
-        perf_counter_d[riscv_pkg::CSR_ITLB_MISS[4:0]] = perf_counter_q[riscv_pkg::CSR_ITLB_MISS[4:0]] + 1'b1;
+        perf_counter_d[single_file_ariane_riscv_pkg::CSR_ITLB_MISS[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_ITLB_MISS[4:0]] + 1'b1;
 
       if (dtlb_miss_i)
-        perf_counter_d[riscv_pkg::CSR_DTLB_MISS[4:0]] = perf_counter_q[riscv_pkg::CSR_DTLB_MISS[4:0]] + 1'b1;
+        perf_counter_d[single_file_ariane_riscv_pkg::CSR_DTLB_MISS[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_DTLB_MISS[4:0]] + 1'b1;
 
       for (int unsigned i = 0; i < NR_COMMIT_PORTS - 1; i++) begin
         if (commit_ack_i[i]) begin
           if (commit_instr_i[i].fu == LOAD)
-            perf_counter_d[riscv_pkg::CSR_LOAD[4:0]] = perf_counter_q[riscv_pkg::CSR_LOAD[4:0]] + 1'b1;
+            perf_counter_d[single_file_ariane_riscv_pkg::CSR_LOAD[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_LOAD[4:0]] + 1'b1;
 
           if (commit_instr_i[i].fu == STORE)
-            perf_counter_d[riscv_pkg::CSR_STORE[4:0]] = perf_counter_q[riscv_pkg::CSR_STORE[4:0]] + 1'b1;
+            perf_counter_d[single_file_ariane_riscv_pkg::CSR_STORE[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_STORE[4:0]] + 1'b1;
 
           if (commit_instr_i[i].fu == CTRL_FLOW)
-            perf_counter_d[riscv_pkg::CSR_BRANCH_JUMP[4:0]] = perf_counter_q[riscv_pkg::CSR_BRANCH_JUMP[4:0]] + 1'b1;
+            perf_counter_d[single_file_ariane_riscv_pkg::CSR_BRANCH_JUMP[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_BRANCH_JUMP[4:0]] + 1'b1;
 
           if (commit_instr_i[i].fu == CTRL_FLOW && commit_instr_i[i].op == '0 && commit_instr_i[i].rd == 'b1)
-            perf_counter_d[riscv_pkg::CSR_CALL[4:0]] = perf_counter_q[riscv_pkg::CSR_CALL[4:0]] + 1'b1;
+            perf_counter_d[single_file_ariane_riscv_pkg::CSR_CALL[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_CALL[4:0]] + 1'b1;
 
           if (commit_instr_i[i].op == JALR && commit_instr_i[i].rs1 == 'b1)
-            perf_counter_d[riscv_pkg::CSR_RET[4:0]] = perf_counter_q[riscv_pkg::CSR_RET[4:0]] + 1'b1;
+            perf_counter_d[single_file_ariane_riscv_pkg::CSR_RET[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_RET[4:0]] + 1'b1;
         end
       end
 
       if (ex_i.valid)
-        perf_counter_d[riscv_pkg::CSR_EXCEPTION[4:0]] = perf_counter_q[riscv_pkg::CSR_EXCEPTION[4:0]] + 1'b1;
+        perf_counter_d[single_file_ariane_riscv_pkg::CSR_EXCEPTION[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_EXCEPTION[4:0]] + 1'b1;
 
       if (eret_i)
-        perf_counter_d[riscv_pkg::CSR_EXCEPTION_RET[4:0]] = perf_counter_q[riscv_pkg::CSR_EXCEPTION_RET[4:0]] + 1'b1;
+        perf_counter_d[single_file_ariane_riscv_pkg::CSR_EXCEPTION_RET[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_EXCEPTION_RET[4:0]] + 1'b1;
 
       if (resolved_branch_i.valid && resolved_branch_i.is_mispredict)
-        perf_counter_d[riscv_pkg::CSR_MIS_PREDICT[4:0]] = perf_counter_q[riscv_pkg::CSR_MIS_PREDICT[4:0]] + 1'b1;
+        perf_counter_d[single_file_ariane_riscv_pkg::CSR_MIS_PREDICT[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_MIS_PREDICT[4:0]] + 1'b1;
 
       if (sb_full_i) begin
-        perf_counter_d[riscv_pkg::CSR_SB_FULL[4:0]] = perf_counter_q[riscv_pkg::CSR_SB_FULL[4:0]] + 1'b1;
+        perf_counter_d[single_file_ariane_riscv_pkg::CSR_SB_FULL[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_SB_FULL[4:0]] + 1'b1;
       end
 
       if (if_empty_i) begin
-        perf_counter_d[riscv_pkg::CSR_IF_EMPTY[4:0]] = perf_counter_q[riscv_pkg::CSR_IF_EMPTY[4:0]] + 1'b1;
+        perf_counter_d[single_file_ariane_riscv_pkg::CSR_IF_EMPTY[4:0]] = perf_counter_q[single_file_ariane_riscv_pkg::CSR_IF_EMPTY[4:0]] + 1'b1;
       end
     end
 
@@ -18406,8 +18406,8 @@ module perf_counters #(
 endmodule
 
 
-import ariane_pkg::*;
-module controller (
+import single_file_ariane_ariane_pkg::*;
+module single_file_ariane_controller (
     input  logic clk_i,
     input  logic rst_ni,
     output logic set_pc_commit_o,
@@ -18531,7 +18531,7 @@ module controller (
 endmodule
 
 
-module SyncSpRamBeNx64 #(
+module single_file_ariane_SyncSpRamBeNx64 #(
     parameter ADDR_WIDTH = 10,
     parameter DATA_DEPTH = 1024,
     parameter OUT_REGS   = 0,
@@ -18601,7 +18601,7 @@ module SyncSpRamBeNx64 #(
 endmodule
 
 
-module sram #(
+module single_file_ariane_sram #(
     parameter DATA_WIDTH = 64,
     parameter NUM_WORDS  = 1024,
     parameter OUT_REGS   = 0
@@ -18636,7 +18636,7 @@ module sram #(
   generate
     for (k = 0; k < (DATA_WIDTH + 63) / 64; k++) begin
 
-      SyncSpRamBeNx64 #(
+      single_file_ariane_SyncSpRamBeNx64 #(
           .ADDR_WIDTH($clog2(NUM_WORDS)),
           .DATA_DEPTH(NUM_WORDS),
           .OUT_REGS  (0),
@@ -18654,10 +18654,10 @@ module sram #(
     end
   endgenerate
 
-endmodule : sram
+endmodule : single_file_ariane_sram
 
 
-module lfsr_8bit #(
+module single_file_ariane_lfsr_8bit #(
     parameter logic [7:0] SEED = 8'b0,
     parameter int unsigned WIDTH = 8
 ) (
@@ -18702,12 +18702,12 @@ module lfsr_8bit #(
 endmodule
 
 
-import ariane_pkg::*;
-import std_cache_pkg::*;
-module std_icache (
+import single_file_ariane_ariane_pkg::*;
+import single_file_ariane_std_cache_pkg::*;
+module single_file_ariane_std_icache (
     input logic                 clk_i,
     input logic                 rst_ni,
-    input riscv_pkg::priv_lvl_t priv_lvl_i,
+    input single_file_ariane_riscv_pkg::priv_lvl_t priv_lvl_i,
 
     input  logic flush_i,
     input  logic en_i,
@@ -18719,8 +18719,8 @@ module std_icache (
     input  icache_dreq_i_t dreq_i,
     output icache_dreq_o_t dreq_o,
 
-    output ariane_axi_pkg::m_req_t  axi_req_o,
-    input  ariane_axi_pkg::m_resp_t axi_resp_i
+    output single_file_ariane_ariane_axi_pkg::m_req_t  axi_req_o,
+    input  single_file_ariane_ariane_axi_pkg::m_resp_t axi_resp_i
 );
 
   localparam int unsigned ICACHE_BYTE_OFFSET = $clog2(ICACHE_LINE_WIDTH / 8);
@@ -18778,7 +18778,7 @@ module std_icache (
 
   for (genvar i = 0; i < ICACHE_SET_ASSOC; i++) begin : sram_block
 
-    sram #(
+    single_file_ariane_sram #(
 
         .DATA_WIDTH(ICACHE_TAG_WIDTH + 1),
         .NUM_WORDS (ICACHE_NUM_WORD)
@@ -18793,7 +18793,7 @@ module std_icache (
         .rdata_o(tag_rdata[i])
     );
 
-    sram #(
+    single_file_ariane_sram #(
         .DATA_WIDTH(ICACHE_LINE_WIDTH),
         .NUM_WORDS (ICACHE_NUM_WORD)
     ) data_sram (
@@ -18844,7 +18844,7 @@ module std_icache (
   assign axi_req_o.w.last = 1'b0;
   assign axi_req_o.b_ready = 1'b0;
 
-  assign axi_req_o.ar.prot = {1'b1, 1'b0, (priv_lvl_i == riscv_pkg::PRIV_LVL_M)};
+  assign axi_req_o.ar.prot = {1'b1, 1'b0, (priv_lvl_i == single_file_ariane_riscv_pkg::PRIV_LVL_M)};
   assign axi_req_o.ar.region = '0;
   assign axi_req_o.ar.len = (2 ** NR_AXI_REFILLS) - 1;
   assign axi_req_o.ar.size = 3'b011;
@@ -18863,7 +18863,7 @@ module std_icache (
 
   assign addr = (state_q == FLUSH) ? cnt_q : vaddr_d[ICACHE_INDEX_WIDTH-1:ICACHE_BYTE_OFFSET];
 
-  always_comb begin : cache_ctrl
+  always_comb begin : single_file_ariane_cache_ctrl
 
     state_d = state_q;
     cnt_d = cnt_q;
@@ -19060,7 +19060,7 @@ module std_icache (
     if (flushing_q) dreq_o.ready = 1'b0;
   end
 
-  lzc #(
+  single_file_ariane_lzc #(
       .WIDTH(ICACHE_SET_ASSOC)
   ) i_lzc (
       .in_i   (~way_valid),
@@ -19068,7 +19068,7 @@ module std_icache (
       .empty_o(repl_w_random)
   );
 
-  lfsr_8bit #(
+  single_file_ariane_lfsr_8bit #(
       .WIDTH(ICACHE_SET_ASSOC)
   ) i_lfsr (
       .clk_i         (clk_i),
@@ -19102,9 +19102,9 @@ module std_icache (
 endmodule
 
 
-import ariane_pkg::*;
-import std_cache_pkg::*;
-module cache_ctrl #(
+import single_file_ariane_ariane_pkg::*;
+import single_file_ariane_std_cache_pkg::*;
+module single_file_ariane_cache_ctrl #(
     parameter logic [63:0] CACHE_START_ADDR = 64'h4000_0000
 ) (
     input  logic clk_i,
@@ -19446,7 +19446,7 @@ module cache_ctrl #(
 endmodule
 
 
-module arbiter #(
+module single_file_ariane_arbiter #(
     parameter int unsigned NR_PORTS   = 3,
     parameter int unsigned DATA_WIDTH = 64
 ) (
@@ -19572,7 +19572,7 @@ module arbiter #(
 endmodule
 
 
-module axi_adapter #(
+module single_file_ariane_axi_adapter #(
     parameter int unsigned DATA_WIDTH            = 256,
     parameter logic        CRITICAL_WORD_FIRST   = 0,
     parameter int unsigned AXI_ID_WIDTH          = 10,
@@ -19582,7 +19582,7 @@ module axi_adapter #(
     input logic rst_ni,
 
     input  logic                                                req_i,
-    input  ariane_axi_pkg::ad_req_t                             type_i,
+    input  single_file_ariane_ariane_axi_pkg::ad_req_t                             type_i,
     output logic                                                gnt_o,
     output logic                    [   AXI_ID_WIDTH-1:0]       gnt_id_o,
     input  logic                    [               63:0]       addr_i,
@@ -19599,8 +19599,8 @@ module axi_adapter #(
     output logic [63:0] critical_word_o,
     output logic        critical_word_valid_o,
 
-    output ariane_axi_pkg::m_req_t  axi_req_o,
-    input  ariane_axi_pkg::m_resp_t axi_resp_i
+    output single_file_ariane_ariane_axi_pkg::m_req_t  axi_req_o,
+    input  single_file_ariane_ariane_axi_pkg::m_resp_t axi_resp_i
 );
   localparam BURST_SIZE = DATA_WIDTH / 64 - 1;
   localparam ADDR_INDEX = ($clog2(DATA_WIDTH / 64) > 0) ? $clog2(DATA_WIDTH / 64) : 1;
@@ -19633,7 +19633,7 @@ module axi_adapter #(
     axi_req_o.aw.region = 4'b0;
     axi_req_o.aw.len = 8'b0;
     axi_req_o.aw.size = {1'b0, size_i};
-    axi_req_o.aw.burst = (type_i == ariane_axi_pkg::SINGLE_REQ) ? 2'b00 : 2'b01;
+    axi_req_o.aw.burst = (type_i == single_file_ariane_ariane_axi_pkg::SINGLE_REQ) ? 2'b00 : 2'b01;
     axi_req_o.aw.lock = 1'b0;
     axi_req_o.aw.cache = 4'b0;
     axi_req_o.aw.qos = 4'b0;
@@ -19642,12 +19642,12 @@ module axi_adapter #(
 
     axi_req_o.ar_valid = 1'b0;
 
-    axi_req_o.ar.addr   = (CRITICAL_WORD_FIRST || type_i == ariane_axi_pkg::SINGLE_REQ) ? addr_i : { addr_i[63:CACHELINE_BYTE_OFFSET], {{CACHELINE_BYTE_OFFSET}{1'b0}}};
+    axi_req_o.ar.addr   = (CRITICAL_WORD_FIRST || type_i == single_file_ariane_ariane_axi_pkg::SINGLE_REQ) ? addr_i : { addr_i[63:CACHELINE_BYTE_OFFSET], {{CACHELINE_BYTE_OFFSET}{1'b0}}};
     axi_req_o.ar.prot = 3'b0;
     axi_req_o.ar.region = 4'b0;
     axi_req_o.ar.len = 8'b0;
     axi_req_o.ar.size = {1'b0, size_i};
-    axi_req_o.ar.burst  = (type_i == ariane_axi_pkg::SINGLE_REQ) ? 2'b00 : (CRITICAL_WORD_FIRST ? 2'b10 : 2'b01);
+    axi_req_o.ar.burst  = (type_i == single_file_ariane_ariane_axi_pkg::SINGLE_REQ) ? 2'b00 : (CRITICAL_WORD_FIRST ? 2'b10 : 2'b01);
     axi_req_o.ar.lock = 1'b0;
     axi_req_o.ar.cache = 4'b0;
     axi_req_o.ar.qos = 4'b0;
@@ -19689,7 +19689,7 @@ module axi_adapter #(
             axi_req_o.aw_valid = 1'b1;
             axi_req_o.w_valid  = 1'b1;
 
-            if (type_i == ariane_axi_pkg::SINGLE_REQ) begin
+            if (type_i == single_file_ariane_ariane_axi_pkg::SINGLE_REQ) begin
 
               axi_req_o.w.last = 1'b1;
 
@@ -19725,13 +19725,13 @@ module axi_adapter #(
 
             axi_req_o.ar_valid = 1'b1;
             gnt_o = axi_resp_i.ar_ready;
-            if (type_i != ariane_axi_pkg::SINGLE_REQ) begin
+            if (type_i != single_file_ariane_ariane_axi_pkg::SINGLE_REQ) begin
               axi_req_o.ar.len = BURST_SIZE;
               cnt_d = BURST_SIZE;
             end
 
             if (axi_resp_i.ar_ready) begin
-              state_d = (type_i == ariane_axi_pkg::SINGLE_REQ) ? WAIT_R_VALID : WAIT_R_VALID_MULTIPLE;
+              state_d = (type_i == single_file_ariane_ariane_axi_pkg::SINGLE_REQ) ? WAIT_R_VALID : WAIT_R_VALID_MULTIPLE;
               addr_offset_d = addr_i[ADDR_INDEX-1+3:3];
             end
           end
@@ -19750,7 +19750,7 @@ module axi_adapter #(
       WAIT_LAST_W_READY_AW_READY: begin
         axi_req_o.w_valid = 1'b1;
         axi_req_o.w.last  = (cnt_q == '0);
-        if (type_i == ariane_axi_pkg::SINGLE_REQ) begin
+        if (type_i == single_file_ariane_ariane_axi_pkg::SINGLE_REQ) begin
           axi_req_o.w.data = wdata_i[0];
           axi_req_o.w.strb = be_i[0];
         end else begin
@@ -19800,7 +19800,7 @@ module axi_adapter #(
       WAIT_LAST_W_READY: begin
         axi_req_o.w_valid = 1'b1;
 
-        if (type_i != ariane_axi_pkg::SINGLE_REQ) begin
+        if (type_i != single_file_ariane_ariane_axi_pkg::SINGLE_REQ) begin
           axi_req_o.w.data = wdata_i[BURST_SIZE-cnt_q];
           axi_req_o.w.strb = be_i[BURST_SIZE-cnt_q];
         end
@@ -19889,8 +19889,8 @@ module axi_adapter #(
 endmodule
 
 
-module amo_alu (
-    input  ariane_pkg::amo_t        amo_op_i,
+module single_file_ariane_amo_alu (
+    input  single_file_ariane_ariane_pkg::amo_t        amo_op_i,
     input  logic             [63:0] amo_operand_a_i,
     input  logic             [63:0] amo_operand_b_i,
     output logic             [63:0] amo_result_o
@@ -19910,26 +19910,26 @@ module amo_alu (
 
     unique case (amo_op_i)
 
-      ariane_pkg::AMO_SC: ;
-      ariane_pkg::AMO_SWAP: ;
-      ariane_pkg::AMO_ADD: amo_result_o = adder_sum[63:0];
-      ariane_pkg::AMO_AND: amo_result_o = amo_operand_a_i & amo_operand_b_i;
-      ariane_pkg::AMO_OR: amo_result_o = amo_operand_a_i | amo_operand_b_i;
-      ariane_pkg::AMO_XOR: amo_result_o = amo_operand_a_i ^ amo_operand_b_i;
-      ariane_pkg::AMO_MAX: begin
+      single_file_ariane_ariane_pkg::AMO_SC: ;
+      single_file_ariane_ariane_pkg::AMO_SWAP: ;
+      single_file_ariane_ariane_pkg::AMO_ADD: amo_result_o = adder_sum[63:0];
+      single_file_ariane_ariane_pkg::AMO_AND: amo_result_o = amo_operand_a_i & amo_operand_b_i;
+      single_file_ariane_ariane_pkg::AMO_OR: amo_result_o = amo_operand_a_i | amo_operand_b_i;
+      single_file_ariane_ariane_pkg::AMO_XOR: amo_result_o = amo_operand_a_i ^ amo_operand_b_i;
+      single_file_ariane_ariane_pkg::AMO_MAX: begin
         adder_operand_b = -$signed(amo_operand_b_i);
         amo_result_o = adder_sum[64] ? amo_operand_b_i : amo_operand_a_i;
       end
-      ariane_pkg::AMO_MIN: begin
+      single_file_ariane_ariane_pkg::AMO_MIN: begin
         adder_operand_b = -$signed(amo_operand_b_i);
         amo_result_o = adder_sum[64] ? amo_operand_a_i : amo_operand_b_i;
       end
-      ariane_pkg::AMO_MAXU: begin
+      single_file_ariane_ariane_pkg::AMO_MAXU: begin
         adder_operand_a = $unsigned(amo_operand_a_i);
         adder_operand_b = -$unsigned(amo_operand_b_i);
         amo_result_o = adder_sum[64] ? amo_operand_b_i : amo_operand_a_i;
       end
-      ariane_pkg::AMO_MINU: begin
+      single_file_ariane_ariane_pkg::AMO_MINU: begin
         adder_operand_a = $unsigned(amo_operand_a_i);
         adder_operand_b = -$unsigned(amo_operand_b_i);
         amo_result_o = adder_sum[64] ? amo_operand_a_i : amo_operand_b_i;
@@ -19940,9 +19940,9 @@ module amo_alu (
 endmodule
 
 
-module miss_handler
-import ariane_pkg::*;
-import std_cache_pkg::*;
+module single_file_ariane_miss_handler
+import single_file_ariane_ariane_pkg::*;
+import single_file_ariane_std_cache_pkg::*;
 #(
     parameter int unsigned NR_PORTS         = 3
 )(
@@ -19959,16 +19959,16 @@ import std_cache_pkg::*;
     output logic [NR_PORTS-1:0]                         bypass_valid_o,
     output logic [NR_PORTS-1:0][63:0]                   bypass_data_o,
 
-    output ariane_axi_pkg::m_req_t                            axi_bypass_o,
-    input  ariane_axi_pkg::m_resp_t                           axi_bypass_i,
+    output single_file_ariane_ariane_axi_pkg::m_req_t                            axi_bypass_o,
+    input  single_file_ariane_ariane_axi_pkg::m_resp_t                           axi_bypass_i,
 
     output logic [NR_PORTS-1:0]                         miss_gnt_o,
     output logic [NR_PORTS-1:0]                         active_serving_o,
 
     output logic [63:0]                                 critical_word_o,
     output logic                                        critical_word_valid_o,
-    output ariane_axi_pkg::m_req_t                            axi_data_o,
-    input  ariane_axi_pkg::m_resp_t                           axi_data_i,
+    output single_file_ariane_ariane_axi_pkg::m_req_t                            axi_data_o,
+    input  single_file_ariane_ariane_axi_pkg::m_resp_t                           axi_data_i,
 
     input  logic [NR_PORTS-1:0][55:0]                   mshr_addr_i,
     output logic [NR_PORTS-1:0]                         mshr_addr_matches_o,
@@ -20024,7 +20024,7 @@ import std_cache_pkg::*;
     logic [DCACHE_LINE_WIDTH-1:0]            req_fsm_miss_wdata;
     logic                                    req_fsm_miss_we;
     logic [(DCACHE_LINE_WIDTH/8)-1:0]        req_fsm_miss_be;
-    ariane_axi_pkg::ad_req_t                 req_fsm_miss_req;
+    single_file_ariane_ariane_axi_pkg::ad_req_t                 req_fsm_miss_req;
     logic [1:0]                              req_fsm_miss_size;
 
     logic                                    gnt_miss_fsm;
@@ -20035,7 +20035,7 @@ import std_cache_pkg::*;
     logic [DCACHE_SET_ASSOC-1:0]           lfsr_oh;
     logic [$clog2(DCACHE_SET_ASSOC-1)-1:0] lfsr_bin;
 
-    ariane_pkg::amo_t amo_op;
+    single_file_ariane_ariane_pkg::amo_t amo_op;
     logic [63:0] amo_operand_a, amo_operand_b, amo_result_o;
 
     struct packed {
@@ -20066,7 +20066,7 @@ import std_cache_pkg::*;
         req_fsm_miss_wdata  = '0;
         req_fsm_miss_we     = 1'b0;
         req_fsm_miss_be     = '0;
-        req_fsm_miss_req    = ariane_axi_pkg::CACHE_LINE_REQ;
+        req_fsm_miss_req    = single_file_ariane_ariane_axi_pkg::CACHE_LINE_REQ;
         req_fsm_miss_size   = 2'b11;
 
         flush_ack_o         = 1'b0;
@@ -20246,7 +20246,7 @@ import std_cache_pkg::*;
                     be_o.vldrty = INVALIDATE_ON_FLUSH ? '1 : '0;
                     we_o        = 1'b1;
 
-                    if (cnt_q[DCACHE_INDEX_WIDTH-1:DCACHE_BYTE_OFFSET] == std_cache_pkg::DCACHE_NUM_WORDS-1) begin
+                    if (cnt_q[DCACHE_INDEX_WIDTH-1:DCACHE_BYTE_OFFSET] == single_file_ariane_std_cache_pkg::DCACHE_NUM_WORDS-1) begin
 
                         flush_ack_o = ~serve_amo_q;
                         state_d     = IDLE;
@@ -20263,7 +20263,7 @@ import std_cache_pkg::*;
                 be_o.vldrty = '1;
                 cnt_d       = cnt_q + (1'b1 << DCACHE_BYTE_OFFSET);
 
-                if (cnt_q[DCACHE_INDEX_WIDTH-1:DCACHE_BYTE_OFFSET] == std_cache_pkg::DCACHE_NUM_WORDS-1)
+                if (cnt_q[DCACHE_INDEX_WIDTH-1:DCACHE_BYTE_OFFSET] == single_file_ariane_std_cache_pkg::DCACHE_NUM_WORDS-1)
                     state_d = IDLE;
             end
 
@@ -20271,7 +20271,7 @@ import std_cache_pkg::*;
                 req_fsm_miss_valid = 1'b1;
 
                 req_fsm_miss_addr = amo_req_i.operand_a;
-                req_fsm_miss_req = ariane_axi_pkg::SINGLE_REQ;
+                req_fsm_miss_req = single_file_ariane_ariane_axi_pkg::SINGLE_REQ;
                 req_fsm_miss_size = amo_req_i.size;
 
                 if (gnt_miss_fsm) begin
@@ -20319,7 +20319,7 @@ import std_cache_pkg::*;
                 end
 
                 req_fsm_miss_we   = 1'b1;
-                req_fsm_miss_req  = ariane_axi_pkg::SINGLE_REQ;
+                req_fsm_miss_req  = single_file_ariane_ariane_axi_pkg::SINGLE_REQ;
                 req_fsm_miss_size = amo_req_i.size;
                 req_fsm_miss_addr = amo_req_i.operand_a;
 
@@ -20397,7 +20397,7 @@ import std_cache_pkg::*;
     logic [3:0]                  id_bypass_fsm;
     logic [3:0]                  gnt_id_bypass_fsm;
 
-    arbiter #(
+    single_file_ariane_arbiter #(
         .NR_PORTS       ( NR_PORTS                                 ),
         .DATA_WIDTH     ( 64                                       )
     ) i_bypass_arbiter (
@@ -20427,7 +20427,7 @@ import std_cache_pkg::*;
         .*
     );
 
-    axi_adapter #(
+    single_file_ariane_axi_adapter #(
         .DATA_WIDTH            ( 64                 ),
         .AXI_ID_WIDTH          ( 4                  ),
         .CACHELINE_BYTE_OFFSET ( DCACHE_BYTE_OFFSET )
@@ -20435,7 +20435,7 @@ import std_cache_pkg::*;
         .clk_i,
         .rst_ni,
         .req_i                 ( req_fsm_bypass_valid   ),
-        .type_i                ( ariane_axi_pkg::SINGLE_REQ ),
+        .type_i                ( single_file_ariane_ariane_axi_pkg::SINGLE_REQ ),
         .gnt_o                 ( gnt_bypass_fsm         ),
         .addr_i                ( req_fsm_bypass_addr    ),
         .we_i                  ( req_fsm_bypass_we      ),
@@ -20453,7 +20453,7 @@ import std_cache_pkg::*;
         .axi_resp_i            ( axi_bypass_i           )
     );
 
-    axi_adapter  #(
+    single_file_ariane_axi_adapter  #(
         .DATA_WIDTH            ( DCACHE_LINE_WIDTH  ),
         .AXI_ID_WIDTH          ( 4                  ),
         .CACHELINE_BYTE_OFFSET ( DCACHE_BYTE_OFFSET )
@@ -20479,14 +20479,14 @@ import std_cache_pkg::*;
         .axi_resp_i          ( axi_data_i         )
     );
 
-    lfsr_8bit #(.WIDTH (DCACHE_SET_ASSOC)) i_lfsr (
+    single_file_ariane_lfsr_8bit #(.WIDTH (DCACHE_SET_ASSOC)) i_lfsr (
         .en_i           ( lfsr_enable ),
         .refill_way_oh  ( lfsr_oh     ),
         .refill_way_bin ( lfsr_bin    ),
         .*
     );
 
-    amo_alu i_amo_alu (
+    single_file_ariane_amo_alu i_amo_alu (
         .amo_op_i        ( amo_op        ),
         .amo_operand_a_i ( amo_operand_a ),
         .amo_operand_b_i ( amo_operand_b ),
@@ -20511,11 +20511,11 @@ endmodule
 
 
 
-module tag_cmp #(
+module single_file_ariane_tag_cmp #(
     parameter int unsigned NR_PORTS         = 3,
     parameter int unsigned ADDR_WIDTH       = 64,
-    parameter type         l_data_t         = std_cache_pkg::cache_line_t,
-    parameter type         l_be_t           = std_cache_pkg::cl_be_t,
+    parameter type         l_data_t         = single_file_ariane_std_cache_pkg::cache_line_t,
+    parameter type         l_be_t           = single_file_ariane_std_cache_pkg::cl_be_t,
     parameter int unsigned DCACHE_SET_ASSOC = 8
 ) (
     input logic clk_i,
@@ -20528,7 +20528,7 @@ module tag_cmp #(
     input  logic    [        NR_PORTS-1:0]                                   we_i,
     input  l_be_t   [        NR_PORTS-1:0]                                   be_i,
     output l_data_t [DCACHE_SET_ASSOC-1:0]                                   rdata_o,
-    input  logic    [        NR_PORTS-1:0][ariane_pkg::DCACHE_TAG_WIDTH-1:0] tag_i,
+    input  logic    [        NR_PORTS-1:0][single_file_ariane_ariane_pkg::DCACHE_TAG_WIDTH-1:0] tag_i,
     output logic    [DCACHE_SET_ASSOC-1:0]                                   hit_way_o,
 
     output logic    [DCACHE_SET_ASSOC-1:0] req_o,
@@ -20542,14 +20542,14 @@ module tag_cmp #(
   assign rdata_o = rdata_i;
 
   logic [NR_PORTS-1:0] id_d, id_q;
-  logic [ariane_pkg::DCACHE_TAG_WIDTH-1:0] sel_tag;
+  logic [single_file_ariane_ariane_pkg::DCACHE_TAG_WIDTH-1:0] sel_tag;
 
   always_comb begin : tag_sel
     sel_tag = '0;
     for (int unsigned i = 0; i < NR_PORTS; i++) if (id_q[i]) sel_tag = tag_i[i];
   end
 
-  for (genvar j = 0; j < DCACHE_SET_ASSOC; j++) begin : tag_cmp
+  for (genvar j = 0; j < DCACHE_SET_ASSOC; j++) begin : single_file_ariane_tag_cmp
     assign hit_way_o[j] = (sel_tag == rdata_i[j].tag) ? rdata_i[j].valid : 1'b0;
   end
 
@@ -20588,9 +20588,9 @@ module tag_cmp #(
 endmodule
 
 
-import ariane_pkg::*;
-import std_cache_pkg::*;
-module std_nbdcache #(
+import single_file_ariane_ariane_pkg::*;
+import single_file_ariane_std_cache_pkg::*;
+module single_file_ariane_std_nbdcache #(
     parameter logic [63:0] CACHE_START_ADDR = 64'h8000_0000
 ) (
     input logic clk_i,
@@ -20607,10 +20607,10 @@ module std_nbdcache #(
     input  dcache_req_i_t [2:0] req_ports_i,
     output dcache_req_o_t [2:0] req_ports_o,
 
-    output ariane_axi_pkg::m_req_t  axi_data_o,
-    input  ariane_axi_pkg::m_resp_t axi_data_i,
-    output ariane_axi_pkg::m_req_t  axi_bypass_o,
-    input  ariane_axi_pkg::m_resp_t axi_bypass_i
+    output single_file_ariane_ariane_axi_pkg::m_req_t  axi_data_o,
+    input  single_file_ariane_ariane_axi_pkg::m_resp_t axi_data_i,
+    output single_file_ariane_ariane_axi_pkg::m_req_t  axi_bypass_o,
+    input  single_file_ariane_ariane_axi_pkg::m_resp_t axi_bypass_i
 );
 
   logic        [                   3:0][  DCACHE_SET_ASSOC-1:0] req;
@@ -20648,7 +20648,7 @@ module std_nbdcache #(
 
   generate
     for (genvar i = 0; i < 3; i++) begin : master_ports
-      cache_ctrl #(
+      single_file_ariane_cache_ctrl #(
           .CACHE_START_ADDR(CACHE_START_ADDR)
       ) i_cache_ctrl (
           .bypass_i(~enable_i),
@@ -20684,7 +20684,7 @@ module std_nbdcache #(
     end
   endgenerate
 
-  miss_handler #(
+  single_file_ariane_miss_handler #(
       .NR_PORTS(3)
   ) i_miss_handler (
       .flush_i(flush_i),
@@ -20719,7 +20719,7 @@ module std_nbdcache #(
   assign tag[0] = '0;
 
   for (genvar i = 0; i < DCACHE_SET_ASSOC; i++) begin : sram_block
-    sram #(
+    single_file_ariane_sram #(
         .DATA_WIDTH(DCACHE_LINE_WIDTH),
         .NUM_WORDS (DCACHE_NUM_WORDS)
     ) data_sram (
@@ -20733,7 +20733,7 @@ module std_nbdcache #(
         .*
     );
 
-    sram #(
+    single_file_ariane_sram #(
         .DATA_WIDTH(DCACHE_TAG_WIDTH),
         .NUM_WORDS (DCACHE_NUM_WORDS)
     ) tag_sram (
@@ -20758,7 +20758,7 @@ module std_nbdcache #(
     assign rdata_ram[i].valid = dirty_rdata[8*i+1];
   end
 
-  sram #(
+  single_file_ariane_sram #(
       .DATA_WIDTH(4 * DCACHE_DIRTY_WIDTH),
       .NUM_WORDS (DCACHE_NUM_WORDS)
   ) valid_dirty_sram (
@@ -20772,7 +20772,7 @@ module std_nbdcache #(
       .rdata_o(dirty_rdata)
   );
 
-  tag_cmp #(
+  single_file_ariane_tag_cmp #(
       .NR_PORTS        (4),
       .ADDR_WIDTH      (DCACHE_INDEX_WIDTH),
       .DCACHE_SET_ASSOC(DCACHE_SET_ASSOC)
@@ -20806,7 +20806,7 @@ module std_nbdcache #(
 endmodule
 
 
-module stream_arbiter_flushable #(
+module single_file_ariane_stream_arbiter_flushable #(
     parameter type    DATA_T  = logic,
     parameter integer N_INP   = -1,
     parameter         ARBITER = "rr"
@@ -20825,7 +20825,7 @@ module stream_arbiter_flushable #(
 );
 
   if (ARBITER == "rr") begin : gen_rr_arb
-    rr_arb_tree #(
+    single_file_ariane_rr_arb_tree #(
         .NumIn    (N_INP),
         .DataType (DATA_T),
         .ExtPrio  (1'b0),
@@ -20846,7 +20846,7 @@ module stream_arbiter_flushable #(
     );
 
   end else if (ARBITER == "prio") begin : gen_prio_arb
-    rr_arb_tree #(
+    single_file_ariane_rr_arb_tree #(
         .NumIn    (N_INP),
         .DataType (DATA_T),
         .ExtPrio  (1'b1),
@@ -20875,7 +20875,7 @@ module stream_arbiter_flushable #(
 endmodule
 
 
-module stream_arbiter #(
+module single_file_ariane_stream_arbiter #(
     parameter type    DATA_T  = logic,
     parameter integer N_INP   = -1,
     parameter         ARBITER = "rr"
@@ -20892,7 +20892,7 @@ module stream_arbiter #(
     input  logic  oup_ready_i
 );
 
-  stream_arbiter_flushable #(
+  single_file_ariane_stream_arbiter_flushable #(
       .DATA_T (DATA_T),
       .N_INP  (N_INP),
       .ARBITER(ARBITER)
@@ -20911,7 +20911,7 @@ module stream_arbiter #(
 endmodule
 
 
-module stream_mux #(
+module single_file_ariane_stream_mux #(
   parameter type DATA_T = logic,
   parameter integer N_INP = 0,
 
@@ -20938,7 +20938,7 @@ module stream_mux #(
 endmodule
 
 
-module stream_demux #(
+module single_file_ariane_stream_demux #(
 
     parameter int unsigned N_OUP = 32'd1,
 
@@ -20962,14 +20962,14 @@ module stream_demux #(
 endmodule
 
 
-import ariane_pkg::*;
-import std_cache_pkg::*;
-module std_cache_subsystem #(
+import single_file_ariane_ariane_pkg::*;
+import single_file_ariane_std_cache_pkg::*;
+module single_file_ariane_std_cache_subsystem #(
     parameter logic [63:0] CACHE_START_ADDR = 64'h4000_0000
 ) (
     input logic                 clk_i,
     input logic                 rst_ni,
-    input riscv_pkg::priv_lvl_t priv_lvl_i,
+    input single_file_ariane_riscv_pkg::priv_lvl_t priv_lvl_i,
 
     input  logic icache_en_i,
     input  logic icache_flush_i,
@@ -20993,20 +20993,20 @@ module std_cache_subsystem #(
     input  dcache_req_i_t [2:0] dcache_req_ports_i,
     output dcache_req_o_t [2:0] dcache_req_ports_o,
 
-    output ariane_axi_pkg::m_req_t  axi_req_o,
-    input  ariane_axi_pkg::m_resp_t axi_resp_i
+    output single_file_ariane_ariane_axi_pkg::m_req_t  axi_req_o,
+    input  single_file_ariane_ariane_axi_pkg::m_resp_t axi_resp_i
 );
 
   assign wbuffer_empty_o = 1'b1;
 
-  ariane_axi_pkg::m_req_t  axi_req_icache;
-  ariane_axi_pkg::m_resp_t axi_resp_icache;
-  ariane_axi_pkg::m_req_t  axi_req_bypass;
-  ariane_axi_pkg::m_resp_t axi_resp_bypass;
-  ariane_axi_pkg::m_req_t  axi_req_data;
-  ariane_axi_pkg::m_resp_t axi_resp_data;
+  single_file_ariane_ariane_axi_pkg::m_req_t  axi_req_icache;
+  single_file_ariane_ariane_axi_pkg::m_resp_t axi_resp_icache;
+  single_file_ariane_ariane_axi_pkg::m_req_t  axi_req_bypass;
+  single_file_ariane_ariane_axi_pkg::m_resp_t axi_resp_bypass;
+  single_file_ariane_ariane_axi_pkg::m_req_t  axi_req_data;
+  single_file_ariane_ariane_axi_pkg::m_resp_t axi_resp_data;
 
-  std_icache i_icache (
+  single_file_ariane_std_icache i_icache (
       .clk_i     (clk_i),
       .rst_ni    (rst_ni),
       .priv_lvl_i(priv_lvl_i),
@@ -21021,7 +21021,7 @@ module std_cache_subsystem #(
       .axi_resp_i(axi_resp_icache)
   );
 
-  std_nbdcache #(
+  single_file_ariane_std_nbdcache #(
       .CACHE_START_ADDR(CACHE_START_ADDR)
   ) i_nbdcache (
       .clk_i,
@@ -21043,8 +21043,8 @@ module std_cache_subsystem #(
   logic [1:0] w_select, w_select_fifo, w_select_arbiter;
   logic w_fifo_empty;
 
-  stream_arbiter #(
-      .DATA_T(ariane_axi_pkg::m_ar_chan_t),
+  single_file_ariane_stream_arbiter #(
+      .DATA_T(single_file_ariane_ariane_axi_pkg::m_ar_chan_t),
       .N_INP (3)
   ) i_stream_arbiter_ar (
       .clk_i,
@@ -21057,8 +21057,8 @@ module std_cache_subsystem #(
       .oup_ready_i(axi_resp_i.ar_ready)
   );
 
-  stream_arbiter #(
-      .DATA_T(ariane_axi_pkg::m_aw_chan_t),
+  single_file_ariane_stream_arbiter #(
+      .DATA_T(single_file_ariane_ariane_axi_pkg::m_aw_chan_t),
       .N_INP (3)
   ) i_stream_arbiter_aw (
       .clk_i,
@@ -21080,7 +21080,7 @@ module std_cache_subsystem #(
     endcase
   end
 
-  fifo_v3 #(
+  single_file_ariane_fifo_v3 #(
       .DATA_WIDTH(2),
 
       .DEPTH(4)
@@ -21103,8 +21103,8 @@ module std_cache_subsystem #(
 
   assign w_select_arbiter = (w_fifo_empty) ? 0 : w_select_fifo;
 
-  stream_mux #(
-      .DATA_T(ariane_axi_pkg::m_w_chan_t),
+  single_file_ariane_stream_mux #(
+      .DATA_T(single_file_ariane_ariane_axi_pkg::m_w_chan_t),
       .N_INP (3)
   ) i_stream_mux_w (
       .inp_data_i ({axi_req_data.w, axi_req_bypass.w, axi_req_icache.w}),
@@ -21132,7 +21132,7 @@ module std_cache_subsystem #(
     endcase
   end
 
-  stream_demux #(
+  single_file_ariane_stream_demux #(
       .N_OUP(3)
   ) i_stream_demux_r (
       .inp_valid_i(axi_resp_i.r_valid),
@@ -21158,7 +21158,7 @@ module std_cache_subsystem #(
     endcase
   end
 
-  stream_demux #(
+  single_file_ariane_stream_demux #(
       .N_OUP(3)
   ) i_stream_demux_b (
       .inp_valid_i(axi_resp_i.b_valid),
@@ -21171,7 +21171,7 @@ module std_cache_subsystem #(
 endmodule
 
 
-import ariane_pkg::*;
+import single_file_ariane_ariane_pkg::*;
 module ariane #(
     parameter logic [63:0] DmBaseAddress = 64'h0,
     parameter logic [63:0] CachedAddrBeg = 64'h00_8000_0000
@@ -21188,11 +21188,11 @@ module ariane #(
     input logic time_irq_i,
     input logic debug_req_i,
 
-    output ariane_axi_pkg::m_req_t  axi_req_o,
-    input  ariane_axi_pkg::m_resp_t axi_resp_i
+    output single_file_ariane_ariane_axi_pkg::m_req_t  axi_req_o,
+    input  single_file_ariane_ariane_axi_pkg::m_resp_t axi_resp_i
 );
 
-  riscv_pkg::priv_lvl_t                             priv_lvl;
+  single_file_ariane_riscv_pkg::priv_lvl_t                             priv_lvl;
   exception_t                                       ex_commit;
   branchpredict_t                                   resolved_branch;
   logic                 [               63:0]       pc_commit;
@@ -21271,12 +21271,12 @@ module ariane #(
   logic                 [NR_COMMIT_PORTS-1:0]       we_fpr_commit_id;
 
   logic                 [                4:0]       fflags_csr_commit;
-  riscv_pkg::xs_t                                   fs;
+  single_file_ariane_riscv_pkg::xs_t                                   fs;
   logic                 [                2:0]       frm_csr_id_issue_ex;
   logic                 [                6:0]       fprec_csr_ex;
   logic                                             enable_translation_csr_ex;
   logic                                             en_ld_st_translation_csr_ex;
-  riscv_pkg::priv_lvl_t                             ld_st_priv_lvl_csr_ex;
+  single_file_ariane_riscv_pkg::priv_lvl_t                             ld_st_priv_lvl_csr_ex;
   logic                                             sum_csr_ex;
   logic                                             mxr_csr_ex;
   logic                 [               43:0]       satp_ppn_csr_ex;
@@ -21339,7 +21339,7 @@ module ariane #(
   dcache_req_o_t [2:0] dcache_req_ports_cache_ex;
   logic                dcache_commit_wbuffer_empty;
 
-  frontend #(
+  single_file_ariane_frontend #(
       .DmBaseAddress(DmBaseAddress)
   ) i_frontend (
       .flush_i            (flush_ctrl_if),
@@ -21362,7 +21362,7 @@ module ariane #(
       .*
   );
 
-  id_stage id_stage_i (
+  single_file_ariane_id_stage id_stage_i (
       .flush_i(flush_ctrl_if),
 
       .fetch_entry_i      (fetch_entry_if_id),
@@ -21384,7 +21384,7 @@ module ariane #(
       .*
   );
 
-  issue_stage #(
+  single_file_ariane_issue_stage #(
       .NR_ENTRIES (NR_SB_ENTRIES),
       .NR_WB_PORTS(NR_WB_PORTS)
   ) issue_stage_i (
@@ -21442,7 +21442,7 @@ module ariane #(
       .*
   );
 
-  ex_stage ex_stage_i (
+  single_file_ariane_ex_stage ex_stage_i (
       .clk_i                (clk_i),
       .rst_ni               (rst_ni),
       .flush_i              (flush_ctrl_ex),
@@ -21521,7 +21521,7 @@ module ariane #(
 
   assign no_st_pending_commit = no_st_pending_ex & dcache_commit_wbuffer_empty;
 
-  commit_stage commit_stage_i (
+  single_file_ariane_commit_stage commit_stage_i (
       .clk_i,
       .rst_ni,
       .halt_i            (halt_ctrl),
@@ -21556,7 +21556,7 @@ module ariane #(
       .*
   );
 
-  csr_regfile #(
+  single_file_ariane_csr_regfile #(
       .AsidWidth    (ASID_WIDTH),
       .DmBaseAddress(DmBaseAddress)
   ) csr_regfile_i (
@@ -21607,7 +21607,7 @@ module ariane #(
       .*
   );
 
-  perf_counters i_perf_counters (
+  single_file_ariane_perf_counters i_perf_counters (
       .clk_i         (clk_i),
       .rst_ni        (rst_ni),
       .debug_mode_i  (debug_mode),
@@ -21629,7 +21629,7 @@ module ariane #(
       .resolved_branch_i(resolved_branch)
   );
 
-  controller controller_i (
+  single_file_ariane_controller controller_i (
 
       .set_pc_commit_o       (set_pc_ctrl_pcgen),
       .flush_unissued_instr_o(flush_unissued_instr_ctrl_id),
@@ -21657,7 +21657,7 @@ module ariane #(
       .*
   );
 
-  std_cache_subsystem #(
+  single_file_ariane_std_cache_subsystem #(
       .CACHE_START_ADDR(CachedAddrBeg)
   ) i_cache_subsystem (
 
@@ -21705,9 +21705,9 @@ module ariane #(
       if (debug_mode) mode = "D";
       else begin
         case (priv_lvl)
-          riscv_pkg::PRIV_LVL_M: mode = "M";
-          riscv_pkg::PRIV_LVL_S: mode = "S";
-          riscv_pkg::PRIV_LVL_U: mode = "U";
+          single_file_ariane_riscv_pkg::PRIV_LVL_M: mode = "M";
+          single_file_ariane_riscv_pkg::PRIV_LVL_S: mode = "S";
+          single_file_ariane_riscv_pkg::PRIV_LVL_U: mode = "U";
         endcase
       end
       for (int i = 0; i < NR_COMMIT_PORTS; i++) begin
