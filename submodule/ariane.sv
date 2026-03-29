@@ -19940,8 +19940,10 @@ module amo_alu (
 endmodule
 
 
+module miss_handler
 import ariane_pkg::*;
-import std_cache_pkg::*;module miss_handler #(
+import std_cache_pkg::*;
+#(
     parameter int unsigned NR_PORTS         = 3
 )(
     input  logic                                        clk_i,
