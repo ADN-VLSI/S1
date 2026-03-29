@@ -2,9 +2,13 @@ module hello;
 
   dummy d1 ();
 
-  initial begin
-    $display("Hello, World!");
-    $finish;
+  initial
+  begin
+
+`include "hello.svh"
+
+`include "finish.svh"
+
   end
 
 endmodule

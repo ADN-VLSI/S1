@@ -1,16 +1,10 @@
 module dummy;
 
-  initial begin
-    $display("This is a dummy module. It does nothing. LOL");
-  end
+  initial
+  begin
 
-endmodule
+`include "print.svh"
 
-
-module dummy;
-
-  initial begin
-    $display("This is a dummy module. It does nothing. LOL");
   end
 
 endmodule

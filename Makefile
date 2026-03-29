@@ -57,18 +57,54 @@ $(LOG):
 	@echo "*" > $(LOG)/.gitignore
 	@$(YA) echo "Created log directory"
 
-# Compile all files in filelist
-define COMPILE
+# Compile all files in filelist as required, but only if there are changes in the files since the last compilation
+define COMPILE_FILELIST
 	make -s $(BUILD)
 	make -s $(LOG)
-	$(YA) echo "Compiling $1"
-	cd $(BUILD) && xvlog -sv -f $1 -log $(LOG)/compile_$(basename $(notdir $1)).log $(EW_O)
+	touch $(BUILD)/compile_$(basename $(notdir $1))_sha256
+
+	tmp_flist=$(BUILD)/tmp_flist; \
+	rm -f $$tmp_flist; \
+	while IFS= read -r line || [ -n "$$line" ]; do \
+		if [[ "$$line" =~ ^[[:space:]]*-i[[:space:]]+(.+)[[:space:]]*$$ ]]; then \
+			include_dir="$${BASH_REMATCH[1]}"; \
+			eval "include_dir=\"$$include_dir\""; \
+			find "$$include_dir" -type f | sort >> "$$tmp_flist"; \
+		else \
+			printf '%s\n' "$$line" >> "$$tmp_flist"; \
+		fi; \
+	done < "$1"; \
+ 	sed -i "s/^-.*//g" $$tmp_flist; \
+	tmp_sha256=$(BUILD)/tmp_sha256; \
+	rm -f $$tmp_sha256; \
+	while IFS= read -r file || [ -n "$$file" ]; do \
+		[[ -z "$$file" ]] && continue; \
+		eval "file=\"$$file\""; \
+		if [ ! -f "$$file" ]; then \
+			echo "Missing file in filelist: $$file" >&2; \
+			exit 1; \
+		fi; \
+		sha256sum "$$file"; \
+	done < "$$tmp_flist" | sha256sum | awk '{print $$1}' > $$tmp_sha256;
+
+	if [ -f $(BUILD)/compile_$(basename $(notdir $1))_sha256 ]; then \
+		existing_hash=$$(cat $(BUILD)/compile_$(basename $(notdir $1))_sha256); \
+		new_hash=$$(cat $(BUILD)/tmp_sha256); \
+		if [ "$$existing_hash" = "$$new_hash" ]; then \
+			$(YA) echo "No changes detected in $1, skipping compilation"; \
+			rm -f $(BUILD)/tmp_sha256; \
+			exit 0; \
+		fi; \
+	fi;	\
+	$(YA) echo "Compiling $1"; \
+	cd $(BUILD) && xvlog -sv -f $1 -log $(LOG)/compile_$(basename $(notdir $1)).log $(EW_O); \
+	mv $(BUILD)/tmp_sha256 $(BUILD)/compile_$(basename $(notdir $1))_sha256;
 endef
 
 # Search all systemverilog hardware file lists and compile them
-.PHONY: COMPILE_ALL
-COMPILE_ALL:
-	@$(foreach flist, $(shell find $(S1)/hardware/filelist/ -type f -name "*.f"), $(call COMPILE,$(flist)))
+.PHONY: COMPILE
+COMPILE:
+	@$(foreach flist, $(shell find $(S1)/hardware/filelist/ -type f -name "*.f"), $(call COMPILE_FILELIST,$(flist)))
 
 # Clear build directory
 .PHONY: clean
