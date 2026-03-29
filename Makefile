@@ -91,7 +91,7 @@ define COMPILE_FILELIST
 		existing_hash=$$(cat $(BUILD)/compile_$(basename $(notdir $1))_sha256); \
 		new_hash=$$(cat $(BUILD)/tmp_sha256); \
 		if [ "$$existing_hash" = "$$new_hash" ]; then \
-			$(YA) echo "No changes detected in $1, skipping compilation"; \
+			$(YA) echo "Skipping  $1"; \
 			rm -f $(BUILD)/tmp_sha256; \
 			exit 0; \
 		fi; \
