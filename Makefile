@@ -125,6 +125,7 @@ ELABORATE:
 ENV_BUILD:
 	@make -s $(BUILD)
 	@make -s $(LOG)
+	@git submodule update --init --depth 1
 	@make -s COMPILE
 	@make -s ELABORATE TOP=$(TOP)
 

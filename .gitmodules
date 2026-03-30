@@ -1,0 +1,3 @@
+[submodule "submodule/SoC"]
+	path = submodule/SoC
+	url = https://github.com/squared-studio/SoC.git
