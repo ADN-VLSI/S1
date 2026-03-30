@@ -274,36 +274,34 @@ module s1_uart_regif
       .mst_resp_i(fifo_resp)
   );
 
-  fifo #(
+  s1_fifo #(
       .PIPELINED (1),
-      .ELEM_WIDTH($bits(tx_id_queue_in)),
+      .DATA_WIDTH($bits(tx_id_queue_in)),
       .FIFO_SIZE (3)
   ) tx_id_queue (
       .clk_i           (clk_i),
       .arst_ni         (arst_ni),
-      .elem_in_i       (tx_id_queue_in),
-      .elem_in_valid_i (tx_id_queue_in_valid),
-      .elem_in_ready_o (tx_id_queue_in_ready),
-      .elem_out_o      (tx_id_queue_out),
-      .elem_out_valid_o(tx_id_queue_out_valid),
-      .elem_out_ready_i(tx_id_queue_out_ready),
-      .el_cnt_o        ()
+      .data_in_i       (tx_id_queue_in),
+      .data_in_valid_i (tx_id_queue_in_valid),
+      .data_in_ready_o (tx_id_queue_in_ready),
+      .data_out_o      (tx_id_queue_out),
+      .data_out_valid_o(tx_id_queue_out_valid),
+      .data_out_ready_i(tx_id_queue_out_ready)
   );
 
-  fifo #(
+  s1_fifo #(
       .PIPELINED (1),
-      .ELEM_WIDTH($bits(rx_id_queue_in)),
+      .DATA_WIDTH($bits(rx_id_queue_in)),
       .FIFO_SIZE (3)
   ) rx_id_queue (
       .clk_i           (clk_i),
       .arst_ni         (arst_ni),
-      .elem_in_i       (rx_id_queue_in),
-      .elem_in_valid_i (rx_id_queue_in_valid),
-      .elem_in_ready_o (rx_id_queue_in_ready),
-      .elem_out_o      (rx_id_queue_out),
-      .elem_out_valid_o(rx_id_queue_out_valid),
-      .elem_out_ready_i(rx_id_queue_out_ready),
-      .el_cnt_o        ()
+      .data_in_i       (rx_id_queue_in),
+      .data_in_valid_i (rx_id_queue_in_valid),
+      .data_in_ready_o (rx_id_queue_in_ready),
+      .data_out_o      (rx_id_queue_out),
+      .data_out_valid_o(rx_id_queue_out_valid),
+      .data_out_ready_i(rx_id_queue_out_ready)
   );
 
 endmodule

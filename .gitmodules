@@ -7,6 +7,3 @@
 [submodule "submodule/common_cells"]
 	path = submodule/common_cells
 	url = https://github.com/pulp-platform/common_cells.git
-[submodule "submodule/common"]
-	path = submodule/common
-	url = https://github.com/squared-studio/common.git

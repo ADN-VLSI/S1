@@ -136,6 +136,12 @@ ENV_BUILD:
 	@make -s COMPILE
 	@make -s ELABORATE TOP=$(TOP)
 
+.PHONY: simulate
+simulate:
+	@make -s ENV_BUILD TOP=$(TOP)
+	@make -s $(COVERAGE)
+	@cd $(BUILD) && xsim snap_$(TOP) -R -log $(LOG)/simulate_$(TOP).log $(EW_HL)
+
 # Clear build directory
 .PHONY: clean
 clean:
