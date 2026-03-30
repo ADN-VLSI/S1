@@ -23,9 +23,9 @@ module s1_uart_reg
 
 #(
     // type of the AXI request
-    parameter type axi_req_t  = axi_default_param_pkg::axi4l_req_t,
+    parameter type axi_req_t  = logic,
     // type of the AXI response
-    parameter type axi_resp_t = axi_default_param_pkg::axi4l_resp_t
+    parameter type axi_resp_t = logic
 ) (
     // clock input
     input logic clk_i,
@@ -281,7 +281,7 @@ module s1_uart_reg
       .elem_out_o      (tx_id_queue_out),
       .elem_out_valid_o(tx_id_queue_out_valid),
       .elem_out_ready_i(tx_id_queue_out_ready),
-      .el_cnt_o()
+      .el_cnt_o        ()
   );
 
   fifo #(
@@ -297,7 +297,7 @@ module s1_uart_reg
       .elem_out_o      (rx_id_queue_out),
       .elem_out_valid_o(rx_id_queue_out_valid),
       .elem_out_ready_i(rx_id_queue_out_ready),
-      .el_cnt_o()
+      .el_cnt_o        ()
   );
 
 endmodule
