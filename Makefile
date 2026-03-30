@@ -16,6 +16,7 @@ export S1=$(CURDIR)
 
 export SUB=$(S1)/submodule
 
+export AXI=$(S1)/axi
 export COMMON=$(S1)/common
 export SOC=$(S1)/SoC
 

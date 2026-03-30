@@ -4,3 +4,6 @@
 [submodule "submodule/common"]
 	path = submodule/common
 	url = https://github.com/squared-studio/common
+[submodule "submodule/axi"]
+	path = submodule/axi
+	url = https://github.com/squared-studio/axi.git

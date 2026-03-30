@@ -25,14 +25,14 @@ This document defines the UART register map and bit-field assignments. All regis
 
 Controls UART reset behavior, FIFO flushing, and transmitter and receiver enable state.
 
-| Bits   | Reset Value | Field               | Description               |
-| ------ | ----------- | ------------------- | ------------------------- |
-| `0`    | 0x0         | UART Software Reset | Software reset control    |
-| `1`    | 0x0         | TX FIFO Flush       | Flushes the transmit FIFO |
-| `2`    | 0x0         | RX FIFO Flush       | Flushes the receive FIFO  |
-| `3`    | 0x0         | TX Enable           | Enables the transmitter   |
-| `4`    | 0x0         | RX Enable           | Enables the receiver      |
-| `31:5` | 0x0         | Reserved            | Reserved                  |
+| Bits   | Field         | Reset Value | Description               |
+| ------ | ------------- | ----------- | ------------------------- |
+| `0`    | uart_rst      | 0x0         | Software reset control    |
+| `1`    | tx_fifo_flush | 0x0         | Flushes the transmit FIFO |
+| `2`    | rx_fifo_flush | 0x0         | Flushes the receive FIFO  |
+| `3`    | tx_en         | 0x0         | Enables the transmitter   |
+| `4`    | rx_en         | 0x0         | Enables the receiver      |
+| `31:5` | reserved      | 0x0         | Reserved                  |
 
 ## UART_CFG
 
@@ -40,15 +40,15 @@ Controls UART reset behavior, FIFO flushing, and transmitter and receiver enable
 
 Configures the baud-rate generation path and serial frame format.
 
-| Bits    | Reset Value | Field         | Description                                                                           |
-| ------- | ----------- | ------------- | ------------------------------------------------------------------------------------- |
-| `11:0`  | 0x05B       | Clock Divider | UART clock-divider value                                                              |
-| `15:12` | 0x4         | Prescaler     | UART prescaler value                                                                  |
-| `17:16` | 0x3         | Data Bits     | Number of data bits per frame: `0` = 5 bits, `1` = 6 bits, `2` = 7 bits, `3` = 8 bits |
-| `18`    | 0x0         | Parity Enable | Enables parity generation and parity checking                                         |
-| `19`    | 0x0         | Parity Type   | Parity selection: `0` = even, `1` = odd                                               |
-| `20`    | 0x0         | Stop Bits     | Stop-bit selection: `0` = 1 stop bit, `1` = 2 stop bits                               |
-| `31:21` | 0x0         | Reserved      |
+| Bits    | Field    | Reset Value | Description                                                                           |
+| ------- | -------- | ----------- | ------------------------------------------------------------------------------------- |
+| `11:0`  | clk_div  | 0x05B       | UART clock-divider value                                                              |
+| `15:12` | psclr    | 0x4         | UART prescaler value                                                                  |
+| `17:16` | db       | 0x3         | Number of data bits per frame: `0` = 5 bits, `1` = 6 bits, `2` = 7 bits, `3` = 8 bits |
+| `18`    | pen      | 0x0         | Enables parity generation and parity checking                                         |
+| `19`    | ptp      | 0x0         | Parity Type: `0` = even, `1` = odd                                                    |
+| `20`    | sb       | 0x0         | Extra stop bit: `0` = 1 stop bit, `1` = 2 stop bits                                   |
+| `31:21` | reserved | 0x0         | Reserved                                                                              |
 
 ## UART_STAT
 
@@ -56,15 +56,15 @@ Configures the baud-rate generation path and serial frame format.
 
 Reports FIFO fill levels and FIFO full and empty status.
 
-| Bits    | Reset Value | Field         | Description                                             |
-| ------- | ----------- | ------------- | ------------------------------------------------------- |
-| `9:0`   | 0x000       | TX Data Count | Number of entries currently stored in the transmit FIFO |
-| `19:10` | 0x000       | RX Data Count | Number of entries currently stored in the receive FIFO  |
-| `20`    | 0x1         | TX FIFO Empty | Indicates the transmit FIFO is empty                    |
-| `21`    | 0x0         | TX FIFO Full  | Indicates the transmit FIFO is full                     |
-| `22`    | 0x1         | RX FIFO Empty | Indicates the receive FIFO is empty                     |
-| `23`    | 0x0         | RX FIFO Full  | Indicates the receive FIFO is full                      |
-| `31:24` | 0x0         | Reserved      | Reserved                                                |
+| Bits    | Field    | Reset Value | Description                                             |
+| ------- | -------- | ----------- | ------------------------------------------------------- |
+| `9:0`   | tx_cnt   | 0x000       | Number of entries currently stored in the transmit FIFO |
+| `19:10` | rx_cnt   | 0x000       | Number of entries currently stored in the receive FIFO  |
+| `20`    | tx_empty | 0x1         | Indicates the transmit FIFO is empty                    |
+| `21`    | tx_full  | 0x0         | Indicates the transmit FIFO is full                     |
+| `22`    | rx_empty | 0x1         | Indicates the receive FIFO is empty                     |
+| `23`    | rx_full  | 0x0         | Indicates the receive FIFO is full                      |
+| `31:24` | reserved | 0x0         | Reserved                                                |
 
 ## UART_TXR
 
@@ -72,11 +72,11 @@ Reports FIFO fill levels and FIFO full and empty status.
 
 Transmit-side request register for multi-master arbitration. Writing a master ID to this register enqueues that ID once in the internal request FIFO, preserving request order.
 
-| Bits   | Field                | Description                        |
-| ------ | -------------------- | ---------------------------------- |
-| `7:0`  | TX Access Request ID | Transmit access request identifier |
-| `30:8` | Reserved             | Reserved                           |
-| `31`   | Valid                | Indicates if the request is valid  |
+| Bits   | Field    | Description                        |
+| ------ | -------- | ---------------------------------- |
+| `7:0`  | id       | Transmit access request identifier |
+| `30:8` | reserved | Reserved                           |
+| `31`   | valid    | Indicates if the request is valid  |
 
 ## UART_TXGP
 
@@ -84,11 +84,11 @@ Transmit-side request register for multi-master arbitration. Writing a master ID
 
 Provides a non-consuming view of the current transmit-side granted master ID. Software must compare this value against its own master ID before taking control of the transmit path. Reading this register does not complete or advance the grant.
 
-| Bits   | Reset Value | Field                   | Description                                                     |
-| ------ | ----------- | ----------------------- | --------------------------------------------------------------- |
-| `7:0`  | 0x00        | TX Access Grant ID Peek | Current granted transmit master ID without completing the grant |
-| `30:8` | 0x00000000  | Reserved                | Reserved                                                        |
-| `31`   | 0x0         | Valid                   | Indicates if the grant is valid                                 |
+| Bits   | Field    | Reset Value | Description                                                     |
+| ------ | -------- | ----------- | --------------------------------------------------------------- |
+| `7:0`  | id       | 0x00        | Current granted transmit master ID without completing the grant |
+| `30:8` | reserved | 0x00000000  | Reserved                                                        |
+| `31`   | valid    | 0x0         | Indicates if the grant is valid                                 |
 
 ## UART_TXG
 
@@ -96,11 +96,11 @@ Provides a non-consuming view of the current transmit-side granted master ID. So
 
 Provides the current transmit-side granted master ID. Reading this register completes the grant by consuming the current FIFO output. Only after this read can the next queued master, if any, be granted access.
 
-| Bits   | Reset Value | Field              | Description                                                                |
-| ------ | ----------- | ------------------ | -------------------------------------------------------------------------- |
-| `7:0`  | 0x00        | TX Access Grant ID | Current granted transmit master ID; reading this field completes the grant |
-| `30:8` | 0x00000000  | Reserved           | Reserved                                                                   |
-| `31`   | 0x0         | Valid              | Indicates if the grant is valid                                            |
+| Bits   | Field    | Reset Value | Description                                                                |
+| ------ | -------- | ----------- | -------------------------------------------------------------------------- |
+| `7:0`  | id       | 0x00        | Current granted transmit master ID; reading this field completes the grant |
+| `30:8` | reserved | 0x00000000  | Reserved                                                                   |
+| `31`   | valid    | 0x0         | Indicates if the grant is valid                                            |
 
 ## UART_TXD
 
@@ -110,8 +110,8 @@ Transmit data register.
 
 | Bits   | Field    | Description        |
 | ------ | -------- | ------------------ |
-| `7:0`  | TX Data  | Transmit data byte |
-| `31:8` | Reserved | Reserved           |
+| `7:0`  | data     | Transmit data byte |
+| `31:8` | reserved | Reserved           |
 
 ## UART_RXR
 
@@ -119,11 +119,11 @@ Transmit data register.
 
 Receive-side request register for multi-master arbitration. Writing a master ID to this register enqueues that ID once in the internal request FIFO, preserving request order.
 
-| Bits   | Field                | Description                       |
-| ------ | -------------------- | --------------------------------- |
-| `7:0`  | RX Access Request ID | Receive access request identifier |
-| `30:8` | Reserved             | Reserved                          |
-| `31`   | Valid                | Indicates if the request is valid |
+| Bits   | Field    | Description                       |
+| ------ | -------- | --------------------------------- |
+| `7:0`  | id       | Receive access request identifier |
+| `30:8` | reserved | Reserved                          |
+| `31`   | valid    | Indicates if the request is valid |
 
 ## UART_RXGP
 
@@ -131,11 +131,11 @@ Receive-side request register for multi-master arbitration. Writing a master ID 
 
 Provides a non-consuming view of the current receive-side granted master ID. Software must compare this value against its own master ID before taking control of the receive path. Reading this register does not complete or advance the grant.
 
-| Bits   | Reset Value | Field                   | Description                                                    |
-| ------ | ----------- | ----------------------- | -------------------------------------------------------------- |
-| `7:0`  | 0x00        | RX Access Grant ID Peek | Current granted receive master ID without completing the grant |
-| `30:8` | 0x00000000  | Reserved                | Reserved                                                       |
-| `31`   | 0x0         | Valid                   | Indicates if the grant is valid                                |
+| Bits   | Field    | Reset Value | Description                                                    |
+| ------ | -------- | ----------- | -------------------------------------------------------------- |
+| `7:0`  | id       | 0x00        | Current granted receive master ID without completing the grant |
+| `30:8` | reserved | 0x00000000  | Reserved                                                       |
+| `31`   | valid    | 0x0         | Indicates if the grant is valid                                |
 
 ## UART_RXG
 
@@ -143,11 +143,11 @@ Provides a non-consuming view of the current receive-side granted master ID. Sof
 
 Provides the current receive-side granted master ID. Reading this register completes the grant by consuming the current FIFO output. Only after this read can the next queued master, if any, be granted access.
 
-| Bits   | Reset Value | Field              | Description                                                               |
-| ------ | ----------- | ------------------ | ------------------------------------------------------------------------- |
-| `7:0`  | 0x00        | RX Access Grant ID | Current granted receive master ID; reading this field completes the grant |
-| `30:8` | 0x00000000  | Reserved           | Reserved                                                                  |
-| `31`   | 0x0         | Valid              | Indicates if the grant is valid                                           |
+| Bits   | Field    | Reset Value | Description                                                               |
+| ------ | -------- | ----------- | ------------------------------------------------------------------------- |
+| `7:0`  | id       | 0x00        | Current granted receive master ID; reading this field completes the grant |
+| `30:8` | reserved | 0x00000000  | Reserved                                                                  |
+| `31`   | valid    | 0x0         | Indicates if the grant is valid                                           |
 
 ## UART_RXD
 
@@ -155,10 +155,10 @@ Provides the current receive-side granted master ID. Reading this register compl
 
 Receive data register.
 
-| Bits   | Reset Value | Field    | Description       |
-| ------ | ----------- | -------- | ----------------- |
-| `7:0`  | 0x00        | RX Data  | Receive data byte |
-| `31:8` | 0x00000000  | Reserved | Reserved          |
+| Bits   | Field    | Reset Value | Description       |
+| ------ | -------- | ----------- | ----------------- |
+| `7:0`  | data     | 0x00        | Receive data byte |
+| `31:8` | reserved | 0x00000000  | Reserved          |
 
 ## UART_INT
 
@@ -166,9 +166,9 @@ Receive data register.
 
 Enable interrupts for various UART events. Writing a `1` to any bit in this register enables the corresponding interrupt, while writing a `0` disables it.
 
-| Bit | Reset Value | Interrupt Source | Description                                                                       |
-| --- | ----------- | ---------------- | --------------------------------------------------------------------------------- |
-| `0` | 0x0         | TX FIFO Empty    | Generates an interrupt when the transmit FIFO transitions from non-empty to empty |
-| `1` | 0x0         | TX FIFO Full     | Generates an interrupt when the transmit FIFO transitions from non-full to full   |
-| `2` | 0x0         | RX FIFO Empty    | Generates an interrupt when the receive FIFO transitions from non-empty to empty  |
-| `3` | 0x0         | RX FIFO Full     | Generates an interrupt when the receive FIFO transitions from non-full to full    |
+| Bit | Field    | Reset Value | Description                                                                       |
+| --- | -------- | ----------- | --------------------------------------------------------------------------------- |
+| `1` | tx_full  | 0x0         | Generates an interrupt when the transmit FIFO transitions from non-full to full   |
+| `0` | tx_empty | 0x0         | Generates an interrupt when the transmit FIFO transitions from non-empty to empty |
+| `2` | rx_empty | 0x0         | Generates an interrupt when the receive FIFO transitions from non-empty to empty  |
+| `3` | rx_full  | 0x0         | Generates an interrupt when the receive FIFO transitions from non-full to full    |
