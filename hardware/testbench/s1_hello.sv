@@ -1,4 +1,4 @@
-module hello;
+module s1_hello;
 
   initial begin
     $display("Hello, World!");

@@ -43,26 +43,8 @@ EW_HL := | grep -E "WARNING:|ERROR:|" --color=auto
 EW_O := | grep -E "WARNING:|ERROR:" --color=auto || true
 
 ####################################################################################################
-# Rules
+# Definitions
 ####################################################################################################
-
-# Create build directory
-$(BUILD):
-	@mkdir -p $(BUILD)
-	@echo "*" > $(BUILD)/.gitignore
-	@$(YA) echo "Created build directory"
-
-# Create coverage directory
-$(COVERAGE):
-	@mkdir -p $(COVERAGE)
-	@echo "*" > $(COVERAGE)/.gitignore
-	@$(YA) echo "Created Coverage directory"
-
-# Create log directory
-$(LOG):
-	@mkdir -p $(LOG)
-	@echo "*" > $(LOG)/.gitignore
-	@$(YA) echo "Created log directory"
 
 # Compile all files in filelist as required, but only if there are changes in the files since the last compilation
 define COMPILE_FILELIST
@@ -111,34 +93,82 @@ define COMPILE_FILELIST
 endef
 
 # Search all systemverilog hardware file lists and compile them
-.PHONY: COMPILE
-COMPILE:
+define COMPILE
 	@$(foreach flist, $(shell find $(S1)/hardware/filelist/ -type f -name "*.f"), $(call COMPILE_FILELIST,$(flist)))
+endef
 
 # Elaborate the design, but only if there are changes in the files since the last elaboration
-.PHONY: ELABORATE
-ELABORATE:
-	if [ -f $(BUILD)/elaborate_$(TOP) ]; then \
-		$(YA) echo "Skipping elaboration of $(TOP)"; \
+define ELABORATE
+	if [ -f $(BUILD)/elaborate_$1 ]; then \
+		$(YA) echo "Skipping elaboration of $1"; \
 	else \
-		$(YA) echo "Elaborating design $(TOP)"; \
-		rm -f $(BUILD)/elaborate_$(TOP); \
-		cd $(BUILD) && xelab $(TOP) -s snap_$(TOP) -debug typical -log $(LOG)/elaborate_$(TOP).log $(EW_O); \
-		grep "ERROR:" $(LOG)/elaborate_$(TOP).log > /dev/null || touch $(BUILD)/elaborate_$(TOP); \
+		$(YA) echo "Elaborating design $1"; \
+		rm -f $(BUILD)/elaborate_$1; \
+		cd $(BUILD) && xelab $1 -s snap_$1 -debug typical -log $(LOG)/elaborate_$1.log $(EW_O); \
+		grep "ERROR:" $(LOG)/elaborate_$1.log > /dev/null || touch $(BUILD)/elaborate_$1; \
 	fi
+endef
+
+# Check all files under $(S1)/hardware/include start with `s1_`
+define CHECK_FILE_NAME_PREFIX
+	invalid_files=$$(find $(S1)/hardware/include -type f ! -name "s1_*"); \
+	if [ -n "$$invalid_files" ]; then \
+		printf '%s\n' "$$invalid_files" | while IFS= read -r file; do \
+			printf 'NAMING ERROR: %s\n' "$$file" >&2; \
+		done; \
+		exit 1; \
+	fi;
+	invalid_files=$$(find $(S1)/hardware/source -type f ! -name "s1_*"); \
+	if [ -n "$$invalid_files" ]; then \
+		printf '%s\n' "$$invalid_files" | while IFS= read -r file; do \
+			printf 'NAMING ERROR: %s\n' "$$file" >&2; \
+		done; \
+		exit 1; \
+	fi;
+	invalid_files=$$(find $(S1)/hardware/testbench -type f ! -name "s1_*"); \
+	if [ -n "$$invalid_files" ]; then \
+		printf '%s\n' "$$invalid_files" | while IFS= read -r file; do \
+			printf 'NAMING ERROR: %s\n' "$$file" >&2; \
+		done; \
+		exit 1; \
+	fi;
+endef
 
 # Build environment: create build, log and coverage directories, compile and elaborate the design
-.PHONY: ENV_BUILD
-ENV_BUILD:
-	@make -s $(BUILD)
-	@make -s $(LOG)
-	@git submodule update --init --depth 1
-	@make -s COMPILE
-	@make -s ELABORATE TOP=$(TOP)
+define ENV_BUILD
+	make -s $(BUILD)
+	make -s $(LOG)
+	git submodule update --init --depth 1
+	$(call CHECK_FILE_NAME_PREFIX)
+	$(call COMPILE)
+	$(call ELABORATE,$1)
+endef
+
+####################################################################################################
+# Rules
+####################################################################################################
+
+# Create build directory
+$(BUILD):
+	@mkdir -p $(BUILD)
+	@echo "*" > $(BUILD)/.gitignore
+	@$(YA) echo "Created build directory"
+
+# Create coverage directory
+$(COVERAGE):
+	@mkdir -p $(COVERAGE)
+	@echo "*" > $(COVERAGE)/.gitignore
+	@$(YA) echo "Created Coverage directory"
+
+# Create log directory
+$(LOG):
+	@mkdir -p $(LOG)
+	@echo "*" > $(LOG)/.gitignore
+	@$(YA) echo "Created log directory"
 
 .PHONY: simulate
 simulate:
-	@make -s ENV_BUILD TOP=$(TOP)
+	@$(call ENV_BUILD,$(TOP))
 	@make -s $(COVERAGE)
 	@cd $(BUILD) && xsim snap_$(TOP) -R -log $(LOG)/simulate_$(TOP).log $(EW_HL)
 

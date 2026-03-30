@@ -3,4 +3,4 @@
 -i ${S1}/hardware/include
 -i ${SOC}/include/vip
 
-${S1}/hardware/testbench/hello.sv
+${S1}/hardware/testbench/s1_hello.sv
