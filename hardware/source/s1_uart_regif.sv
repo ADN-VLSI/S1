@@ -1,4 +1,20 @@
-module s1_uart_reg
+module s1_uart_regif
+
+  import s1_uart_pkg::uart_axil_aw_chan_t;
+  import s1_uart_pkg::uart_axil_w_chan_t;
+  import s1_uart_pkg::uart_axil_b_chan_t;
+  import s1_uart_pkg::uart_axil_ar_chan_t;
+  import s1_uart_pkg::uart_axil_r_chan_t;
+  import s1_uart_pkg::uart_axil_req_t;
+  import s1_uart_pkg::uart_axil_resp_t;
+
+  import s1_uart_pkg::uart_ctrl_reg_t;
+  import s1_uart_pkg::uart_cfg_reg_t;
+  import s1_uart_pkg::uart_stat_reg_t;
+  import s1_uart_pkg::uart_id_t;
+  import s1_uart_pkg::uart_data_t;
+  import s1_uart_pkg::uart_count_t;
+  import s1_uart_pkg::uart_int_reg_t;
 
   import s1_uart_pkg::UART_CTRL_OFFSET;
   import s1_uart_pkg::UART_CFG_OFFSET;
@@ -13,29 +29,16 @@ module s1_uart_reg
   import s1_uart_pkg::UART_RXD_OFFSET;
   import s1_uart_pkg::UART_INT_OFFSET;
 
-  import s1_uart_pkg::uart_ctrl_reg_t;
-  import s1_uart_pkg::uart_cfg_reg_t;
-  import s1_uart_pkg::uart_stat_reg_t;
-  import s1_uart_pkg::uart_id_t;
-  import s1_uart_pkg::uart_data_t;
-  import s1_uart_pkg::uart_count_t;
-  import s1_uart_pkg::uart_int_reg_t;
-
-#(
-    // type of the AXI request
-    parameter type axi_req_t  = logic,
-    // type of the AXI response
-    parameter type axi_resp_t = logic
-) (
+(
     // clock input
     input logic clk_i,
     // asynchronous active low reset input
     input logic arst_ni,
 
     // AXI request input
-    input  axi_req_t  req_i,
+    input  uart_axil_req_t  req_i,
     // AXI response output
-    output axi_resp_t resp_o,
+    output uart_axil_resp_t resp_o,
 
     output uart_ctrl_reg_t uart_ctrl_o,
     output uart_cfg_reg_t  uart_cfg_o,
@@ -59,28 +62,28 @@ module s1_uart_reg
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
   // AXI request input
-  axi_req_t  fifo_req;
+  uart_axil_req_t  fifo_req;
   // AXI response output
-  axi_resp_t fifo_resp;
+  uart_axil_resp_t fifo_resp;
 
-  logic      wr_en;
-  logic      rd_en;
+  logic            wr_en;
+  logic            rd_en;
 
-  uart_id_t  tx_id_queue_in;
-  logic      tx_id_queue_in_valid;
-  logic      tx_id_queue_in_ready;
+  uart_id_t        tx_id_queue_in;
+  logic            tx_id_queue_in_valid;
+  logic            tx_id_queue_in_ready;
 
-  uart_id_t  tx_id_queue_out;
-  logic      tx_id_queue_out_valid;
-  logic      tx_id_queue_out_ready;
+  uart_id_t        tx_id_queue_out;
+  logic            tx_id_queue_out_valid;
+  logic            tx_id_queue_out_ready;
 
-  uart_id_t  rx_id_queue_in;
-  logic      rx_id_queue_in_valid;
-  logic      rx_id_queue_in_ready;
+  uart_id_t        rx_id_queue_in;
+  logic            rx_id_queue_in_valid;
+  logic            rx_id_queue_in_ready;
 
-  uart_id_t  rx_id_queue_out;
-  logic      rx_id_queue_out_valid;
-  logic      rx_id_queue_out_ready;
+  uart_id_t        rx_id_queue_out;
+  logic            rx_id_queue_out_valid;
+  logic            rx_id_queue_out_ready;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // COMBINATIONAL LOGICS
@@ -252,20 +255,23 @@ module s1_uart_reg
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
   axi_fifo #(
-      .axi_req_t    (axi_req_t),
-      .axi_resp_t   (axi_resp_t),
-      .AW_FIFO_DEPTH(2),
-      .W_FIFO_DEPTH (2),
-      .B_FIFO_DEPTH (2),
-      .AR_FIFO_DEPTH(2),
-      .R_FIFO_DEPTH (2)
+      .Depth      (4),
+      .FallThrough(0),
+      .aw_chan_t  (uart_axil_aw_chan_t),
+      .w_chan_t   (uart_axil_w_chan_t),
+      .b_chan_t   (uart_axil_b_chan_t),
+      .ar_chan_t  (uart_axil_ar_chan_t),
+      .r_chan_t   (uart_axil_r_chan_t),
+      .axi_req_t  (uart_axil_req_t),
+      .axi_resp_t (uart_axil_resp_t)
   ) u_axi_fifo (
-      .clk_i  (clk_i),
-      .arst_ni(arst_ni),
-      .req_i  (req_i),
-      .resp_o (resp_o),
-      .req_o  (fifo_req),
-      .resp_i (fifo_resp)
+      .clk_i     (clk_i),
+      .rst_ni    (arst_ni),
+      .test_i    ('0),
+      .slv_req_i (req_i),
+      .slv_resp_o(resp_o),
+      .mst_req_o (fifo_req),
+      .mst_resp_i(fifo_resp)
   );
 
   fifo #(
