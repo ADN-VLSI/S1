@@ -75,8 +75,7 @@ Transmit-side request register for multi-master arbitration. Writing a master ID
 | Bits   | Field    | Description                        |
 | ------ | -------- | ---------------------------------- |
 | `7:0`  | id       | Transmit access request identifier |
-| `30:8` | reserved | Reserved                           |
-| `31`   | valid    | Indicates if the request is valid  |
+| `31:8` | reserved | Reserved                           |
 
 ## UART_TXGP
 
@@ -87,8 +86,7 @@ Provides a non-consuming view of the current transmit-side granted master ID. So
 | Bits   | Field    | Reset Value | Description                                                     |
 | ------ | -------- | ----------- | --------------------------------------------------------------- |
 | `7:0`  | id       | 0x00        | Current granted transmit master ID without completing the grant |
-| `30:8` | reserved | 0x00000000  | Reserved                                                        |
-| `31`   | valid    | 0x0         | Indicates if the grant is valid                                 |
+| `31:8` | reserved | 0x00000000  | Reserved                                                        |
 
 ## UART_TXG
 
@@ -99,8 +97,7 @@ Provides the current transmit-side granted master ID. Reading this register comp
 | Bits   | Field    | Reset Value | Description                                                                |
 | ------ | -------- | ----------- | -------------------------------------------------------------------------- |
 | `7:0`  | id       | 0x00        | Current granted transmit master ID; reading this field completes the grant |
-| `30:8` | reserved | 0x00000000  | Reserved                                                                   |
-| `31`   | valid    | 0x0         | Indicates if the grant is valid                                            |
+| `31:8` | reserved | 0x00000000  | Reserved                                                                   |
 
 ## UART_TXD
 
@@ -122,8 +119,7 @@ Receive-side request register for multi-master arbitration. Writing a master ID 
 | Bits   | Field    | Description                       |
 | ------ | -------- | --------------------------------- |
 | `7:0`  | id       | Receive access request identifier |
-| `30:8` | reserved | Reserved                          |
-| `31`   | valid    | Indicates if the request is valid |
+| `31:8` | reserved | Reserved                          |
 
 ## UART_RXGP
 
@@ -134,8 +130,7 @@ Provides a non-consuming view of the current receive-side granted master ID. Sof
 | Bits   | Field    | Reset Value | Description                                                    |
 | ------ | -------- | ----------- | -------------------------------------------------------------- |
 | `7:0`  | id       | 0x00        | Current granted receive master ID without completing the grant |
-| `30:8` | reserved | 0x00000000  | Reserved                                                       |
-| `31`   | valid    | 0x0         | Indicates if the grant is valid                                |
+| `31:8` | reserved | 0x00000000  | Reserved                                                       |
 
 ## UART_RXG
 
@@ -146,8 +141,7 @@ Provides the current receive-side granted master ID. Reading this register compl
 | Bits   | Field    | Reset Value | Description                                                               |
 | ------ | -------- | ----------- | ------------------------------------------------------------------------- |
 | `7:0`  | id       | 0x00        | Current granted receive master ID; reading this field completes the grant |
-| `30:8` | reserved | 0x00000000  | Reserved                                                                  |
-| `31`   | valid    | 0x0         | Indicates if the grant is valid                                           |
+| `31:8` | reserved | 0x00000000  | Reserved                                                                  |
 
 ## UART_RXD
 

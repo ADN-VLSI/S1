@@ -26,7 +26,6 @@ package s1_uart_pkg;
 
   // Control Register Bitfield Definitions
   typedef struct packed {
-    logic [26:0] reserved;
     logic        rx_en;
     logic        tx_en;
     logic        rx_fifo_flush;
@@ -36,7 +35,6 @@ package s1_uart_pkg;
 
   // Configuration Register Bitfield Definitions
   typedef struct packed {
-    logic [11:0] reserved;
     logic        sb;
     logic        ptp;
     logic        pen;
@@ -47,7 +45,6 @@ package s1_uart_pkg;
 
   // Status Register Bitfield Definitions
   typedef struct packed {
-    logic [7:0] reserved;
     logic       rx_full;
     logic       rx_empty;
     logic       tx_full;
@@ -58,20 +55,21 @@ package s1_uart_pkg;
 
   // ID Register Bitfield Definitions
   typedef struct packed {
-    logic        valid;
-    logic [22:0] reserved;
     logic [7:0]  id;
   } uart_id_t;
 
   // Data Register Bitfield Definitions
   typedef struct packed {
-    logic [23:0] reserved;
     logic [7:0]  data;
   } uart_data_t;
 
+  // Count Register Bitfield Definitions
+  typedef struct packed {
+    logic [9:0]  count;
+  } uart_count_t;
+
   // Interrupt Register Bitfield Definitions
   typedef struct packed {
-    logic [27:0] reserved;
     logic        tx_full;
     logic        tx_empty;
     logic        rx_empty;

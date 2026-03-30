@@ -16,9 +16,9 @@ export S1=$(CURDIR)
 
 export SUB=$(S1)/submodule
 
-export AXI=$(S1)/axi
-export COMMON=$(S1)/common
-export SOC=$(S1)/SoC
+export AXI=$(SUB)/axi
+export COMMON=$(SUB)/common
+export SOC=$(SUB)/SoC
 
 ####################################################################################################
 # Internal Variables
