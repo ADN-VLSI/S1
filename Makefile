@@ -166,12 +166,6 @@ $(LOG):
 	@echo "*" > $(LOG)/.gitignore
 	@$(YA) echo "Created log directory"
 
-.PHONY: simulate
-simulate:
-	@$(call ENV_BUILD,$(TOP))
-	@make -s $(COVERAGE)
-	@cd $(BUILD) && xsim snap_$(TOP) -R -log $(LOG)/simulate_$(TOP).log $(EW_HL)
-
 # Clear build directory
 .PHONY: clean
 clean:
@@ -186,3 +180,9 @@ clean_full:
 	@$(YA) echo "Cleaned coverage directory"
 	@rm -rf $(LOG)
 	@$(YA) echo "Cleaned log directory"
+
+.PHONY: simulate
+simulate:
+	@$(call ENV_BUILD,$(TOP))
+	@make -s $(COVERAGE)
+	@cd $(BUILD) && xsim snap_$(TOP) -R -log $(LOG)/simulate_$(TOP).log $(EW_HL)
