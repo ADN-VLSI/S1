@@ -154,15 +154,18 @@ Receive data register.
 | `7:0`  | data     | 0x00        | Receive data byte |
 | `31:8` | reserved | 0x00000000  | Reserved          |
 
-## UART_INT
+## UART_INT_EN
 
 `Offset:0x030` `Type:RW`
 
 Enable interrupts for various UART events. Writing a `1` to any bit in this register enables the corresponding interrupt, while writing a `0` disables it.
 
-| Bit | Field    | Reset Value | Description                                                                       |
-| --- | -------- | ----------- | --------------------------------------------------------------------------------- |
-| `1` | tx_full  | 0x0         | Generates an interrupt when the transmit FIFO transitions from non-full to full   |
-| `0` | tx_empty | 0x0         | Generates an interrupt when the transmit FIFO transitions from non-empty to empty |
-| `2` | rx_empty | 0x0         | Generates an interrupt when the receive FIFO transitions from non-empty to empty  |
-| `3` | rx_full  | 0x0         | Generates an interrupt when the receive FIFO transitions from non-full to full    |
+| Bit | Field          | Reset Value | Description                                                                       |
+| --- | -------------- | ----------- | --------------------------------------------------------------------------------- |
+| `1` | tx_full        | 0x0         | Generates an interrupt when the transmit FIFO transitions from non-full to full   |
+| `0` | tx_empty       | 0x0         | Generates an interrupt when the transmit FIFO transitions from non-empty to empty |
+| `2` | rx_empty       | 0x0         | Generates an interrupt when the receive FIFO transitions from non-empty to empty  |
+| `3` | rx_full        | 0x0         | Generates an interrupt when the receive FIFO transitions from non-full to full    |
+| `4` | tx_almost_full | 0x0         | Generates an interrupt when the transmit FIFO is 75% full                         |
+| `5` | rx_almost_full | 0x0         | Generates an interrupt when the receive FIFO is 75% full                          |
+| `6` | rx_parity_err  | 0x0         | Generates an interrupt on a parity error in the received data                     |

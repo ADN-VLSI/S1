@@ -27,7 +27,7 @@ module s1_uart_regif
   import s1_uart_pkg::UART_RXGP_OFFSET;
   import s1_uart_pkg::UART_RXG_OFFSET;
   import s1_uart_pkg::UART_RXD_OFFSET;
-  import s1_uart_pkg::UART_INT_OFFSET;
+  import s1_uart_pkg::UART_INT_EN_OFFSET;
 
 (
     // clock input
@@ -54,7 +54,7 @@ module s1_uart_regif
     input  logic        rx_data_valid_i,
     output logic        rx_data_ready_o,
 
-    output uart_int_reg_t uart_int_o
+    output uart_int_reg_t uart_int_en_o
 );
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,30 +117,30 @@ module s1_uart_regif
     })
 
       UART_CTRL_OFFSET: begin
-        fifo_resp.r.data = uart_ctrl_o;
+        fifo_resp.r.data = {'0, uart_ctrl_o};
         fifo_resp.r.resp = '0;
       end
 
       UART_CFG_OFFSET: begin
-        fifo_resp.r.data = uart_cfg_o;
+        fifo_resp.r.data = {'0, uart_cfg_o};
         fifo_resp.r.resp = '0;
       end
 
       UART_STAT_OFFSET: begin
-        fifo_resp.r.data = uart_stat_o;
+        fifo_resp.r.data = {'0, uart_stat_o};
         fifo_resp.r.resp = '0;
       end
 
       UART_TXGP_OFFSET: begin
         if (tx_id_queue_out_valid) begin
-          fifo_resp.r.data = tx_id_queue_out;
+          fifo_resp.r.data = {'0, tx_id_queue_out};
           fifo_resp.r.resp = '0;
         end
       end
 
       UART_TXG_OFFSET: begin
         if (tx_id_queue_out_valid) begin
-          fifo_resp.r.data = tx_id_queue_out;
+          fifo_resp.r.data = {'0, tx_id_queue_out};
           fifo_resp.r.resp = '0;
           tx_id_queue_out_ready = rd_en;
         end
@@ -148,14 +148,14 @@ module s1_uart_regif
 
       UART_RXGP_OFFSET: begin
         if (rx_id_queue_out_valid) begin
-          fifo_resp.r.data = rx_id_queue_out;
+          fifo_resp.r.data = {'0, rx_id_queue_out};
           fifo_resp.r.resp = '0;
         end
       end
 
       UART_RXG_OFFSET: begin
         if (rx_id_queue_out_valid) begin
-          fifo_resp.r.data = rx_id_queue_out;
+          fifo_resp.r.data = {'0, rx_id_queue_out};
           fifo_resp.r.resp = '0;
           rx_id_queue_out_ready = rd_en;
         end
@@ -163,14 +163,14 @@ module s1_uart_regif
 
       UART_RXD_OFFSET: begin
         if (rx_data_valid_i) begin
-          fifo_resp.r.data = rx_data_i;
+          fifo_resp.r.data = {'0, rx_data_i};
           fifo_resp.r.resp = '0;
           rx_data_ready_o  = rd_en;
         end
       end
 
-      UART_INT_OFFSET: begin
-        fifo_resp.r.data = uart_int_o;
+      UART_INT_EN_OFFSET: begin
+        fifo_resp.r.data = {'0, uart_int_en_o};
         fifo_resp.r.resp = '0;
       end
 
@@ -221,7 +221,7 @@ module s1_uart_regif
         end
       end
 
-      UART_INT_OFFSET: begin
+      UART_INT_EN_OFFSET: begin
         fifo_resp.b.resp = '0;
       end
 
@@ -241,9 +241,9 @@ module s1_uart_regif
 
       case (fifo_req.aw.addr)
 
-        UART_CTRL_OFFSET: uart_ctrl_o <= fifo_req.w.data;
-        UART_CFG_OFFSET:  uart_cfg_o <= fifo_req.w.data;
-        UART_INT_OFFSET:  uart_int_o <= fifo_req.w.data;
+        UART_CTRL_OFFSET:   uart_ctrl_o   <= fifo_req.w.data;
+        UART_CFG_OFFSET:    uart_cfg_o    <= fifo_req.w.data;
+        UART_INT_EN_OFFSET: uart_int_en_o <= fifo_req.w.data;
 
         default: begin
         end
