@@ -112,7 +112,9 @@ module s1_uart_regif
     fifo_resp.r.resp = 2'b10;
     tx_id_queue_out_ready = '0;
 
-    case (fifo_req.ar.addr)
+    case ({
+      fifo_req.ar.prot[1], fifo_req.ar.addr
+    })
 
       UART_CTRL_OFFSET: begin
         fifo_resp.r.data = uart_ctrl_o;
@@ -184,7 +186,9 @@ module s1_uart_regif
     fifo_resp.b.resp = 2'b10;
     tx_id_queue_in_valid = '0;
 
-    case (fifo_req.aw.addr)
+    case ({
+      fifo_req.aw.prot[1], fifo_req.aw.addr
+    })
 
       UART_CTRL_OFFSET: begin
         fifo_resp.b.resp = '0;
