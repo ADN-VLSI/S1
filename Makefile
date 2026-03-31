@@ -25,12 +25,20 @@ export SOC=$(SUB)/SoC
 # Internal Variables
 ####################################################################################################
 
+TEST := default
+
+SEED := 0
+
+DEBUG := 0
+
 GUI := 0
 ifneq ($(GUI),0)
 	XSIM_ARGS += -gui
 else
 	XSIM_ARGS += -runall
 endif
+
+.DEFAULT_GOAL := help
 
 BUILD=$(S1)/build
 COVERAGE=$(S1)/coverage
@@ -151,9 +159,31 @@ define ENV_BUILD
 	$(call ELABORATE,$1)
 endef
 
+define XSIM_CHECKS
+	echo "--testplusarg TEST=$(TEST)" > build/xsim_args
+	echo "--testplusarg DEBUG=$(DEBUG)" >> build/xsim_args
+	echo "--testplusarg SEED=$(SEED)" >> build/xsim_args
+endef
+
 ####################################################################################################
 # Rules
 ####################################################################################################
+
+# Default target to show help message
+.PHONY: help
+help:
+	@echo -e ""
+	@echo -e "\033[1;35mAvailable targets:\033[0m"
+	@echo -e "\033[0;32m  help        \033[0m - Show this help message"
+	@echo -e "\033[0;32m  simulate    \033[0m - Build environment and run simulation"
+	@echo -e "\033[0;32m  clean       \033[0m - Remove build artifacts"
+	@echo -e "\033[0;32m  clean_full  \033[0m - Remove build artifacts, coverage and logs"
+	@echo -e ""
+	@echo -e "\n\033[1;35mEnvironment Variables:\033[0m"
+	@echo -e "\033[0;33m  TEST        \033[0m - Specify the test to run (default: default)"
+	@echo -e "\033[0;33m  SEED        \033[0m - Specify the random seed for the test (default: 0)"
+	@echo -e "\033[0;33m  DEBUG       \033[0m - Enable debug mode (default: 0)"
+	@echo -e "\033[0;33m  GUI         \033[0m - Enable GUI mode for simulation (default: 0)"
 
 # Create build directory
 $(BUILD):
@@ -191,5 +221,6 @@ clean_full:
 .PHONY: simulate
 simulate:
 	@$(call ENV_BUILD,$(TOP))
+	@$(call XSIM_CHECKS)
 	@make -s $(COVERAGE)
 	@cd $(BUILD) && xsim snap_$(TOP) $(XSIM_ARGS) -log $(LOG)/simulate_$(TOP)_$(TEST)_$(shell date +%Y%m%d_%H%M%S).log $(EW_HL)
