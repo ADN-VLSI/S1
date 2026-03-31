@@ -78,4 +78,21 @@ package s1_uart_pkg;
     logic rx_full;
   } uart_int_reg_t;
 
+  // UART TX RX FSM States
+  typedef enum logic [3:0] {
+    IDLE,
+    START,
+    D0,
+    D1,
+    D2,
+    D3,
+    D4,
+    D5,
+    D6,
+    D7,
+    PARITY,
+    STOP,
+    STOP_2
+  } txrx_states_t;
+
 endpackage
