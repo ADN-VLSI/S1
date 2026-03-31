@@ -4,20 +4,20 @@ This document defines the UART register map and bit-field assignments. All regis
 
 ## Register Map
 
-| Offset  | Register                | Type | Reset Value | Description                                                          |
-| ------- | ----------------------- | ---- | ----------- | -------------------------------------------------------------------- |
-| `0x000` | [UART_CTRL](#uart_ctrl) | RW   | 0x00000000  | Control Register. UART reset, FIFO flush, and enable control bits    |
-| `0x004` | [UART_CFG](#uart_cfg)   | RW   | 0x0003405B  | Configuration Register. Baud-rate and frame format configuration     |
-| `0x008` | [UART_STAT](#uart_stat) | RO   | 0x00500000  | Status Register. FIFO fill-level and FIFO state indicators           |
-| `0x010` | [UART_TXR](#uart_txr)   | WO   | -           | TX Access Request ID Queue. Transmit-side access request identifier  |
-| `0x014` | [UART_TXGP](#uart_txgp) | RO   | 0x00000000  | TX Access Grant ID Peek. Non-consuming view of the transmit grant ID |
-| `0x018` | [UART_TXG](#uart_txg)   | RO   | 0x00000000  | TX Access Grant ID. Consuming read of the transmit grant ID          |
-| `0x01C` | [UART_TXD](#uart_txd)   | WO   | -           | TX Data. Transmit data byte                                          |
-| `0x020` | [UART_RXR](#uart_rxr)   | WO   | -           | RX Access Request ID Queue. Receive-side access request identifier   |
-| `0x024` | [UART_RXGP](#uart_rxgp) | RO   | 0x00000000  | RX Access Grant ID Peek. Non-consuming view of the receive grant ID  |
-| `0x028` | [UART_RXG](#uart_rxg)   | RO   | 0x00000000  | RX Access Grant ID. Consuming read of the receive grant ID           |
-| `0x02C` | [UART_RXD](#uart_rxd)   | RO   | 0x00000000  | RX Data. Receive data byte                                           |
-| `0x030` | [UART_INT](#uart_int)   | RW   | 0x00000000  | Interrupt Control. Interrupt enable bits                             |
+| Offset  | Register                    | Type | Reset Value | Description                                                          |
+| ------- | --------------------------- | ---- | ----------- | -------------------------------------------------------------------- |
+| `0x000` | [UART_CTRL](#uart_ctrl)     | RW   | 0x00000000  | Control Register. UART reset, FIFO flush, and enable control bits    |
+| `0x004` | [UART_CFG](#uart_cfg)       | RW   | 0x0003405B  | Configuration Register. Baud-rate and frame format configuration     |
+| `0x008` | [UART_STAT](#uart_stat)     | RO   | 0x00500000  | Status Register. FIFO fill-level and FIFO state indicators           |
+| `0x010` | [UART_TXR](#uart_txr)       | WO   | -           | TX Access Request ID Queue. Transmit-side access request identifier  |
+| `0x014` | [UART_TXGP](#uart_txgp)     | RO   | 0x00000000  | TX Access Grant ID Peek. Non-consuming view of the transmit grant ID |
+| `0x018` | [UART_TXG](#uart_txg)       | RO   | 0x00000000  | TX Access Grant ID. Consuming read of the transmit grant ID          |
+| `0x01C` | [UART_TXD](#uart_txd)       | WO   | -           | TX Data. Transmit data byte                                          |
+| `0x020` | [UART_RXR](#uart_rxr)       | WO   | -           | RX Access Request ID Queue. Receive-side access request identifier   |
+| `0x024` | [UART_RXGP](#uart_rxgp)     | RO   | 0x00000000  | RX Access Grant ID Peek. Non-consuming view of the receive grant ID  |
+| `0x028` | [UART_RXG](#uart_rxg)       | RO   | 0x00000000  | RX Access Grant ID. Consuming read of the receive grant ID           |
+| `0x02C` | [UART_RXD](#uart_rxd)       | RO   | 0x00000000  | RX Data. Receive data byte                                           |
+| `0x030` | [UART_INT_EN](#uart_int_en) | RW   | 0x00000000  | Interrupt Control. Interrupt enable bits                             |
 
 ## UART_CTRL
 

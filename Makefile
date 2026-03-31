@@ -25,6 +25,13 @@ export SOC=$(SUB)/SoC
 # Internal Variables
 ####################################################################################################
 
+GUI := 0
+ifneq ($(GUI),0)
+	XSIM_ARGS += -gui
+else
+	XSIM_ARGS += -runall
+endif
+
 BUILD=$(S1)/build
 COVERAGE=$(S1)/coverage
 LOG=$(S1)/log
@@ -185,4 +192,4 @@ clean_full:
 simulate:
 	@$(call ENV_BUILD,$(TOP))
 	@make -s $(COVERAGE)
-	@cd $(BUILD) && xsim snap_$(TOP) -R -log $(LOG)/simulate_$(TOP).log $(EW_HL)
+	@cd $(BUILD) && xsim snap_$(TOP) $(XSIM_ARGS) -log $(LOG)/simulate_$(TOP)_$(TEST)_$(shell date +%Y%m%d_%H%M%S).log $(EW_HL)

@@ -20,7 +20,7 @@ package s1_uart_pkg;
   parameter int UART_RXGP_OFFSET = 'h24;
   parameter int UART_RXG_OFFSET = 'h28;
   parameter int UART_RXD_OFFSET = 'h2C;
-  parameter int UART_INT_OFFSET = 'h30;
+  parameter int UART_INT_EN_OFFSET = 'h30;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // TYPE DEFINITIONS
