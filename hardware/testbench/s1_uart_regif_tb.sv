@@ -35,14 +35,14 @@ module s1_uart_regif_tb;
   // import s1_uart_pkg::UART_RXGP_OFFSET;
   // import s1_uart_pkg::UART_RXG_OFFSET;
   // import s1_uart_pkg::UART_RXD_OFFSET;
-  // import s1_uart_pkg::UART_INT_OFFSET;
+  // import s1_uart_pkg::UART_INT_EN_OFFSET;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // SIGNALS
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
   // DUT Signals
-  logic            clk_i;
+  logic            clk_i = 0;
   logic            arst_ni;
   uart_axil_req_t  req_i;
   uart_axil_resp_t resp_o;
@@ -57,7 +57,10 @@ module s1_uart_regif_tb;
   uart_data_t      rx_data_i;
   logic            rx_data_valid_i;
   logic            rx_data_ready_o;
-  uart_int_reg_t   uart_int_o;
+  uart_int_reg_t   uart_int_en_o;
+
+  // Internal Outputs
+  logic [1:0] internal_resp;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // DUT INSTANCE
@@ -79,9 +82,42 @@ module s1_uart_regif_tb;
   // task automatic axil_write_64(addr, data, resp);
   `SIMPLE_AXIL_M_DRIVER(axil, clk_i, arst_ni, req_i, resp_o)
 
+  task automatic start_clk();
+    fork
+      forever #5ns clk_i <= ~clk_i;
+    join_none
+  endtask
+
+  task automatic apply_reset();
+    #2ns;
+    arst_ni         <= '0;
+    req_i           <= '{default:0};
+    tx_data_cnt_i   <= '{default:0};
+    tx_data_ready_i <= '0;
+    rx_data_cnt_i   <= '{default:0};
+    rx_data_i       <= '{default:0};
+    rx_data_valid_i <= '0;
+    #5ns;
+    arst_ni         <= 1'b1;
+    tx_data_ready_i <= 1'b1;
+  endtask
+
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // PROCEDURALS
   //////////////////////////////////////////////////////////////////////////////////////////////////
+
+  initial begin
+    $dumpfile("s1_uart_regif_tb.vcd");
+    $dumpvars;
+  end
+
+  initial begin
+    apply_reset();
+    start_clk();
+
+    axil_write_8(8'hAB, 32'hDEAD_CAFE, internal_resp);
+    
+  end
 
   initial begin
     #100ns;

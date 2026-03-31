@@ -33,7 +33,7 @@ DEBUG := 0
 
 GUI := 0
 ifneq ($(GUI),0)
-	XSIM_ARGS += -gui
+	XSIM_ARGS += -gui --autoloadwcfg --view $(S1)/wcfg/snap_$(TOP).wcfg
 else
 	XSIM_ARGS += -runall
 endif
