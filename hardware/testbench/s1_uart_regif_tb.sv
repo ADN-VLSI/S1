@@ -86,6 +86,7 @@ module s1_uart_regif_tb;
     fork
       forever #5ns clk_i <= ~clk_i;
     join_none
+    @(posedge clk_i);
   endtask
 
   task automatic apply_reset();
@@ -100,6 +101,7 @@ module s1_uart_regif_tb;
     #5ns;
     arst_ni         <= 1'b1;
     tx_data_ready_i <= 1'b1;
+    #5ns;
   endtask
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -115,8 +117,9 @@ module s1_uart_regif_tb;
     apply_reset();
     start_clk();
 
-    axil_write_8(8'hAB, 32'hDEAD_CAFE, internal_resp);
-    
+    axil_write_32(8'h04, 32'hDEAD_FECA, internal_resp);
+    $display("axil_write_32: req_i: %0p, resp_o: %0p", req_i, resp_o);
+
   end
 
   initial begin
