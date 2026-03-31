@@ -186,49 +186,52 @@ module s1_uart_regif
     fifo_resp.b.resp = 2'b10;
     tx_id_queue_in_valid = '0;
 
-    case ({
-      fifo_req.aw.prot[1], fifo_req.aw.addr
-    })
+    if (fifo_req.w.strb == 4'b1111) begin
+      case ({
+        fifo_req.aw.prot[1], fifo_req.aw.addr
+      })
 
-      UART_CTRL_OFFSET: begin
-        fifo_resp.b.resp = '0;
-      end
-
-      UART_CFG_OFFSET: begin
-        if (tx_data_cnt_i == '0 && rx_data_cnt_i == '0) begin
+        UART_CTRL_OFFSET: begin
           fifo_resp.b.resp = '0;
         end
-      end
 
-      UART_TXR_OFFSET: begin
-        if (tx_id_queue_in_ready) begin
-          fifo_resp.b.resp = '0;
-          tx_id_queue_in_valid = wr_en;
+        UART_CFG_OFFSET: begin
+          if (tx_data_cnt_i == '0 && rx_data_cnt_i == '0) begin
+            fifo_resp.b.resp = '0;
+          end
         end
-      end
 
-      UART_TXD_OFFSET: begin
-        if (tx_data_ready_i) begin
-          fifo_resp.b.resp = '0;
-          tx_data_valid_o  = wr_en;
+        UART_TXR_OFFSET: begin
+          if (tx_id_queue_in_ready) begin
+            fifo_resp.b.resp = '0;
+            tx_id_queue_in_valid = wr_en;
+          end
         end
-      end
 
-      UART_RXR_OFFSET: begin
-        if (rx_id_queue_in_ready) begin
-          fifo_resp.b.resp = '0;
-          rx_id_queue_in_valid = wr_en;
+        UART_TXD_OFFSET: begin
+          if (tx_data_ready_i) begin
+            fifo_resp.b.resp = '0;
+            tx_data_valid_o  = wr_en;
+          end
         end
-      end
 
-      UART_INT_EN_OFFSET: begin
-        fifo_resp.b.resp = '0;
-      end
+        UART_RXR_OFFSET: begin
+          if (rx_id_queue_in_ready) begin
+            fifo_resp.b.resp = '0;
+            rx_id_queue_in_valid = wr_en;
+          end
+        end
 
-      default: begin
-      end
+        UART_INT_EN_OFFSET: begin
+          fifo_resp.b.resp = '0;
+        end
 
-    endcase
+        default: begin
+        end
+
+      endcase
+
+    end
 
   end
 
