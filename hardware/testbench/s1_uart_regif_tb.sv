@@ -24,18 +24,18 @@ module s1_uart_regif_tb;
   import s1_uart_pkg::uart_count_t;
   import s1_uart_pkg::uart_int_reg_t;
 
-  // import s1_uart_pkg::UART_CTRL_OFFSET;
-  // import s1_uart_pkg::UART_CFG_OFFSET;
-  // import s1_uart_pkg::UART_STAT_OFFSET;
-  // import s1_uart_pkg::UART_TXR_OFFSET;
-  // import s1_uart_pkg::UART_TXGP_OFFSET;
-  // import s1_uart_pkg::UART_TXG_OFFSET;
-  // import s1_uart_pkg::UART_TXD_OFFSET;
-  // import s1_uart_pkg::UART_RXR_OFFSET;
-  // import s1_uart_pkg::UART_RXGP_OFFSET;
-  // import s1_uart_pkg::UART_RXG_OFFSET;
-  // import s1_uart_pkg::UART_RXD_OFFSET;
-  // import s1_uart_pkg::UART_INT_EN_OFFSET;
+  import s1_uart_pkg::UART_CTRL_OFFSET;
+  import s1_uart_pkg::UART_CFG_OFFSET;
+  import s1_uart_pkg::UART_STAT_OFFSET;
+  import s1_uart_pkg::UART_TXR_OFFSET;
+  import s1_uart_pkg::UART_TXGP_OFFSET;
+  import s1_uart_pkg::UART_TXG_OFFSET;
+  import s1_uart_pkg::UART_TXD_OFFSET;
+  import s1_uart_pkg::UART_RXR_OFFSET;
+  import s1_uart_pkg::UART_RXGP_OFFSET;
+  import s1_uart_pkg::UART_RXG_OFFSET;
+  import s1_uart_pkg::UART_RXD_OFFSET;
+  import s1_uart_pkg::UART_INT_EN_OFFSET;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // SIGNALS
@@ -61,6 +61,7 @@ module s1_uart_regif_tb;
 
   // Internal Outputs
   logic [1:0] internal_resp;
+  logic [1:0] internal_data;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // DUT INSTANCE
@@ -117,13 +118,30 @@ module s1_uart_regif_tb;
     apply_reset();
     start_clk();
 
-    axil_write_32(8'h04, 32'hDEAD_FECA, internal_resp);
-    $display("axil_write_32: req_i: %0p, resp_o: %0p", req_i, resp_o);
+    // axil_write_32(8'h04, 32'hDEAD_FECA, internal_resp);
+    // axil_read_32(8'h04, internal_data, internal_resp);
+    // $display("axil_write_32: req_i: %0p, resp_o: %0p", req_i, resp_o);
+    
+    // writing to RW and WO registers:
+    axil_write_8(UART_CTRL_OFFSET,  $urandom, internal_resp);
+    axil_write_8(UART_CFG_OFFSET,   $urandom, internal_resp);
+    axil_write_8(UART_TXR_OFFSET,   $urandom, internal_resp);
+    axil_write_8(UART_TXD_OFFSET,   $urandom, internal_resp);
+    axil_write_8(UART_RXR_OFFSET,   $urandom, internal_resp);
+    axil_write_8(UART_INT_EN_OFFSET,$urandom, internal_resp);
+
+    // reading from above RW and WO registers:
+    axil_read_8(UART_CTRL_OFFSET,  internal_data, internal_resp);
+    axil_read_8(UART_CFG_OFFSET,   internal_data, internal_resp);
+    axil_read_8(UART_TXR_OFFSET,   internal_data, internal_resp);
+    axil_read_8(UART_TXD_OFFSET,   internal_data, internal_resp);
+    axil_read_8(UART_RXR_OFFSET,   internal_data, internal_resp);
+    axil_read_8(UART_INT_EN_OFFSET,internal_data, internal_resp);
 
   end
 
   initial begin
-    #100ns;
+    #1000ns;
     $finish;
   end
 
