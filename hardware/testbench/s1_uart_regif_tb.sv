@@ -51,7 +51,7 @@ module s1_uart_regif_tb;
   uart_stat_reg_t  uart_stat_o;
   uart_count_t     tx_data_cnt_i;
   uart_data_t      tx_data_o;
-  logic            gu;
+  logic            tx_data_valid_o;
   logic            tx_data_ready_i;
   uart_count_t     rx_data_cnt_i;
   uart_data_t      rx_data_i;
