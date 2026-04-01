@@ -1,4 +1,4 @@
-module uart_tx
+module s1_uart_rx
   import s1_uart_pkg::IDLE;
   import s1_uart_pkg::START;
   import s1_uart_pkg::D0;
@@ -47,7 +47,7 @@ module uart_tx
     end
   end
 
-  always_comb sample_now = (state == IDLE) ? '1 : (sample_cnt == 2'b10);
+  always_comb sample_now = (state == IDLE) ? '1 : (sample_cnt == 2'b01);
 
   always_comb data_valid_o = (state == STOP) && sample_now;
 

@@ -1,4 +1,4 @@
-module uart_tx
+module s1_uart_tx
   import s1_uart_pkg::IDLE;
   import s1_uart_pkg::START;
   import s1_uart_pkg::D0;
