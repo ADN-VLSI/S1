@@ -69,6 +69,7 @@ package s1_uart_pkg;
 
   // Interrupt Struct Bitfield Definitions
   typedef struct packed {
+    logic rx_overflow;
     logic rx_parity_err;
     logic rx_almost_full;
     logic tx_almost_full;

@@ -169,3 +169,4 @@ Enable interrupts for various UART events. Writing a `1` to any bit in this regi
 | `4` | tx_almost_full | 0x0         | Generates an interrupt when the transmit FIFO is 75% full                         |
 | `5` | rx_almost_full | 0x0         | Generates an interrupt when the receive FIFO is 75% full                          |
 | `6` | rx_parity_err  | 0x0         | Generates an interrupt on a parity error in the received data                     |
+| `7` | rx_overflow    | 0x0         | Generates an interrupt when the receive FIFO overflows (data loss)                |
