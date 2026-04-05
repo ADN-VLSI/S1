@@ -105,23 +105,7 @@ module s1_uart_regif_tb;
     #5ns;
   endtask
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  // PROCEDURALS
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-
-  initial begin
-    $dumpfile("s1_uart_regif_tb.vcd");
-    $dumpvars;
-  end
-
-  initial begin
-    apply_reset();
-    start_clk();
-
-    // axil_write_32(8'h04, 32'hDEAD_FECA, internal_resp);
-    // axil_read_32(8'h04, internal_data, internal_resp);
-    // $display("axil_write_32: req_i: %0p, resp_o: %0p", req_i, resp_o);
-    
+  task automatic write_8_RW_WO();
     // writing to RW and WO registers:
     axil_write_8(UART_CTRL_OFFSET,  $urandom, internal_resp);
     axil_write_8(UART_CFG_OFFSET,   $urandom, internal_resp);
@@ -137,6 +121,22 @@ module s1_uart_regif_tb;
     axil_read_8(UART_TXD_OFFSET,   internal_data, internal_resp);
     axil_read_8(UART_RXR_OFFSET,   internal_data, internal_resp);
     axil_read_8(UART_INT_EN_OFFSET,internal_data, internal_resp);
+  endtask
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // PROCEDURALS
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
+  initial begin
+    $dumpfile("s1_uart_regif_tb.vcd");
+    $dumpvars;
+  end
+
+  initial begin
+    apply_reset();
+    start_clk();
+    write_8_RW_WO();
+
 
   end
 
