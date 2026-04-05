@@ -13,22 +13,22 @@ module s1_axil_2_apb #(
 ) (
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    // APB Slave Interface
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-    input  logic      apb_clk_i,
-    input  logic      apb_arst_ni,
-    output apb_req_t  apb_req_o,
-    input  apb_resp_t apb_resp_i,
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // AXI4-Lite Master Interface Outputs
+    // AXI4-Lite Slave Interface
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     input  logic      axi_clk_i,
     input  logic      axi_arst_ni,
     input  axi_req_t  axi_req_i,
-    output axi_resp_t axi_resp_o
+    output axi_resp_t axi_resp_o,
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // APB Master Interface
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    input  logic      apb_clk_i,
+    input  logic      apb_arst_ni,
+    output apb_req_t  apb_req_o,
+    input  apb_resp_t apb_resp_i
 
 );
 
@@ -38,6 +38,22 @@ module s1_axil_2_apb #(
   logic cst_arst_n;
 
   always_comb cst_arst_n = apb_arst_ni & axi_arst_ni;
+
+  logic write_possible;
+  logic read_possible;
+
+  logic priority_to_write;
+  logic priority_to_read;
+
+  always_comb begin
+    write_possible = intr_axi_req.aw_valid && intr_axi_req.w_valid && ~intr_axi_req.b_ready;
+  end
+
+  always_comb begin
+    read_possible = intr_axi_req.ar_valid && intr_axi_req.r_ready;
+  end
+
+  always_comb priority_to_read = ~priority_to_write;
 
   axi_cdc #(
       .aw_chan_t (aw_chan_t),
