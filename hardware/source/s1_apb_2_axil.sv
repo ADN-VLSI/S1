@@ -29,6 +29,7 @@ module s1_apb_2_axil #(
     input  logic      axi_arst_ni,
     output axi_req_t  axi_req_o,
     input  axi_resp_t axi_resp_i
+
 );
 
   axi_req_t intr_axi_req;
