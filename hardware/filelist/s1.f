@@ -15,4 +15,6 @@ ${S1}/hardware/source/s1_uart_rx.sv
 ${S1}/hardware/source/s1_uart_tx.sv
 ${S1}/hardware/source/s1_uart_regif.sv
 
+${S1}/hardware/source/s1_apb_2_axil.sv
+
 ${S1}/hardware/source/s1_axi_cvtr.sv
