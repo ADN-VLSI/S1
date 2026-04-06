@@ -9,6 +9,7 @@
 | PLIC    | 0x0001_3000  | 0x0001_3FFF  | 4KB   |
 | CLINT   | 0x0001_4000  | 0x0001_4FFF  | 4KB   |
 | TCM     | 0x0100_0000  | 0x01FF_FFFF  | 16MB  |
+| ROM     | 0x0200_0000  | 0x0200_FFFF  | 64KB  |
 | APB     | 0x1000_0000  | 0x1FFF_FFFF  | 256MB |
 | RAM     | 0x2000_0000  | 0x5FFF_FFFF  | 1GB   |
 
@@ -16,8 +17,8 @@
 
 | Region   | Base Address | Last Address | Size   |
 | -------- | ------------ | ------------ | ------ |
-| TCM0     | 0x0100_0000  | 0x0107_FFFF  | 512KB  |
-| TCM1     | 0x0108_0000  | 0x010F_FFFF  | 512KB  |
+| TCM1     | 0x0100_0000  | 0x0107_FFFF  | 512KB  |
+| TCM2     | 0x0108_0000  | 0x010F_FFFF  | 512KB  |
 | Reserved | 0x0110_0000  | 0x01FF_FFFF  | 15.5MB |
 
-> TCMn = TCM Base Address + n * 512KB, where n = 0, 1
+> TCMn = TCM Base Address + (n-1) \* 512KB, where n = 1, 2, 3, ... 32

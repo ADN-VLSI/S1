@@ -38,7 +38,7 @@ module s1_pcss
 
   logic [63:0] tcm_base;
   always_comb begin
-    tcm_base = 64'h0100_0000 + 64'h8_0000 * hart_id_i[4:0];
+    tcm_base = 64'h0100_0000 + 64'h8_0000 * (hart_id_i[4:0] - 1);
   end
 
   xbar_rule_64_t [0:0] XbarRule;
