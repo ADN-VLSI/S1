@@ -27,12 +27,11 @@ Controls UART reset behavior, FIFO flushing, and transmitter and receiver enable
 
 | Bits   | Field         | Reset Value | Description               |
 | ------ | ------------- | ----------- | ------------------------- |
-| `0`    | uart_rst      | 0x0         | Software reset control    |
-| `1`    | tx_fifo_flush | 0x0         | Flushes the transmit FIFO |
-| `2`    | rx_fifo_flush | 0x0         | Flushes the receive FIFO  |
-| `3`    | tx_en         | 0x0         | Enables the transmitter   |
-| `4`    | rx_en         | 0x0         | Enables the receiver      |
-| `31:5` | reserved      | 0x0         | Reserved                  |
+| `0`    | tx_fifo_flush | 0x0         | Flushes the transmit FIFO |
+| `1`    | rx_fifo_flush | 0x0         | Flushes the receive FIFO  |
+| `2`    | tx_en         | 0x0         | Enables the transmitter   |
+| `3`    | rx_en         | 0x0         | Enables the receiver      |
+| `31:4` | reserved      | 0x0         | Reserved                  |
 
 ## UART_CFG
 

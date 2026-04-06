@@ -34,9 +34,15 @@ module s1_uart_top
   // SIGNALS
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
-  logic           tx_clk;
-  logic           rx_clk;
+  logic           rx_flush;
+  logic           tx_flush;
+
   logic           sc_clk;
+  logic           rx_clk;
+  logic           tx_clk;
+
+  logic           rx_clk_gated;
+  logic           tx_clk_gated;
 
   uart_ctrl_reg_t uart_ctrl;
   uart_cfg_reg_t  uart_cfg;
@@ -65,6 +71,50 @@ module s1_uart_top
   logic           data_err;
 
   uart_int_reg_t  uart_int_en;
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // COMBINATIONAL LOGICS
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
+  always_comb begin
+    rx_flush = uart_ctrl.rx_fifo_flush | ~arst_ni;
+  end
+
+  always_comb begin
+    tx_flush = uart_ctrl.tx_fifo_flush | ~arst_ni;
+  end
+
+  always_comb begin
+    uart_int_o.rx_overflow = uart_int_en.rx_overflow & from_rx_data_valid & ~from_rx_data_ready;
+  end
+
+  always_comb begin
+    uart_int_o.rx_parity_err = uart_int_en.rx_parity_err & data_err;
+  end
+
+  always_comb begin
+    uart_int_o.rx_empty = uart_int_en.rx_empty & ~rx_data_valid;
+  end
+
+  always_comb begin
+    uart_int_o.rx_almost_full = uart_int_en.rx_almost_full & from_rx_data_cnt[7] & from_rx_data_cnt[6];
+  end
+
+  always_comb begin
+    uart_int_o.rx_full = uart_int_en.rx_full & ~from_rx_data_ready;
+  end
+
+  always_comb begin
+    uart_int_o.tx_empty = uart_int_en.tx_empty & (to_tx_data_cnt == 0);
+  end
+
+  always_comb begin
+    uart_int_o.tx_almost_full = uart_int_en.tx_almost_full & to_tx_data_cnt[7] & to_tx_data_cnt[6];
+  end
+
+  always_comb begin
+    uart_int_o.tx_full = uart_int_en.tx_full & ~tx_data_ready;
+  end
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // SUBMODULES
@@ -150,9 +200,23 @@ module s1_uart_top
       .elem_out_count_o()
   );
 
+  clk_gate u_clk_gate_tx (
+      .arst_ni(~tx_flush),
+      .en_i   (uart_ctrl.tx_en),
+      .clk_i  (tx_clk),
+      .clk_o  (tx_clk_gated)
+  );
+
+  clk_gate u_clk_gate_rx (
+      .arst_ni(~rx_flush),
+      .en_i   (uart_ctrl.rx_en),
+      .clk_i  (rx_clk),
+      .clk_o  (rx_clk_gated)
+  );
+
   s1_uart_tx u_s1_uart_tx (
-      .arst_ni     (arst_ni),
-      .clk_i       (tx_clk),
+      .arst_ni     (~tx_flush),
+      .clk_i       (tx_clk_gated),
       .sb_i        (uart_cfg.sb),
       .ptp_i       (uart_cfg.ptp),
       .pen_i       (uart_cfg.pen),
@@ -164,8 +228,8 @@ module s1_uart_top
   );
 
   s1_uart_rx u_s1_uart_rx (
-      .arst_ni     (arst_ni),
-      .clk_i       (rx_clk),
+      .arst_ni     (~rx_flush),
+      .clk_i       (rx_clk_gated),
       .ptp_i       (uart_cfg.ptp),
       .pen_i       (uart_cfg.pen),
       .db_i        (uart_cfg.db),
@@ -174,37 +238,5 @@ module s1_uart_top
       .data_valid_o(from_rx_data_valid),
       .rx_i        (rx_i)
   );
-
-  always_comb begin
-    uart_int_o.rx_overflow = uart_int_en.rx_overflow & from_rx_data_valid & ~from_rx_data_ready;
-  end
-
-  always_comb begin
-    uart_int_o.rx_parity_err = uart_int_en.rx_parity_err & data_err;
-  end
-
-  always_comb begin
-    uart_int_o.rx_empty = uart_int_en.rx_empty & ~rx_data_valid;
-  end
-
-  always_comb begin
-    uart_int_o.rx_almost_full = uart_int_en.rx_almost_full & from_rx_data_cnt[7] & from_rx_data_cnt[6];
-  end
-
-  always_comb begin
-    uart_int_o.rx_full = uart_int_en.rx_full & ~from_rx_data_ready;
-  end
-
-  always_comb begin
-    uart_int_o.tx_empty = uart_int_en.tx_empty & (to_tx_data_cnt == 0);
-  end
-
-  always_comb begin
-    uart_int_o.tx_almost_full = uart_int_en.tx_almost_full & to_tx_data_cnt[7] & to_tx_data_cnt[6];
-  end
-
-  always_comb begin
-    uart_int_o.tx_full = uart_int_en.tx_full & ~tx_data_ready;
-  end
 
 endmodule

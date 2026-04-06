@@ -42,7 +42,6 @@ package s1_uart_pkg;
     logic tx_en;
     logic rx_fifo_flush;
     logic tx_fifo_flush;
-    logic uart_rst;
   } uart_ctrl_reg_t;
 
   // Configuration Struct Bitfield Definitions
