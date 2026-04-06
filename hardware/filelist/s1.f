@@ -8,6 +8,7 @@ ${S1}/hardware/package/s1_soc_pkg.sv
 
 ${S1}/hardware/source/s1_clk_div.sv
 ${S1}/hardware/source/s1_dual_edge_register.sv
+${S1}/hardware/source/s1_register_dual_flop.sv
 ${S1}/hardware/source/s1_fifo.sv
 ${S1}/hardware/source/s1_cdc_fifo.sv
 
@@ -19,3 +20,5 @@ ${S1}/hardware/source/s1_uart_regif.sv
 ${S1}/hardware/source/s1_apb_2_axil.sv
 
 ${S1}/hardware/source/s1_axi_cvtr.sv
+
+${S1}/hardware/source/s1_uart_top.sv

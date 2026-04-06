@@ -27,6 +27,15 @@ package s1_uart_pkg;
   // AXI Lite Interface Type Definitions
   `AXI_LITE_TYPEDEF_ALL(uart_axil, logic [7:0], logic [31:0], logic [3:0])
 
+  // ID Struct Bitfield Definitions
+  typedef struct packed {logic [7:0] id;} uart_id_t;
+
+  // Data Struct Bitfield Definitions
+  typedef struct packed {logic [7:0] data;} uart_data_t;
+
+  // Count Struct Bitfield Definitions
+  typedef struct packed {logic [7:0] count;} uart_count_t;
+
   // Control Struct Bitfield Definitions
   typedef struct packed {
     logic rx_en;
@@ -48,22 +57,13 @@ package s1_uart_pkg;
 
   // Status Struct Bitfield Definitions
   typedef struct packed {
-    logic       rx_full;
-    logic       rx_empty;
-    logic       tx_full;
-    logic       tx_empty;
-    logic [9:0] rx_cnt;
-    logic [9:0] tx_cnt;
+    logic        rx_full;
+    logic        rx_empty;
+    logic        tx_full;
+    logic        tx_empty;
+    uart_count_t rx_cnt;
+    uart_count_t tx_cnt;
   } uart_stat_reg_t;
-
-  // ID Struct Bitfield Definitions
-  typedef struct packed {logic [7:0] id;} uart_id_t;
-
-  // Data Struct Bitfield Definitions
-  typedef struct packed {logic [7:0] data;} uart_data_t;
-
-  // Count Struct Bitfield Definitions
-  typedef struct packed {logic [9:0] count;} uart_count_t;
 
   // Interrupt Struct Bitfield Definitions
   typedef struct packed {

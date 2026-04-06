@@ -5,17 +5,17 @@ module cdc_fifo #(
 
     input logic arst_ni,
 
-    input  logic                            elem_in_clk_i,
-    input  logic [          ELEM_WIDTH-1:0] elem_in_i,
-    input  logic                            elem_in_valid_i,
-    output logic                            elem_in_ready_o,
-    output logic [$clog2(2**FIFO_SIZE)-1:0] elem_in_count_o,
+    input  logic                  elem_in_clk_i,
+    input  logic [ELEM_WIDTH-1:0] elem_in_i,
+    input  logic                  elem_in_valid_i,
+    output logic                  elem_in_ready_o,
+    output logic [   FIFO_SIZE:0] elem_in_count_o,
 
-    input  logic                            elem_out_clk_i,
-    output logic [          ELEM_WIDTH-1:0] elem_out_o,
-    output logic                            elem_out_valid_o,
-    input  logic                            elem_out_ready_i,
-    output logic [$clog2(2**FIFO_SIZE)-1:0] elem_out_count_o
+    input  logic                  elem_out_clk_i,
+    output logic [ELEM_WIDTH-1:0] elem_out_o,
+    output logic                  elem_out_valid_o,
+    input  logic                  elem_out_ready_i,
+    output logic [   FIFO_SIZE:0] elem_out_count_o
 );
 
   //////////////////////////////////////////////////////////////////////////////////////////////////

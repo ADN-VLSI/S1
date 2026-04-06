@@ -76,7 +76,7 @@ module s1_uart_top
       .req_i          (req_i),
       .resp_o         (resp_o),
       .uart_ctrl_o    (uart_ctrl),
-      .uart_cfg       (uart_cfg),
+      .uart_cfg_o     (uart_cfg),
       .uart_stat_o    (uart_stat),
       .tx_data_cnt_i  (tx_data_cnt),
       .tx_data_o      (tx_data),
@@ -112,13 +112,13 @@ module s1_uart_top
   ) u_tx_s1_clk_div (
       .arst_ni(arst_ni),
       .clk_i  (rx_clk),
-      .div_i  (4),
+      .div_i  (3'd4),
       .clk_o  (tx_clk)
   );
 
   cdc_fifo #(
       .ELEM_WIDTH(8),
-      .FIFO_SIZE (8)
+      .FIFO_SIZE (7)
   ) tx_fifo (
       .arst_ni         (arst_ni),
       .elem_in_clk_i   (clk_i),
@@ -135,7 +135,7 @@ module s1_uart_top
 
   cdc_fifo #(
       .ELEM_WIDTH(8),
-      .FIFO_SIZE (8)
+      .FIFO_SIZE (7)
   ) rx_fifo (
       .arst_ni         (arst_ni),
       .elem_in_clk_i   (rx_clk),
@@ -188,7 +188,7 @@ module s1_uart_top
   end
 
   always_comb begin
-    uart_int_o.rx_almost_full = uart_int_en.rx_almost_full & from_rx_data_cnt[9] & from_rx_data_cnt[8];
+    uart_int_o.rx_almost_full = uart_int_en.rx_almost_full & from_rx_data_cnt[7] & from_rx_data_cnt[6];
   end
 
   always_comb begin
@@ -200,7 +200,7 @@ module s1_uart_top
   end
 
   always_comb begin
-    uart_int_o.tx_almost_full = uart_int_en.tx_almost_full & to_tx_data_cnt[9] & to_tx_data_cnt[8];
+    uart_int_o.tx_almost_full = uart_int_en.tx_almost_full & to_tx_data_cnt[7] & to_tx_data_cnt[6];
   end
 
   always_comb begin
