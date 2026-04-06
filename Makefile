@@ -209,14 +209,19 @@ clean:
 	@rm -rf $(BUILD)
 	@$(YA) echo "Cleaned build directory"
 
-# Clear build, coverage and log directories
-.PHONY: clean_full
-clean_full:
-	@make -s clean
+# Clear coverage and log directories
+.PHONY: clean_records
+clean_records:
 	@rm -rf $(COVERAGE)
 	@$(YA) echo "Cleaned coverage directory"
 	@rm -rf $(LOG)
 	@$(YA) echo "Cleaned log directory"
+
+# Clear build, coverage and log directories
+.PHONY: clean_full
+clean_full:
+	@make -s clean
+	@make -s clean_records
 
 .PHONY: simulate
 simulate:
