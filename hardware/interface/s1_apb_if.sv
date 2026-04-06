@@ -22,6 +22,7 @@ interface apb_if #(
   logic                      psel;  // Peripheral select
   logic                      penable;  // Peripheral enable
   logic [    ADDR_WIDTH-1:0] paddr;  // Peripheral address
+  logic [    ADDR_WIDTH-1:0] pprot;  // Peripheral protection
   logic                      pwrite;  // Peripheral write enable
   logic [    DATA_WIDTH-1:0] pwdata;  // Peripheral write data
   logic [DATA_WIDTH / 8-1:0] pstrb;  // Peripheral byte strobe
@@ -59,6 +60,7 @@ interface apb_if #(
     psel    <= 1'b1;
     penable <= 1'b0;
     paddr   <= address;
+    pprot   <= '0;
     pwrite  <= write;
     pwdata  <= write_data;
     pstrb   <= write_strobe;
@@ -80,10 +82,11 @@ interface apb_if #(
   endtask
 
   task automatic reset();
-    psel    <= 1'b0;
-    penable <= 1'b0;
+    psel    <= '0;
+    penable <= '0;
     paddr   <= '0;
-    pwrite  <= 1'b0;
+    pprot   <= '0;
+    pwrite  <= '0;
     pwdata  <= '0;
     pstrb   <= '0;
   endtask
