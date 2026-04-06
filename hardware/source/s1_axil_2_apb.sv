@@ -42,18 +42,16 @@ module s1_axil_2_apb #(
   logic write_possible;
   logic read_possible;
 
+  always_comb begin
+    write_possible = axi_req_i.aw_valid && axi_req_i.w_valid && !axi_req_i.b_ready;
+    read_possible  = axi_req_i.ar_valid && axi_req_i.r_ready;
+  end
+
   logic priority_to_write;
-  logic priority_to_read;
+  logic next_priority_to_write;
 
-  always_comb begin
-    write_possible = intr_axi_req.aw_valid && intr_axi_req.w_valid && ~intr_axi_req.b_ready;
-  end
-
-  always_comb begin
-    read_possible = intr_axi_req.ar_valid && intr_axi_req.r_ready;
-  end
-
-  always_comb priority_to_read = ~priority_to_write;
+  logic do_write;
+  logic next_do_write;
 
   axi_cdc #(
       .aw_chan_t (aw_chan_t),
@@ -92,12 +90,97 @@ module s1_axil_2_apb #(
 
   always_ff @(posedge apb_clk_i or negedge cst_arst_n) begin
     if (~cst_arst_n) begin
-      current_state <= IDLE;
+      current_state     <= IDLE;
+      priority_to_write <= '0;
+      do_write          <= '0;
     end else begin
-      current_state <= next_state;
+      current_state     <= next_state;
+      priority_to_write <= next_priority_to_write;
+      do_write          <= next_do_write;
     end
   end
 
-  // TODO FSM
+  always_comb begin
+
+    apb_req_o.psel = '0;
+    apb_req_o.penable = '0;
+    apb_req_o.paddr = do_write ? intr_axi_req.aw.addr : intr_axi_req.ar.addr;
+    apb_req_o.pprot = do_write ? intr_axi_req.aw.prot : intr_axi_req.ar.prot;
+    apb_req_o.pwrite = do_write;
+    apb_req_o.pwdata = intr_axi_req.w.data;
+    apb_req_o.pstrb = intr_axi_req.w.strb;
+
+    intr_axi_resp.b.resp = {apb_resp_i.pslverr, 1'b0};
+    intr_axi_resp.r.data = apb_resp_i.prdata;
+    intr_axi_resp.r.resp = {apb_resp_i.pslverr, 1'b0};
+
+    next_state = current_state;
+    next_priority_to_write = priority_to_write;
+    next_do_write = do_write;
+
+    intr_axi_resp.aw_ready = '0;
+    intr_axi_resp.w_ready = '0;
+    intr_axi_resp.b_valid = '0;
+    intr_axi_resp.ar_ready = '0;
+    intr_axi_resp.r_valid = '0;
+
+    case (current_state)
+
+      IDLE: begin
+        case ({
+          write_possible, read_possible
+        })
+
+          2'b01: begin
+            next_state = SETUP;
+            next_do_write = '0;
+            next_priority_to_write = '1;
+          end
+
+          2'b10: begin
+            next_state = SETUP;
+            next_do_write = '1;
+            next_priority_to_write = '0;
+          end
+
+          2'b11: begin
+            next_state = SETUP;
+            next_do_write = priority_to_write;
+            next_priority_to_write = ~priority_to_write;
+          end
+
+          default: begin
+          end
+
+        endcase
+      end
+
+      SETUP: begin
+        apb_req_o.psel    = '1;
+        next_state = ACCESS;
+      end
+
+      ACCESS: begin
+        apb_req_o.psel    = '1;
+        apb_req_o.penable = '1;
+        if (apb_resp_i.pready) begin
+          next_state = IDLE;
+          if (do_write) begin
+            intr_axi_resp.aw_ready = '1;
+            intr_axi_resp.w_ready  = '1;
+            intr_axi_resp.b_valid  = '1;
+          end else begin
+            intr_axi_resp.ar_ready = '1;
+            intr_axi_resp.r_valid  = '1;
+          end
+        end
+      end
+
+      default: begin
+      end
+
+    endcase
+
+  end
 
 endmodule

@@ -7,3 +7,6 @@
 [submodule "submodule/common_cells"]
 	path = submodule/common_cells
 	url = https://github.com/pulp-platform/common_cells.git
+[submodule "submodule/apb"]
+	path = submodule/apb
+	url = https://github.com/pulp-platform/apb.git
