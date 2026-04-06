@@ -23,9 +23,25 @@ package s1_soc_pkg;
   parameter int APB_DATA_WIDTH = 32;
 
   // Base Address
-  parameter int UART_BASE = 'h4000_0000;
+  parameter int UART_BASE = 'h0001_1000;
 
 
+  /*
+  
+  | Device  | Base Address | Last Address |
+  |---------|--------------|--------------|
+  | DEBUG   | 0x0000_0000  | 0x0000_FFFF  |
+  | CTRL_SS | 0x0001_0000  | 0x0001_0FFF  |
+  | UART    | 0x0001_1000  | 0x0001_1FFF  |
+  | GPIO    | 0x0001_2000  | 0x0001_2FFF  |
+  | PLIC    | 0x0001_3000  | 0x0001_3FFF  |
+  | CLINT   | 0x0001_4000  | 0x0001_4FFF  |
+  | TCM     | 0x0100_0000  | 0x01FF_FFFF  |
+  | APB     | 0x1000_0000  | 0x1FFF_FFFF  |
+  | RAM     | 0x2000_0000  | 0x5FFF_FFFF  |
+
+  */
+  
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // TYPE DEFINITIONS
   //////////////////////////////////////////////////////////////////////////////////////////////////
