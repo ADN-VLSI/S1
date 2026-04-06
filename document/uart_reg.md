@@ -162,11 +162,11 @@ Enable interrupts for various UART events. Writing a `1` to any bit in this regi
 
 | Bit | Field          | Reset Value | Description                                                                       |
 | --- | -------------- | ----------- | --------------------------------------------------------------------------------- |
-| `1` | tx_full        | 0x0         | Generates an interrupt when the transmit FIFO transitions from non-full to full   |
-| `0` | tx_empty       | 0x0         | Generates an interrupt when the transmit FIFO transitions from non-empty to empty |
-| `2` | rx_empty       | 0x0         | Generates an interrupt when the receive FIFO transitions from non-empty to empty  |
+| `0` | tx_full        | 0x0         | Generates an interrupt when the transmit FIFO transitions from non-full to full   |
+| `1` | tx_almost_full | 0x0         | Generates an interrupt when the transmit FIFO is 75% full                         |
+| `2` | tx_empty       | 0x0         | Generates an interrupt when the transmit FIFO transitions from non-empty to empty |
 | `3` | rx_full        | 0x0         | Generates an interrupt when the receive FIFO transitions from non-full to full    |
-| `4` | tx_almost_full | 0x0         | Generates an interrupt when the transmit FIFO is 75% full                         |
-| `5` | rx_almost_full | 0x0         | Generates an interrupt when the receive FIFO is 75% full                          |
+| `4` | rx_almost_full | 0x0         | Generates an interrupt when the receive FIFO is 75% full                          |
+| `5` | rx_empty       | 0x0         | Generates an interrupt when the receive FIFO transitions from non-empty to empty  |
 | `6` | rx_parity_err  | 0x0         | Generates an interrupt on a parity error in the received data                     |
 | `7` | rx_overflow    | 0x0         | Generates an interrupt when the receive FIFO overflows (data loss)                |

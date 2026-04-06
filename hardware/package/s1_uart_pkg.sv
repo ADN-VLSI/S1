@@ -69,12 +69,12 @@ package s1_uart_pkg;
   typedef struct packed {
     logic rx_overflow;
     logic rx_parity_err;
+    logic rx_empty;
     logic rx_almost_full;
+    logic rx_full;
+    logic tx_empty;
     logic tx_almost_full;
     logic tx_full;
-    logic tx_empty;
-    logic rx_empty;
-    logic rx_full;
   } uart_int_reg_t;
 
   // UART TX RX FSM States
