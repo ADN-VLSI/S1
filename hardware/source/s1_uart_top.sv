@@ -144,7 +144,7 @@ module s1_uart_top
     
     s1_uart_tx u_s1_uart_tx (
         .arst_ni      (arst_ni             ),
-        .clk_i        (clk_i               ),
+        .clk_i        (tx_clk              ),
         .sb_i         (uart_cfg_o.sb       ),
         .ptp_i        (uart_cfg_o.ptp      ),
         .pen_i        (uart_cfg_o.pen      ),
@@ -158,12 +158,12 @@ module s1_uart_top
 
     s1_uart_rx u_s1_uart_rx (
         .arst_ni      (arst_ni                     ),
-        .clk_i        (clk_i                       ),
+        .clk_i        (rx_clk                      ),
         .ptp_i        (uart_cfg_o.ptp              ),
         .pen_i        (uart_cfg_o.pen              ),
         .db_i         (uart_cfg_o.db               ),
         .data_o       (from_rx_data_i.data         ),
-        .data_err_o   (uart_int_en_o.rx_parity_err ),
+        .data_err_o   (                            ),       //! fix connection
         .data_valid_o (from_rx_data_valid_i        ),
         .rx_i         (rx_i                        )
     );
