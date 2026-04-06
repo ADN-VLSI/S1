@@ -16,6 +16,7 @@ export S1=$(CURDIR)
 
 export SUB=$(S1)/submodule
 
+export APB=$(SUB)/apb
 export AXI=$(SUB)/axi
 export COMMON_CELLS=$(SUB)/common_cells
 export SOC=$(SUB)/SoC

@@ -17,10 +17,10 @@ DST ##############################################
 `include "axi/typedef.svh"
 
 module s1_axi_cvtr #(
-    parameter type src_req_t  = s1_soc_pkg::std_req_t,
-    parameter type src_resp_t = s1_soc_pkg::std_resp_t,
-    parameter type dst_req_t  = s1_soc_pkg::std_req_t,
-    parameter type dst_resp_t = s1_soc_pkg::std_resp_t,
+    parameter type src_req_t  = s1_soc_pkg::std_axi_req_t,
+    parameter type src_resp_t = s1_soc_pkg::std_axi_resp_t,
+    parameter type dst_req_t  = s1_soc_pkg::std_axi_req_t,
+    parameter type dst_resp_t = s1_soc_pkg::std_axi_resp_t,
     parameter bit  enable_cdc = 0,
     parameter bit  faster_src = 1
 ) (

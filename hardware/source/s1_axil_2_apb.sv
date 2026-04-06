@@ -43,8 +43,8 @@ module s1_axil_2_apb #(
   logic read_possible;
 
   always_comb begin
-    write_possible = axi_req_i.aw_valid && axi_req_i.w_valid && !axi_req_i.b_ready;
-    read_possible  = axi_req_i.ar_valid && axi_req_i.r_ready;
+    write_possible = axi_req_i.aw_valid & axi_req_i.w_valid & axi_req_i.b_ready;
+    read_possible  = axi_req_i.ar_valid & axi_req_i.r_ready;
   end
 
   logic priority_to_write;

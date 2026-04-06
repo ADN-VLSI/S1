@@ -21740,3 +21740,15 @@ module ariane #(
   end
 
 endmodule
+
+
+/*
+
+| PARAMETER       | VALUE |
+|-----------------|-------|
+| Id Width        | 4     |
+| Addr Width      | 64    |
+| User Width      | 1     |
+| Data Width      | 64    |
+
+*/
