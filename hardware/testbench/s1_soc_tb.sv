@@ -107,6 +107,7 @@ module s1_soc_tb;
 
   task automatic apply_reset();
     #100ns;
+    apb_master.reset();
     temp_arst_snoc_ni   <= '0;
     temp_arst_periph_ni <= '0;
     temp_clk_snoc_i     <= '0;
