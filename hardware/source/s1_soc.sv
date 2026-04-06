@@ -23,4 +23,11 @@ module s1_soc
     input  std_apb_resp_t apb_m_resp_i
 );
 
+  always_comb begin  // TODO REMOVE
+    apb_m_clk_o   = apb_s_clk_i;
+    apb_m_arst_no = apb_s_arst_ni;
+    apb_m_req_o   = apb_s_req_i;
+    apb_s_resp_o  = apb_m_resp_i;
+  end
+
 endmodule

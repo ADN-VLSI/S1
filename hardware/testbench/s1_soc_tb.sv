@@ -101,20 +101,67 @@ module s1_soc_tb;
     #31.25ns;
   end
 
-  always begin  // 10MHz
-    apb_s_clk_i <= '0;
-    #50ns;
-    apb_s_clk_i <= '1;
-    #50ns;
-  end
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // METHODS
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
+  task automatic apply_reset();
+    #100ns;
+    temp_arst_snoc_ni   <= '0;
+    temp_arst_periph_ni <= '0;
+    temp_clk_snoc_i     <= '0;
+    temp_clk_periph_i   <= '0;
+    global_arst_ni      <= '0;
+    apb_s_arst_ni       <= '0;
+    apb_s_clk_i         <= '0;
+    #100ns;
+    temp_arst_snoc_ni   <= '1;
+    temp_arst_periph_ni <= '1;
+    global_arst_ni      <= '1;
+    apb_s_arst_ni       <= '1;
+    #100ns;
+  endtask
+
+  task automatic start_clock();
+    fork
+      forever #1ns temp_clk_snoc_i <= ~temp_clk_snoc_i;  // 500 MHz
+      forever #5ns temp_clk_periph_i <= ~temp_clk_periph_i;  // 100MHz
+      forever #50ns apb_s_clk_i <= ~apb_s_clk_i;  // 10MHz
+    join_none
+  endtask
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // PROCEDURALS
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
   initial begin
-    #100ns;
+
+    automatic int temp;
+
+    $timeformat(-9, 0, "ns", 10);
+    $dumpfile("s1_soc_tb.vcd");
+    $dumpvars(0, s1_soc_tb);
+
+    apb_slave.reset();
+    apb_slave.run_as_slave_mem();
+
+    apply_reset();
+    start_clock();
+
+    @(posedge apb_s_clk_i);
+
+    apb_master.write(32'h0000_0000, 32'hF00D_CAFE);
+    apb_master.write(32'h0000_0004, 32'hDEAD_BEEF);
+
+    apb_master.read(32'h0000_0000, temp);
+    $display("Read from 0x0000_0000: 0x%08X", temp);
+    apb_master.read(32'h0000_0004, temp);
+    $display("Read from 0x0000_0004: 0x%08X", temp);
+
+    #10us;
+
     $finish;
+
   end
 
 endmodule

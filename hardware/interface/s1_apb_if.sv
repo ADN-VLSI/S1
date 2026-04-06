@@ -34,7 +34,7 @@ interface apb_if #(
   // Internal Variables
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
-  bit                        is_edge_aligned = 0;
+  bit is_edge_aligned = 0;
 
   always @(posedge clk_i) begin
     is_edge_aligned = 1;
@@ -42,6 +42,7 @@ interface apb_if #(
     is_edge_aligned = 0;
   end
 
+  bit slave_active = 0;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Methods
@@ -82,6 +83,7 @@ interface apb_if #(
   endtask
 
   task automatic reset();
+    slave_active = '0;
     psel    <= '0;
     penable <= '0;
     paddr   <= '0;
@@ -144,6 +146,36 @@ interface apb_if #(
       i++;
       if (psel == 1) i = 0;
     end
+  endtask
+
+  logic [7:0] mem [longint];
+  task automatic run_as_slave_mem();
+    fork
+      begin
+        int state;
+        state = '0;
+        slave_active = '1;
+        pready  <= '1;
+        pslverr <= '0;
+        while(slave_active) begin
+          @ (posedge clk_i);
+          if ((state == 0 && psel == 1'b1 && penable == 1'b0) // IDLE -> SETUP
+          || (state == 2 && psel == 1'b1 && penable == 1'b0)) begin // ACCESS -> SETUP
+            state = 1;
+            foreach (pstrb[i]) prdata[i*8 +: 8] <= mem[paddr + i];
+          end else if (state == 1 && psel == 1'b1 && penable == 1'b1) begin // SETUP -> ACCESS
+            state = 2;
+            if (pwrite) begin
+              foreach (pstrb[i]) if (pstrb[i]) mem[paddr + i] = pwdata[i*8 +: 8];
+            end
+          end else if (state == 2 && psel == 1'b1 && penable == 1'b1) begin // ACCESS -> ACCESS
+          end else begin // ... -> IDLE
+            state = 0;
+          end
+        end
+        pready <= '0;
+      end
+    join_none
   endtask
 
 endinterface

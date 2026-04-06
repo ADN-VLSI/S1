@@ -83,7 +83,7 @@ module s1_uart_regif_tb;
   // task automatic axil_write_64(addr, data, resp);
   `SIMPLE_AXIL_M_DRIVER(axil, clk_i, arst_ni, req_i, resp_o)
 
-  task automatic start_clk();
+  task automatic start_clock();
     fork
       forever #5ns clk_i <= ~clk_i;
     join_none
@@ -134,7 +134,7 @@ module s1_uart_regif_tb;
 
   initial begin
     apply_reset();
-    start_clk();
+    start_clock();
     write_8_RW_WO();
 
 
