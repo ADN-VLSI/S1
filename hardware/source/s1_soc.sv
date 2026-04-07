@@ -46,10 +46,10 @@ module s1_soc
 
   std_axil_req_t  intr_axil_req;  // TODO REMOVE
   std_axil_resp_t intr_axil_resp;  // TODO REMOVE
-  std_axi_req_t   axil_to_axi_req;
-  std_axi_resp_t  axil_to_axi_resp;
-  std_axil_req_t  axi_to_axil_req;
-  std_axil_resp_t axi_to_axil_resp;
+  std_axi_req_t   axil_to_axi_req;  // TODO REMOVE
+  std_axi_resp_t  axil_to_axi_resp;  // TODO REMOVE
+  std_axil_req_t  axi_to_axil_req;  // TODO REMOVE
+  std_axil_resp_t axi_to_axil_resp;  // TODO REMOVE
 
   s1_apb_2_axil #(
       .ADDR_WIDTH(AXIL_ADDR_WIDTH),
@@ -91,18 +91,18 @@ module s1_soc
     .AxiDataWidth    (AXI_DATA_WIDTH),
     .AxiIdWidth      (AXI_ID_WIDTH),
     .AxiUserWidth    (AXI_USER_WIDTH),
-    .AxiMaxWriteTxns (),
-    .AxiMaxReadTxns  (),
-    .FullBW          (),
-    .FallThrough     (),
+    .AxiMaxWriteTxns (2),
+    .AxiMaxReadTxns  (2),
+    .FullBW          (0),
+    .FallThrough     (0),
     .full_req_t      (std_axi_req_t    ),
     .full_resp_t     (std_axi_resp_t   ),
     .lite_req_t      (std_axil_req_t   ),
     .lite_resp_t     (std_axil_resp_t  )
 ) (
-    .clk_i       (temp_clk_snoc_i),     //! which clk?    
-    .rst_ni      (temp_arst_snoc_ni),   //! which reset?
-    .test_i      (0),   //! ?
+    .clk_i       (temp_clk_pnoc_i), 
+    .rst_ni      (temp_arst_pnoc_ni),
+    .test_i      (0),
     .slv_req_i   (axil_to_axi_req  ),
     .slv_resp_o  (axil_to_axi_resp ),
     .mst_req_o   (axi_to_axil_req ),
