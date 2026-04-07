@@ -1,4 +1,4 @@
-module s1_axil_to_axi #(
+module s1_axil_2_axi #(
     parameter type axil_req_t  = logic,
     parameter type axil_resp_t = logic,
     parameter type axi_req_t   = logic,
