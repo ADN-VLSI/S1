@@ -47,8 +47,8 @@ package s1_soc_pkg;
   // CNOC CONFIGURATION
   ////////////////////////////////////////////////
 
-  localparam int NumCnocRules = 2;
-  localparam axi_pkg::xbar_rule_64_t [NumCnocRules-1:0] XbarRule = '{
+  localparam int NumCnocRules = 3;
+  localparam axi_pkg::xbar_rule_64_t [NumCnocRules-1:0] CnocXbarRule = '{
       '{idx: 1, start_addr: 64'h0100_0000, end_addr: 64'h0107_FFFF},  // TCM1
       '{idx: 2, start_addr: 64'h0108_0000, end_addr: 64'h010F_FFFF},  // TCM2
       '{idx: 3, start_addr: 64'h0200_0000, end_addr: 64'h0200_FFFF}  // BOOTROM
@@ -76,7 +76,7 @@ package s1_soc_pkg;
   ////////////////////////////////////////////////
 
   localparam int NumSnocRules = 3;
-  localparam axi_pkg::xbar_rule_64_t [NumSnocRules-1:0] XbarRule = '{
+  localparam axi_pkg::xbar_rule_64_t [NumSnocRules-1:0] SnocXbarRule = '{
       '{idx: 1, start_addr: 64'h0100_0000, end_addr: 64'h0200_FFFF},  // CNOC
       '{idx: 2, start_addr: 64'h0000_0000, end_addr: 64'h00FF_FFFF},  // PNOC peripheral
       '{idx: 3, start_addr: 64'h1000_0000, end_addr: 64'h1FFF_FFFF}  // PNOC APB
@@ -104,7 +104,7 @@ package s1_soc_pkg;
   ////////////////////////////////////////////////
 
   localparam int NumPnocRules = 5;
-  localparam axi_pkg::xbar_rule_64_t [NumPnocRules-1:0] XbarRule = '{
+  localparam axi_pkg::xbar_rule_64_t [NumPnocRules-1:0] PnocXbarRule = '{
       '{idx: 1, start_addr: 64'h0001_0000, end_addr: 64'h0001_0FFF},  // CTRL_SS
       '{idx: 2, start_addr: 64'h0001_4000, end_addr: 64'h0001_4FFF},  // CLINT
       '{idx: 3, start_addr: 64'h0001_3000, end_addr: 64'h0001_3FFF},  // PLIC

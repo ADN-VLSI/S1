@@ -12,10 +12,10 @@ module s1_soc_tb;
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
   logic          temp_arst_snoc_ni;
-  logic          temp_arst_periph_ni;
+  logic          temp_arst_pnoc_ni;
 
   logic          temp_clk_snoc_i;
-  logic          temp_clk_periph_i;
+  logic          temp_clk_pnoc_i;
 
   ////////////////////////////////////////////////
 
@@ -108,26 +108,26 @@ module s1_soc_tb;
   task automatic apply_reset();
     #100ns;
     apb_master.reset();
-    temp_arst_snoc_ni   <= '0;
-    temp_arst_periph_ni <= '0;
-    temp_clk_snoc_i     <= '0;
-    temp_clk_periph_i   <= '0;
-    global_arst_ni      <= '0;
-    apb_s_arst_ni       <= '0;
-    apb_s_clk_i         <= '0;
+    temp_arst_snoc_ni <= '0;
+    temp_arst_pnoc_ni <= '0;
+    temp_clk_snoc_i   <= '0;
+    temp_clk_pnoc_i   <= '0;
+    global_arst_ni    <= '0;
+    apb_s_arst_ni     <= '0;
+    apb_s_clk_i       <= '0;
     #100ns;
-    temp_arst_snoc_ni   <= '1;
-    temp_arst_periph_ni <= '1;
-    global_arst_ni      <= '1;
-    apb_s_arst_ni       <= '1;
+    temp_arst_snoc_ni <= '1;
+    temp_arst_pnoc_ni <= '1;
+    global_arst_ni    <= '1;
+    apb_s_arst_ni     <= '1;
     #100ns;
   endtask
 
   task automatic start_clock();
     fork
       forever #1ns temp_clk_snoc_i <= ~temp_clk_snoc_i;  // 500 MHz
-      forever #1s temp_clk_periph_i <= ~temp_clk_periph_i;  // 100MHz // TODO REMOVE
-      // forever #5ns temp_clk_periph_i <= ~temp_clk_periph_i;  // 100MHz // TODO KEEP
+      forever #1ns temp_clk_pnoc_i <= ~temp_clk_pnoc_i;  // 100MHz // TODO REMOVE
+      // forever #5ns temp_clk_pnoc_i <= ~temp_clk_pnoc_i;  // 100MHz // TODO KEEP
       forever #50ns apb_s_clk_i <= ~apb_s_clk_i;  // 10MHz
     join_none
   endtask

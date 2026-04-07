@@ -24,6 +24,7 @@ ${S1}/hardware/source/s1_uart.sv
 
 ${S1}/hardware/source/s1_apb_2_axil.sv
 ${S1}/hardware/source/s1_axil_2_apb.sv
+${S1}/hardware/source/s1_axil_2_axi.sv
 
 ${S1}/hardware/source/s1_axi_cvtr.sv
 

@@ -19,9 +19,9 @@ module s1_soc
   import s1_soc_pkg::std_axi_resp_t;
 (
     input logic temp_arst_snoc_ni,
-    input logic temp_arst_periph_ni,
+    input logic temp_arst_pnoc_ni,
     input logic temp_clk_snoc_i,
-    input logic temp_clk_periph_i,
+    input logic temp_clk_pnoc_i,
 
     ////////////////////////////////////////////////
 
@@ -75,39 +75,39 @@ module s1_soc
   );
 
   s1_axil_2_axi #(
-      .axil_req_t  (std_axil_req_t ),
-      .axil_resp_t (std_axil_resp_t),
-      .axi_req_t   (std_axi_req_t  ),
-      .axi_resp_t  (std_axi_resp_t )
-  )u_axil_2_axi(
-      axil_req_i  (intr_axil_req ),
-      axil_resp_o (intr_axil_resp),
-      axi_req_o   (axil_to_axi_req  ),
-      axi_resp_i  (axil_to_axi_resp )
+      .axil_req_t (std_axil_req_t),
+      .axil_resp_t(std_axil_resp_t),
+      .axi_req_t  (std_axi_req_t),
+      .axi_resp_t (std_axi_resp_t)
+  ) u_axil_2_axi (
+      .axil_req_i(intr_axil_req),
+      .axil_resp_o(intr_axil_resp),
+      .axi_req_o(axil_to_axi_req),
+      .axi_resp_i(axil_to_axi_resp)
   );
 
-  module axi_to_axi_lite #(
-    .AxiAddrWidth    (AXI_ADDR_WIDTH),
-    .AxiDataWidth    (AXI_DATA_WIDTH),
-    .AxiIdWidth      (AXI_ID_WIDTH),
-    .AxiUserWidth    (AXI_USER_WIDTH),
-    .AxiMaxWriteTxns (2),
-    .AxiMaxReadTxns  (2),
-    .FullBW          (0),
-    .FallThrough     (0),
-    .full_req_t      (std_axi_req_t    ),
-    .full_resp_t     (std_axi_resp_t   ),
-    .lite_req_t      (std_axil_req_t   ),
-    .lite_resp_t     (std_axil_resp_t  )
-) (
-    .clk_i       (temp_clk_pnoc_i), 
-    .rst_ni      (temp_arst_pnoc_ni),
-    .test_i      (0),
-    .slv_req_i   (axil_to_axi_req  ),
-    .slv_resp_o  (axil_to_axi_resp ),
-    .mst_req_o   (axi_to_axil_req ),
-    .mst_resp_i  (axi_to_axil_resp)
-);
+  axi_to_axi_lite #(
+      .AxiAddrWidth   (AXI_ADDR_WIDTH),
+      .AxiDataWidth   (AXI_DATA_WIDTH),
+      .AxiIdWidth     (AXI_ID_WIDTH),
+      .AxiUserWidth   (AXI_USER_WIDTH),
+      .AxiMaxWriteTxns(2),
+      .AxiMaxReadTxns (2),
+      .FullBW         (0),
+      .FallThrough    (0),
+      .full_req_t     (std_axi_req_t),
+      .full_resp_t    (std_axi_resp_t),
+      .lite_req_t     (std_axil_req_t),
+      .lite_resp_t    (std_axil_resp_t)
+  ) u_axi_to_axi_lite (
+      .clk_i(temp_clk_pnoc_i),
+      .rst_ni(temp_arst_pnoc_ni),
+      .test_i('0),
+      .slv_req_i(axil_to_axi_req),
+      .slv_resp_o(axil_to_axi_resp),
+      .mst_req_o(axi_to_axil_req),
+      .mst_resp_i(axi_to_axil_resp)
+  );
 
   s1_axil_2_apb #(
       .ADDR_WIDTH(AXIL_ADDR_WIDTH),
@@ -122,8 +122,8 @@ module s1_soc
       .axi_req_t (std_axil_req_t),
       .axi_resp_t(std_axil_resp_t)
   ) apb_master_out (
-      .axi_clk_i  (temp_clk_snoc_i),
-      .axi_arst_ni(temp_arst_snoc_ni),
+      .axi_clk_i  (temp_clk_pnoc_i),
+      .axi_arst_ni(temp_arst_pnoc_ni),
       .axi_req_i  (axi_to_axil_req),
       .axi_resp_o (axi_to_axil_resp),
       .apb_clk_i  (apb_m_clk_o),
