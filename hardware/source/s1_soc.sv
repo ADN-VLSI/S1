@@ -44,8 +44,8 @@ module s1_soc
     apb_m_arst_no = apb_s_arst_ni;
   end
 
-  std_axil_req_t  intr_axil_req;  // TODO REMOVE
-  std_axil_resp_t intr_axil_resp;  // TODO REMOVE
+  std_axil_req_t  asi_asian_req;
+  std_axil_resp_t asi_asian_resp;
   std_axi_req_t   axil_to_axi_req;  // TODO REMOVE
   std_axi_resp_t  axil_to_axi_resp;  // TODO REMOVE
   std_axil_req_t  axi_to_axil_req;  // TODO REMOVE
@@ -70,8 +70,8 @@ module s1_soc
       .apb_resp_o (apb_s_resp_o),
       .axi_clk_i  (temp_clk_snoc_i),
       .axi_arst_ni(temp_arst_snoc_ni),
-      .axi_req_o  (intr_axil_req),
-      .axi_resp_i (intr_axil_resp)
+      .axi_req_o  (asi_asian_req),
+      .axi_resp_i (asi_asian_resp)
   );
 
   s1_axil_2_axi #(
@@ -79,9 +79,9 @@ module s1_soc
       .axil_resp_t(std_axil_resp_t),
       .axi_req_t  (std_axi_req_t),
       .axi_resp_t (std_axi_resp_t)
-  ) u_axil_2_axi (
-      .axil_req_i(intr_axil_req),
-      .axil_resp_o(intr_axil_resp),
+  ) apb_slave_in_axi_narrow (
+      .axil_req_i(asi_asian_req),
+      .axil_resp_o(asi_asian_resp),
       .axi_req_o(axil_to_axi_req),
       .axi_resp_i(axil_to_axi_resp)
   );
