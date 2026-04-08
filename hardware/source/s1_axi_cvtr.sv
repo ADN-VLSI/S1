@@ -32,7 +32,9 @@ module s1_axi_cvtr #(
 
     input  logic      dst_clk_i,
     output dst_req_t  dst_req_o,
-    input  dst_resp_t dst_resp_i
+    input  dst_resp_t dst_resp_i,
+
+    input  logic [63:0] addr_shift_i
 );
 
   // Top-level: AXI width/ID/user converters and optional CDC/FIFO
@@ -68,10 +70,11 @@ module s1_axi_cvtr #(
   initial begin
     string msg;
     $sformat(msg, "\nAXI Converter Configuration : %m\n");
-    $sformat(msg, "%s ID Width Conversion        : %s\n", msg, GEN_IWC ? "Enabled" : "Bypassed");
-    $sformat(msg, "%s Data Width Conversion      : %s\n", msg, GEN_DWC ? "Enabled" : "Bypassed");
-    $sformat(msg, "%s Source Clock CDC           : %s\n", msg, GEN_SRC_CDC ? "Enabled" : "Bypassed");
-    $sformat(msg, "%s Destination Clock CDC      : %s\n", msg, GEN_DST_CDC ? "Enabled" : "Bypassed");
+    $sformat(msg, "%s  - ID Width Conversion     : %s\n", msg, GEN_IWC ? "Enabled" : "Bypassed");
+    $sformat(msg, "%s  - Data Width Conversion   : %s\n", msg, GEN_DWC ? "Enabled" : "Bypassed");
+    $sformat(msg, "%s  - Source Clock CDC        : %s\n", msg, GEN_SRC_CDC ? "Enabled" : "Bypassed");
+    $sformat(msg, "%s  - Destination Clock CDC   : %s\n", msg, GEN_DST_CDC ? "Enabled" : "Bypassed");
+    $sformat(msg, "%s  - Address Offsetting      : 0x%x\n", msg, addr_shift_i);
     $display("%s", msg);
   end
 `endif
@@ -204,7 +207,7 @@ module s1_axi_cvtr #(
   // address/user widths expected by the DWC block.
   always_comb begin
     n_3_req.aw.id     = {'0, n_2_req.aw.id};
-    n_3_req.aw.addr   = {'0, n_2_req.aw.addr};
+    n_3_req.aw.addr   = (addr_shift_i + {'0, n_2_req.aw.addr});
     n_3_req.aw.len    = {'0, n_2_req.aw.len};
     n_3_req.aw.size   = {'0, n_2_req.aw.size};
     n_3_req.aw.burst  = {'0, n_2_req.aw.burst};
@@ -232,7 +235,7 @@ module s1_axi_cvtr #(
     n_3_req.b_ready   = {'0, n_2_req.b_ready};
 
     n_3_req.ar.id     = {'0, n_2_req.ar.id};
-    n_3_req.ar.addr   = {'0, n_2_req.ar.addr};
+    n_3_req.ar.addr   = (addr_shift_i + {'0, n_2_req.ar.addr});
     n_3_req.ar.len    = {'0, n_2_req.ar.len};
     n_3_req.ar.size   = {'0, n_2_req.ar.size};
     n_3_req.ar.burst  = {'0, n_2_req.ar.burst};
