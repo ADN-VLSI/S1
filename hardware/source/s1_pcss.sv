@@ -49,6 +49,9 @@ module s1_pcss
   mp_req_t  tcm_req;
   mp_resp_t tcm_resp;
 
+  mp_req_t  tcm_req_os;
+  mp_resp_t tcm_resp_os;
+
   sp_req_t  ariane_axi_req;
   sp_resp_t ariane_axi_resp;
 
@@ -68,16 +71,34 @@ module s1_pcss
       .axi_resp_i(ariane_axi_resp)
   );
 
+  s1_axi_cvtr #(
+      .src_req_t (mp_req_t),
+      .src_resp_t(mp_resp_t),
+      .dst_req_t (mp_req_t),
+      .dst_resp_t(mp_resp_t),
+      .enable_cdc(0),
+      .faster_src(0)
+  ) u_cvtr (
+      .arst_ni     (arst_ni),
+      .src_clk_i   (clk_i),
+      .src_req_i   (tcm_req),
+      .src_resp_o  (tcm_resp),
+      .dst_clk_i   (clk_i),
+      .dst_req_o   (tcm_req_os),
+      .dst_resp_i  (tcm_resp_os),
+      .addr_shift_i(-tcm_base)
+  );
+
   axi_ram #(
-      .MEM_BASE(0), // TODO
+      .MEM_BASE(0),
       .MEM_SIZE(19),
       .req_t   (mp_req_t),
       .resp_t  (mp_resp_t)
   ) u_axi_ram (
       .arst_ni(arst_ni),
-      .clk_i  (pclk_i),
-      .req_i  (tcm_req),
-      .resp_o (tcm_resp)
+      .clk_i  (clk_i),
+      .req_i  (tcm_req_os),
+      .resp_o (tcm_resp_os)
   );
 
   axi_xbar #(
