@@ -19,4 +19,5 @@ ${S1}/hardware/testbench/s1_uart_regif_tb.sv
 ${S1}/hardware/testbench/s1_axi_ram_tb.sv
 ${S1}/hardware/testbench/s1_axil_2_apb_tb.sv
 
+${S1}/hardware/testbench/s1_pcss_tb.sv
 ${S1}/hardware/testbench/s1_soc_tb.sv
