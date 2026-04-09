@@ -49,7 +49,7 @@ module s1_obi_2_axil #(
     axil_req_o.r_ready  = '0;
     axil_req_o.aw_valid = '0;
     axil_req_o.w_valid  = '0;
-    axil_req_o.ar_valid = '0;
+    axil_req_o.b_ready  = '0;
 
     case (current_state)
 
