@@ -705,7 +705,12 @@ module axi_dw_downsizer #(
   // Byte-grouped data signal for the lane steering step
   mst_data_t w_data;
 
-  always_comb begin
+`ifdef XSIM
+  always @ (negedge clk_i or rst_ni)
+`else
+  always_comb
+`endif
+  begin
     inject_aw_into_ar_req = 1'b0;
 
     // i_num_b_beats default state
