@@ -91,6 +91,7 @@ module s1_obi_2_axil #(
       end
 
       RECV_B: begin
+        axil_req_o.b_ready = '1;
         if (axil_resp_i.b_valid) begin
           next_state = IDLE;
           gnt_o      = '1;
