@@ -70,10 +70,10 @@ module s1_axi_cvtr #(
   initial begin
     string msg;
     $sformat(msg, "\nAXI Converter Configuration : %m\n");
-    $sformat(msg, "%s  - ID Width Conversion     : %s\n", msg, GEN_IWC ? "Enabled" : "Bypassed");
-    $sformat(msg, "%s  - Data Width Conversion   : %s\n", msg, GEN_DWC ? "Enabled" : "Bypassed");
-    $sformat(msg, "%s  - Source Clock CDC        : %s\n", msg, GEN_SRC_CDC ? "Enabled" : "Bypassed");
-    $sformat(msg, "%s  - Destination Clock CDC   : %s\n", msg, GEN_DST_CDC ? "Enabled" : "Bypassed");
+    $sformat(msg, "%s  - ID Width Conversion     : %s\n", msg, GEN_IWC ? "Enabled " : "Bypassed");
+    $sformat(msg, "%s  - Data Width Conversion   : %s\n", msg, GEN_DWC ? "Enabled " : "Bypassed");
+    $sformat(msg, "%s  - Source Clock CDC        : %s\n", msg, GEN_SRC_CDC ? "Enabled " : "Bypassed");
+    $sformat(msg, "%s  - Destination Clock CDC   : %s\n", msg, GEN_DST_CDC ? "Enabled " : "Bypassed");
     $sformat(msg, "%s  - Address Offsetting      : 0x%x\n", msg, addr_shift_i);
     $display("%s", msg);
   end
@@ -299,11 +299,11 @@ module s1_axi_cvtr #(
     axi_cdc #(
         .LogDepth  (2),
         .SyncStages(2),
-        .aw_chan_t (type_3_aw_chan_t),
-        .w_chan_t  (type_3_w_chan_t),
-        .b_chan_t  (type_3_b_chan_t),
-        .ar_chan_t (type_3_ar_chan_t),
-        .r_chan_t  (type_3_r_chan_t),
+        .aw_chan_t (type_4_aw_chan_t),
+        .w_chan_t  (type_4_w_chan_t),
+        .b_chan_t  (type_4_b_chan_t),
+        .ar_chan_t (type_4_ar_chan_t),
+        .r_chan_t  (type_4_r_chan_t),
         .axi_req_t (type_4_req_t),
         .axi_resp_t(type_4_resp_t)
     ) u_cdc_int (
@@ -320,11 +320,11 @@ module s1_axi_cvtr #(
     axi_fifo #(
         .Depth      (4),
         .FallThrough(0),
-        .aw_chan_t  (type_3_aw_chan_t),
-        .w_chan_t   (type_3_w_chan_t),
-        .b_chan_t   (type_3_b_chan_t),
-        .ar_chan_t  (type_3_ar_chan_t),
-        .r_chan_t   (type_3_r_chan_t),
+        .aw_chan_t  (type_4_aw_chan_t),
+        .w_chan_t   (type_4_w_chan_t),
+        .b_chan_t   (type_4_b_chan_t),
+        .ar_chan_t  (type_4_ar_chan_t),
+        .r_chan_t   (type_4_r_chan_t),
         .axi_req_t  (type_4_req_t),
         .axi_resp_t (type_4_resp_t)
     ) u_fifo_int (
