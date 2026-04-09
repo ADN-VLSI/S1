@@ -1,9 +1,9 @@
-module s1_pcss_tb;
+module s1_ecss_tb;
 
-  import s1_pcss_pkg::mp_req_t;
-  import s1_pcss_pkg::mp_resp_t;
-  import s1_pcss_pkg::sp_req_t;
-  import s1_pcss_pkg::sp_resp_t;
+  import s1_ecss_pkg::mp_req_t;
+  import s1_ecss_pkg::mp_resp_t;
+  import s1_ecss_pkg::sp_req_t;
+  import s1_ecss_pkg::sp_resp_t;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // SIGNALS
@@ -17,8 +17,8 @@ module s1_pcss_tb;
   logic clk_i;
   logic pclk_i;
 
-  logic [63:0] boot_addr_i;
-  logic [63:0] hart_id_i;
+  logic [31:0] boot_addr_i;
+  logic [31:0] hart_id_i;
 
   logic mei_i;
   logic msi_i;
@@ -30,7 +30,7 @@ module s1_pcss_tb;
   sp_req_t s_req_i;
   sp_resp_t s_resp_o;
 
-  s1_pcss dut (.*);
+  s1_ecss dut (.*);
 
   ////////////////////////////////////////////////
   // INTERNAL SIGNALS
@@ -48,8 +48,8 @@ module s1_pcss_tb;
     arst_ni     <= '0;
     clk_i       <= '0;
     pclk_i      <= '0;
-    boot_addr_i <= 'h0100_0000;
-    hart_id_i   <= 'h0001;
+    boot_addr_i <= 'h0200_0000;
+    hart_id_i   <= 'h0000;
     mei_i       <= '0;
     msi_i       <= '0;
     mti_i       <= '0;
@@ -85,8 +85,8 @@ module s1_pcss_tb;
 
   initial begin
 
-    $dumpfile("s1_pcss_tb.vcd");
-    $dumpvars(0, s1_pcss_tb);
+    $dumpfile("s1_ecss_tb.vcd");
+    $dumpvars(0, s1_ecss_tb);
 
     apply_reset();
     enable_clk();
