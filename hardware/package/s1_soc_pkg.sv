@@ -71,6 +71,14 @@ package s1_soc_pkg;
       NoAddrRules: NumCnocRules
   };
 
+  `AXI_TYPEDEF_ALL(cnoc_sp, logic [AXI_ADDR_WIDTH-1:0], logic [AXI_ID_WIDTH-1:0],
+                   logic [AXI_DATA_WIDTH-1:0], logic [AXI_DATA_WIDTH/8-1:0],
+                   logic [AXI_USER_WIDTH-1:0])
+
+  `AXI_TYPEDEF_ALL(cnoc_mp, logic [AXI_ADDR_WIDTH-1:0], logic [AXI_ID_WIDTH+1:0],
+                   logic [AXI_DATA_WIDTH-1:0], logic [AXI_DATA_WIDTH/8-1:0],
+                   logic [AXI_USER_WIDTH-1:0])
+
   ////////////////////////////////////////////////
   // SNOC CONFIGURATION
   ////////////////////////////////////////////////
@@ -98,6 +106,14 @@ package s1_soc_pkg;
       AxiDataWidth: 64,
       NoAddrRules: NumSnocRules
   };
+
+  `AXI_TYPEDEF_ALL(snoc_sp, logic [AXI_ADDR_WIDTH-1:0], logic [AXI_ID_WIDTH-1:0],
+                   logic [AXI_DATA_WIDTH-1:0], logic [AXI_DATA_WIDTH/8-1:0],
+                   logic [AXI_USER_WIDTH-1:0])
+
+  `AXI_TYPEDEF_ALL(snoc_mp, logic [AXI_ADDR_WIDTH-1:0], logic [AXI_ID_WIDTH:0],
+                   logic [AXI_DATA_WIDTH-1:0], logic [AXI_DATA_WIDTH/8-1:0],
+                   logic [AXI_USER_WIDTH-1:0])
 
   ////////////////////////////////////////////////
   // PNOC CONFIGURATION
@@ -128,5 +144,11 @@ package s1_soc_pkg;
       AxiDataWidth: 32,
       NoAddrRules: NumPnocRules
   };
+
+  `AXI_LITE_TYPEDEF_ALL(pnoc_sp, logic [AXIL_ADDR_WIDTH-1:0], logic [AXIL_DATA_WIDTH-1:0],
+                        logic [AXIL_DATA_WIDTH/8-1:0])
+
+  `AXI_LITE_TYPEDEF_ALL(pnoc_mp, logic [AXIL_ADDR_WIDTH-1:0], logic [AXIL_DATA_WIDTH-1:0],
+                        logic [AXIL_DATA_WIDTH/8-1:0])
 
 endpackage
