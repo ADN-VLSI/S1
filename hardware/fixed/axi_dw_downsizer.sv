@@ -706,7 +706,7 @@ module axi_dw_downsizer #(
   mst_data_t w_data;
 
 `ifdef XSIM
-  always @ (negedge clk_i or rst_ni)
+  always #1
 `else
   always_comb
 `endif
