@@ -121,6 +121,14 @@ module s1_tb_axi_dwc;
     n_3_read_32('h1238, data, resp);
     $display("Read  addr: 0x1238, data: 0x%08X, resp: %0d", data, resp);
 
+    n_3_write_64('h8400, 'hF00D_CAFE_DEAD_BEEF, resp);
+    $display("Write addr: 0x8400, data: 0x%08X, resp: %0d", 'hF00D_CAFE_DEAD_BEEF, resp);
+
+    n_3_read_32('h8400, data, resp);
+    $display("Read  addr: 0x8400, data: 0x%08X, resp: %0d", data, resp);
+    n_3_read_32('h8404, data, resp);
+    $display("Read  addr: 0x8404, data: 0x%08X, resp: %0d", data, resp);
+
     $finish;
   end
 

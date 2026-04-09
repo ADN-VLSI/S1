@@ -152,13 +152,14 @@ module s1_soc_tb;
 
     @(posedge apb_s_clk_i);
 
-    apb_master.write(32'h0000_0000, 32'hF00D_CAFE);
-    apb_master.write(32'h0000_0004, 32'hDEAD_BEEF);
+    for (int i = 0; i < 20; i++) begin
+      apb_master.write(32'h0000_0000 + i * 4, 32'hF00D_0000 + 4 * i);
+    end
 
-    apb_master.read(32'h0000_0000, temp);
-    $display("Read from 0x0000_0000: 0x%08X", temp);
-    apb_master.read(32'h0000_0004, temp);
-    $display("Read from 0x0000_0004: 0x%08X", temp);
+    for (int i = 0; i < 20; i++) begin
+      apb_master.read(32'h0000_0000 + i * 4, temp);
+      $display("Read from 0x%08X: 0x%08X", 32'h0000_0000 + i * 4, temp);
+    end
 
     #10us;
 
