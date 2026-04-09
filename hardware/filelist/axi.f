@@ -9,7 +9,7 @@ ${COMMON_CELLS}/src/cf_math_pkg.sv
 
 ${AXI}/src/axi_intf.sv
 ${AXI}/src/axi_atop_filter.sv
-${AXI}/src/axi_burst_splitter_gran.sv
+${S1}/hardware/fixed/axi_burst_splitter_gran.sv
 ${AXI}/src/axi_burst_unwrap.sv
 ${AXI}/src/axi_bus_compare.sv
 ${AXI}/src/axi_cdc_dst.sv
@@ -17,7 +17,7 @@ ${AXI}/src/axi_cdc_src.sv
 ${AXI}/src/axi_cut.sv
 ${AXI}/src/axi_delayer.sv
 ${AXI}/src/axi_demux_simple.sv
-${AXI}/src/axi_dw_downsizer.sv
+${S1}/hardware/fixed/axi_dw_downsizer.sv
 ${AXI}/src/axi_dw_upsizer.sv
 ${AXI}/src/axi_fifo.sv
 ${AXI}/src/axi_fifo_delay_dyn.sv

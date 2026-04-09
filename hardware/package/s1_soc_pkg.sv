@@ -10,8 +10,8 @@ package s1_soc_pkg;
 
   // STANDARD AXI
   parameter int AXI_ID_WIDTH = 4;
-  parameter int AXI_ADDR_WIDTH = 32;
-  parameter int AXI_DATA_WIDTH = 32;
+  parameter int AXI_ADDR_WIDTH = 64;
+  parameter int AXI_DATA_WIDTH = 64;
   parameter int AXI_USER_WIDTH = 8;
 
   // STANDARD AXIL
@@ -66,8 +66,8 @@ package s1_soc_pkg;
       AxiIdWidthSlvPorts: 4,
       AxiIdUsedSlvPorts: 4,
       UniqueIds: 1,
-      AxiAddrWidth: 64,
-      AxiDataWidth: 64,
+      AxiAddrWidth: AXI_ADDR_WIDTH,
+      AxiDataWidth: AXI_DATA_WIDTH,
       NoAddrRules: NumCnocRules
   };
 
@@ -102,8 +102,8 @@ package s1_soc_pkg;
       AxiIdWidthSlvPorts: 4,
       AxiIdUsedSlvPorts: 4,
       UniqueIds: 1,
-      AxiAddrWidth: 64,
-      AxiDataWidth: 64,
+      AxiAddrWidth: AXI_ADDR_WIDTH,
+      AxiDataWidth: AXI_DATA_WIDTH,
       NoAddrRules: NumSnocRules
   };
 
@@ -113,6 +113,10 @@ package s1_soc_pkg;
 
   `AXI_TYPEDEF_ALL(snoc_mp, logic [AXI_ADDR_WIDTH-1:0], logic [AXI_ID_WIDTH:0],
                    logic [AXI_DATA_WIDTH-1:0], logic [AXI_DATA_WIDTH/8-1:0],
+                   logic [AXI_USER_WIDTH-1:0])
+
+  `AXI_TYPEDEF_ALL(snoc_mpn, logic [AXIL_ADDR_WIDTH-1:0], logic [AXI_ID_WIDTH:0],
+                   logic [AXIL_DATA_WIDTH-1:0], logic [AXIL_DATA_WIDTH/8-1:0],
                    logic [AXI_USER_WIDTH-1:0])
 
   ////////////////////////////////////////////////
@@ -140,8 +144,8 @@ package s1_soc_pkg;
       AxiIdWidthSlvPorts: 4,
       AxiIdUsedSlvPorts: 4,
       UniqueIds: 1,
-      AxiAddrWidth: 32,
-      AxiDataWidth: 32,
+      AxiAddrWidth: AXIL_ADDR_WIDTH,
+      AxiDataWidth: AXIL_DATA_WIDTH,
       NoAddrRules: NumPnocRules
   };
 
