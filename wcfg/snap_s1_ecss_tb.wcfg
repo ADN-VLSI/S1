@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="snap_s1_ecss_tb.wdb" id="1">
+         <top_modules>
+            <top_module name="axi_pkg" />
+            <top_module name="cf_math_pkg" />
+            <top_module name="s1_ecss_pkg" />
+            <top_module name="s1_ecss_tb" />
+            <top_module name="single_file_fpnew_pkg" />
+            <top_module name="single_file_rv32imf_fpu_pkg" />
+            <top_module name="single_file_rv32imf_pkg" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="5.300001 us"></ZoomEndTime>
+      <Cursor1Time time="0.560000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="164"></NameColumnWidth>
+      <ValueColumnWidth column_width="102"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="6" />
+   <wvobject fp_name="/s1_ecss_tb/dut/arst_ni" type="logic">
+      <obj_property name="ElementShortName">arst_ni</obj_property>
+      <obj_property name="ObjectShortName">arst_ni</obj_property>
+   </wvobject>
+   <wvobject fp_name="/s1_ecss_tb/dut/clk_i" type="logic">
+      <obj_property name="ElementShortName">clk_i</obj_property>
+      <obj_property name="ObjectShortName">clk_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/s1_ecss_tb/dut/pclk_i" type="logic">
+      <obj_property name="ElementShortName">pclk_i</obj_property>
+      <obj_property name="ObjectShortName">pclk_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="group9" type="group">
+      <obj_property name="label">CORE I</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_instr_addr" type="array">
+         <obj_property name="ElementShortName">core_instr_addr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">core_instr_addr[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_instr_req" type="logic">
+         <obj_property name="ElementShortName">core_instr_req</obj_property>
+         <obj_property name="ObjectShortName">core_instr_req</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_instr_gnt" type="logic">
+         <obj_property name="ElementShortName">core_instr_gnt</obj_property>
+         <obj_property name="ObjectShortName">core_instr_gnt</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_instr_rvalid" type="logic">
+         <obj_property name="ElementShortName">core_instr_rvalid</obj_property>
+         <obj_property name="ObjectShortName">core_instr_rvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_instr_rdata" type="array">
+         <obj_property name="ElementShortName">core_instr_rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">core_instr_rdata[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group18" type="group">
+      <obj_property name="label">CORE D</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_data_addr" type="array">
+         <obj_property name="ElementShortName">core_data_addr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">core_data_addr[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_data_we" type="logic">
+         <obj_property name="ElementShortName">core_data_we</obj_property>
+         <obj_property name="ObjectShortName">core_data_we</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_data_wdata" type="array">
+         <obj_property name="ElementShortName">core_data_wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">core_data_wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_data_be" type="array">
+         <obj_property name="ElementShortName">core_data_be[3:0]</obj_property>
+         <obj_property name="ObjectShortName">core_data_be[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_data_req" type="logic">
+         <obj_property name="ElementShortName">core_data_req</obj_property>
+         <obj_property name="ObjectShortName">core_data_req</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_data_gnt" type="logic">
+         <obj_property name="ElementShortName">core_data_gnt</obj_property>
+         <obj_property name="ObjectShortName">core_data_gnt</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_data_rvalid" type="logic">
+         <obj_property name="ElementShortName">core_data_rvalid</obj_property>
+         <obj_property name="ObjectShortName">core_data_rvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/core_data_rdata" type="array">
+         <obj_property name="ElementShortName">core_data_rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">core_data_rdata[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group23" type="group">
+      <obj_property name="label">ROM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/clk_i" type="logic">
+         <obj_property name="ElementShortName">clk_i</obj_property>
+         <obj_property name="ObjectShortName">clk_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/arst_ni" type="logic">
+         <obj_property name="ElementShortName">arst_ni</obj_property>
+         <obj_property name="ObjectShortName">arst_ni</obj_property>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i" type="array">
+         <obj_property name="ElementShortName">req_i</obj_property>
+         <obj_property name="ObjectShortName">req_i</obj_property>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.aw" type="array">
+            <obj_property name="ElementShortName">.aw</obj_property>
+            <obj_property name="ObjectShortName">.aw</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.aw_valid" type="logic">
+            <obj_property name="ElementShortName">.aw_valid</obj_property>
+            <obj_property name="ObjectShortName">.aw_valid</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.w" type="array">
+            <obj_property name="ElementShortName">.w</obj_property>
+            <obj_property name="ObjectShortName">.w</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.w_valid" type="logic">
+            <obj_property name="ElementShortName">.w_valid</obj_property>
+            <obj_property name="ObjectShortName">.w_valid</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.b_ready" type="logic">
+            <obj_property name="ElementShortName">.b_ready</obj_property>
+            <obj_property name="ObjectShortName">.b_ready</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.ar" type="array">
+            <obj_property name="ElementShortName">.ar</obj_property>
+            <obj_property name="ObjectShortName">.ar</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.ar_valid" type="logic">
+            <obj_property name="ElementShortName">.ar_valid</obj_property>
+            <obj_property name="ObjectShortName">.ar_valid</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.r_ready" type="logic">
+            <obj_property name="ElementShortName">.r_ready</obj_property>
+            <obj_property name="ObjectShortName">.r_ready</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.aw" type="array">
+            <obj_property name="ElementShortName">.aw</obj_property>
+            <obj_property name="ObjectShortName">.aw</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.aw_valid" type="logic">
+            <obj_property name="ElementShortName">.aw_valid</obj_property>
+            <obj_property name="ObjectShortName">.aw_valid</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.w" type="array">
+            <obj_property name="ElementShortName">.w</obj_property>
+            <obj_property name="ObjectShortName">.w</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.w_valid" type="logic">
+            <obj_property name="ElementShortName">.w_valid</obj_property>
+            <obj_property name="ObjectShortName">.w_valid</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.b_ready" type="logic">
+            <obj_property name="ElementShortName">.b_ready</obj_property>
+            <obj_property name="ObjectShortName">.b_ready</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.ar" type="array">
+            <obj_property name="ElementShortName">.ar</obj_property>
+            <obj_property name="ObjectShortName">.ar</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.ar_valid" type="logic">
+            <obj_property name="ElementShortName">.ar_valid</obj_property>
+            <obj_property name="ObjectShortName">.ar_valid</obj_property>
+         </wvobject>
+         <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/req_i.r_ready" type="logic">
+            <obj_property name="ElementShortName">.r_ready</obj_property>
+            <obj_property name="ObjectShortName">.r_ready</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/s1_ecss_tb/dut/u_axi_ram/resp_o" type="array">
+         <obj_property name="ElementShortName">resp_o</obj_property>
+         <obj_property name="ObjectShortName">resp_o</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
