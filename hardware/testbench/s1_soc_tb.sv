@@ -11,6 +11,21 @@ module s1_soc_tb;
   // DUT SIGNALS
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
+  logic          temp_arst_cc1_ni;
+  logic          temp_clk_cc1_i;
+  logic          temp_pclk_cc1_i;
+
+  logic          temp_arst_cc2_ni;
+  logic          temp_clk_cc2_i;
+  logic          temp_pclk_cc2_i;
+
+  logic          temp_arst_cc3_ni;
+  logic          temp_clk_cc3_i;
+  logic          temp_pclk_cc3_i;
+
+  logic          temp_arst_cnoc_ni;
+  logic          temp_clk_cnoc_i;
+
   logic          temp_arst_snoc_ni;
   logic          temp_arst_pnoc_ni;
 
@@ -108,6 +123,17 @@ module s1_soc_tb;
   task automatic apply_reset();
     #100ns;
     apb_master.reset();
+    temp_arst_cc1_ni  <= '0;
+    temp_clk_cc1_i    <= '0;
+    temp_pclk_cc1_i   <= '0;
+    temp_arst_cc2_ni  <= '0;
+    temp_clk_cc2_i    <= '0;
+    temp_pclk_cc2_i   <= '0;
+    temp_arst_cc3_ni  <= '0;
+    temp_clk_cc3_i    <= '0;
+    temp_pclk_cc3_i   <= '0;
+    temp_arst_cnoc_ni <= '0;
+    temp_clk_cnoc_i   <= '0;
     temp_arst_snoc_ni <= '0;
     temp_arst_pnoc_ni <= '0;
     temp_clk_snoc_i   <= '0;
@@ -116,6 +142,10 @@ module s1_soc_tb;
     apb_s_arst_ni     <= '0;
     apb_s_clk_i       <= '0;
     #100ns;
+    temp_arst_cc1_ni  <= '1;
+    temp_arst_cc2_ni  <= '1;
+    temp_arst_cc3_ni  <= '1;
+    temp_arst_cnoc_ni <= '1;
     temp_arst_snoc_ni <= '1;
     temp_arst_pnoc_ni <= '1;
     global_arst_ni    <= '1;
@@ -123,8 +153,12 @@ module s1_soc_tb;
     #100ns;
   endtask
 
-  task automatic start_clock();
+  task automatic start_clocks();
     fork
+      forever #250ps temp_clk_cc1_i <= ~temp_clk_cc1_i;  // 2000 MHz
+      forever #500ps temp_clk_cc2_i <= ~temp_clk_cc2_i;  // 1000 MHz
+      forever #1250ps temp_clk_cc3_i <= ~temp_clk_cc3_i;  // 400 MHz
+      forever #125ps temp_clk_cnoc_i <= ~temp_clk_snoc_i;  // 4000 MHz
       forever #1ns temp_clk_snoc_i <= ~temp_clk_snoc_i;  // 500 MHz
       forever #5ns temp_clk_pnoc_i <= ~temp_clk_pnoc_i;  // 100 MHz
       forever #50ns apb_s_clk_i <= ~apb_s_clk_i;  // 10 MHz
@@ -147,7 +181,7 @@ module s1_soc_tb;
     apb_slave.run_as_slave_mem();
 
     apply_reset();
-    start_clock();
+    start_clocks();
 
     @(posedge apb_s_clk_i);
 
