@@ -42,6 +42,13 @@ module s1_soc
   import s1_soc_pkg::snoc_sp_req_t;
   import s1_soc_pkg::snoc_sp_resp_t;
   import s1_soc_pkg::snoc_sp_w_chan_t;
+  import s1_soc_pkg::snoc_spn_ar_chan_t;
+  import s1_soc_pkg::snoc_spn_aw_chan_t;
+  import s1_soc_pkg::snoc_spn_b_chan_t;
+  import s1_soc_pkg::snoc_spn_r_chan_t;
+  import s1_soc_pkg::snoc_spn_req_t;
+  import s1_soc_pkg::snoc_spn_resp_t;
+  import s1_soc_pkg::snoc_spn_w_chan_t;
   import s1_soc_pkg::snoc_xbar_cfg;
   import s1_soc_pkg::SnocXbarRule;
   import s1_soc_pkg::std_apb_req_t;
@@ -55,7 +62,6 @@ module s1_soc
   import s1_soc_pkg::std_axil_req_t;
   import s1_soc_pkg::std_axil_resp_t;
   import s1_soc_pkg::std_axil_w_chan_t;
-
 (
     input logic temp_arst_snoc_ni,
     input logic temp_arst_pnoc_ni,
@@ -86,8 +92,8 @@ module s1_soc
 
   std_axil_req_t  asi_asin_req;
   std_axil_resp_t asi_asin_resp;
-  std_axi_req_t   asin_asiw_req;
-  std_axi_resp_t  asin_asiw_resp;
+  snoc_spn_req_t  asin_asiw_req;
+  snoc_spn_resp_t asin_asiw_resp;
 
   snoc_sp_req_t   asiw_snoc_req;  // snoc s0
   snoc_sp_resp_t  asiw_snoc_resp;  // snoc s0
@@ -104,8 +110,8 @@ module s1_soc
   snoc_mp_req_t   snoc_snocn_req;  // snoc m2
   snoc_mp_resp_t  snoc_snocn_resp;  // snoc m2
 
-  snoc_mpn_req_t   snocn_snocl_req;
-  snoc_mpn_resp_t  snocn_snocl_resp;
+  snoc_mpn_req_t  snocn_snocl_req;
+  snoc_mpn_resp_t snocn_snocl_resp;
 
   pnoc_sp_req_t   snocl_pnoc_req;
   pnoc_sp_resp_t  snocl_pnoc_resp;
@@ -177,8 +183,8 @@ module s1_soc
   s1_axil_2_axi #(
       .axil_req_t (std_axil_req_t),
       .axil_resp_t(std_axil_resp_t),
-      .axi_req_t  (std_axi_req_t),
-      .axi_resp_t (std_axi_resp_t)
+      .axi_req_t  (snoc_spn_req_t),
+      .axi_resp_t (snoc_spn_resp_t)
   ) asin (  // apb_slave_in_axi_narrow
       .axil_req_i (asi_asin_req),
       .axil_resp_o(asi_asin_resp),
@@ -187,10 +193,10 @@ module s1_soc
   );
 
   s1_axi_cvtr #(
-      .src_req_t (std_axi_req_t),
-      .src_resp_t(std_axi_resp_t),
-      .dst_req_t (std_axi_req_t),
-      .dst_resp_t(std_axi_resp_t),
+      .src_req_t (snoc_spn_req_t),
+      .src_resp_t(snoc_spn_resp_t),
+      .dst_req_t (snoc_sp_req_t),
+      .dst_resp_t(snoc_sp_resp_t),
       .enable_cdc(0),
       .faster_src(1)
   ) asiw (  // apb_slave_in_axi_wide
@@ -256,7 +262,7 @@ module s1_soc
   axi_to_axi_lite #(
       .AxiAddrWidth   (AXIL_ADDR_WIDTH),
       .AxiDataWidth   (AXIL_DATA_WIDTH),
-      .AxiIdWidth     (AXI_ID_WIDTH),
+      .AxiIdWidth     (AXI_ID_WIDTH+1),
       .AxiUserWidth   (AXI_USER_WIDTH),
       .AxiMaxWriteTxns(2),
       .AxiMaxReadTxns (2),

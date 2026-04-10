@@ -107,6 +107,10 @@ package s1_soc_pkg;
       NoAddrRules: NumSnocRules
   };
 
+  `AXI_TYPEDEF_ALL(snoc_spn, logic [AXIL_ADDR_WIDTH-1:0], logic [AXI_ID_WIDTH-1:0],
+                   logic [AXIL_DATA_WIDTH-1:0], logic [AXIL_DATA_WIDTH/8-1:0],
+                   logic [AXI_USER_WIDTH-1:0])
+
   `AXI_TYPEDEF_ALL(snoc_sp, logic [AXI_ADDR_WIDTH-1:0], logic [AXI_ID_WIDTH-1:0],
                    logic [AXI_DATA_WIDTH-1:0], logic [AXI_DATA_WIDTH/8-1:0],
                    logic [AXI_USER_WIDTH-1:0])
