@@ -112,8 +112,8 @@ module s1_soc
     output std_apb_req_t  apb_m_req_o,
     input  std_apb_resp_t apb_m_resp_i,
 
-    input logic uart_tx_o,
-    input logic uart_rx_i
+    output logic uart_tx_o,
+    input  logic uart_rx_i
 );
 
   logic                               arst_cc1_ni;

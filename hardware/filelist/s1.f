@@ -16,6 +16,7 @@ ${S1}/hardware/source/s1_dual_edge_register.sv
 ${S1}/hardware/source/s1_register_dual_flop.sv
 ${S1}/hardware/source/s1_fifo.sv
 ${S1}/hardware/source/s1_cdc_fifo.sv
+${SOC}/source/dual_flop_synchronizer.sv
 ${SOC}/source/clk_gate.sv
 
 ${S1}/hardware/source/s1_uart_parity_gen.sv

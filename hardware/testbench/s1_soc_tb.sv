@@ -47,6 +47,9 @@ module s1_soc_tb;
   std_apb_req_t  apb_m_req_o;
   std_apb_resp_t apb_m_resp_i;
 
+  logic          uart_tx_o;
+  logic          uart_rx_i;
+
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // INTERFACES
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -155,18 +158,18 @@ module s1_soc_tb;
 
   task automatic start_clocks();
     fork
-      forever #250ps  temp_clk_cc1_i <= ~temp_clk_cc1_i;  // 2000 MHz
-      forever #500ps  temp_clk_cc2_i <= ~temp_clk_cc2_i;  // 1000 MHz
+      forever #250ps temp_clk_cc1_i <= ~temp_clk_cc1_i;  // 2000 MHz
+      forever #500ps temp_clk_cc2_i <= ~temp_clk_cc2_i;  // 1000 MHz
       forever #1250ps temp_clk_cc3_i <= ~temp_clk_cc3_i;  // 400 MHz
-      
-      forever #250ps  temp_pclk_cc1_i <= ~temp_pclk_cc1_i;  // 2000 MHz
-      forever #500ps  temp_pclk_cc2_i <= ~temp_pclk_cc2_i;  // 1000 MHz
+
+      forever #250ps temp_pclk_cc1_i <= ~temp_pclk_cc1_i;  // 2000 MHz
+      forever #500ps temp_pclk_cc2_i <= ~temp_pclk_cc2_i;  // 1000 MHz
       forever #1250ps temp_pclk_cc3_i <= ~temp_pclk_cc3_i;  // 400 MHz
 
       forever #125ps temp_clk_cnoc_i <= ~temp_clk_snoc_i;  // 4000 MHz
-      forever #1ns   temp_clk_snoc_i <= ~temp_clk_snoc_i;  // 500 MHz
-      forever #5ns   temp_clk_pnoc_i <= ~temp_clk_pnoc_i;  // 100 MHz
-      forever #50ns  apb_s_clk_i <= ~apb_s_clk_i;  // 10 MHz
+      forever #1ns temp_clk_snoc_i <= ~temp_clk_snoc_i;  // 500 MHz
+      forever #5ns temp_clk_pnoc_i <= ~temp_clk_pnoc_i;  // 100 MHz
+      forever #50ns apb_s_clk_i <= ~apb_s_clk_i;  // 10 MHz
     join_none
   endtask
 
