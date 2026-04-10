@@ -142,7 +142,6 @@ module s1_soc
 
     snoc_cnoc_resp = '0;
     cnoc_snoc_req = '0;
-    snoc_ram_resp = '0;
 
     pnoc_gpio_resp = '0;
     pnoc_uart_resp = '0;
@@ -241,6 +240,19 @@ module s1_soc
       .default_mst_port_i   ('0)
   );
 
+  axi_ram #(
+      .MEM_BASE('h2000_0000),
+      .MEM_SIZE(30),
+      .req_t   (snoc_mp_req_t),
+      .resp_t  (snoc_mp_resp_t)
+  ) ram (
+      .arst_ni(arst_snoc_ni),
+      .clk_i  (clk_snoc_i),
+      .req_i  (snoc_ram_req),
+      .resp_o (snoc_ram_resp)
+  );
+
+
   s1_axi_cvtr #(
       .src_req_t (snoc_mp_req_t),
       .src_resp_t(snoc_mp_resp_t),
@@ -262,7 +274,7 @@ module s1_soc
   axi_to_axi_lite #(
       .AxiAddrWidth   (AXIL_ADDR_WIDTH),
       .AxiDataWidth   (AXIL_DATA_WIDTH),
-      .AxiIdWidth     (AXI_ID_WIDTH+1),
+      .AxiIdWidth     (AXI_ID_WIDTH + 1),
       .AxiUserWidth   (AXI_USER_WIDTH),
       .AxiMaxWriteTxns(2),
       .AxiMaxReadTxns (2),
