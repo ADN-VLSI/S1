@@ -119,7 +119,7 @@ define ELABORATE
 	else \
 		$(YA) echo "Elaborating design $1"; \
 		rm -f $(BUILD)/elaborate_$1; \
-		cd $(BUILD) && xelab $1 -s snap_$1 -debug typical -log $(LOG)/elaborate_$1.log $(EW_O); \
+		cd $(BUILD) && xelab $1 -s snap_$1 -debug typical -O3 -log $(LOG)/elaborate_$1.log $(EW_O); \
 		grep "ERROR:" $(LOG)/elaborate_$1.log > /dev/null || touch $(BUILD)/elaborate_$1; \
 	fi
 endef
