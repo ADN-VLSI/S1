@@ -6,10 +6,22 @@ module s1_soc
   import s1_soc_pkg::AXI_USER_WIDTH;
   import s1_soc_pkg::AXIL_ADDR_WIDTH;
   import s1_soc_pkg::AXIL_DATA_WIDTH;
+  import s1_soc_pkg::cnoc_mp_ar_chan_t;
+  import s1_soc_pkg::cnoc_mp_aw_chan_t;
+  import s1_soc_pkg::cnoc_mp_b_chan_t;
+  import s1_soc_pkg::cnoc_mp_r_chan_t;
   import s1_soc_pkg::cnoc_mp_req_t;
   import s1_soc_pkg::cnoc_mp_resp_t;
+  import s1_soc_pkg::cnoc_mp_w_chan_t;
+  import s1_soc_pkg::cnoc_sp_ar_chan_t;
+  import s1_soc_pkg::cnoc_sp_aw_chan_t;
+  import s1_soc_pkg::cnoc_sp_b_chan_t;
+  import s1_soc_pkg::cnoc_sp_r_chan_t;
   import s1_soc_pkg::cnoc_sp_req_t;
   import s1_soc_pkg::cnoc_sp_resp_t;
+  import s1_soc_pkg::cnoc_sp_w_chan_t;
+  import s1_soc_pkg::cnoc_xbar_cfg;
+  import s1_soc_pkg::CnocXbarRule;
   import s1_soc_pkg::pnoc_mp_req_t;
   import s1_soc_pkg::pnoc_mp_resp_t;
   import s1_soc_pkg::pnoc_sp_ar_chan_t;
@@ -63,9 +75,26 @@ module s1_soc
   import s1_soc_pkg::std_axil_resp_t;
   import s1_soc_pkg::std_axil_w_chan_t;
 (
+
+    input logic temp_arst_cc1_ni,
+    input logic temp_clk_cc1_i,
+    input logic temp_pclk_cc1_i,
+
+    input logic temp_arst_cc2_ni,
+    input logic temp_clk_cc2_i,
+    input logic temp_pclk_cc2_i,
+
+    input logic temp_arst_cc3_ni,
+    input logic temp_clk_cc3_i,
+    input logic temp_pclk_cc3_i,
+
+    input logic temp_arst_cnoc_ni,
+    input logic temp_clk_cnoc_i,
+
     input logic temp_arst_snoc_ni,
-    input logic temp_arst_pnoc_ni,
     input logic temp_clk_snoc_i,
+
+    input logic temp_arst_pnoc_ni,
     input logic temp_clk_pnoc_i,
 
     ////////////////////////////////////////////////
@@ -84,71 +113,78 @@ module s1_soc
     input  std_apb_resp_t apb_m_resp_i
 );
 
-  logic           arst_snoc_ni;
-  logic           arst_pnoc_ni;
+  logic                 arst_cc1_ni;
+  logic                 arst_cc2_ni;
+  logic                 arst_cc3_ni;
+  logic                 arst_cnoc_ni;
+  logic                 arst_snoc_ni;
+  logic                 arst_pnoc_ni;
 
-  logic           clk_snoc_i;
-  logic           clk_pnoc_i;
+  logic                 clk_cc1_i;
+  logic                 clk_cc2_i;
+  logic                 clk_cc3_i;
 
-  std_axil_req_t  asi_asin_req;
-  std_axil_resp_t asi_asin_resp;
-  snoc_spn_req_t  asin_asiw_req;
-  snoc_spn_resp_t asin_asiw_resp;
+  logic                 pclk_cc1_i;
+  logic                 pclk_cc2_i;
+  logic                 pclk_cc3_i;
 
-  snoc_sp_req_t   asiw_snoc_req;  // snoc s0
-  snoc_sp_resp_t  asiw_snoc_resp;  // snoc s0
+  logic                 clk_cnoc_i;
+  logic                 clk_snoc_i;
+  logic                 clk_pnoc_i;
 
-  snoc_mp_req_t   snoc_cnoc_req;  // snoc m1
-  snoc_mp_resp_t  snoc_cnoc_resp;  // snoc m1
+  std_axil_req_t        asi_asin_req;
+  std_axil_resp_t       asi_asin_resp;
+  snoc_spn_req_t        asin_asiw_req;
+  snoc_spn_resp_t       asin_asiw_resp;
 
-  snoc_sp_req_t   cnoc_snoc_req;  // snoc s1
-  snoc_sp_resp_t  cnoc_snoc_resp;  // snoc s1
+  snoc_mpn_req_t        snocn_snocl_req;
+  snoc_mpn_resp_t       snocn_snocl_resp;
 
-  snoc_mp_req_t   snoc_ram_req;  // snoc m0
-  snoc_mp_resp_t  snoc_ram_resp;  // snoc m0 
+  cnoc_sp_req_t   [3:0] cnoc_sp_req;
+  cnoc_sp_resp_t  [3:0] cnoc_sp_resp;
 
-  snoc_mp_req_t   snoc_snocn_req;  // snoc m2
-  snoc_mp_resp_t  snoc_snocn_resp;  // snoc m2
+  cnoc_mp_req_t   [3:0] cnoc_mp_req;
+  cnoc_mp_resp_t  [3:0] cnoc_mp_resp;
 
-  snoc_mpn_req_t  snocn_snocl_req;
-  snoc_mpn_resp_t snocn_snocl_resp;
+  snoc_sp_req_t   [1:0] snoc_sp_req;
+  snoc_sp_resp_t  [1:0] snoc_sp_resp;
 
-  pnoc_sp_req_t   snocl_pnoc_req;
-  pnoc_sp_resp_t  snocl_pnoc_resp;
+  snoc_mp_req_t   [2:0] snoc_mp_req;
+  snoc_mp_resp_t  [2:0] snoc_mp_resp;
 
-  pnoc_mp_req_t   pnoc_gpio_req;
-  pnoc_mp_resp_t  pnoc_gpio_resp;
+  pnoc_sp_req_t   [0:0] pnoc_sp_req;
+  pnoc_sp_resp_t  [0:0] pnoc_sp_resp;
 
-  pnoc_mp_req_t   pnoc_uart_req;
-  pnoc_mp_resp_t  pnoc_uart_resp;
-
-  pnoc_mp_req_t   pnoc_plic_req;
-  pnoc_mp_resp_t  pnoc_plic_resp;
-
-  pnoc_mp_req_t   pnoc_clint_req;
-  pnoc_mp_resp_t  pnoc_clint_resp;
-
-  pnoc_mp_req_t   pnoc_ctrl_req;
-  pnoc_mp_resp_t  pnoc_ctrl_resp;
-
-  pnoc_mp_req_t   pnoc_amo_req;
-  pnoc_mp_resp_t  pnoc_amo_resp;
+  pnoc_mp_req_t   [5:0] pnoc_mp_req;
+  pnoc_mp_resp_t  [5:0] pnoc_mp_resp;
 
   always_comb begin  // TODO REMOVE
+
+    arst_cc1_ni = temp_arst_cc1_ni & global_arst_ni;
+    arst_cc2_ni = temp_arst_cc2_ni & global_arst_ni;
+    arst_cc3_ni = temp_arst_cc3_ni & global_arst_ni;
+    arst_cnoc_ni = temp_arst_cnoc_ni & global_arst_ni;
     arst_snoc_ni = temp_arst_snoc_ni & global_arst_ni;
     arst_pnoc_ni = temp_arst_pnoc_ni & global_arst_ni;
+
+    clk_cc1_i = temp_clk_cc1_i;
+    clk_cc2_i = temp_clk_cc2_i;
+    clk_cc3_i = temp_clk_cc3_i;
+    pclk_cc1_i = temp_pclk_cc1_i;
+    pclk_cc2_i = temp_pclk_cc2_i;
+    pclk_cc3_i = temp_pclk_cc3_i;
+    clk_cnoc_i = temp_clk_cnoc_i;
     clk_snoc_i = temp_clk_snoc_i;
     clk_pnoc_i = temp_clk_pnoc_i;
 
-    snoc_cnoc_resp = '0;
-    cnoc_snoc_req = '0;
-    snoc_ram_resp = '0;
+    snoc_mp_resp[1] = '0;
+    snoc_sp_req[1] = '0;
 
-    pnoc_gpio_resp = '0;
-    pnoc_uart_resp = '0;
-    pnoc_plic_resp = '0;
-    pnoc_clint_resp = '0;
-    pnoc_ctrl_resp = '0;
+    pnoc_mp_resp[5] = '0;
+    pnoc_mp_resp[4] = '0;
+    pnoc_mp_resp[3] = '0;
+    pnoc_mp_resp[2] = '0;
+    pnoc_mp_resp[1] = '0;
 
   end
 
@@ -156,6 +192,51 @@ module s1_soc
     apb_m_clk_o   = clk_pnoc_i;
     apb_m_arst_no = arst_pnoc_ni;
   end
+
+  s1_pcss pcss1 (
+      .arst_ni(arst_cc1_ni),
+      .clk_i(clk_cc1_i),
+      .pclk_i(pclk_cc1_i),
+      .boot_addr_i(),  // TODO CONNECT
+      .hart_id_i(),  // TODO CONNECT
+      .mei_i('0),  // TODO CONNECT
+      .msi_i('0),  // TODO CONNECT
+      .mti_i('0),  // TODO CONNECT
+      .m_req_o(),  // output s1_pcss_pkg::mp_req_t  m_req_o, TODO
+      .m_resp_i('0),  // input  s1_pcss_pkg::mp_resp_t m_resp_i, TODO
+      .s_req_i('0),  // input  s1_pcss_pkg::sp_req_t  s_req_i, TODO
+      .s_resp_o()  // output s1_pcss_pkg::sp_resp_t s_resp_o TODO
+  );
+
+  s1_pcss pcss2 (
+      .arst_ni(arst_cc2_ni),
+      .clk_i(clk_cc2_i),
+      .pclk_i(pclk_cc2_i),
+      .boot_addr_i(),  // TODO CONNECT
+      .hart_id_i(),  // TODO CONNECT
+      .mei_i('0),  // TODO CONNECT
+      .msi_i('0),  // TODO CONNECT
+      .mti_i('0),  // TODO CONNECT
+      .m_req_o(),  // output s1_pcss_pkg::mp_req_t  m_req_o, TODO
+      .m_resp_i('0),  // input  s1_pcss_pkg::mp_resp_t m_resp_i, TODO
+      .s_req_i('0),  // input  s1_pcss_pkg::sp_req_t  s_req_i, TODO
+      .s_resp_o()  // output s1_pcss_pkg::sp_resp_t s_resp_o TODO
+  );
+
+  s1_ecss ecss (
+      .arst_ni(arst_cc3_ni),
+      .clk_i(clk_cc3_i),
+      .pclk_i(pclk_cc3_i),
+      .boot_addr_i(),  // TODO CONNECT
+      .hart_id_i(),  // TODO CONNECT
+      .mei_i('0),  // TODO CONNECT
+      .msi_i('0),  // TODO CONNECT
+      .mti_i('0),  // TODO CONNECT
+      .m_req_o(),  // output s1_ecss_pkg::mp_req_t  m_req_o, TODO
+      .m_resp_i('0),  // input  s1_ecss_pkg::mp_resp_t m_resp_i, TODO
+      .s_req_i('0),  // input  s1_ecss_pkg::sp_req_t  s_req_i, TODO
+      .s_resp_o()  // output s1_ecss_pkg::sp_resp_t s_resp_o TODO
+  );
 
   s1_apb_2_axil #(
       .ADDR_WIDTH(AXIL_ADDR_WIDTH),
@@ -205,9 +286,40 @@ module s1_soc
       .src_req_i   (asin_asiw_req),
       .src_resp_o  (asin_asiw_resp),
       .dst_clk_i   (clk_snoc_i),
-      .dst_req_o   (asiw_snoc_req),
-      .dst_resp_i  (asiw_snoc_resp),
+      .dst_req_o   (snoc_sp_req[0]),
+      .dst_resp_i  (snoc_sp_resp[0]),
       .addr_shift_i('0)
+  );
+
+  axi_xbar #(
+      .Cfg          (cnoc_xbar_cfg),
+      .ATOPs        ('0),
+      .Connectivity ('1),
+      .slv_aw_chan_t(cnoc_sp_aw_chan_t),
+      .mst_aw_chan_t(cnoc_mp_aw_chan_t),
+      .w_chan_t     (cnoc_sp_w_chan_t),
+      .slv_b_chan_t (cnoc_sp_b_chan_t),
+      .mst_b_chan_t (cnoc_mp_b_chan_t),
+      .slv_ar_chan_t(cnoc_sp_ar_chan_t),
+      .mst_ar_chan_t(cnoc_mp_ar_chan_t),
+      .slv_r_chan_t (cnoc_sp_r_chan_t),
+      .mst_r_chan_t (cnoc_mp_r_chan_t),
+      .slv_req_t    (cnoc_sp_req_t),
+      .slv_resp_t   (cnoc_sp_resp_t),
+      .mst_req_t    (cnoc_mp_req_t),
+      .mst_resp_t   (cnoc_mp_resp_t),
+      .rule_t       (xbar_rule_64_t)
+  ) cnoc (
+      .clk_i                (clk_cnoc_i),
+      .rst_ni               (arst_cnoc_ni),
+      .test_i               ('0),
+      .slv_ports_req_i      (cnoc_sp_req),
+      .slv_ports_resp_o     (cnoc_sp_resp),
+      .mst_ports_req_o      (cnoc_mp_req),
+      .mst_ports_resp_i     (cnoc_mp_resp),
+      .addr_map_i           (CnocXbarRule),
+      .en_default_mst_port_i('1),
+      .default_mst_port_i   ('0)
   );
 
   axi_xbar #(
@@ -232,13 +344,25 @@ module s1_soc
       .clk_i                (clk_snoc_i),
       .rst_ni               (arst_snoc_ni),
       .test_i               ('0),
-      .slv_ports_req_i      ({cnoc_snoc_req, asiw_snoc_req}),
-      .slv_ports_resp_o     ({cnoc_snoc_resp, asiw_snoc_resp}),
-      .mst_ports_req_o      ({snoc_snocn_req, snoc_cnoc_req, snoc_ram_req}),
-      .mst_ports_resp_i     ({snoc_snocn_resp, snoc_cnoc_resp, snoc_ram_resp}),
+      .slv_ports_req_i      (snoc_sp_req),
+      .slv_ports_resp_o     (snoc_sp_resp),
+      .mst_ports_req_o      (snoc_mp_req),
+      .mst_ports_resp_i     (snoc_mp_resp),
       .addr_map_i           (SnocXbarRule),
       .en_default_mst_port_i('1),
       .default_mst_port_i   ('0)
+  );
+
+  axi_ram #(
+      .MEM_BASE('h2000_0000),
+      .MEM_SIZE(30),
+      .req_t   (snoc_mp_req_t),
+      .resp_t  (snoc_mp_resp_t)
+  ) ram (
+      .arst_ni(arst_snoc_ni),
+      .clk_i  (clk_snoc_i),
+      .req_i  (snoc_mp_req[0]),
+      .resp_o (snoc_mp_resp[0])
   );
 
   s1_axi_cvtr #(
@@ -251,8 +375,8 @@ module s1_soc
   ) snocn (  // narrow conversion
       .arst_ni     (arst_snoc_ni),
       .src_clk_i   (clk_snoc_i),
-      .src_req_i   (snoc_snocn_req),
-      .src_resp_o  (snoc_snocn_resp),
+      .src_req_i   (snoc_mp_req[2]),
+      .src_resp_o  (snoc_mp_resp[2]),
       .dst_clk_i   (clk_pnoc_i),
       .dst_req_o   (snocn_snocl_req),
       .dst_resp_i  (snocn_snocl_resp),
@@ -262,7 +386,7 @@ module s1_soc
   axi_to_axi_lite #(
       .AxiAddrWidth   (AXIL_ADDR_WIDTH),
       .AxiDataWidth   (AXIL_DATA_WIDTH),
-      .AxiIdWidth     (AXI_ID_WIDTH+1),
+      .AxiIdWidth     (AXI_ID_WIDTH + 1),
       .AxiUserWidth   (AXI_USER_WIDTH),
       .AxiMaxWriteTxns(2),
       .AxiMaxReadTxns (2),
@@ -278,8 +402,8 @@ module s1_soc
       .test_i    ('0),
       .slv_req_i (snocn_snocl_req),
       .slv_resp_o(snocn_snocl_resp),
-      .mst_req_o (snocl_pnoc_req),
-      .mst_resp_i(snocl_pnoc_resp)
+      .mst_req_o (pnoc_sp_req[0]),
+      .mst_resp_i(pnoc_sp_resp[0])
   );
 
   axi_lite_xbar #(
@@ -296,19 +420,10 @@ module s1_soc
       .clk_i(clk_pnoc_i),
       .rst_ni(arst_pnoc_ni),
       .test_i('0),
-      .slv_ports_req_i(snocl_pnoc_req),
-      .slv_ports_resp_o(snocl_pnoc_resp),
-      .mst_ports_req_o({
-        pnoc_gpio_req, pnoc_uart_req, pnoc_plic_req, pnoc_clint_req, pnoc_ctrl_req, pnoc_amo_req
-      }),
-      .mst_ports_resp_i({
-        pnoc_gpio_resp,
-        pnoc_uart_resp,
-        pnoc_plic_resp,
-        pnoc_clint_resp,
-        pnoc_ctrl_resp,
-        pnoc_amo_resp
-      }),
+      .slv_ports_req_i(pnoc_sp_req),
+      .slv_ports_resp_o(pnoc_sp_resp),
+      .mst_ports_req_o(pnoc_mp_req),
+      .mst_ports_resp_i(pnoc_mp_resp),
       .addr_map_i(PnocXbarRule),
       .en_default_mst_port_i('1),
       .default_mst_port_i('0)
@@ -329,10 +444,10 @@ module s1_soc
   ) amo (  // apb_master_out
       .axi_clk_i  (clk_pnoc_i),
       .axi_arst_ni(arst_pnoc_ni),
-      .axi_req_i  (pnoc_amo_req),
-      .axi_resp_o (pnoc_amo_resp),
+      .axi_req_i  (pnoc_mp_req[0]),
+      .axi_resp_o (pnoc_mp_resp[0]),
       .apb_clk_i  (clk_pnoc_i),
-      .apb_arst_ni(apb_m_arst_no),  //TODO apb or pnoc reset?
+      .apb_arst_ni(apb_m_arst_no),
       .apb_req_o  (apb_m_req_o),
       .apb_resp_i (apb_m_resp_i)
   );
