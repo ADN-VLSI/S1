@@ -113,50 +113,63 @@ module s1_soc
     input  std_apb_resp_t apb_m_resp_i
 );
 
-  logic                 arst_cc1_ni;
-  logic                 arst_cc2_ni;
-  logic                 arst_cc3_ni;
-  logic                 arst_cnoc_ni;
-  logic                 arst_snoc_ni;
-  logic                 arst_pnoc_ni;
+  logic                        arst_cc1_ni;
+  logic                        arst_cc2_ni;
+  logic                        arst_cc3_ni;
+  logic                        arst_cnoc_ni;
+  logic                        arst_snoc_ni;
+  logic                        arst_pnoc_ni;
 
-  logic                 clk_cc1_i;
-  logic                 clk_cc2_i;
-  logic                 clk_cc3_i;
+  logic                        clk_cc1_i;
+  logic                        clk_cc2_i;
+  logic                        clk_cc3_i;
 
-  logic                 pclk_cc1_i;
-  logic                 pclk_cc2_i;
-  logic                 pclk_cc3_i;
+  logic                        pclk_cc1_i;
+  logic                        pclk_cc2_i;
+  logic                        pclk_cc3_i;
 
-  logic                 clk_cnoc_i;
-  logic                 clk_snoc_i;
-  logic                 clk_pnoc_i;
+  logic                        clk_cnoc_i;
+  logic                        clk_snoc_i;
+  logic                        clk_pnoc_i;
 
-  std_axil_req_t        asi_asin_req;
-  std_axil_resp_t       asi_asin_resp;
-  snoc_spn_req_t        asin_asiw_req;
-  snoc_spn_resp_t       asin_asiw_resp;
+  std_axil_req_t               asi_asin_req;
+  std_axil_resp_t              asi_asin_resp;
+  snoc_spn_req_t               asin_asiw_req;
+  snoc_spn_resp_t              asin_asiw_resp;
 
-  snoc_mpn_req_t        snocn_snocl_req;
-  snoc_mpn_resp_t       snocn_snocl_resp;
+  snoc_mpn_req_t               snocn_snocl_req;
+  snoc_mpn_resp_t              snocn_snocl_resp;
 
-  cnoc_sp_req_t   [3:0] cnoc_sp_req;
-  cnoc_sp_resp_t  [3:0] cnoc_sp_resp;
+  s1_pcss_pkg::mp_req_t        p1_mp_req;
+  s1_pcss_pkg::mp_resp_t       p1_mp_resp;
+  s1_pcss_pkg::sp_req_t        p1_sp_req;
+  s1_pcss_pkg::sp_resp_t       p1_sp_resp;
+  s1_pcss_pkg::mp_req_t        p2_mp_req;
+  s1_pcss_pkg::mp_resp_t       p2_mp_resp;
+  s1_pcss_pkg::sp_req_t        p2_sp_req;
+  s1_pcss_pkg::sp_resp_t       p2_sp_resp;
+  s1_ecss_pkg::mp_req_t        e3_mp_req;
+  s1_ecss_pkg::mp_resp_t       e3_mp_resp;
+  s1_ecss_pkg::sp_req_t        e3_sp_req;
+  s1_ecss_pkg::sp_resp_t       e3_sp_resp;
 
-  cnoc_mp_req_t   [3:0] cnoc_mp_req;
-  cnoc_mp_resp_t  [3:0] cnoc_mp_resp;
+  cnoc_sp_req_t          [3:0] cnoc_sp_req;
+  cnoc_sp_resp_t         [3:0] cnoc_sp_resp;
 
-  snoc_sp_req_t   [1:0] snoc_sp_req;
-  snoc_sp_resp_t  [1:0] snoc_sp_resp;
+  cnoc_mp_req_t          [3:0] cnoc_mp_req;
+  cnoc_mp_resp_t         [3:0] cnoc_mp_resp;
 
-  snoc_mp_req_t   [2:0] snoc_mp_req;
-  snoc_mp_resp_t  [2:0] snoc_mp_resp;
+  snoc_sp_req_t          [1:0] snoc_sp_req;
+  snoc_sp_resp_t         [1:0] snoc_sp_resp;
 
-  pnoc_sp_req_t   [0:0] pnoc_sp_req;
-  pnoc_sp_resp_t  [0:0] pnoc_sp_resp;
+  snoc_mp_req_t          [2:0] snoc_mp_req;
+  snoc_mp_resp_t         [2:0] snoc_mp_resp;
 
-  pnoc_mp_req_t   [5:0] pnoc_mp_req;
-  pnoc_mp_resp_t  [5:0] pnoc_mp_resp;
+  pnoc_sp_req_t          [0:0] pnoc_sp_req;
+  pnoc_sp_resp_t         [0:0] pnoc_sp_resp;
+
+  pnoc_mp_req_t          [5:0] pnoc_mp_req;
+  pnoc_mp_resp_t         [5:0] pnoc_mp_resp;
 
   always_comb begin  // TODO REMOVE
 
@@ -177,9 +190,6 @@ module s1_soc
     clk_snoc_i = temp_clk_snoc_i;
     clk_pnoc_i = temp_clk_pnoc_i;
 
-    snoc_mp_resp[1] = '0;
-    snoc_sp_req[1] = '0;
-
     pnoc_mp_resp[5] = '0;
     pnoc_mp_resp[4] = '0;
     pnoc_mp_resp[3] = '0;
@@ -197,45 +207,189 @@ module s1_soc
       .arst_ni(arst_cc1_ni),
       .clk_i(clk_cc1_i),
       .pclk_i(pclk_cc1_i),
-      .boot_addr_i(),  // TODO CONNECT
-      .hart_id_i(),  // TODO CONNECT
+      .boot_addr_i('0),  // TODO CONNECT
+      .hart_id_i('h1),  // TODO CONNECT
       .mei_i('0),  // TODO CONNECT
       .msi_i('0),  // TODO CONNECT
       .mti_i('0),  // TODO CONNECT
-      .m_req_o(),  // output s1_pcss_pkg::mp_req_t  m_req_o, TODO
-      .m_resp_i('0),  // input  s1_pcss_pkg::mp_resp_t m_resp_i, TODO
-      .s_req_i('0),  // input  s1_pcss_pkg::sp_req_t  s_req_i, TODO
-      .s_resp_o()  // output s1_pcss_pkg::sp_resp_t s_resp_o TODO
+      .m_req_o(p1_mp_req),
+      .m_resp_i(p1_mp_resp),
+      .s_req_i(p1_sp_req),
+      .s_resp_o(p1_sp_resp)
   );
 
   s1_pcss pcss2 (
       .arst_ni(arst_cc2_ni),
       .clk_i(clk_cc2_i),
       .pclk_i(pclk_cc2_i),
-      .boot_addr_i(),  // TODO CONNECT
-      .hart_id_i(),  // TODO CONNECT
+      .boot_addr_i('0),  // TODO CONNECT
+      .hart_id_i('h2),  // TODO CONNECT
       .mei_i('0),  // TODO CONNECT
       .msi_i('0),  // TODO CONNECT
       .mti_i('0),  // TODO CONNECT
-      .m_req_o(),  // output s1_pcss_pkg::mp_req_t  m_req_o, TODO
-      .m_resp_i('0),  // input  s1_pcss_pkg::mp_resp_t m_resp_i, TODO
-      .s_req_i('0),  // input  s1_pcss_pkg::sp_req_t  s_req_i, TODO
-      .s_resp_o()  // output s1_pcss_pkg::sp_resp_t s_resp_o TODO
+      .m_req_o(p2_mp_req),
+      .m_resp_i(p2_mp_resp),
+      .s_req_i(p2_sp_req),
+      .s_resp_o(p2_sp_resp)
   );
 
   s1_ecss ecss (
       .arst_ni(arst_cc3_ni),
       .clk_i(clk_cc3_i),
       .pclk_i(pclk_cc3_i),
-      .boot_addr_i(),  // TODO CONNECT
-      .hart_id_i(),  // TODO CONNECT
+      .boot_addr_i('0),  // TODO CONNECT
+      .hart_id_i('h3),  // TODO CONNECT
       .mei_i('0),  // TODO CONNECT
       .msi_i('0),  // TODO CONNECT
       .mti_i('0),  // TODO CONNECT
-      .m_req_o(),  // output s1_ecss_pkg::mp_req_t  m_req_o, TODO
-      .m_resp_i('0),  // input  s1_ecss_pkg::mp_resp_t m_resp_i, TODO
-      .s_req_i('0),  // input  s1_ecss_pkg::sp_req_t  s_req_i, TODO
-      .s_resp_o()  // output s1_ecss_pkg::sp_resp_t s_resp_o TODO
+      .m_req_o(e3_mp_req),
+      .m_resp_i(e3_mp_resp),
+      .s_req_i(e3_sp_req),
+      .s_resp_o(e3_sp_resp)
+  );
+
+  s1_axi_cvtr #(
+      .src_req_t (s1_pcss_pkg::mp_req_t),
+      .src_resp_t(s1_pcss_pkg::mp_resp_t),
+      .dst_req_t (cnoc_sp_req_t),
+      .dst_resp_t(cnoc_sp_resp_t),
+      .enable_cdc('d1),
+      .faster_src('d1)
+  ) p1_conc_cvtr (
+      .arst_ni     (arst_cnoc_ni),
+      .src_clk_i   (clk_cc1_i),
+      .src_req_i   (p1_mp_req),
+      .src_resp_o  (p1_mp_resp),
+      .dst_clk_i   (clk_cnoc_i),
+      .dst_req_o   (cnoc_sp_req[1]),
+      .dst_resp_i  (cnoc_sp_resp[1]),
+      .addr_shift_i('0)
+  );
+
+  s1_axi_cvtr #(
+      .src_req_t (cnoc_mp_req_t),
+      .src_resp_t(cnoc_mp_resp_t),
+      .dst_req_t (s1_pcss_pkg::sp_req_t),
+      .dst_resp_t(s1_pcss_pkg::sp_resp_t),
+      .enable_cdc('d1),
+      .faster_src('d1)
+  ) cnoc_p1_cvtr (
+      .arst_ni     (arst_cnoc_ni),
+      .src_clk_i   (clk_cnoc_i),
+      .src_req_i   (cnoc_mp_req[1]),
+      .src_resp_o  (cnoc_mp_resp[1]),
+      .dst_clk_i   (clk_cc1_i),
+      .dst_req_o   (p1_sp_req),
+      .dst_resp_i  (p1_sp_resp),
+      .addr_shift_i('0)
+  );
+
+  s1_axi_cvtr #(
+      .src_req_t (s1_pcss_pkg::mp_req_t),
+      .src_resp_t(s1_pcss_pkg::mp_resp_t),
+      .dst_req_t (cnoc_sp_req_t),
+      .dst_resp_t(cnoc_sp_resp_t),
+      .enable_cdc('d1),
+      .faster_src('d1)
+  ) p2_conc_cvtr (
+      .arst_ni     (arst_cnoc_ni),
+      .src_clk_i   (clk_cc2_i),
+      .src_req_i   (p2_mp_req),
+      .src_resp_o  (p2_mp_resp),
+      .dst_clk_i   (clk_cnoc_i),
+      .dst_req_o   (cnoc_sp_req[2]),
+      .dst_resp_i  (cnoc_sp_resp[2]),
+      .addr_shift_i('0)
+  );
+
+  s1_axi_cvtr #(
+      .src_req_t (cnoc_mp_req_t),
+      .src_resp_t(cnoc_mp_resp_t),
+      .dst_req_t (s1_pcss_pkg::sp_req_t),
+      .dst_resp_t(s1_pcss_pkg::sp_resp_t),
+      .enable_cdc('d1),
+      .faster_src('d1)
+  ) cnoc_p2_cvtr (
+      .arst_ni     (arst_cnoc_ni),
+      .src_clk_i   (clk_cnoc_i),
+      .src_req_i   (cnoc_mp_req[2]),
+      .src_resp_o  (cnoc_mp_resp[2]),
+      .dst_clk_i   (clk_cc2_i),
+      .dst_req_o   (p2_sp_req),
+      .dst_resp_i  (p2_sp_resp),
+      .addr_shift_i('0)
+  );
+
+  s1_axi_cvtr #(
+      .src_req_t (s1_ecss_pkg::mp_req_t),
+      .src_resp_t(s1_ecss_pkg::mp_resp_t),
+      .dst_req_t (cnoc_sp_req_t),
+      .dst_resp_t(cnoc_sp_resp_t),
+      .enable_cdc('d1),
+      .faster_src('d1)
+  ) e3_conc_cvtr (
+      .arst_ni     (arst_cnoc_ni),
+      .src_clk_i   (clk_cc3_i),
+      .src_req_i   (e3_mp_req),
+      .src_resp_o  (e3_mp_resp),
+      .dst_clk_i   (clk_cnoc_i),
+      .dst_req_o   (cnoc_sp_req[3]),
+      .dst_resp_i  (cnoc_sp_resp[3]),
+      .addr_shift_i('0)
+  );
+
+  s1_axi_cvtr #(
+      .src_req_t (cnoc_mp_req_t),
+      .src_resp_t(cnoc_mp_resp_t),
+      .dst_req_t (s1_ecss_pkg::sp_req_t),
+      .dst_resp_t(s1_ecss_pkg::sp_resp_t),
+      .enable_cdc('d1),
+      .faster_src('d1)
+  ) cnoc_e3_cvtr (
+      .arst_ni     (arst_cnoc_ni),
+      .src_clk_i   (clk_cnoc_i),
+      .src_req_i   (cnoc_mp_req[3]),
+      .src_resp_o  (cnoc_mp_resp[3]),
+      .dst_clk_i   (clk_cc3_i),
+      .dst_req_o   (e3_sp_req),
+      .dst_resp_i  (e3_sp_resp),
+      .addr_shift_i('0)
+  );
+
+  s1_axi_cvtr #(
+      .src_req_t (snoc_mp_req_t),
+      .src_resp_t(snoc_mp_resp_t),
+      .dst_req_t (cnoc_sp_req_t),
+      .dst_resp_t(cnoc_sp_resp_t),
+      .enable_cdc('d1),
+      .faster_src('d1)
+  ) snoc_conc_cvtr (
+      .arst_ni     (arst_cnoc_ni),
+      .src_clk_i   (clk_snoc_i),
+      .src_req_i   (snoc_mp_req[1]),
+      .src_resp_o  (snoc_mp_resp[1]),
+      .dst_clk_i   (clk_cnoc_i),
+      .dst_req_o   (cnoc_sp_req[0]),
+      .dst_resp_i  (cnoc_sp_resp[0]),
+      .addr_shift_i('0)
+  );
+
+  s1_axi_cvtr #(
+      .src_req_t (cnoc_mp_req_t),
+      .src_resp_t(cnoc_mp_resp_t),
+      .dst_req_t (snoc_sp_req_t),
+      .dst_resp_t(snoc_sp_resp_t),
+      .enable_cdc('d1),
+      .faster_src('d1)
+  ) cnoc_snoc_cvtr (
+      .arst_ni     (arst_cnoc_ni),
+      .src_clk_i   (clk_cnoc_i),
+      .src_req_i   (cnoc_mp_req[0]),
+      .src_resp_o  (cnoc_mp_resp[0]),
+      .dst_clk_i   (clk_snoc_i),
+      .dst_req_o   (snoc_sp_req[1]),
+      .dst_resp_i  (snoc_sp_resp[1]),
+      .addr_shift_i('0)
   );
 
   s1_apb_2_axil #(
