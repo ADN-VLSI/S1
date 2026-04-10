@@ -179,8 +179,6 @@ module s1_soc_tb;
     automatic int temp;
 
     $timeformat(-9, 0, "ns", 10);
-    $dumpfile("s1_soc_tb.vcd");
-    $dumpvars(0, s1_soc_tb);
 
     fork
       forever begin
