@@ -246,7 +246,7 @@ module s1_soc
       .src_resp_t(snoc_mp_resp_t),
       .dst_req_t (snoc_mpn_req_t),
       .dst_resp_t(snoc_mpn_resp_t),
-      .enable_cdc(0),
+      .enable_cdc(1),
       .faster_src(1)
   ) snocn (  // narrow conversion
       .arst_ni     (arst_snoc_ni),

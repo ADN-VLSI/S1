@@ -126,9 +126,8 @@ module s1_soc_tb;
   task automatic start_clock();
     fork
       forever #1ns temp_clk_snoc_i <= ~temp_clk_snoc_i;  // 500 MHz
-      forever #1ns temp_clk_pnoc_i <= ~temp_clk_pnoc_i;  // 100MHz // TODO REMOVE
-      // forever #5ns temp_clk_pnoc_i <= ~temp_clk_pnoc_i;  // 100MHz // TODO KEEP
-      forever #50ns apb_s_clk_i <= ~apb_s_clk_i;  // 10MHz
+      forever #5ns temp_clk_pnoc_i <= ~temp_clk_pnoc_i;  // 100 MHz
+      forever #50ns apb_s_clk_i <= ~apb_s_clk_i;  // 10 MHz
     join_none
   endtask
 
