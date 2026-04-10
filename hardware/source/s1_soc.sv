@@ -211,29 +211,29 @@ module s1_soc
 
   always_comb begin
     uart_axil_req = '0;
-    uart_axil_req.aw.addr = pnoc_mp_req.aw.addr;
-    uart_axil_req.aw.prot = pnoc_mp_req.aw.prot;
-    uart_axil_req.aw_valid = pnoc_mp_req.aw_valid;
-    uart_axil_req.w.data = pnoc_mp_req.w.data;
-    uart_axil_req.w.strb = pnoc_mp_req.w.strb;
-    uart_axil_req.w_valid = pnoc_mp_req.w_valid;
-    uart_axil_req.b_ready = pnoc_mp_req.b_ready;
-    uart_axil_req.ar.addr = pnoc_mp_req.ar.addr;
-    uart_axil_req.ar.prot = pnoc_mp_req.ar.prot;
-    uart_axil_req.ar_valid = pnoc_mp_req.ar_valid;
-    uart_axil_req.r_ready = pnoc_mp_req.r_ready;
+    uart_axil_req.aw.addr = pnoc_mp_req[5].aw.addr;
+    uart_axil_req.aw.prot = pnoc_mp_req[5].aw.prot;
+    uart_axil_req.aw_valid = pnoc_mp_req[5].aw_valid;
+    uart_axil_req.w.data = pnoc_mp_req[5].w.data;
+    uart_axil_req.w.strb = pnoc_mp_req[5].w.strb;
+    uart_axil_req.w_valid = pnoc_mp_req[5].w_valid;
+    uart_axil_req.b_ready = pnoc_mp_req[5].b_ready;
+    uart_axil_req.ar.addr = pnoc_mp_req[5].ar.addr;
+    uart_axil_req.ar.prot = pnoc_mp_req[5].ar.prot;
+    uart_axil_req.ar_valid = pnoc_mp_req[5].ar_valid;
+    uart_axil_req.r_ready = pnoc_mp_req[5].r_ready;
   end
 
   always_comb begin
-    pnoc_mp_resp = '0;
-    pnoc_mp_resp.aw_ready = uart_axil_resp.aw_ready;
-    pnoc_mp_resp.w_ready = uart_axil_resp.w_ready;
-    pnoc_mp_resp.b.resp = uart_axil_resp.b.resp;
-    pnoc_mp_resp.b_valid = uart_axil_resp.b_valid;
-    pnoc_mp_resp.ar_ready = uart_axil_resp.ar_ready;
-    pnoc_mp_resp.r.data = uart_axil_resp.r.data;
-    pnoc_mp_resp.r.resp = uart_axil_resp.r.resp;
-    pnoc_mp_resp.r_valid = uart_axil_resp.r_valid;
+    pnoc_mp_resp[5] = '0;
+    pnoc_mp_resp[5].aw_ready = uart_axil_resp.aw_ready;
+    pnoc_mp_resp[5].w_ready = uart_axil_resp.w_ready;
+    pnoc_mp_resp[5].b.resp = uart_axil_resp.b.resp;
+    pnoc_mp_resp[5].b_valid = uart_axil_resp.b_valid;
+    pnoc_mp_resp[5].ar_ready = uart_axil_resp.ar_ready;
+    pnoc_mp_resp[5].r.data = uart_axil_resp.r.data;
+    pnoc_mp_resp[5].r.resp = uart_axil_resp.r.resp;
+    pnoc_mp_resp[5].r_valid = uart_axil_resp.r_valid;
   end
 
   s1_pcss pcss1 (
