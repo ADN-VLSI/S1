@@ -110,66 +110,73 @@ module s1_soc
     output logic          apb_m_clk_o,
     output logic          apb_m_arst_no,
     output std_apb_req_t  apb_m_req_o,
-    input  std_apb_resp_t apb_m_resp_i
+    input  std_apb_resp_t apb_m_resp_i,
+
+    input logic uart_tx_o,
+    input logic uart_rx_i
 );
 
-  logic                        arst_cc1_ni;
-  logic                        arst_cc2_ni;
-  logic                        arst_cc3_ni;
-  logic                        arst_cnoc_ni;
-  logic                        arst_snoc_ni;
-  logic                        arst_pnoc_ni;
+  logic                               arst_cc1_ni;
+  logic                               arst_cc2_ni;
+  logic                               arst_cc3_ni;
+  logic                               arst_cnoc_ni;
+  logic                               arst_snoc_ni;
+  logic                               arst_pnoc_ni;
 
-  logic                        clk_cc1_i;
-  logic                        clk_cc2_i;
-  logic                        clk_cc3_i;
+  logic                               clk_cc1_i;
+  logic                               clk_cc2_i;
+  logic                               clk_cc3_i;
 
-  logic                        pclk_cc1_i;
-  logic                        pclk_cc2_i;
-  logic                        pclk_cc3_i;
+  logic                               pclk_cc1_i;
+  logic                               pclk_cc2_i;
+  logic                               pclk_cc3_i;
 
-  logic                        clk_cnoc_i;
-  logic                        clk_snoc_i;
-  logic                        clk_pnoc_i;
+  logic                               clk_cnoc_i;
+  logic                               clk_snoc_i;
+  logic                               clk_pnoc_i;
 
-  std_axil_req_t               asi_asin_req;
-  std_axil_resp_t              asi_asin_resp;
-  snoc_spn_req_t               asin_asiw_req;
-  snoc_spn_resp_t              asin_asiw_resp;
+  std_axil_req_t                      asi_asin_req;
+  std_axil_resp_t                     asi_asin_resp;
+  snoc_spn_req_t                      asin_asiw_req;
+  snoc_spn_resp_t                     asin_asiw_resp;
 
-  snoc_mpn_req_t               snocn_snocl_req;
-  snoc_mpn_resp_t              snocn_snocl_resp;
+  snoc_mpn_req_t                      snocn_snocl_req;
+  snoc_mpn_resp_t                     snocn_snocl_resp;
 
-  s1_pcss_pkg::mp_req_t        p1_mp_req;
-  s1_pcss_pkg::mp_resp_t       p1_mp_resp;
-  s1_pcss_pkg::sp_req_t        p1_sp_req;
-  s1_pcss_pkg::sp_resp_t       p1_sp_resp;
-  s1_pcss_pkg::mp_req_t        p2_mp_req;
-  s1_pcss_pkg::mp_resp_t       p2_mp_resp;
-  s1_pcss_pkg::sp_req_t        p2_sp_req;
-  s1_pcss_pkg::sp_resp_t       p2_sp_resp;
-  s1_ecss_pkg::mp_req_t        e3_mp_req;
-  s1_ecss_pkg::mp_resp_t       e3_mp_resp;
-  s1_ecss_pkg::sp_req_t        e3_sp_req;
-  s1_ecss_pkg::sp_resp_t       e3_sp_resp;
+  s1_pcss_pkg::mp_req_t               p1_mp_req;
+  s1_pcss_pkg::mp_resp_t              p1_mp_resp;
+  s1_pcss_pkg::sp_req_t               p1_sp_req;
+  s1_pcss_pkg::sp_resp_t              p1_sp_resp;
+  s1_pcss_pkg::mp_req_t               p2_mp_req;
+  s1_pcss_pkg::mp_resp_t              p2_mp_resp;
+  s1_pcss_pkg::sp_req_t               p2_sp_req;
+  s1_pcss_pkg::sp_resp_t              p2_sp_resp;
+  s1_ecss_pkg::mp_req_t               e3_mp_req;
+  s1_ecss_pkg::mp_resp_t              e3_mp_resp;
+  s1_ecss_pkg::sp_req_t               e3_sp_req;
+  s1_ecss_pkg::sp_resp_t              e3_sp_resp;
 
-  cnoc_sp_req_t          [3:0] cnoc_sp_req;
-  cnoc_sp_resp_t         [3:0] cnoc_sp_resp;
+  cnoc_sp_req_t                 [3:0] cnoc_sp_req;
+  cnoc_sp_resp_t                [3:0] cnoc_sp_resp;
 
-  cnoc_mp_req_t          [3:0] cnoc_mp_req;
-  cnoc_mp_resp_t         [3:0] cnoc_mp_resp;
+  cnoc_mp_req_t                 [3:0] cnoc_mp_req;
+  cnoc_mp_resp_t                [3:0] cnoc_mp_resp;
 
-  snoc_sp_req_t          [1:0] snoc_sp_req;
-  snoc_sp_resp_t         [1:0] snoc_sp_resp;
+  snoc_sp_req_t                 [1:0] snoc_sp_req;
+  snoc_sp_resp_t                [1:0] snoc_sp_resp;
 
-  snoc_mp_req_t          [2:0] snoc_mp_req;
-  snoc_mp_resp_t         [2:0] snoc_mp_resp;
+  snoc_mp_req_t                 [2:0] snoc_mp_req;
+  snoc_mp_resp_t                [2:0] snoc_mp_resp;
 
-  pnoc_sp_req_t          [0:0] pnoc_sp_req;
-  pnoc_sp_resp_t         [0:0] pnoc_sp_resp;
+  pnoc_sp_req_t                 [0:0] pnoc_sp_req;
+  pnoc_sp_resp_t                [0:0] pnoc_sp_resp;
 
-  pnoc_mp_req_t          [5:0] pnoc_mp_req;
-  pnoc_mp_resp_t         [5:0] pnoc_mp_resp;
+  pnoc_mp_req_t                 [5:0] pnoc_mp_req;
+  pnoc_mp_resp_t                [5:0] pnoc_mp_resp;
+
+  s1_uart_pkg::uart_axil_req_t        uart_axil_req;
+  s1_uart_pkg::uart_axil_resp_t       uart_axil_resp;
+  s1_uart_pkg::uart_int_reg_t         uart_int_o;
 
   always_comb begin  // TODO REMOVE
 
@@ -190,7 +197,6 @@ module s1_soc
     clk_snoc_i = temp_clk_snoc_i;
     clk_pnoc_i = temp_clk_pnoc_i;
 
-    pnoc_mp_resp[5] = '0;
     pnoc_mp_resp[4] = '0;
     pnoc_mp_resp[3] = '0;
     pnoc_mp_resp[2] = '0;
@@ -201,6 +207,33 @@ module s1_soc
   always_comb begin
     apb_m_clk_o   = clk_pnoc_i;
     apb_m_arst_no = arst_pnoc_ni;
+  end
+
+  always_comb begin
+    uart_axil_req = '0;
+    uart_axil_req.aw.addr = pnoc_mp_req.aw.addr;
+    uart_axil_req.aw.prot = pnoc_mp_req.aw.prot;
+    uart_axil_req.aw_valid = pnoc_mp_req.aw_valid;
+    uart_axil_req.w.data = pnoc_mp_req.w.data;
+    uart_axil_req.w.strb = pnoc_mp_req.w.strb;
+    uart_axil_req.w_valid = pnoc_mp_req.w_valid;
+    uart_axil_req.b_ready = pnoc_mp_req.b_ready;
+    uart_axil_req.ar.addr = pnoc_mp_req.ar.addr;
+    uart_axil_req.ar.prot = pnoc_mp_req.ar.prot;
+    uart_axil_req.ar_valid = pnoc_mp_req.ar_valid;
+    uart_axil_req.r_ready = pnoc_mp_req.r_ready;
+  end
+
+  always_comb begin
+    pnoc_mp_resp = '0;
+    pnoc_mp_resp.aw_ready = uart_axil_resp.aw_ready;
+    pnoc_mp_resp.w_ready = uart_axil_resp.w_ready;
+    pnoc_mp_resp.b.resp = uart_axil_resp.b.resp;
+    pnoc_mp_resp.b_valid = uart_axil_resp.b_valid;
+    pnoc_mp_resp.ar_ready = uart_axil_resp.ar_ready;
+    pnoc_mp_resp.r.data = uart_axil_resp.r.data;
+    pnoc_mp_resp.r.resp = uart_axil_resp.r.resp;
+    pnoc_mp_resp.r_valid = uart_axil_resp.r_valid;
   end
 
   s1_pcss pcss1 (
@@ -604,6 +637,16 @@ module s1_soc
       .apb_arst_ni(apb_m_arst_no),
       .apb_req_o  (apb_m_req_o),
       .apb_resp_i (apb_m_resp_i)
+  );
+
+  s1_uart_top u_uart (
+      .clk_i(clk_pnoc_i),
+      .arst_ni(arst_pnoc_ni),
+      .req_i(uart_axil_req),
+      .resp_o(uart_axil_resp),
+      .tx_o(uart_tx_o),
+      .rx_i(uart_rx_i),
+      .uart_int_o(uart_int_o)
   );
 
 endmodule
