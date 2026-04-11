@@ -25,6 +25,12 @@ export SOC=$(SUB)/SoC
 # Internal Variables
 ####################################################################################################
 
+BUILD=$(S1)/build
+COVERAGE=$(S1)/coverage
+LOG=$(S1)/log
+
+TOP := $(shell cat $(BUILD)/last_top || echo "s1_soc_tb")
+
 TEST := default
 
 SEED := 0
@@ -39,10 +45,6 @@ else
 endif
 
 .DEFAULT_GOAL := help
-
-BUILD=$(S1)/build
-COVERAGE=$(S1)/coverage
-LOG=$(S1)/log
 
 ####################################################################################################
 # Long Repeatative Commands
@@ -225,6 +227,8 @@ clean_full:
 
 .PHONY: simulate
 simulate:
+	@mkdir -p $(BUILD)
+	@echo "$(TOP)" > $(BUILD)/last_top
 	@$(call ENV_BUILD,$(TOP))
 	@$(call XSIM_CHECKS)
 	@make -s $(COVERAGE)
