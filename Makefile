@@ -29,7 +29,8 @@ BUILD=$(S1)/build
 COVERAGE=$(S1)/coverage
 LOG=$(S1)/log
 
-TOP := $(shell cat $(BUILD)/last_top || echo "s1_soc_tb")
+TOP := $(if $(wildcard  $(BUILD)/last_top),$(shell cat $(BUILD)/last_top),s1_soc_tb)
+SIMULATOR := $(if $(wildcard  $(BUILD)/last_simulator),$(shell cat $(BUILD)/last_simulator),XILINX)
 
 TEST := default
 
@@ -227,9 +228,22 @@ clean_full:
 
 .PHONY: simulate
 simulate:
-	@mkdir -p $(BUILD)
+	@make -s $(BUILD)
 	@echo "$(TOP)" > $(BUILD)/last_top
+	@echo "$(SIMULATOR)" > $(BUILD)/last_simulator
 	@$(call ENV_BUILD,$(TOP))
 	@$(call XSIM_CHECKS)
 	@make -s $(COVERAGE)
 	@cd $(BUILD) && xsim snap_$(TOP) $(XSIM_ARGS) -log $(LOG)/simulate_$(TOP)_$(TEST)_$(shell date +%Y%m%d_%H%M%S).log $(EW_HL)
+
+# .PHONY: vcs
+# vcs: clean build build/synopsys_sim.setup
+# 	@cd build; vlogan $(VCS_CFLAGS) $(ROOT)/dg1/printer.sv $(ROOT)/dg1/wrapper.sv -work dg1_lib
+# 	@cd build; vlogan $(VCS_CFLAGS) $(ROOT)/dg2/printer.sv $(ROOT)/dg2/wrapper.sv -work dg2_lib
+# 	@cd build; vlogan $(VCS_CFLAGS) $(ROOT)/test.sv -work worklib
+# 	@cd build; vlogan $(VCS_CFLAGS) $(ROOT)/cfg.sv -work worklib
+# 	@cd build; vcs    $(VCS_CFLAGS) -top test_cfg -partcomp
+# 	@cd build; ./simv
+
+# VIVADO_FLAGS += -sv
+# VCS_CFLAGS += -full64 -sverilog -nc
