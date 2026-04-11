@@ -1,4 +1,3 @@
-
 module s1_obi_2_axil #(
     parameter int  OBI_ADDRW   = 32,
     parameter int  OBI_DATAW   = 32,

@@ -1,30 +1,4 @@
-module s1_ecss
-  import axi_pkg::xbar_rule_32_t;
-  import s1_ecss_pkg::XbarConfig;
-  import s1_ecss_pkg::XbarRule;
-  import s1_ecss_pkg::ROM_BASE;
-  import s1_ecss_pkg::spl_aw_chan_t;
-  import s1_ecss_pkg::spl_w_chan_t;
-  import s1_ecss_pkg::spl_b_chan_t;
-  import s1_ecss_pkg::spl_ar_chan_t;
-  import s1_ecss_pkg::spl_r_chan_t;
-  import s1_ecss_pkg::spl_req_t;
-  import s1_ecss_pkg::spl_resp_t;
-  import s1_ecss_pkg::sp_aw_chan_t;
-  import s1_ecss_pkg::sp_w_chan_t;
-  import s1_ecss_pkg::sp_b_chan_t;
-  import s1_ecss_pkg::sp_ar_chan_t;
-  import s1_ecss_pkg::sp_r_chan_t;
-  import s1_ecss_pkg::sp_req_t;
-  import s1_ecss_pkg::sp_resp_t;
-  import s1_ecss_pkg::mp_aw_chan_t;
-  import s1_ecss_pkg::mp_w_chan_t;
-  import s1_ecss_pkg::mp_b_chan_t;
-  import s1_ecss_pkg::mp_ar_chan_t;
-  import s1_ecss_pkg::mp_r_chan_t;
-  import s1_ecss_pkg::mp_req_t;
-  import s1_ecss_pkg::mp_resp_t;
-(
+module s1_ecss (
 
     input logic arst_ni,  // active low reset, asynchronous
     input logic clk_i,    // clock for xbar and memory
@@ -37,49 +11,49 @@ module s1_ecss
     input logic msi_i,  // machine software interrupt
     input logic mti_i,  // machine timer interrupt
 
-    output mp_req_t  m_req_o,  // From Processor
-    input  mp_resp_t m_resp_i, // From Processor
+    output s1_ecss_pkg::mp_req_t  m_req_o,  // From Processor
+    input  s1_ecss_pkg::mp_resp_t m_resp_i, // From Processor
 
-    input  sp_req_t  s_req_i,  // To ROM
-    output sp_resp_t s_resp_o  // To ROM
+    input  s1_ecss_pkg::sp_req_t  s_req_i,  // To ROM
+    output s1_ecss_pkg::sp_resp_t s_resp_o  // To ROM
 );
 
-  mp_req_t          rom_req;
-  mp_resp_t         rom_resp;
-  mp_req_t          rom_req_os;
-  mp_resp_t         rom_resp_os;
+  s1_ecss_pkg::mp_req_t          rom_req;
+  s1_ecss_pkg::mp_resp_t         rom_resp;
+  s1_ecss_pkg::mp_req_t          rom_req_os;
+  s1_ecss_pkg::mp_resp_t         rom_resp_os;
 
-  spl_req_t         core_imem_l_req;
-  spl_resp_t        core_imem_l_resp;
-  spl_req_t         core_dmem_l_req;
-  spl_resp_t        core_dmem_l_resp;
+  s1_ecss_pkg::spl_req_t         core_imem_l_req;
+  s1_ecss_pkg::spl_resp_t        core_imem_l_resp;
+  s1_ecss_pkg::spl_req_t         core_dmem_l_req;
+  s1_ecss_pkg::spl_resp_t        core_dmem_l_resp;
 
-  spl_req_t         core_imem_lf_req;
-  spl_resp_t        core_imem_lf_resp;
-  spl_req_t         core_dmem_lf_req;
-  spl_resp_t        core_dmem_lf_resp;
+  s1_ecss_pkg::spl_req_t         core_imem_lf_req;
+  s1_ecss_pkg::spl_resp_t        core_imem_lf_resp;
+  s1_ecss_pkg::spl_req_t         core_dmem_lf_req;
+  s1_ecss_pkg::spl_resp_t        core_dmem_lf_resp;
 
-  sp_req_t          core_imem_req;
-  sp_resp_t         core_imem_resp;
-  sp_req_t          core_dmem_req;
-  sp_resp_t         core_dmem_resp;
+  s1_ecss_pkg::sp_req_t          core_imem_req;
+  s1_ecss_pkg::sp_resp_t         core_imem_resp;
+  s1_ecss_pkg::sp_req_t          core_dmem_req;
+  s1_ecss_pkg::sp_resp_t         core_dmem_resp;
 
-  logic      [31:0] core_instr_addr;
-  logic             core_instr_req;
-  logic             core_instr_gnt;
-  logic             core_instr_rvalid;
-  logic      [31:0] core_instr_rdata;
+  logic                   [31:0] core_instr_addr;
+  logic                          core_instr_req;
+  logic                          core_instr_gnt;
+  logic                          core_instr_rvalid;
+  logic                   [31:0] core_instr_rdata;
 
-  logic      [31:0] core_data_addr;
-  logic             core_data_we;
-  logic      [31:0] core_data_wdata;
-  logic      [ 3:0] core_data_be;
-  logic             core_data_req;
-  logic             core_data_gnt;
-  logic             core_data_rvalid;
-  logic      [31:0] core_data_rdata;
+  logic                   [31:0] core_data_addr;
+  logic                          core_data_we;
+  logic                   [31:0] core_data_wdata;
+  logic                   [ 3:0] core_data_be;
+  logic                          core_data_req;
+  logic                          core_data_gnt;
+  logic                          core_data_rvalid;
+  logic                   [31:0] core_data_rdata;
 
-  logic      [31:0] core_irq;
+  logic                   [31:0] core_irq;
 
   always_comb begin
     core_irq = '0;
@@ -116,8 +90,8 @@ module s1_ecss
   s1_obi_2_axil #(
       .OBI_ADDRW  (32),
       .OBI_DATAW  (32),
-      .axil_req_t (spl_req_t),
-      .axil_resp_t(spl_resp_t)
+      .axil_req_t (s1_ecss_pkg::spl_req_t),
+      .axil_resp_t(s1_ecss_pkg::spl_resp_t)
   ) i_obi (
       .clk_i      (pclk_i),
       .arst_ni    (arst_ni),
@@ -136,8 +110,8 @@ module s1_ecss
   s1_obi_2_axil #(
       .OBI_ADDRW  (32),
       .OBI_DATAW  (32),
-      .axil_req_t (spl_req_t),
-      .axil_resp_t(spl_resp_t)
+      .axil_req_t (s1_ecss_pkg::spl_req_t),
+      .axil_resp_t(s1_ecss_pkg::spl_resp_t)
   ) d_obi (
       .clk_i      (pclk_i),
       .arst_ni    (arst_ni),
@@ -156,13 +130,13 @@ module s1_ecss
   axi_fifo #(
       .Depth      (2),
       .FallThrough(0),
-      .aw_chan_t  (spl_aw_chan_t),
-      .w_chan_t   (spl_w_chan_t),
-      .b_chan_t   (spl_b_chan_t),
-      .ar_chan_t  (spl_ar_chan_t),
-      .r_chan_t   (spl_r_chan_t),
-      .axi_req_t  (spl_req_t),
-      .axi_resp_t (spl_resp_t)
+      .aw_chan_t  (s1_ecss_pkg::spl_aw_chan_t),
+      .w_chan_t   (s1_ecss_pkg::spl_w_chan_t),
+      .b_chan_t   (s1_ecss_pkg::spl_b_chan_t),
+      .ar_chan_t  (s1_ecss_pkg::spl_ar_chan_t),
+      .r_chan_t   (s1_ecss_pkg::spl_r_chan_t),
+      .axi_req_t  (s1_ecss_pkg::spl_req_t),
+      .axi_resp_t (s1_ecss_pkg::spl_resp_t)
   ) i_fifo (
       .clk_i     (pclk_i),
       .rst_ni    (arst_ni),
@@ -176,13 +150,13 @@ module s1_ecss
   axi_fifo #(
       .Depth      (2),
       .FallThrough(0),
-      .aw_chan_t  (spl_aw_chan_t),
-      .w_chan_t   (spl_w_chan_t),
-      .b_chan_t   (spl_b_chan_t),
-      .ar_chan_t  (spl_ar_chan_t),
-      .r_chan_t   (spl_r_chan_t),
-      .axi_req_t  (spl_req_t),
-      .axi_resp_t (spl_resp_t)
+      .aw_chan_t  (s1_ecss_pkg::spl_aw_chan_t),
+      .w_chan_t   (s1_ecss_pkg::spl_w_chan_t),
+      .b_chan_t   (s1_ecss_pkg::spl_b_chan_t),
+      .ar_chan_t  (s1_ecss_pkg::spl_ar_chan_t),
+      .r_chan_t   (s1_ecss_pkg::spl_r_chan_t),
+      .axi_req_t  (s1_ecss_pkg::spl_req_t),
+      .axi_resp_t (s1_ecss_pkg::spl_resp_t)
   ) d_fifo (
       .clk_i     (pclk_i),
       .rst_ni    (arst_ni),
@@ -194,10 +168,10 @@ module s1_ecss
   );
 
   s1_axil_2_axi #(
-      .axil_req_t (spl_req_t),
-      .axil_resp_t(spl_resp_t),
-      .axi_req_t  (sp_req_t),
-      .axi_resp_t (sp_resp_t)
+      .axil_req_t (s1_ecss_pkg::spl_req_t),
+      .axil_resp_t(s1_ecss_pkg::spl_resp_t),
+      .axi_req_t  (s1_ecss_pkg::sp_req_t),
+      .axi_resp_t (s1_ecss_pkg::sp_resp_t)
   ) i_cvtr (
       .axil_req_i (core_imem_lf_req),
       .axil_resp_o(core_imem_lf_resp),
@@ -206,10 +180,10 @@ module s1_ecss
   );
 
   s1_axil_2_axi #(
-      .axil_req_t (spl_req_t),
-      .axil_resp_t(spl_resp_t),
-      .axi_req_t  (sp_req_t),
-      .axi_resp_t (sp_resp_t)
+      .axil_req_t (s1_ecss_pkg::spl_req_t),
+      .axil_resp_t(s1_ecss_pkg::spl_resp_t),
+      .axi_req_t  (s1_ecss_pkg::sp_req_t),
+      .axi_resp_t (s1_ecss_pkg::sp_resp_t)
   ) d_cvtr (
       .axil_req_i (core_dmem_lf_req),
       .axil_resp_o(core_dmem_lf_resp),
@@ -220,8 +194,8 @@ module s1_ecss
   axi_ram #(
       .MEM_BASE(0),
       .MEM_SIZE(16),
-      .req_t   (mp_req_t),
-      .resp_t  (mp_resp_t)
+      .req_t   (s1_ecss_pkg::mp_req_t),
+      .resp_t  (s1_ecss_pkg::mp_resp_t)
   ) u_axi_ram (
       .arst_ni(arst_ni),
       .clk_i  (clk_i),
@@ -230,10 +204,10 @@ module s1_ecss
   );
 
   s1_axi_cvtr #(
-      .src_req_t (mp_req_t),
-      .src_resp_t(mp_resp_t),
-      .dst_req_t (mp_req_t),
-      .dst_resp_t(mp_resp_t),
+      .src_req_t (s1_ecss_pkg::mp_req_t),
+      .src_resp_t(s1_ecss_pkg::mp_resp_t),
+      .dst_req_t (s1_ecss_pkg::mp_req_t),
+      .dst_resp_t(s1_ecss_pkg::mp_resp_t),
       .enable_cdc(0),
       .faster_src(0)
   ) rom_addr_shift (
@@ -244,27 +218,27 @@ module s1_ecss
       .dst_clk_i   (clk_i),
       .dst_req_o   (rom_req_os),
       .dst_resp_i  (rom_resp_os),
-      .addr_shift_i(-longint'(ROM_BASE))
+      .addr_shift_i(-longint'(s1_ecss_pkg::ROM_BASE))
   );
 
   axi_xbar #(
-      .Cfg          (XbarConfig),
+      .Cfg          (s1_ecss_pkg::XbarConfig),
       .ATOPs        ('0),
       .Connectivity ('1),
-      .slv_aw_chan_t(sp_aw_chan_t),
-      .mst_aw_chan_t(mp_aw_chan_t),
-      .w_chan_t     (mp_w_chan_t),
-      .slv_b_chan_t (sp_b_chan_t),
-      .mst_b_chan_t (mp_b_chan_t),
-      .slv_ar_chan_t(sp_ar_chan_t),
-      .mst_ar_chan_t(mp_ar_chan_t),
-      .slv_r_chan_t (sp_r_chan_t),
-      .mst_r_chan_t (mp_r_chan_t),
-      .slv_req_t    (sp_req_t),
-      .slv_resp_t   (sp_resp_t),
-      .mst_req_t    (mp_req_t),
-      .mst_resp_t   (mp_resp_t),
-      .rule_t       (xbar_rule_32_t)
+      .slv_aw_chan_t(s1_ecss_pkg::sp_aw_chan_t),
+      .mst_aw_chan_t(s1_ecss_pkg::mp_aw_chan_t),
+      .w_chan_t     (s1_ecss_pkg::mp_w_chan_t),
+      .slv_b_chan_t (s1_ecss_pkg::sp_b_chan_t),
+      .mst_b_chan_t (s1_ecss_pkg::mp_b_chan_t),
+      .slv_ar_chan_t(s1_ecss_pkg::sp_ar_chan_t),
+      .mst_ar_chan_t(s1_ecss_pkg::mp_ar_chan_t),
+      .slv_r_chan_t (s1_ecss_pkg::sp_r_chan_t),
+      .mst_r_chan_t (s1_ecss_pkg::mp_r_chan_t),
+      .slv_req_t    (s1_ecss_pkg::sp_req_t),
+      .slv_resp_t   (s1_ecss_pkg::sp_resp_t),
+      .mst_req_t    (s1_ecss_pkg::mp_req_t),
+      .mst_resp_t   (s1_ecss_pkg::mp_resp_t),
+      .rule_t       (axi_pkg::xbar_rule_32_t)
   ) u_xbar (
       .clk_i(clk_i),
       .rst_ni(arst_ni),
@@ -273,7 +247,7 @@ module s1_ecss
       .slv_ports_resp_o({core_imem_resp, core_dmem_resp, s_resp_o}),
       .mst_ports_req_o({rom_req, m_req_o}),
       .mst_ports_resp_i({rom_resp, m_resp_i}),
-      .addr_map_i(XbarRule),
+      .addr_map_i(s1_ecss_pkg::XbarRule),
       .en_default_mst_port_i('1),
       .default_mst_port_i('0)
   );
