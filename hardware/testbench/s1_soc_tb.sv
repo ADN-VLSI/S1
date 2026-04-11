@@ -181,11 +181,11 @@ module s1_soc_tb;
 
     automatic int temp;
 
-    $timeformat(-9, 0, "ns", 10);
+    $timeformat(-6, 2, "us", 10);
 
     fork
       forever begin
-        #1us;
+        #10ns;
         $display("%0t\033[1A\033[0G", $realtime);
       end
     join_none

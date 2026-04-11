@@ -151,7 +151,7 @@ define ELABORATE
 	else \
 		$(YA) echo "Elaborating design $1"; \
 		rm -f $(BUILD)/elaborate_$1; \
-		cd $(BUILD) && $(LINKER_TOOL) $1 $(LINKER_TOOL_OP) snap_$1 $(LINKER_TOOL_FLAGS) $(LOG_FLAG) $(LOG)/elaborate_$1.log $(EW_O); \
+		cd $(BUILD) && $(LINKER_TOOL) $1 $(LINKER_TOOL_OP) snap_$1 $(LINKER_TOOL_FLAGS) -timescale=1ps/1fs $(LOG_FLAG) $(LOG)/elaborate_$1.log $(EW_O); \
 		grep "ERROR:" $(LOG)/elaborate_$1.log > /dev/null || touch $(BUILD)/elaborate_$1; \
 	fi
 endef
