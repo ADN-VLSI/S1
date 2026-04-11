@@ -241,7 +241,7 @@ module s1_soc
       .clk_i(clk_cc1_i),
       .pclk_i(pclk_cc1_i),
       .boot_addr_i('0),  // TODO CONNECT
-      .hart_id_i('h1),  // TODO CONNECT
+      .hart_id_i(64'h1),  // TODO CONNECT
       .mei_i('0),  // TODO CONNECT
       .msi_i('0),  // TODO CONNECT
       .mti_i('0),  // TODO CONNECT
@@ -256,7 +256,7 @@ module s1_soc
       .clk_i(clk_cc2_i),
       .pclk_i(pclk_cc2_i),
       .boot_addr_i('0),  // TODO CONNECT
-      .hart_id_i('h2),  // TODO CONNECT
+      .hart_id_i(64'h2),  // TODO CONNECT
       .mei_i('0),  // TODO CONNECT
       .msi_i('0),  // TODO CONNECT
       .mti_i('0),  // TODO CONNECT
@@ -271,7 +271,7 @@ module s1_soc
       .clk_i(clk_cc3_i),
       .pclk_i(pclk_cc3_i),
       .boot_addr_i('0),  // TODO CONNECT
-      .hart_id_i('h3),  // TODO CONNECT
+      .hart_id_i(32'h3),  // TODO CONNECT
       .mei_i('0),  // TODO CONNECT
       .msi_i('0),  // TODO CONNECT
       .mti_i('0),  // TODO CONNECT

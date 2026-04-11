@@ -9,8 +9,10 @@
 ${AXI}/src/axi_pkg.sv
 ${APB}/src/apb_pkg.sv
 
+${S1}/hardware/package/s1_uart_pkg.sv
 ${S1}/hardware/package/s1_ecss_pkg.sv
 ${S1}/hardware/package/s1_pcss_pkg.sv
+${S1}/hardware/package/s1_soc_pkg.sv
 
 ${S1}/hardware/interface/s1_apb_if.sv
 ${S1}/hardware/interface/s1_uart_if.sv

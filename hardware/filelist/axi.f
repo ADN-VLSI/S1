@@ -1,4 +1,5 @@
 -d XSIM
+-d VCS
 -d VERILATOR
 
 -i ${COMMON_CELLS}/include
