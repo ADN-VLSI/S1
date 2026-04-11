@@ -1,18 +1,4 @@
-module s1_uart_rx
-  import s1_uart_pkg::IDLE;
-  import s1_uart_pkg::START;
-  import s1_uart_pkg::D0;
-  import s1_uart_pkg::D1;
-  import s1_uart_pkg::D2;
-  import s1_uart_pkg::D3;
-  import s1_uart_pkg::D4;
-  import s1_uart_pkg::D5;
-  import s1_uart_pkg::D6;
-  import s1_uart_pkg::D7;
-  import s1_uart_pkg::PARITY;
-  import s1_uart_pkg::STOP;
-  import s1_uart_pkg::txrx_states_t;
-(
+module s1_uart_rx (
     input logic arst_ni,
     input logic clk_i,
 
@@ -27,18 +13,18 @@ module s1_uart_rx
     input logic rx_i
 );
 
-  logic         [7:0] data_next;
+  logic                      [7:0] data_next;
 
-  logic               even_parity;
-  logic               odd_parity;
+  logic                            even_parity;
+  logic                            odd_parity;
 
-  logic               received_parity;
+  logic                            received_parity;
 
-  txrx_states_t       state;
-  txrx_states_t       next_state;
+  s1_uart_pkg::txrx_states_t       state;
+  s1_uart_pkg::txrx_states_t       next_state;
 
-  logic         [1:0] sample_cnt;
-  logic               sample_now;
+  logic                      [1:0] sample_cnt;
+  logic                            sample_now;
 
   always_comb begin
     data_err_o = '0;
@@ -47,86 +33,86 @@ module s1_uart_rx
     end
   end
 
-  always_comb sample_now = (state == IDLE) ? '1 : (sample_cnt == 2'b01);
+  always_comb sample_now = (state == s1_uart_pkg::IDLE) ? '1 : (sample_cnt == 2'b01);
 
-  always_comb data_valid_o = (state == STOP) && sample_now;
+  always_comb data_valid_o = (state == s1_uart_pkg::STOP) && sample_now;
 
   always_comb begin
 
-    txrx_states_t PARITY_STOP;
+    s1_uart_pkg::txrx_states_t PARITY_STOP;
 
-    PARITY_STOP = pen_i ? PARITY : STOP;
+    PARITY_STOP = pen_i ? s1_uart_pkg::PARITY : s1_uart_pkg::STOP;
 
     next_state  = state;
     data_next   = data_o;
 
     case (state)
 
-      IDLE: begin
+      s1_uart_pkg::IDLE: begin
         if (rx_i == '0) begin
-          next_state = START;
+          next_state = s1_uart_pkg::START;
         end
       end
 
-      START: begin
+      s1_uart_pkg::START: begin
         data_next = '0;
         if (rx_i == '0) begin
-          next_state = D0;
+          next_state = s1_uart_pkg::D0;
         end else begin
-          next_state = IDLE;
+          next_state = s1_uart_pkg::IDLE;
         end
       end
 
-      D0: begin
+      s1_uart_pkg::D0: begin
         data_next[0] = rx_i;
-        next_state   = D1;
+        next_state   = s1_uart_pkg::D1;
       end
 
-      D1: begin
+      s1_uart_pkg::D1: begin
         data_next[1] = rx_i;
-        next_state   = D2;
+        next_state   = s1_uart_pkg::D2;
       end
 
-      D2: begin
+      s1_uart_pkg::D2: begin
         data_next[2] = rx_i;
-        next_state   = D3;
+        next_state   = s1_uart_pkg::D3;
       end
 
-      D3: begin
+      s1_uart_pkg::D3: begin
         data_next[3] = rx_i;
-        next_state   = D4;
+        next_state   = s1_uart_pkg::D4;
       end
 
-      D4: begin
+      s1_uart_pkg::D4: begin
         data_next[4] = rx_i;
-        next_state   = (db_i == 2'b00) ? PARITY_STOP : D5;
+        next_state   = (db_i == 2'b00) ? PARITY_STOP : s1_uart_pkg::D5;
       end
 
-      D5: begin
+      s1_uart_pkg::D5: begin
         data_next[5] = rx_i;
-        next_state   = (db_i == 2'b01) ? PARITY_STOP : D6;
+        next_state   = (db_i == 2'b01) ? PARITY_STOP : s1_uart_pkg::D6;
       end
 
-      D6: begin
+      s1_uart_pkg::D6: begin
         data_next[6] = rx_i;
-        next_state   = (db_i == 2'b10) ? PARITY_STOP : D7;
+        next_state   = (db_i == 2'b10) ? PARITY_STOP : s1_uart_pkg::D7;
       end
 
-      D7: begin
+      s1_uart_pkg::D7: begin
         data_next[7] = rx_i;
         next_state   = PARITY_STOP;
       end
 
-      PARITY: begin
-        next_state = STOP;
+      s1_uart_pkg::PARITY: begin
+        next_state = s1_uart_pkg::STOP;
       end
 
-      STOP: begin
-        next_state = IDLE;
+      s1_uart_pkg::STOP: begin
+        next_state = s1_uart_pkg::IDLE;
       end
 
       default: begin
-        next_state = IDLE;
+        next_state = s1_uart_pkg::IDLE;
       end
 
     endcase
@@ -136,7 +122,7 @@ module s1_uart_rx
     if (~arst_ni) begin
       sample_cnt <= '0;
     end else begin
-      if (state == IDLE) begin
+      if (state == s1_uart_pkg::IDLE) begin
         sample_cnt <= '0;
       end else begin
         sample_cnt <= sample_cnt + 1;
@@ -146,7 +132,7 @@ module s1_uart_rx
 
   always_ff @(posedge clk_i or negedge arst_ni) begin
     if (~arst_ni) begin
-      state <= IDLE;
+      state <= s1_uart_pkg::IDLE;
     end else if (sample_now) begin
       state <= next_state;
     end
@@ -163,7 +149,7 @@ module s1_uart_rx
   always_ff @(posedge clk_i or negedge arst_ni) begin
     if (~arst_ni) begin
       received_parity <= '0;
-    end else if (sample_now && state == PARITY) begin
+    end else if (sample_now && state == s1_uart_pkg::PARITY) begin
       received_parity <= rx_i;
     end
   end

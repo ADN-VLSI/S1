@@ -1,31 +1,14 @@
-module s1_uart_top
-  import s1_uart_pkg::uart_axil_aw_chan_t;
-  import s1_uart_pkg::uart_axil_w_chan_t;
-  import s1_uart_pkg::uart_axil_b_chan_t;
-  import s1_uart_pkg::uart_axil_ar_chan_t;
-  import s1_uart_pkg::uart_axil_r_chan_t;
-  import s1_uart_pkg::uart_axil_req_t;
-  import s1_uart_pkg::uart_axil_resp_t;
-
-  import s1_uart_pkg::uart_ctrl_reg_t;
-  import s1_uart_pkg::uart_cfg_reg_t;
-  import s1_uart_pkg::uart_stat_reg_t;
-  import s1_uart_pkg::uart_id_t;
-  import s1_uart_pkg::uart_data_t;
-  import s1_uart_pkg::uart_count_t;
-  import s1_uart_pkg::uart_int_reg_t;
-
-(
+module s1_uart (
     input logic clk_i,
     input logic arst_ni,
 
-    input  uart_axil_req_t  req_i,
-    output uart_axil_resp_t resp_o,
+    input  s1_uart_pkg::uart_axil_req_t  req_i,
+    output s1_uart_pkg::uart_axil_resp_t resp_o,
 
     output logic tx_o,
     input  logic rx_i,
 
-    output uart_int_reg_t uart_int_o
+    output s1_uart_pkg::uart_int_reg_t uart_int_o
 
 );
 
@@ -34,43 +17,43 @@ module s1_uart_top
   // SIGNALS
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
-  logic           rx_flush;
-  logic           tx_flush;
+  logic                        rx_flush;
+  logic                        tx_flush;
 
-  logic           sc_clk;
-  logic           rx_clk;
-  logic           tx_clk;
+  logic                        sc_clk;
+  logic                        rx_clk;
+  logic                        tx_clk;
 
-  logic           rx_clk_gated;
-  logic           tx_clk_gated;
+  logic                        rx_clk_gated;
+  logic                        tx_clk_gated;
 
-  uart_ctrl_reg_t uart_ctrl;
-  uart_cfg_reg_t  uart_cfg;
-  uart_stat_reg_t uart_stat;
+  s1_uart_pkg::uart_ctrl_reg_t uart_ctrl;
+  s1_uart_pkg::uart_cfg_reg_t  uart_cfg;
+  s1_uart_pkg::uart_stat_reg_t uart_stat;
 
-  uart_count_t    tx_data_cnt;
-  uart_data_t     tx_data;
-  logic           tx_data_valid;
-  logic           tx_data_ready;
+  s1_uart_pkg::uart_count_t    tx_data_cnt;
+  s1_uart_pkg::uart_data_t     tx_data;
+  logic                        tx_data_valid;
+  logic                        tx_data_ready;
 
-  uart_count_t    rx_data_cnt;
-  uart_data_t     rx_data;
-  logic           rx_data_valid;
-  logic           rx_data_ready;
+  s1_uart_pkg::uart_count_t    rx_data_cnt;
+  s1_uart_pkg::uart_data_t     rx_data;
+  logic                        rx_data_valid;
+  logic                        rx_data_ready;
 
-  uart_data_t     to_tx_data;
-  logic           to_tx_data_valid;
-  logic           to_tx_data_ready;
-  uart_count_t    to_tx_data_cnt;
+  s1_uart_pkg::uart_data_t     to_tx_data;
+  logic                        to_tx_data_valid;
+  logic                        to_tx_data_ready;
+  s1_uart_pkg::uart_count_t    to_tx_data_cnt;
 
-  uart_data_t     from_rx_data;
-  logic           from_rx_data_valid;
-  logic           from_rx_data_ready;
-  uart_count_t    from_rx_data_cnt;
+  s1_uart_pkg::uart_data_t     from_rx_data;
+  logic                        from_rx_data_valid;
+  logic                        from_rx_data_ready;
+  s1_uart_pkg::uart_count_t    from_rx_data_cnt;
 
-  logic           data_err;
+  logic                        data_err;
 
-  uart_int_reg_t  uart_int_en;
+  s1_uart_pkg::uart_int_reg_t  uart_int_en;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // COMBINATIONAL LOGICS
