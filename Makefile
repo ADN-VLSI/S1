@@ -30,7 +30,7 @@ COVERAGE=$(S1)/coverage
 LOG=$(S1)/log
 
 TOP := $(if $(wildcard  $(BUILD)/last_top),$(shell cat $(BUILD)/last_top),s1_soc_tb)
-SIMULATOR := $(if $(wildcard  $(BUILD)/last_simulator),$(shell cat $(BUILD)/last_simulator),XILINX)
+SIMULATOR := $(if $(wildcard  $(BUILD)/last_simulator),$(shell cat $(BUILD)/last_simulator),VIVADO)
 
 TEST := default
 
@@ -54,11 +54,33 @@ endif
 # Yello Arrow
 YA := echo -ne "\033[1;33m> \033[0m";
 
-# Error Warning Highlight
-EW_HL := | grep -E "WARNING:|ERROR:|" --color=auto
+ifeq ($(SIMULATOR),VIVADO)
 
-# Error Warning Highlight Only
+EW_HL := | grep -E "WARNING:|ERROR:|" --color=auto
 EW_O := | grep -E "WARNING:|ERROR:" --color=auto || true
+
+LOG_FLAG := -log
+
+COMPILE_TOOL := xvlog -sv
+
+LINKER_TOOL := xelab
+LINKER_TOOL_OP := -s
+LINKER_TOOL_FLAGS := -debug typical -O3
+
+else ifeq ($(SIMULATOR),VCS)
+
+EW_HL := | grep -E "Warning-|Error-|" --color=auto
+EW_O := | grep -E "Warning-|Error-" --color=auto || true
+
+LOG_FLAG := -l
+
+COMPILE_TOOL := vlogan -full64 -sverilog -nc
+
+LINKER_TOOL := vcs -full64 -sverilog -nc -top
+LINKER_TOOL_OP := -o
+LINKER_TOOL_FLAGS :=
+
+endif
 
 ####################################################################################################
 # Definitions
@@ -104,7 +126,7 @@ define COMPILE_FILELIST
 	fi;	\
 	$(YA) echo "Compiling $1"; \
 	rm -f $(BUILD)/elaborate_*; \
-	cd $(BUILD) && xvlog -sv -f $1 -log $(LOG)/compile_$(basename $(notdir $1)).log $(EW_O); \
+	cd $(BUILD) && $(COMPILE_TOOL) -f $1 $(LOG_FLAG) $(LOG)/compile_$(basename $(notdir $1)).log $(EW_O); \
 	mv $(BUILD)/tmp_sha512 $(BUILD)/compile_$(basename $(notdir $1))_sha512;
 	rm -f $(BUILD)/tmp_flist $(BUILD)/tmp_sha512;
 	grep "ERROR:" $(LOG)/compile_$(basename $(notdir $1)).log > /dev/null && rm -f $(BUILD)/compile_$(basename $(notdir $1))_sha512 || true;
@@ -122,7 +144,7 @@ define ELABORATE
 	else \
 		$(YA) echo "Elaborating design $1"; \
 		rm -f $(BUILD)/elaborate_$1; \
-		cd $(BUILD) && xelab $1 -s snap_$1 -debug typical -O3 -log $(LOG)/elaborate_$1.log $(EW_O); \
+		cd $(BUILD) && $(LINKER_TOOL) $1 $(LINKER_TOOL_OP) snap_$1 $(LINKER_TOOL_FLAGS) $(LOG_FLAG) $(LOG)/elaborate_$1.log $(EW_O); \
 		grep "ERROR:" $(LOG)/elaborate_$1.log > /dev/null || touch $(BUILD)/elaborate_$1; \
 	fi
 endef
@@ -162,11 +184,19 @@ define ENV_BUILD
 	$(call ELABORATE,$1)
 endef
 
-define XSIM_CHECKS
-	echo "--testplusarg TEST=$(TEST)" > build/xsim_args
-	echo "--testplusarg DEBUG=$(DEBUG)" >> build/xsim_args
-	echo "--testplusarg SEED=$(SEED)" >> build/xsim_args
+ifeq ($(SIMULATOR),VIVADO)
+define SIM_CHECKS
+	echo "--testplusarg TEST=$(TEST)" > build/sim_args
+	echo "--testplusarg DEBUG=$(DEBUG)" >> build/sim_args
+	echo "--testplusarg SEED=$(SEED)" >> build/sim_args
 endef
+else ifeq ($(SIMULATOR),VCS)
+define SIM_CHECKS
+	echo "+TEST=$(TEST)" > build/sim_args
+	echo "+DEBUG=$(DEBUG)" >> build/sim_args
+	echo "+SEED=$(SEED)" >> build/sim_args
+endef
+endif
 
 ####################################################################################################
 # Rules
@@ -228,22 +258,19 @@ clean_full:
 
 .PHONY: simulate
 simulate:
+	@echo -e "\033[1;33mSIMULATOR: $(SIMULATOR)\nTOP: $(TOP)\033[0m"
+	@if [ -f $(BUILD)/last_simulator ] && [ "$$(cat $(BUILD)/last_simulator)" != "$(SIMULATOR)" ]; then \
+		$(YA) echo "Simulator changed from $$(cat $(BUILD)/last_simulator) to $(SIMULATOR). Cleaning build artifacts."; \
+		make -s clean; \
+	fi
 	@make -s $(BUILD)
 	@echo "$(TOP)" > $(BUILD)/last_top
 	@echo "$(SIMULATOR)" > $(BUILD)/last_simulator
 	@$(call ENV_BUILD,$(TOP))
-	@$(call XSIM_CHECKS)
+	@$(call SIM_CHECKS)
 	@make -s $(COVERAGE)
-	@cd $(BUILD) && xsim snap_$(TOP) $(XSIM_ARGS) -log $(LOG)/simulate_$(TOP)_$(TEST)_$(shell date +%Y%m%d_%H%M%S).log $(EW_HL)
-
-# .PHONY: vcs
-# vcs: clean build build/synopsys_sim.setup
-# 	@cd build; vlogan $(VCS_CFLAGS) $(ROOT)/dg1/printer.sv $(ROOT)/dg1/wrapper.sv -work dg1_lib
-# 	@cd build; vlogan $(VCS_CFLAGS) $(ROOT)/dg2/printer.sv $(ROOT)/dg2/wrapper.sv -work dg2_lib
-# 	@cd build; vlogan $(VCS_CFLAGS) $(ROOT)/test.sv -work worklib
-# 	@cd build; vlogan $(VCS_CFLAGS) $(ROOT)/cfg.sv -work worklib
-# 	@cd build; vcs    $(VCS_CFLAGS) -top test_cfg -partcomp
-# 	@cd build; ./simv
-
-# VIVADO_FLAGS += -sv
-# VCS_CFLAGS += -full64 -sverilog -nc
+ifeq ($(SIMULATOR),VIVADO)
+	@cd $(BUILD) && xsim snap_$(TOP) $(XSIM_ARGS) $(LOG_FLAG) $(LOG)/simulate_$(TOP)_$(TEST)_$(shell date +%Y%m%d_%H%M%S).log $(EW_HL)
+else ifeq ($(SIMULATOR),VCS)
+	@cd $(BUILD) && ./snap_$(TOP) $(LOG_FLAG) $(LOG)/simulate_$(TOP)_$(TEST)_$(shell date +%Y%m%d_%H%M%S).log $(EW_HL)
+endif
