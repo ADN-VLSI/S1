@@ -29,8 +29,8 @@ BUILD=$(S1)/build
 COVERAGE=$(S1)/coverage
 LOG=$(S1)/log
 
-TOP := $(if $(wildcard  $(BUILD)/last_top),$(shell cat $(BUILD)/last_top),s1_soc_tb)
-SIMULATOR := $(if $(wildcard  $(BUILD)/last_simulator),$(shell cat $(BUILD)/last_simulator),VIVADO)
+TOP := $(or $(strip $(shell cat $(BUILD)/last_top 2>/dev/null)),s1_soc_tb)
+SIMULATOR := $(or $(strip $(shell cat $(BUILD)/last_simulator 2>/dev/null)),VIVADO)
 
 TEST := default
 
@@ -59,6 +59,8 @@ ifeq ($(SIMULATOR),VIVADO)
 EW_HL := | grep -E "WARNING:|ERROR:|" --color=auto
 EW_O := | grep -E "WARNING:|ERROR:" --color=auto || true
 
+INCDIR_FLAG := -i 
+DEFINE_FLAG := -d 
 LOG_FLAG := -log
 
 COMPILE_TOOL := xvlog -sv
@@ -72,6 +74,8 @@ else ifeq ($(SIMULATOR),VCS)
 EW_HL := | grep -E "Warning-|Error-|" --color=auto
 EW_O := | grep -E "Warning-|Error-" --color=auto || true
 
+INCDIR_FLAG := +incdir+
+DEFINE_FLAG := +define+
 LOG_FLAG := -l
 
 COMPILE_TOOL := vlogan -full64 -sverilog -nc
@@ -126,7 +130,10 @@ define COMPILE_FILELIST
 	fi;	\
 	$(YA) echo "Compiling $1"; \
 	rm -f $(BUILD)/elaborate_*; \
-	cd $(BUILD) && $(COMPILE_TOOL) -f $1 $(LOG_FLAG) $(LOG)/compile_$(basename $(notdir $1)).log $(EW_O); \
+	cp $1 $(BUILD)/tmp_flist; \
+	sed -i "s/^-d /$(DEFINE_FLAG)/g" $(BUILD)/tmp_flist; \
+	sed -i "s/^-i /$(INCDIR_FLAG)/g" $(BUILD)/tmp_flist; \
+	cd $(BUILD) && $(COMPILE_TOOL) -f $(BUILD)/tmp_flist $(LOG_FLAG) $(LOG)/compile_$(basename $(notdir $1)).log $(EW_O); \
 	mv $(BUILD)/tmp_sha512 $(BUILD)/compile_$(basename $(notdir $1))_sha512;
 	rm -f $(BUILD)/tmp_flist $(BUILD)/tmp_sha512;
 	grep "ERROR:" $(LOG)/compile_$(basename $(notdir $1)).log > /dev/null && rm -f $(BUILD)/compile_$(basename $(notdir $1))_sha512 || true;
@@ -212,7 +219,9 @@ help:
 	@echo -e "\033[0;32m  clean       \033[0m - Remove build artifacts"
 	@echo -e "\033[0;32m  clean_full  \033[0m - Remove build artifacts, coverage and logs"
 	@echo -e ""
-	@echo -e "\n\033[1;35mEnvironment Variables:\033[0m"
+	@echo -e "\n\033[1;35mVariables:\033[0m"
+	@echo -e "\033[0;33m  TOP         \033[0m - Specify the top-level testbench (default: saved value or s1_soc_tb)"
+	@echo -e "\033[0;33m  SIMULATOR   \033[0m - Select the simulator (default: saved value or VIVADO)"
 	@echo -e "\033[0;33m  TEST        \033[0m - Specify the test to run (default: default)"
 	@echo -e "\033[0;33m  SEED        \033[0m - Specify the random seed for the test (default: 0)"
 	@echo -e "\033[0;33m  DEBUG       \033[0m - Enable debug mode (default: 0)"
@@ -259,8 +268,9 @@ clean_full:
 .PHONY: simulate
 simulate:
 	@echo -e "\033[1;33mSIMULATOR: $(SIMULATOR)\nTOP: $(TOP)\033[0m"
-	@if [ -f $(BUILD)/last_simulator ] && [ "$$(cat $(BUILD)/last_simulator)" != "$(SIMULATOR)" ]; then \
-		$(YA) echo "Simulator changed from $$(cat $(BUILD)/last_simulator) to $(SIMULATOR). Cleaning build artifacts."; \
+	@last_simulator="$$(cat $(BUILD)/last_simulator 2>/dev/null)"; \
+	if [ -n "$$last_simulator" ] && [ "$$last_simulator" != "$(SIMULATOR)" ]; then \
+		$(YA) echo "Simulator changed from $$last_simulator to $(SIMULATOR). Cleaning build artifacts."; \
 		make -s clean; \
 	fi
 	@make -s $(BUILD)
