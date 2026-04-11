@@ -267,7 +267,7 @@ clean_full:
 
 .PHONY: simulate
 simulate:
-	@echo -e "\033[1;33mSIMULATOR: $(SIMULATOR)\nTOP: $(TOP)\033[0m"
+	@echo -e "\033[1;33m$(TOP)($(SIMULATOR))\033[0m"
 	@last_simulator="$$(cat $(BUILD)/last_simulator 2>/dev/null)"; \
 	if [ -n "$$last_simulator" ] && [ "$$last_simulator" != "$(SIMULATOR)" ]; then \
 		$(YA) echo "Simulator changed from $$last_simulator to $(SIMULATOR). Cleaning build artifacts."; \
