@@ -40,9 +40,17 @@ DEBUG := 0
 
 GUI := 0
 ifneq ($(GUI),0)
-	XSIM_ARGS += -gui --autoloadwcfg --view $(S1)/wcfg/snap_$(TOP).wcfg
+	ifeq ($(SIMULATOR),VIVADO)
+		SIM_ARGS += -gui --autoloadwcfg --view $(S1)/wcfg/snap_$(TOP).wcfg
+	else ifeq ($(SIMULATOR),VCS)
+    SIM_ARGS += -verdi
+	endif
 else
-	XSIM_ARGS += -runall
+	ifeq ($(SIMULATOR),VIVADO)
+		SIM_ARGS += -runall
+	else ifeq ($(SIMULATOR),VCS)
+		# No additional arguments needed for non-GUI mode in VCS
+	endif
 endif
 
 .DEFAULT_GOAL := help
@@ -78,9 +86,9 @@ INCDIR_FLAG := +incdir+
 DEFINE_FLAG := +define+
 LOG_FLAG := -l
 
-COMPILE_TOOL := vlogan -full64 -sverilog -nc
+COMPILE_TOOL := vlogan -full64 -sverilog -nc -kdb
 
-LINKER_TOOL := vcs -full64 -sverilog -nc -top
+LINKER_TOOL := vcs -full64 -sverilog -nc -kdb -top
 LINKER_TOOL_OP := -o
 LINKER_TOOL_FLAGS :=
 
@@ -280,7 +288,7 @@ simulate:
 	@$(call SIM_CHECKS)
 	@make -s $(COVERAGE)
 ifeq ($(SIMULATOR),VIVADO)
-	@cd $(BUILD) && xsim snap_$(TOP) $(XSIM_ARGS) $(LOG_FLAG) $(LOG)/simulate_$(TOP)_$(TEST)_$(shell date +%Y%m%d_%H%M%S).log $(EW_HL)
+	@cd $(BUILD) && xsim snap_$(TOP) $(SIM_ARGS) $(LOG_FLAG) $(LOG)/simulate_$(TOP)_$(TEST)_$(shell date +%Y%m%d_%H%M%S).log $(EW_HL)
 else ifeq ($(SIMULATOR),VCS)
-	@cd $(BUILD) && ./snap_$(TOP) $(LOG_FLAG) $(LOG)/simulate_$(TOP)_$(TEST)_$(shell date +%Y%m%d_%H%M%S).log $(EW_HL)
+	@cd $(BUILD) && ./snap_$(TOP) $(SIM_ARGS) $(LOG_FLAG) $(LOG)/simulate_$(TOP)_$(TEST)_$(shell date +%Y%m%d_%H%M%S).log $(EW_HL)
 endif
