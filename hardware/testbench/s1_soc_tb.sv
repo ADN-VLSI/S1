@@ -190,7 +190,6 @@ module s1_soc_tb;
       end
     join_none
 
-    apb_slave.reset();
     apb_slave.run_as_slave_mem();
 
     apply_reset();
