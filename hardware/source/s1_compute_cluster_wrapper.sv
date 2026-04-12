@@ -272,10 +272,10 @@ module s1_compute_cluster_wrapper (
       .arst_ni     (arst_cnoc_ni),
       .src_clk_i   (clk_cnoc_i),
       .dst_req_o   (m_req_o),
-      .dst_resp_i  (m_resp_i,i),
+      .dst_resp_i  (m_resp_i),
       .src_req_i   (cnoc_mp_req[0]),
       .src_resp_o  (cnoc_mp_resp[0]),
-      .dst_clk_i   (clk_snoc_)
+      .dst_clk_i   (clk_snoc_i),
       .addr_shift_i('0)
   );
 
