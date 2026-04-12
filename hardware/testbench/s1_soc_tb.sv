@@ -186,7 +186,7 @@ module s1_soc_tb;
     fork
       forever begin
         #1us;
-        $display("%0t\033[1A\033[0G", $realtime);
+        $display("%0t\033[1A  \033[0G", $realtime);
       end
     join_none
 
