@@ -162,6 +162,7 @@ module s1_soc (
       .arst_cc2_ni   (arst_cc2_ni),
       .arst_cc3_ni   (arst_cc3_ni),
       .arst_cnoc_ni  (arst_cnoc_ni),
+      .arst_snoc_ni  (arst_snoc_ni),
       .clk_cc1_i     (clk_cc1_i),
       .clk_cc2_i     (clk_cc2_i),
       .clk_cc3_i     (clk_cc3_i),
