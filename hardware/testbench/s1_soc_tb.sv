@@ -229,7 +229,7 @@ module s1_soc_tb;
 
     list_write('h0000_0000);  // DEBUG
     // list_write('h0001_0000);  // CTRL_SS
-    // list_write('h0001_1000);  // UART // Was supposed to work
+    list_write('h0001_1000);  // UART
     // list_write('h0001_2000);  // GPIO
     // list_write('h0001_3000);  // PLIC
     // list_write('h0001_4000);  // CLINT
