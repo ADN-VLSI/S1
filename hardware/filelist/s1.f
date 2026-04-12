@@ -35,4 +35,5 @@ ${S1}/hardware/source/s1_axi_cvtr.sv
 ${S1}/hardware/source/s1_ecss.sv
 ${S1}/hardware/source/s1_pcss.sv
 
+${S1}/hardware/source/s1_compute_cluster_wrapper.sv
 ${S1}/hardware/source/s1_soc.sv
