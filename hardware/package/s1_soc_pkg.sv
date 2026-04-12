@@ -51,7 +51,7 @@ package s1_soc_pkg;
   localparam axi_pkg::xbar_rule_64_t [NumCnocRules-1:0] CnocXbarRule = '{
       '{idx: 1, start_addr: 64'h0100_0000, end_addr: 64'h0107_FFFF},  // TCM1
       '{idx: 2, start_addr: 64'h0108_0000, end_addr: 64'h010F_FFFF},  // TCM2
-      '{idx: 3, start_addr: 64'h0200_0000, end_addr: 64'h0200_FFFF}  // BOOTROM
+      '{idx: 3, start_addr: 64'h0200_0000, end_addr: 64'h0200_FFFF}  //  BOOTROM
   // DEFAULT RULE (idx: 0) will route to SNOC
   };
 
@@ -87,7 +87,7 @@ package s1_soc_pkg;
   localparam axi_pkg::xbar_rule_64_t [NumSnocRules-1:0] SnocXbarRule = '{
       '{idx: 1, start_addr: 64'h0100_0000, end_addr: 64'h0200_FFFF},  // CNOC
       '{idx: 2, start_addr: 64'h0000_0000, end_addr: 64'h00FF_FFFF},  // PNOC peripheral
-      '{idx: 3, start_addr: 64'h1000_0000, end_addr: 64'h1FFF_FFFF}  // PNOC APB
+      '{idx: 2, start_addr: 64'h1000_0000, end_addr: 64'h1FFF_FFFF}  //  PNOC APB
   // DEFAULT RULE (idx: 0) will route to RAM
   };
 
@@ -133,7 +133,7 @@ package s1_soc_pkg;
       '{idx: 2, start_addr: 64'h0001_4000, end_addr: 64'h0001_4FFF},  // CLINT
       '{idx: 3, start_addr: 64'h0001_3000, end_addr: 64'h0001_3FFF},  // PLIC
       '{idx: 4, start_addr: 64'h0001_1000, end_addr: 64'h0001_1FFF},  // UART
-      '{idx: 5, start_addr: 64'h0001_2000, end_addr: 64'h0001_2FFF}  // GPIO
+      '{idx: 5, start_addr: 64'h0001_2000, end_addr: 64'h0001_2FFF}  //  GPIO
   // DEFAULT RULE (idx: 0) will route to APB
   };
 

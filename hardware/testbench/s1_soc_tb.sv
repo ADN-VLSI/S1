@@ -51,6 +51,13 @@ module s1_soc_tb;
   logic          uart_rx_i;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
+  // INTERNAL VARIABLES
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
+  int            addr_q            [$];
+  int            data_q            [$];
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////
   // INTERFACES
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -169,8 +176,31 @@ module s1_soc_tb;
       forever #125ps temp_clk_cnoc_i <= ~temp_clk_snoc_i;  // 4000 MHz
       forever #1ns temp_clk_snoc_i <= ~temp_clk_snoc_i;  // 500 MHz
       forever #5ns temp_clk_pnoc_i <= ~temp_clk_pnoc_i;  // 100 MHz
-      forever #50ns apb_s_clk_i <= ~apb_s_clk_i;  // 10 MHz
+      forever #10ns apb_s_clk_i <= ~apb_s_clk_i;  // 50 MHz
     join_none
+  endtask
+
+  task automatic list_write(input int addr);
+    int data;
+    data = $urandom();
+    $display("S1[0x%08X] <-- 0x%08X", addr, data);
+    apb_master.write(addr, data);
+    addr_q.push_back(addr);
+    data_q.push_back(data);
+  endtask
+
+  task automatic read_listed();
+    int addr;
+    int data;
+    int refdata;
+    while (addr_q.size() && data_q.size()) begin
+      addr = addr_q.pop_front();
+      refdata = addr_q.pop_front();
+      apb_master.read(addr, data);
+      if (data !== refdata) $write("\033[1;31m");
+      else $write("\033[1;32m");
+      $display("S1[0x%08X] --> 0x%08X \033[0m", addr, data);
+    end
   endtask
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -197,14 +227,19 @@ module s1_soc_tb;
 
     @(posedge apb_s_clk_i);
 
-    for (int i = 0; i < 20; i++) begin
-      apb_master.write(32'h0000_0000 + i * 4, 32'hF00D_0000 + 4 * i);
-    end
+    list_write('h0000_0000);  // DEBUG
+    // list_write('h0001_0000);  // CTRL_SS
+    // list_write('h0001_1000);  // UART // Was supposed to work
+    // list_write('h0001_2000);  // GPIO
+    // list_write('h0001_3000);  // PLIC
+    // list_write('h0001_4000);  // CLINT
+    list_write('h0100_0000);  // TCM1
+    list_write('h0108_0000);  // TCM2
+    list_write('h0200_0000);  // ROM
+    list_write('h1000_0000);  // APB
+    list_write('h2000_0000);  // RAM
 
-    for (int i = 0; i < 20; i++) begin
-      apb_master.read(32'h0000_0000 + i * 4, temp);
-      $display("Read from 0x%08X: 0x%08X", 32'h0000_0000 + i * 4, temp);
-    end
+    read_listed();
 
     #10us;
 

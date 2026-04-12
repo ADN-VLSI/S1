@@ -1,8 +1,12 @@
+`define STUB_S1_COMPUTE_CLUSTER_WRAPPER 0
+
 module s1_compute_cluster_wrapper (
     input logic arst_cc1_ni,
     input logic arst_cc2_ni,
     input logic arst_cc3_ni,
+
     input logic arst_cnoc_ni,
+    input logic arst_snoc_ni,
 
     input logic clk_cc1_i,
     input logic clk_cc2_i,
@@ -39,6 +43,24 @@ module s1_compute_cluster_wrapper (
     input  s1_soc_pkg::snoc_mp_req_t  s_req_i,
     output s1_soc_pkg::snoc_mp_resp_t s_resp_o
 );
+
+`ifdef STUB_S1_COMPUTE_CLUSTER_WRAPPER
+
+  assign m_req_o = '0;
+
+  axi_ram #(
+      .MEM_BASE(0),
+      .MEM_SIZE(31),
+      .req_t   (s1_soc_pkg::snoc_mp_req_t),
+      .resp_t  (s1_soc_pkg::snoc_mp_resp_t)
+  ) u_axi_ram (
+      .arst_ni(arst_snoc_ni & arst_cnoc_ni),
+      .clk_i  (clk_snoc_i),
+      .req_i  (s_req_i),
+      .resp_o (s_resp_o)
+  );
+
+`else
 
   s1_pcss_pkg::mp_req_t            p1_mp_req;
   s1_pcss_pkg::mp_resp_t           p1_mp_resp;
@@ -251,7 +273,7 @@ module s1_compute_cluster_wrapper (
       .enable_cdc('d1),
       .faster_src('d1)
   ) snoc_conc_cvtr (
-      .arst_ni     (arst_cnoc_ni),
+      .arst_ni     (arst_snoc_ni & arst_cnoc_ni),
       .src_clk_i   (clk_snoc_i),
       .src_req_i   (s_req_i),
       .src_resp_o  (s_resp_o),
@@ -269,7 +291,7 @@ module s1_compute_cluster_wrapper (
       .enable_cdc('d1),
       .faster_src('d1)
   ) cnoc_snoc_cvtr (
-      .arst_ni     (arst_cnoc_ni),
+      .arst_ni     (arst_snoc_ni & arst_cnoc_ni),
       .src_clk_i   (clk_cnoc_i),
       .dst_req_o   (m_req_o),
       .dst_resp_i  (m_resp_i),
@@ -278,5 +300,7 @@ module s1_compute_cluster_wrapper (
       .dst_clk_i   (clk_snoc_i),
       .addr_shift_i('0)
   );
+
+`endif
 
 endmodule
