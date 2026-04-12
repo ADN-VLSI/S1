@@ -185,10 +185,10 @@ module s1_soc (
       .e3_mei_i      (e3_mei_i),
       .e3_msi_i      (e3_msi_i),
       .e3_mti_i      (e3_mti_i),
-      .snoc_sp_req_o (snoc_sp_req[1]),
-      .snoc_sp_resp_i(snoc_sp_resp[1]),
-      .snoc_mp_req_i (snoc_mp_req[1]),
-      .snoc_mp_resp_o(snoc_mp_resp[1])
+      .m_req_o       (snoc_sp_req[1]),
+      .m_resp_i      (snoc_sp_resp[1]),
+      .s_req_i       (snoc_mp_req[1]),
+      .s_resp_o      (snoc_mp_resp[1])
   );
 
   s1_apb_2_axil #(
