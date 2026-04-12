@@ -59,21 +59,21 @@ module s1_soc (
   logic                                clk_snoc_i;
   logic                                clk_pnoc_i;
 
-  logic                         [63:0] p1_boot_addr_i;
-  logic                         [63:0] p1_hart_id_i;
-  logic                                p1_mei_i;
-  logic                                p1_msi_i;
-  logic                                p1_mti_i;
-  logic                         [63:0] p2_boot_addr_i;
-  logic                         [63:0] p2_hart_id_i;
-  logic                                p2_mei_i;
-  logic                                p2_msi_i;
-  logic                                p2_mti_i;
-  logic                         [31:0] e3_boot_addr_i;
-  logic                         [31:0] e3_hart_id_i;
-  logic                                e3_mei_i;
-  logic                                e3_msi_i;
-  logic                                e3_mti_i;
+  logic                         [63:0] p1_boot_addr_i = 'h0100_0000;  // TODO
+  logic                         [63:0] p1_hart_id_i   = 'h0000_0001;  // TODO
+  logic                                p1_mei_i       = '0;  // TODO
+  logic                                p1_msi_i       = '0;  // TODO
+  logic                                p1_mti_i       = '0;  // TODO
+  logic                         [63:0] p2_boot_addr_i = 'h0108_0000;  // TODO
+  logic                         [63:0] p2_hart_id_i   = 'h0000_0002;  // TODO
+  logic                                p2_mei_i       = '0;  // TODO
+  logic                                p2_msi_i       = '0;  // TODO
+  logic                                p2_mti_i       = '0;  // TODO
+  logic                         [31:0] e3_boot_addr_i = 'h0200_0000;  // TODO
+  logic                         [31:0] e3_hart_id_i   = 'h0000_0003;  // TODO
+  logic                                e3_mei_i       = '0;  // TODO
+  logic                                e3_msi_i       = '0;  // TODO
+  logic                                e3_mti_i       = '0;  // TODO
 
   s1_soc_pkg::std_axil_req_t           asi_asin_req;
   s1_soc_pkg::std_axil_resp_t          asi_asin_resp;
