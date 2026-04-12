@@ -195,7 +195,7 @@ module s1_soc_tb;
     int refdata;
     while (addr_q.size() && data_q.size()) begin
       addr = addr_q.pop_front();
-      refdata = addr_q.pop_front();
+      refdata = data_q.pop_front();
       apb_master.read(addr, data);
       if (data !== refdata) $write("\033[1;31m");
       else $write("\033[1;32m");
@@ -241,7 +241,7 @@ module s1_soc_tb;
 
     read_listed();
 
-    #10us;
+    repeat (10) @(posedge apb_s_clk_i);
 
     $finish;
 
