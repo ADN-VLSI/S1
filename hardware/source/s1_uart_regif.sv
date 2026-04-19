@@ -81,72 +81,74 @@ module s1_uart_regif (
     fifo_resp.r.resp = 2'b10;
     tx_id_queue_out_ready = '0;
 
-    case ({
-      fifo_req.ar.prot[1], fifo_req.ar.addr
-    })
-
-      s1_uart_pkg::UART_CTRL_OFFSET: begin
-        fifo_resp.r.data = {'0, uart_ctrl_o};
-        fifo_resp.r.resp = '0;
-      end
-
-      s1_uart_pkg::UART_CFG_OFFSET: begin
-        fifo_resp.r.data = {'0, uart_cfg_o};
-        fifo_resp.r.resp = '0;
-      end
-
-      s1_uart_pkg::UART_STAT_OFFSET: begin
-        fifo_resp.r.data = {'0, uart_stat_o};
-        fifo_resp.r.resp = '0;
-      end
-
-      s1_uart_pkg::UART_TXGP_OFFSET: begin
-        if (tx_id_queue_out_valid) begin
-          fifo_resp.r.data = {'0, tx_id_queue_out};
+    if (rd_en) begin
+      case ({
+        fifo_req.ar.prot[1], fifo_req.ar.addr
+      })
+  
+        s1_uart_pkg::UART_CTRL_OFFSET: begin
+          fifo_resp.r.data = {'0, uart_ctrl_o};
           fifo_resp.r.resp = '0;
         end
-      end
-
-      s1_uart_pkg::UART_TXG_OFFSET: begin
-        if (tx_id_queue_out_valid) begin
-          fifo_resp.r.data = {'0, tx_id_queue_out};
-          fifo_resp.r.resp = '0;
-          tx_id_queue_out_ready = rd_en;
-        end
-      end
-
-      s1_uart_pkg::UART_RXGP_OFFSET: begin
-        if (rx_id_queue_out_valid) begin
-          fifo_resp.r.data = {'0, rx_id_queue_out};
+  
+        s1_uart_pkg::UART_CFG_OFFSET: begin
+          fifo_resp.r.data = {'0, uart_cfg_o};
           fifo_resp.r.resp = '0;
         end
-      end
-
-      s1_uart_pkg::UART_RXG_OFFSET: begin
-        if (rx_id_queue_out_valid) begin
-          fifo_resp.r.data = {'0, rx_id_queue_out};
+  
+        s1_uart_pkg::UART_STAT_OFFSET: begin
+          fifo_resp.r.data = {'0, uart_stat_o};
           fifo_resp.r.resp = '0;
-          rx_id_queue_out_ready = rd_en;
         end
-      end
-
-      s1_uart_pkg::UART_RXD_OFFSET: begin
-        if (rx_data_valid_i) begin
-          fifo_resp.r.data = {'0, rx_data_i};
+  
+        s1_uart_pkg::UART_TXGP_OFFSET: begin
+          if (tx_id_queue_out_valid) begin
+            fifo_resp.r.data = {'0, tx_id_queue_out};
+            fifo_resp.r.resp = '0;
+          end
+        end
+  
+        s1_uart_pkg::UART_TXG_OFFSET: begin
+          if (tx_id_queue_out_valid) begin
+            fifo_resp.r.data = {'0, tx_id_queue_out};
+            fifo_resp.r.resp = '0;
+            tx_id_queue_out_ready = '1;
+          end
+        end
+  
+        s1_uart_pkg::UART_RXGP_OFFSET: begin
+          if (rx_id_queue_out_valid) begin
+            fifo_resp.r.data = {'0, rx_id_queue_out};
+            fifo_resp.r.resp = '0;
+          end
+        end
+  
+        s1_uart_pkg::UART_RXG_OFFSET: begin
+          if (rx_id_queue_out_valid) begin
+            fifo_resp.r.data = {'0, rx_id_queue_out};
+            fifo_resp.r.resp = '0;
+            rx_id_queue_out_ready = '1;
+          end
+        end
+  
+        s1_uart_pkg::UART_RXD_OFFSET: begin
+          if (rx_data_valid_i) begin
+            fifo_resp.r.data = {'0, rx_data_i};
+            fifo_resp.r.resp = '0;
+            rx_data_ready_o  = '1;
+          end
+        end
+  
+        s1_uart_pkg::UART_INT_EN_OFFSET: begin
+          fifo_resp.r.data = {'0, uart_int_en_o};
           fifo_resp.r.resp = '0;
-          rx_data_ready_o  = rd_en;
         end
-      end
-
-      s1_uart_pkg::UART_INT_EN_OFFSET: begin
-        fifo_resp.r.data = {'0, uart_int_en_o};
-        fifo_resp.r.resp = '0;
-      end
-
-      default: begin
-      end
-
-    endcase
+  
+        default: begin
+        end
+  
+      endcase
+    end
 
   end
 
@@ -155,7 +157,7 @@ module s1_uart_regif (
     fifo_resp.b.resp = 2'b10;
     tx_id_queue_in_valid = '0;
 
-    if (fifo_req.w.strb == 4'b1111) begin
+    if (fifo_req.w.strb == 4'b1111 && wr_en) begin
       case ({
         fifo_req.aw.prot[1], fifo_req.aw.addr
       })
@@ -173,21 +175,21 @@ module s1_uart_regif (
         s1_uart_pkg::UART_TXR_OFFSET: begin
           if (tx_id_queue_in_ready) begin
             fifo_resp.b.resp = '0;
-            tx_id_queue_in_valid = wr_en;
+            tx_id_queue_in_valid = '1;
           end
         end
 
         s1_uart_pkg::UART_TXD_OFFSET: begin
           if (tx_data_ready_i) begin
             fifo_resp.b.resp = '0;
-            tx_data_valid_o  = wr_en;
+            tx_data_valid_o  = '1;
           end
         end
 
         s1_uart_pkg::UART_RXR_OFFSET: begin
           if (rx_id_queue_in_ready) begin
             fifo_resp.b.resp = '0;
-            rx_id_queue_in_valid = wr_en;
+            rx_id_queue_in_valid = '1;
           end
         end
 
