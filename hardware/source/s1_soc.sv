@@ -338,7 +338,7 @@ module s1_soc (
       .r_chan_t  (s1_soc_pkg::pnoc_sp_r_chan_t),
       .axi_req_t (s1_soc_pkg::pnoc_sp_req_t),
       .axi_resp_t(s1_soc_pkg::pnoc_sp_resp_t),
-      .rule_t    (axi_pkg::xbar_rule_64_t)
+      .rule_t    (axi_pkg::xbar_rule_32_t)
   ) pnoc (
       .clk_i(clk_pnoc_i),
       .rst_ni(arst_pnoc_ni),

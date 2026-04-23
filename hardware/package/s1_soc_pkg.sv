@@ -128,12 +128,12 @@ package s1_soc_pkg;
   ////////////////////////////////////////////////
 
   localparam int NumPnocRules = 5;
-  localparam axi_pkg::xbar_rule_64_t [NumPnocRules-1:0] PnocXbarRule = '{
-      '{idx: 1, start_addr: 64'h0001_0000, end_addr: 64'h0001_0FFF},  // CTRL_SS
-      '{idx: 2, start_addr: 64'h0001_4000, end_addr: 64'h0001_4FFF},  // CLINT
-      '{idx: 3, start_addr: 64'h0001_3000, end_addr: 64'h0001_3FFF},  // PLIC
-      '{idx: 4, start_addr: 64'h0001_2000, end_addr: 64'h0001_2FFF},  // GPIO
-      '{idx: 5, start_addr: 64'h0001_1000, end_addr: 64'h0001_1FFF}  //  UART
+  localparam axi_pkg::xbar_rule_32_t [NumPnocRules-1:0] PnocXbarRule = '{
+      '{idx: 1, start_addr: 32'h0001_0000, end_addr: 32'h0001_0FFF},  // CTRL_SS
+      '{idx: 2, start_addr: 32'h0001_4000, end_addr: 32'h0001_4FFF},  // CLINT
+      '{idx: 3, start_addr: 32'h0001_3000, end_addr: 32'h0001_3FFF},  // PLIC
+      '{idx: 4, start_addr: 32'h0001_2000, end_addr: 32'h0001_2FFF},  // GPIO
+      '{idx: 5, start_addr: 32'h0001_1000, end_addr: 32'h0001_1FFF}  //  UART
   // DEFAULT RULE (idx: 0) will route to APB
   };
 
